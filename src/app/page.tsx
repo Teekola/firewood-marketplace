@@ -1,3 +1,7 @@
 export default function Home() {
-   return null;
+   return (
+      <div>
+         <h1 className="h1">Klapitori</h1>
+      </div>
+   );
 }
