@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { nunitoSans } from "@/fonts/index";
 
+import { ThemeProvider } from "./components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,8 +17,17 @@ export default function RootLayout({
 }>) {
    return (
       // TODO: For SEO and Accessibility, should change lang based on locale
-      <html lang="en">
-         <body className={`${nunitoSans.variable} font-sans antialiased`}>{children}</body>
+      <html lang="en" suppressHydrationWarning>
+         <body className={`${nunitoSans.variable} font-sans antialiased`}>
+            <ThemeProvider
+               attribute="class"
+               defaultTheme="system"
+               enableSystem
+               disableTransitionOnChange
+            >
+               {children}
+            </ThemeProvider>
+         </body>
       </html>
    );
 }
