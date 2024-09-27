@@ -7,11 +7,15 @@ import { relative } from "path";
 const buildEslintCommand = (filenames) =>
    `next lint --fix --file ${filenames.map((f) => relative(process.cwd(), f)).join(" --file ")}`;
 
+const buildVitestCommand = (filenames) => {
+   return `vitest related --run ${filenames.map((f) => relative(process.cwd(), f)).join(" ")}`;
+};
+
 const buildPrettierCommand = (filenames) =>
    `prettier --write ${filenames.map((f) => relative(process.cwd(), f)).join(" ")}`;
 
 const config = {
-   "*.{js,jsx,ts,tsx}": [buildEslintCommand, buildPrettierCommand],
+   "*.{js,jsx,ts,tsx}": [buildEslintCommand, buildVitestCommand, buildPrettierCommand],
    "*.{css,scss}": [buildPrettierCommand],
 };
 
