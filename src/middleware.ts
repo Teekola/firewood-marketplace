@@ -26,6 +26,12 @@ export default auth((req) => {
 
    // Redirect if signed in and on the auth page
    if (isSignedIn && isAuthPage) {
+      const targetUrl = new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin);
+
+      // Prevent redirect loop
+      if (req.nextUrl.pathname === targetUrl.pathname) {
+         return new Response(null, { status: 204 });
+      }
       return Response.redirect(new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin));
    }
 
