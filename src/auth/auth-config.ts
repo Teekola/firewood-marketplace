@@ -6,7 +6,7 @@ type AuthPages = NextAuthConfig["pages"] & {
    signIn: string;
 };
 
-export const authPages: AuthPages = {
+export const pages: AuthPages = {
    signIn: "/auth/sign-in",
 };
 
@@ -18,5 +18,5 @@ export const authConfig = {
          return !!auth;
       },
    },
-   pages: authPages,
+   pages,
 } satisfies NextAuthConfig;

@@ -1,36 +1,37 @@
 import createMiddleware from "next-intl/middleware";
 
 import { auth } from "@/auth";
-import { authPages } from "@/auth/auth-config";
+import { pages } from "@/auth/auth-config";
 
 import { routing } from "./i18n/routing";
 
 const publicPages = ["/", "/auth/sign-in"];
+const authPages = [pages.signIn, "sign-up"];
 const DEFAULT_SIGNED_IN_ROUTE = "/";
 
-const publicPathnameRegex = RegExp(
-   `^(/(${routing.locales.join("|")}))?(${publicPages
-      .flatMap((p) => (p === "/" ? ["", "/"] : p))
-      .join("|")})/?$`,
-   "i"
-);
+const testPathnameRegex = (pages: string[], pathName: string): boolean => {
+   return RegExp(
+      `^(/(${routing.locales.join("|")}))?(${pages.flatMap((p) => (p === "/" ? ["", "/"] : p)).join("|")})/?$`,
+      "i"
+   ).test(pathName);
+};
 
 const handleI18nRouting = createMiddleware(routing);
 
 export default auth((req) => {
    const isSignedIn = !!req.auth;
-   const isAuthPage = req.nextUrl.pathname.includes("/auth");
+   const isAuthPage = testPathnameRegex(authPages, req.nextUrl.origin);
 
    // Redirect if signed in and on the auth page
    if (isSignedIn && isAuthPage) {
       return Response.redirect(new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin));
    }
 
-   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+   const isPublicPage = testPathnameRegex(publicPages, req.nextUrl.pathname);
 
    // Redirect to sign-in if not signed in and not on a public page
    if (!isSignedIn && !isPublicPage) {
-      const newUrl = new URL(`${authPages.signIn}?callbackUrl=${req.nextUrl}`, req.nextUrl.origin);
+      const newUrl = new URL(`${pages.signIn}?callbackUrl=${req.nextUrl}`, req.nextUrl.origin);
       return Response.redirect(newUrl);
    }
 
