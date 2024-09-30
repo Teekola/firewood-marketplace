@@ -45,5 +45,10 @@ export default auth((req) => {
 // routes in order to protect all remaining routes. The following example avoids
 // running the middleware on paths such as the favicon or static images.
 export const config = {
-   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+   matcher: [
+      // Match all pathnames except for
+      // - … if they start with `/api`, `/_next` or `/_vercel`
+      // - … the ones containing a dot (e.g. `favicon.ico`)
+      "/((?!api|_next|_vercel|.*\\..*).*)",
+   ],
 };
