@@ -5,8 +5,8 @@ import { pages } from "@/auth/auth-config";
 
 import { routing } from "./i18n/routing";
 
-const publicPages = ["/", "/auth/sign-in"];
-const authPages = [pages.signIn, "sign-up"];
+const authPages = [pages.signIn, "/auth/sign-up"];
+const publicPages = ["/"].concat(authPages);
 const DEFAULT_SIGNED_IN_ROUTE = "/";
 
 const testPathnameRegex = (pages: string[], pathName: string): boolean => {
@@ -20,7 +20,7 @@ const handleI18nRouting = createMiddleware(routing);
 
 export default auth((req) => {
    const isSignedIn = !!req.auth;
-   const isAuthPage = testPathnameRegex(authPages, req.nextUrl.origin);
+   const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
 
    // Redirect if signed in and on the auth page
    if (isSignedIn && isAuthPage) {
