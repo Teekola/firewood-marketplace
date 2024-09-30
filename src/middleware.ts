@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 import createMiddleware from "next-intl/middleware";
 
 import { auth } from "@/auth";
@@ -24,12 +26,19 @@ export default auth((req) => {
 
    // Redirect if signed in and on the auth page
    if (isSignedIn && isAuthPage) {
+      const targetUrl = new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin);
+
+      // Avoid infinite loop by checking if we're already at the target URL
+      if (req.nextUrl.pathname === targetUrl.pathname) {
+         console.log("User is already on the target route, no need to redirect.");
+         return NextResponse.next(); // Let the request proceed without redirection
+      }
       console.log("Redirecting to the target route /", {
          target: new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin).toString(),
          isSignedIn,
          isAuthPage,
       });
-      return Response.redirect(new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin));
+      return NextResponse.redirect(targetUrl);
    }
 
    const isPublicPage = testPathnameRegex(publicPages, req.nextUrl.pathname);
@@ -37,7 +46,7 @@ export default auth((req) => {
    // Redirect to sign-in if not signed in and not on a public page
    if (!isSignedIn && !isPublicPage) {
       const newUrl = new URL(`${pages.signIn}?callbackUrl=${req.nextUrl}`, req.nextUrl.origin);
-      return Response.redirect(newUrl);
+      return NextResponse.redirect(newUrl);
    }
 
    // Handle i18n routing for other requests
