@@ -8,7 +8,7 @@ const isProduction = env.NODE_ENV === "production";
 export const routing = defineRouting({
    locales: ["fi", "en"], // A list of all locales that are supported
    localePrefix: "as-needed", // only include locale prefix for non-default locales @link https://next-intl-docs.vercel.app/docs/routing#locale-prefix-always
-   defaultLocale: "en", // Used when no locale matches
+   defaultLocale: "fi", // Used when no locale matches
    domains: isProduction
       ? [
            {
