@@ -1,9 +1,12 @@
+import { useTranslations } from "next-intl";
+
 import { signIn } from "@/auth";
 import { Button } from "@/ui/button";
 
 import { GoogleLogo } from "./google-logo";
 
 export function SignInButton() {
+   const t = useTranslations("auth");
    return (
       <form
          action={async () => {
@@ -13,7 +16,7 @@ export function SignInButton() {
       >
          <Button type="submit" variant="outline" size="lg">
             <GoogleLogo className="mr-2" />
-            Sign in with Google
+            {t("Sign in with Google")}
          </Button>
       </form>
    );

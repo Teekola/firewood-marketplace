@@ -1,0 +1,15 @@
+{
+   "auth": {
+      "Sign in with Google": "Sign in with Google",
+      "Sign In": "Sign In",
+      "Sign Out": "Sign Out"
+   },
+   "settings": {
+      "preferences": {
+         "Toggle theme": "Toggle theme",
+         "Light": "Light",
+         "Dark": "Dark",
+         "System": "System"
+      }
+   }
+}

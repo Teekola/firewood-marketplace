@@ -1,0 +1,15 @@
+{
+   "auth": {
+      "Sign in with Google": "Kirjaudu sisään Googlella",
+      "Sign In": "Kirjaudu sisään",
+      "Sign Out": "Kirjaudu ulos"
+   },
+   "settings": {
+      "preferences": {
+         "Toggle theme": "Vaihda teemaa",
+         "Light": "Vaalea",
+         "Dark": "Tumma",
+         "System": "Järjestelmä"
+      }
+   }
+}

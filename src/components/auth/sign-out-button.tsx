@@ -1,9 +1,11 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/ui/button";
 
 export function SignOutButton() {
-   return <Button onClick={() => signOut()}>Sign Out</Button>;
+   const t = useTranslations("auth");
+   return <Button onClick={() => signOut()}>{t("Sign Out")}</Button>;
 }
