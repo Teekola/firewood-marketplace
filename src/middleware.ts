@@ -22,6 +22,8 @@ export default auth((req) => {
    const isSignedIn = !!req.auth;
    const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
 
+   console.log({ pathname: req.nextUrl.pathname, isAuthPage });
+
    // Redirect if signed in and on the auth page
    if (isSignedIn && isAuthPage) {
       return Response.redirect(new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin));
