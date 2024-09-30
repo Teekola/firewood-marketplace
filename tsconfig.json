@@ -26,8 +26,7 @@
          "@/prisma": ["./prisma/prisma"],
          "@/prismaEdge": ["./prisma/prismaEdge"],
          "@/components/*": ["./src/components/*"],
-         "@/ui/*": ["./src/components/ui/*"],
-         "@/messages/*": ["./src/messages/*"]
+         "@/ui/*": ["./src/components/ui/*"]
       }
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
