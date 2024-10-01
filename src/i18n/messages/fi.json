@@ -18,5 +18,8 @@
    "secret-page": {
       "title": "Tämä on salainen sivu",
       "Go to home page": "Siirry kotisivulle"
+   },
+   "aria": {
+      "Select language": "Valitse kieli"
    }
 }

@@ -18,5 +18,8 @@
    "secret-page": {
       "title": "This is a secret page",
       "Go to home page": "Go to home page"
+   },
+   "aria": {
+      "Select language": "Select language"
    }
 }
