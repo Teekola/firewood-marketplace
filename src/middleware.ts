@@ -22,6 +22,7 @@ const testPathnameRegex = (pages: string[], pathName: string): boolean => {
 const handleI18nRouting = createMiddleware(routing);
 
 export default auth((req) => {
+   return handleI18nRouting(req);
    const isSignedIn = !!req.auth;
    const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
 
@@ -45,7 +46,7 @@ export default auth((req) => {
    // Redirect to sign-in if not signed in and not on a public page
    if (!isSignedIn && !isPublicPage) {
       const redirectUrl = new URL(
-         `${pages.signIn}?${CALLBACK_URL_KEY}=${req.nextUrl}`,
+         `${pages.signIn}?${CALLBACK_URL_KEY}=${encodeURIComponent(req.nextUrl.href)}`,
          req.nextUrl.origin
       );
       console.log("Redirecting to the target route", {
