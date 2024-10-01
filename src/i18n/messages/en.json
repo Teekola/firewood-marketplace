@@ -13,6 +13,10 @@
       }
    },
    "home": {
-      "To secret page": "Siirry salaiselle sivulle"
+      "Go to a secret page": "Go to a secret page"
+   },
+   "secret-page": {
+      "title": "This is a secret page",
+      "Go to home page": "Go to home page"
    }
 }

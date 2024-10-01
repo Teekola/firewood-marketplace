@@ -1,13 +1,13 @@
+import { getTranslations } from "next-intl/server";
+
 import { Link } from "@/i18n/routing";
 
-const TEXT = "THIS IS A SECRET PAGE";
-const HOME = "To Home";
-
-export default function SecretPage() {
+export default async function SecretPage() {
+   const t = await getTranslations();
    return (
       <div>
-         <h1 className="h1">{TEXT}</h1>
-         <Link href="/">{HOME}</Link>
+         <h1 className="h1">{t("secret-page.title")}</h1>
+         <Link href="/">{t("secret-page.Go to home page")}</Link>
       </div>
    );
 }

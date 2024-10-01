@@ -14,7 +14,7 @@ export default async function Home() {
          </div>
          <AuthButton />
          <Button asChild>
-            <Link href="/secret-page">{t("home.To secret page")}</Link>
+            <Link href="/secret-page">{t("home.Go to a secret page")}</Link>
          </Button>
       </div>
    );

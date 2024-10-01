@@ -13,6 +13,10 @@
       }
    },
    "home": {
-      "To secret page": "Siirry salaiselle sivulle"
+      "Go to a secret page": "Siirry salaiselle sivulle"
+   },
+   "secret-page": {
+      "title": "Tämä on salainen sivu",
+      "Go to home page": "Siirry kotisivulle"
    }
 }
