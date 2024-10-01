@@ -8,7 +8,7 @@
       "build": "next build",
       "start": "next start",
       "lint": "next lint",
-      "prepare": "husky",
+      "setup-dev": "husky",
       "postinstall": "prisma generate",
       "vercel-build": "prisma migrate deploy && next build"
    },
