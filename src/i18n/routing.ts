@@ -1,23 +1,11 @@
 import { createLocalizedPathnamesNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
 
-import { env } from "@/env/server";
-
-const isProduction = env.NODE_ENV === "production";
-
 export const routing = defineRouting({
    locales: ["fi", "en"], // A list of all locales that are supported
    localePrefix: "as-needed", // only include locale prefix for non-default locales @link https://next-intl-docs.vercel.app/docs/routing#locale-prefix-always
    defaultLocale: "fi", // Used when no locale matches
-   domains: isProduction
-      ? [
-           {
-              locales: ["fi", "en"],
-              domain: "klapitori.fi",
-              defaultLocale: "fi",
-           },
-        ]
-      : [],
+
    // Define all paths, localize when needed
    pathnames: {
       "/": "/",
