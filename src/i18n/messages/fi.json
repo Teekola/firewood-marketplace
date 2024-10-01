@@ -11,5 +11,8 @@
          "Dark": "Tumma",
          "System": "Järjestelmä"
       }
+   },
+   "home": {
+      "To secret page": "Siirry salaiselle sivulle"
    }
 }

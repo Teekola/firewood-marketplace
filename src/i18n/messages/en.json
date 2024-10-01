@@ -11,5 +11,8 @@
          "Dark": "Dark",
          "System": "System"
       }
+   },
+   "home": {
+      "To secret page": "Siirry salaiselle sivulle"
    }
 }
