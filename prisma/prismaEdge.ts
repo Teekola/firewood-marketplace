@@ -2,9 +2,7 @@ import { Pool } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaClient } from "@prisma/client";
 
-import { env } from "@/env/server";
-
-const connectionString = env.POSTGRES_PRISMA_URL;
+const connectionString = process.env.POSTGRES_PRISMA_URL;
 
 const prismaClientEdgeSingleton = () => {
    const pool = new Pool({ connectionString });
@@ -18,4 +16,4 @@ declare const globalThis: {
 
 export const prismaEdge = globalThis.prismaEdge ?? prismaClientEdgeSingleton();
 
-if (env.ENV !== "production") globalThis.prismaEdge = prismaEdge;
+if (process.env.ENV !== "production") globalThis.prismaEdge = prismaEdge;
