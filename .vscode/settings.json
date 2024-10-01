@@ -11,6 +11,6 @@
    "[prisma]": {
       "editor.defaultFormatter": "Prisma.prisma"
    },
-   "i18n-ally.localesPaths": ["./src/messages"],
+   "i18n-ally.localesPaths": ["./src/i18n/messages"],
    "i18n-ally.keystyle": "nested"
 }

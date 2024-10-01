@@ -21,6 +21,9 @@ export default async function Home() {
                <Link href="/auth/sign-in">{t("auth.Sign In")}</Link>
             </Button>
          )}
+         <Button asChild>
+            <Link href="/secret-page">{t("settings.preferences.Toggle theme")}</Link>
+         </Button>
       </div>
    );
 }
