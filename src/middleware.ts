@@ -38,12 +38,9 @@ export default withAuth(
             `${pages.signIn}?${CALLBACK_URL_KEY}=${nextUrl.href}`,
             nextUrl.origin
          );
-         console.log("Redirecting to", redirectUrl.href);
          return NextResponse.redirect(redirectUrl);
       }
       const isAuthPage = testPathnameRegex({ paths: authPages, pathName: nextUrl.pathname });
-
-      console.log({ isAuthPage });
 
       // Redirect to callback url or default
       if (isAuthPage && isSignedIn) {
@@ -51,12 +48,7 @@ export default withAuth(
             nextUrl.searchParams.get(CALLBACK_URL_KEY) ?? DEFAULT_ROUTE,
             nextUrl.origin
          );
-         console.log("Redirecting to", targetUrl.href);
          return NextResponse.redirect(targetUrl);
-      }
-
-      if (isProtectedRoute && isSignedIn) {
-         console.log({ isProtectedRoute, isSignedIn });
       }
 
       return handleI18nRouting(req);
