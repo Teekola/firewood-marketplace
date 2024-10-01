@@ -11,8 +11,8 @@ export const routing = defineRouting({
       "/": "/",
       "/auth/sign-in": "/auth/sign-in", // This can not be localized
       "/secret-page": {
-         en: "/secret-route",
-         fi: "/salainen-reitti",
+         en: "/secret-page",
+         fi: "/salainen-sivu",
       },
    },
 });
