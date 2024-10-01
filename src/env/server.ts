@@ -9,7 +9,7 @@ export const env = createEnv({
       POSTGRES_PRISMA_URL: z.string().url(),
       POSTGRES_URL_NON_POOLING: z.string().url(),
       ENV: z.enum(["development", "production", "test", "staging", "preview"]),
-      NODE_ENV: z.enum(["development", "production", "test", "staging", "preview"]),
+      NODE_ENV: z.enum(["development", "production", "test", "staging", "preview"]).optional(),
    },
    experimental__runtimeEnv: process.env,
 });
