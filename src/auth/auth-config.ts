@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 
+import { routing } from "@/i18n/routing";
 import { testPathnameRegex } from "@/lib/utils";
 
 // This is used so that the defined keys are not undefined
@@ -15,7 +16,7 @@ export const pages: AuthPages = {
 };
 
 export const authPages = [pages.signIn];
-export const protectedPages = ["/secret-page"];
+export const protectedPages = [...Object.values(routing.pathnames["/secret-page"])];
 export const authMiddlewarePages = authPages.concat(protectedPages);
 const CALLBACK_URL_KEY = "callbackUrl";
 const DEFAULT_ROUTE = "/";

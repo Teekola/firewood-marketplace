@@ -10,7 +10,7 @@ export const routing = defineRouting({
    pathnames: {
       "/": "/",
       "/auth/sign-in": "/auth/sign-in", // This can not be localized
-      "/secret-route": {
+      "/secret-page": {
          en: "/secret-route",
          fi: "/salainen-reitti",
       },
