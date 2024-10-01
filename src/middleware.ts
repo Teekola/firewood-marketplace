@@ -10,6 +10,7 @@ import { routing } from "./i18n/routing";
 const authPages = [pages.signIn, "/auth/sign-up"];
 const publicPages = ["/"].concat(authPages);
 const DEFAULT_SIGNED_IN_ROUTE = "/";
+const CALLBACK_URL_KEY = "callbackUrl";
 
 const testPathnameRegex = (pages: string[], pathName: string): boolean => {
    return RegExp(
@@ -26,15 +27,13 @@ export default auth((req) => {
 
    // Redirect if signed in and on the auth page
    if (isSignedIn && isAuthPage) {
-      const targetUrl = new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin);
+      const targetUrl = new URL(
+         req.nextUrl.searchParams.get(CALLBACK_URL_KEY) ?? DEFAULT_SIGNED_IN_ROUTE,
+         req.nextUrl.origin
+      );
 
-      // Avoid infinite loop by checking if we're already at the target URL
-      if (req.nextUrl.pathname === targetUrl.pathname) {
-         console.log("User is already on the target route, no need to redirect.");
-         return NextResponse.next(); // Let the request proceed without redirection
-      }
-      console.log("Redirecting to the target route /", {
-         target: new URL(DEFAULT_SIGNED_IN_ROUTE, req.nextUrl.origin).toString(),
+      console.log("Redirecting to the target route", {
+         target: targetUrl.toString(),
          isSignedIn,
          isAuthPage,
       });
@@ -45,8 +44,17 @@ export default auth((req) => {
 
    // Redirect to sign-in if not signed in and not on a public page
    if (!isSignedIn && !isPublicPage) {
-      const newUrl = new URL(`${pages.signIn}?callbackUrl=${req.nextUrl}`, req.nextUrl.origin);
-      return NextResponse.redirect(newUrl);
+      const redirectUrl = new URL(
+         `${pages.signIn}?${CALLBACK_URL_KEY}=${req.nextUrl}`,
+         req.nextUrl.origin
+      );
+      console.log("Redirecting to the target route", {
+         target: redirectUrl.toString(),
+         isSignedIn,
+         isAuthPage,
+         isPublicPage,
+      });
+      return NextResponse.redirect(redirectUrl);
    }
 
    // Handle i18n routing for other requests
