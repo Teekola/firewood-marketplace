@@ -18,4 +18,4 @@ declare const globalThis: {
 
 export const prismaEdge = globalThis.prismaEdge ?? prismaClientEdgeSingleton();
 
-if (env.NODE_ENV !== "production") globalThis.prismaEdge = prismaEdge;
+if (env.ENV !== "production") globalThis.prismaEdge = prismaEdge;
