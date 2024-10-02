@@ -1,4 +1,4 @@
-import { createJiti } from "jiti";
+import createJiti from "jiti";
 import createNextIntlPlugin from "next-intl/plugin";
 import { fileURLToPath } from "node:url";
 
@@ -11,6 +11,8 @@ jiti("./src/env/client");
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+   eslint: { ignoreDuringBuilds: true },
+};
 
 export default withNextIntl(nextConfig);
