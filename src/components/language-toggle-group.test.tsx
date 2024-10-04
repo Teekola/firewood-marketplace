@@ -1,23 +1,58 @@
-import { render } from "@testing-library/react";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import * as nextIntl from "next-intl";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { LanguageToggleGroup } from "./language-toggle-group";
 
-// Note! The values for "@/i18n/routing" must be defined within the mock
-type TestLocale = "fi" | "en";
+// Hoisting is needed to allow using these values within the mocks
+const { testLocales, translationsByLocale } = vi.hoisted(() => {
+   // The keys define the available locales in the tests
+   const translationsByLocale = {
+      fi: {
+         "Select language": "Valitse kieli",
+      },
+      en: {
+         "Select language": "Select language",
+      },
+   } as const;
 
-const translationsByLocale = {
-   fi: {
-      "Select language": "Valitse kieli",
-   },
-   en: {
-      "Select language": "Select language",
-   },
-} as Record<TestLocale, Record<string, string>>;
+   type TestLocaleLocal = keyof typeof translationsByLocale;
 
+   return {
+      translationsByLocale,
+      testLocales: Object.keys(translationsByLocale) as TestLocaleLocal[],
+   };
+});
+type TestLocale = keyof typeof translationsByLocale;
+
+vi.mock("next-intl", () => ({
+   useLocale: vi.fn(),
+   useTranslations: vi.fn(),
+}));
+
+const { mockedRouterReplace } = vi.hoisted(() => {
+   const mockedRouterReplace = vi.fn();
+   return {
+      useRouter: () => ({ replace: mockedRouterReplace }),
+      mockedRouterReplace,
+   };
+});
+
+vi.mock("@/i18n/routing", () => ({
+   useRouter: () => ({
+      replace: mockedRouterReplace,
+   }),
+   usePathname: vi.fn(),
+   routing: {
+      locales: testLocales,
+   },
+}));
+
+// Creates a mock implemantation for useTranslations based on locale
 function mockUseTranslationsForLocale(locale: TestLocale) {
-   const translations = translationsByLocale[locale];
+   const translations = (translationsByLocale as Record<TestLocale, Record<string, string>>)[
+      locale
+   ];
    return vi.mocked(nextIntl.useTranslations).mockImplementation(() => {
       return Object.assign(
          <TargetKey extends string>(key: TargetKey): string => {
@@ -32,20 +67,13 @@ function mockUseTranslationsForLocale(locale: TestLocale) {
    });
 }
 
-vi.mock("next-intl", () => ({
-   useLocale: vi.fn(),
-   useTranslations: vi.fn(),
-}));
+function getRandomLocaleIndex() {
+   return Math.floor(Math.random() * testLocales.length);
+}
 
-vi.mock("@/i18n/routing", () => ({
-   useRouter: () => ({
-      replace: vi.fn(),
-   }),
-   usePathname: vi.fn(),
-   routing: {
-      locales: ["fi", "en"],
-   },
-}));
+function getRandomLocale() {
+   return testLocales[getRandomLocaleIndex()];
+}
 
 describe("LanguageToggleGroup", () => {
    beforeEach(() => {
@@ -54,22 +82,68 @@ describe("LanguageToggleGroup", () => {
 
    afterEach(() => {
       vi.clearAllMocks();
+      cleanup();
    });
 
-   it("renders the toggle group with correct options", () => {
-      vi.mocked(nextIntl.useLocale).mockReturnValue("en");
-      mockUseTranslationsForLocale("en");
-      const { getByLabelText } = render(<LanguageToggleGroup />);
+   it("renders the toggle group with all locales", () => {
+      const locale = getRandomLocale();
+      vi.mocked(nextIntl.useLocale).mockReturnValue(locale);
+      mockUseTranslationsForLocale(locale);
+      const { getByLabelText, getByText } = render(<LanguageToggleGroup />);
 
-      const toggleGroup = getByLabelText("Select language");
+      const toggleGroup = getByLabelText(translationsByLocale[locale]["Select language"]);
       expect(toggleGroup).toBeInTheDocument();
+
+      testLocales.every((locale) => {
+         const button = getByText(locale);
+         expect(button).toBeInTheDocument();
+         return true;
+      });
    });
 
    it("sets the default value based on the current locale", () => {
-      render(<LanguageToggleGroup />);
+      const locale = getRandomLocale();
+      vi.mocked(nextIntl.useLocale).mockReturnValue(locale);
+      mockUseTranslationsForLocale(locale);
+      const { getByText } = render(<LanguageToggleGroup />);
+
+      const fiButton = getByText(locale);
+      // This data-state attribute is "on" when the locale is selected
+      expect(fiButton).toHaveAttribute("data-state", "on");
    });
 
-   it("calls the router.replace with correct arguments on locale change", () => {
-      render(<LanguageToggleGroup />);
+   it("changes the selected locale and calls router replace when button is clicked", () => {
+      let localeIndex = getRandomLocaleIndex();
+      const startingLocale = testLocales[localeIndex];
+
+      vi.mocked(nextIntl.useLocale).mockReturnValue(startingLocale);
+      mockUseTranslationsForLocale(startingLocale);
+
+      const { getByText } = render(<LanguageToggleGroup />);
+
+      let localesTested = 0;
+      while (localesTested < testLocales.length) {
+         const currentLocale = testLocales[localeIndex];
+         localeIndex = (localeIndex + 1) % testLocales.length; // keep within the array
+         const nextLocale = testLocales[localeIndex];
+
+         const nextLocaleButton = getByText(nextLocale);
+         const currentLocaleButton = getByText(currentLocale);
+
+         fireEvent.click(nextLocaleButton);
+
+         expect(nextLocaleButton).toHaveAttribute("data-state", "on");
+         expect(currentLocaleButton).toHaveAttribute("data-state", "off");
+
+         // Verify that the router.replace was called with the correct locale
+         expect(mockedRouterReplace).toHaveBeenCalledWith(
+            expect.objectContaining({
+               pathname: undefined,
+               params: null,
+            }),
+            { locale: nextLocale }
+         );
+         localesTested++;
+      }
    });
 });
