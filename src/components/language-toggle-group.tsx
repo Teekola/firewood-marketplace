@@ -15,7 +15,6 @@ export function LanguageToggleGroup() {
    const locale = useLocale();
    const t = useTranslations("aria");
 
-   // Function to change locale
    const changeLocale = (locale: (typeof routing.locales)[number]) => {
       // @ts-expect-error -- TypeScript will validate that only known `params`
       // are used in combination with a given `pathname`. Since the two will
