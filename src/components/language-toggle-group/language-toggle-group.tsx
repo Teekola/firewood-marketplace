@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { useParams } from "next/navigation";
 
 import { useLocale, useTranslations } from "next-intl";
@@ -13,8 +15,11 @@ export function LanguageToggleGroup() {
    const params = useParams();
    const locale = useLocale();
    const t = useTranslations("aria");
+   const [value, setValue] = useState(locale);
 
    const changeLocale = (locale: (typeof routing.locales)[number]) => {
+      if (!locale) return; // Ensure that there is always a value
+      setValue(locale);
       // @ts-expect-error -- TypeScript will validate that only known `params`
       // are used in combination with a given `pathname`. Since the two will
       // always match for the current route, we can skip runtime checks.'
@@ -24,7 +29,7 @@ export function LanguageToggleGroup() {
    return (
       <ToggleGroup
          type="single"
-         defaultValue={locale}
+         value={value}
          onValueChange={changeLocale}
          aria-label={t("Select language")}
       >

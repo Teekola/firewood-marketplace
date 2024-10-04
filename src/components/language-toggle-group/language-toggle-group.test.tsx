@@ -146,4 +146,27 @@ describe("LanguageToggleGroup", () => {
          localesTested++;
       }
    });
+
+   it("has one language option selected", () => {
+      const locale = getRandomLocale();
+      vi.mocked(nextIntl.useLocale).mockReturnValue(locale);
+      mockUseTranslationsForLocale(locale);
+      const { getByText, debug } = render(<LanguageToggleGroup />);
+      debug();
+      const button = getByText(locale);
+      fireEvent.click(button);
+      debug();
+
+      let numSelectedLocales = 0;
+      testLocales.every((locale) => {
+         const button = getByText(locale);
+         expect(button).toHaveAttribute("data-state");
+         const state = button.attributes.getNamedItem("data-state")!.value;
+         if (state === "on") {
+            numSelectedLocales++;
+         }
+         return true;
+      });
+      expect(numSelectedLocales).toBe(1);
+   });
 });
