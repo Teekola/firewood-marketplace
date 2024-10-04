@@ -27,7 +27,8 @@
          "@/prismaEdge": ["./prisma/prismaEdge"],
          "@/components/*": ["./src/components/*"],
          "@/ui/*": ["./src/components/ui/*"]
-      }
+      },
+      "types": ["vitest/jsdom", "@testing-library/jest-dom"]
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
    "exclude": ["node_modules"]
