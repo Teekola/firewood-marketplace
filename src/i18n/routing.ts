@@ -17,6 +17,13 @@ export const routing = defineRouting({
    },
 });
 
+export type Locale = (typeof routing.locales)[number];
+
+export const localeToLocalizedLanguageName: Record<Locale, string> = {
+   en: "English",
+   fi: "Suomi",
+};
+
 // Lightweight wrappers around Next.js' navigation APIs
 // that will consider the routing configuration
 export const { Link, redirect, usePathname, useRouter } =
