@@ -12,9 +12,30 @@ type AuthPages = AuthOptions["pages"] & {
 export const pages: AuthPages = {
    signIn: "/auth/sign-in",
 };
+const protectedRoutes = ["/secret-page", "/request-offers/.*"];
 
 export const authPages = [pages.signIn];
-export const protectedPages = [...Object.values(routing.pathnames["/secret-page"])];
+
+function regexifyPath(path: string): RegExp {
+   const escaped = path.replace(/\//g, "\\/"); // replace / with \/
+   return new RegExp(escaped);
+}
+/**
+ *
+ * @returns array of all localized pathnames
+ */
+function getProtectedPages(protectedRoutes: string[]) {
+   const pathnames = protectedRoutes.flatMap((route) => {
+      const regex = regexifyPath(route);
+      return Object.keys(routing.pathnames)
+         .filter((path) => regex.test(path))
+         .flatMap((matchedPath) =>
+            Object.values(routing.pathnames[matchedPath as keyof typeof routing.pathnames])
+         );
+   });
+   return pathnames;
+}
+export const protectedPages = getProtectedPages(protectedRoutes);
 export const CALLBACK_URL_KEY = "callbackUrl";
 export const DEFAULT_ROUTE = "/";
 

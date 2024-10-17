@@ -19,5 +19,15 @@
    "secret-page": {
       "title": "Tämä on salainen sivu",
       "Go to home page": "Siirry kotisivulle"
+   },
+   "request-offers": {
+      "Request Offers": "Tee tarjouspyyntö",
+      "Firewood": "Polttopuut",
+      "Abandon Request": "Hylkää tarjouspyyntö",
+      "abandon-request-description": "Tätä toimintoa ei voi peruuttaa. Syötetyt tiedot menetetään."
+   },
+   "actions": {
+      "Cancel": "Peruuta",
+      "Abandon": "Hylkää"
    }
 }

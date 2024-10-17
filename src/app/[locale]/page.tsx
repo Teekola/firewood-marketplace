@@ -30,7 +30,7 @@ export default async function Home() {
          </div>
          <main className="mx-auto max-w-screen-xl p-3">
             <Button asChild>
-               <Link href="/secret-page">{t("home.Go to a secret page")}</Link>
+               <Link href="/request-offers/firewood">{t("request-offers.Request Offers")}</Link>
             </Button>
          </main>
       </>

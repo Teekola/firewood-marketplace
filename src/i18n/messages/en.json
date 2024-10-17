@@ -19,5 +19,15 @@
    "secret-page": {
       "title": "This is a secret page",
       "Go to home page": "Go to home page"
+   },
+   "request-offers": {
+      "Request Offers": "Request Offers",
+      "Firewood": "Firewood",
+      "Abandon Request": "Abandon Request",
+      "abandon-request-description": "This action cannot be undone. The inputted data will be lost."
+   },
+   "actions": {
+      "Cancel": "Cancel",
+      "Abandon": "Abandon"
    }
 }

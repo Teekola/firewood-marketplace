@@ -14,6 +14,26 @@ export const routing = defineRouting({
          en: "/secret-page",
          fi: "/salainen-sivu",
       },
+      "/request-offers": {
+         en: "/request-offers",
+         fi: "/tee-tarjouspyynto",
+      },
+      "/request-offers/firewood": {
+         en: "/request-offers/firewood",
+         fi: "/tee-tarjouspyynto/polttopuu",
+      },
+      "/request-offers/delivery": {
+         en: "/request-offers/delivery",
+         fi: "/tee-tarjouspyynto/toimitus",
+      },
+      "/request-offers/contact": {
+         en: "/request-offers/contact",
+         fi: "/tee-tarjouspyynto/yhteystiedot",
+      },
+      "/request-offers/submit": {
+         en: "/request-offers/submit",
+         fi: "/tee-tarjouspyynto/laheta",
+      },
    },
 });
 
