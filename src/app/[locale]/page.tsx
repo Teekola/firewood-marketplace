@@ -13,7 +13,7 @@ export default async function Home() {
          <div className="bg-secondary">
             <div className="mx-auto flex max-w-screen-xl justify-between p-3">
                <div className="text-secondary-foreground-foreground my-auto text-2xl font-extrabold">
-                  {"Klapitori"}
+                  {"Polttopuutori"}
                </div>
 
                <div className="rounded bg-card"></div>
