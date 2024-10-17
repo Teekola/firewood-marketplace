@@ -48,7 +48,7 @@ export function LanguageDropdown() {
             </Button>
          </DropdownMenuTrigger>
          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>{t("Select language")}</DropdownMenuLabel>
+            <DropdownMenuLabel className="font-bold">{t("Select language")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
                value={locale}
