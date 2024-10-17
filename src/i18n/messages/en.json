@@ -9,7 +9,8 @@
          "Toggle theme": "Toggle theme",
          "Light": "Light",
          "Dark": "Dark",
-         "System": "System"
+         "System": "System",
+         "Select language": "Select language"
       }
    },
    "home": {
@@ -18,8 +19,5 @@
    "secret-page": {
       "title": "This is a secret page",
       "Go to home page": "Go to home page"
-   },
-   "aria": {
-      "Select language": "Select language"
    }
 }

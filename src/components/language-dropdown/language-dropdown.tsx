@@ -28,7 +28,7 @@ export function LanguageDropdown() {
    const pathname = usePathname();
    const params = useParams();
    const locale = useLocale();
-   const t = useTranslations("aria");
+   const t = useTranslations("settings.preferences");
 
    const changeLocale = (locale: Locale) => {
       if (!locale) return; // Ensure that there is always a value
