@@ -10,6 +10,9 @@ const config: Config = {
    ],
    theme: {
       extend: {
+         screens: {
+            xs: "376px",
+         },
          fontFamily: {
             sans: ["var(--font-nunito-sans)"],
          },

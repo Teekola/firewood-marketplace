@@ -34,9 +34,13 @@ export function AbandonRequestDialog() {
             </AlertDialogHeader>
             <AlertDialogFooter>
                <AlertDialogCancel>{t("actions.Cancel")}</AlertDialogCancel>
-               <AlertDialogAction asChild>
-                  <Link href="/">{t("actions.Abandon")}</Link>
-               </AlertDialogAction>
+               <Button asChild variant="destructive">
+                  <AlertDialogAction asChild>
+                     <Link href="/" className="bg-destructive">
+                        {t("actions.Abandon")}
+                     </Link>
+                  </AlertDialogAction>
+               </Button>
             </AlertDialogFooter>
          </AlertDialogContent>
       </AlertDialog>
