@@ -1,5 +1,7 @@
 "use client";
 
+import { ComponentProps } from "react";
+
 import { useTranslations } from "next-intl";
 
 import {
@@ -16,11 +18,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
-export function AbandonRequestDialog() {
+export function AbandonRequestDialog({ ...props }: ComponentProps<typeof AlertDialogTrigger>) {
    const t = useTranslations();
    return (
       <AlertDialog>
-         <AlertDialogTrigger asChild>
+         <AlertDialogTrigger {...props} asChild>
             <Button variant="ghost" className="text-muted-foreground">
                {t("request-offers.Abandon Request")}
             </Button>

@@ -18,7 +18,7 @@ export default async function RequestOffersLayout({
       <div className="mx-auto max-w-screen-lg p-3">
          <p className="text-base text-muted-foreground">{t("request-offers.Request Offers")}</p>
          <RequestOffersStoreProvider>{children}</RequestOffersStoreProvider>
-         <AbandonRequestDialog />
+         <AbandonRequestDialog className="mt-10" />
       </div>
    );
 }
