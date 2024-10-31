@@ -93,7 +93,7 @@ export function FirewoodForm() {
                <MaxLengthField />
             </div>
 
-            <Button type="submit" size="lg" className="!mt-12 w-full" disabled={!canProceed}>
+            <Button type="submit" size="lg" className="!mt-12 w-full" data-disabled={!canProceed}>
                {t("Continue")}
             </Button>
          </form>
