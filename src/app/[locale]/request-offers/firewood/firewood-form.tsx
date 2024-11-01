@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, ComponentProps, FocusEvent, ReactNode } from "react";
+import { ChangeEvent, FocusEvent, useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -17,19 +17,26 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { RadioGroup } from "@/components/ui/radio-group";
+import { useRouter } from "@/i18n/routing";
 
-const FirewoodFormSchema = z.object({
+import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
+import { useFirewoodData, useSetFirewoodData } from "../store/request-offers-store-provider";
+
+export const firewoodFormSchema = z.object({
    woodType: z.enum(["mixed", "birch", "pine"], { required_error: "Please, select a wood type" }),
    dryness: z.enum(["any", "dry", "green"], { required_error: "Please, select a dryness level" }),
    amount: z.string().min(1, { message: "Insert a valid number" }),
-   maxLength: z.string().optional(),
+   maxLength: z.string().default(""),
 });
+export type FirewoodData = z.infer<typeof firewoodFormSchema>;
 
 export function FirewoodForm() {
-   const form = useForm<z.infer<typeof FirewoodFormSchema>>({
-      resolver: zodResolver(FirewoodFormSchema),
-      defaultValues: {
+   const firewoodData = useFirewoodData();
+
+   const form = useForm<FirewoodData>({
+      resolver: zodResolver(firewoodFormSchema),
+      defaultValues: firewoodData ?? {
          woodType: "mixed",
          dryness: "any",
          amount: "",
@@ -37,13 +44,24 @@ export function FirewoodForm() {
       },
    });
 
-   const t = useTranslations("request-offers");
+   // If page gets refreshed, updates the form values to match context
+   useEffect(() => {
+      if (!firewoodData) return;
+      form.reset(firewoodData);
+   }, [firewoodData, form]);
 
-   function onSubmit(data: z.infer<typeof FirewoodFormSchema>) {
+   const t = useTranslations("request-offers");
+   const router = useRouter();
+
+   const setFirewoodData = useSetFirewoodData();
+
+   function onSubmit(data: FirewoodData) {
       console.log("You submitted the following values", data);
+      setFirewoodData(data);
+      router.push("/request-offers/delivery");
    }
 
-   const canProceed = form.formState.isValid && form.formState.isDirty;
+   const canProceed = form.formState.isValid;
 
    return (
       <Form {...form}>
@@ -56,12 +74,12 @@ export function FirewoodForm() {
                      <FormLabel>{t("Wood type")}</FormLabel>
                      <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="grid grid-cols-3 gap-4"
+                        value={field.value}
+                        className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
                      >
-                        <RadioGroupItemCard value="mixed" label="Mixed" />
-                        <RadioGroupItemCard value="birch" label="Birch" />
-                        <RadioGroupItemCard value="pine" label="Pine" />
+                        <RadioGroupItemCard value="mixed" label={t("Mixed")} />
+                        <RadioGroupItemCard value="birch" label={t("Birch")} />
+                        <RadioGroupItemCard value="pine" label={t("Pine")} />
                      </RadioGroup>
                      <FormMessage />
                   </FormItem>
@@ -76,12 +94,12 @@ export function FirewoodForm() {
                      <FormLabel>{t("Dryness")}</FormLabel>
                      <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="grid grid-cols-3 gap-4"
+                        value={field.value}
+                        className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
                      >
-                        <RadioGroupItemCard value="any" label="Any" />
-                        <RadioGroupItemCard value="dry" label="Dry" />
-                        <RadioGroupItemCard value="green" label="Green" />
+                        <RadioGroupItemCard value="any" label={t("Any")} />
+                        <RadioGroupItemCard value="dry" label={t("Dry")} />
+                        <RadioGroupItemCard value="green" label={t("Green")} />
                      </RadioGroup>
                      <FormMessage />
                   </FormItem>
@@ -98,27 +116,6 @@ export function FirewoodForm() {
             </Button>
          </form>
       </Form>
-   );
-}
-
-interface RadioGroupItemCardProps extends ComponentProps<typeof FormItem> {
-   value: string;
-   label: string;
-   icon?: ReactNode;
-}
-function RadioGroupItemCard({ value, label, icon, ...props }: RadioGroupItemCardProps) {
-   return (
-      <FormItem {...props}>
-         <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
-            <FormControl>
-               <RadioGroupItem value={value} className="sr-only" />
-            </FormControl>
-            <div className="flex h-28 cursor-pointer items-center justify-center rounded-md border-2 border-muted bg-secondary p-1 hover:border-accent">
-               {icon}
-               {label}
-            </div>
-         </FormLabel>
-      </FormItem>
    );
 }
 
@@ -141,7 +138,7 @@ function transformDecimalInputValue(input: string) {
 function CubicMetresField() {
    const fieldName = "amount";
    const t = useTranslations("request-offers");
-   const form = useFormContext<z.infer<typeof FirewoodFormSchema>>();
+   const form = useFormContext<FirewoodData>();
 
    // Transform input value to contain numbers and decimal separator only
    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -174,8 +171,8 @@ function CubicMetresField() {
                <FormLabel>{t("Amount")}</FormLabel>
                <FormControl>
                   <InputWithContent
-                     placeholder="Insert"
-                     inputClassName="mr-6"
+                     placeholder="0,0"
+                     inputClassName="mr-8 text-right"
                      {...field}
                      onChange={handleInputChange}
                      onBlur={handleBlur}
@@ -197,7 +194,7 @@ function CubicMetresField() {
 function MaxLengthField() {
    const fieldName = "maxLength";
    const t = useTranslations("request-offers");
-   const form = useFormContext<z.infer<typeof FirewoodFormSchema>>();
+   const form = useFormContext<FirewoodData>();
 
    // Transform input value to contain numbers and decimal separator only
    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -232,8 +229,8 @@ function MaxLengthField() {
                </FormLabel>
                <FormControl>
                   <InputWithContent
-                     placeholder="Insert"
-                     inputClassName="mr-5"
+                     placeholder="-"
+                     inputClassName="mr-8 text-right"
                      {...field}
                      onChange={handleInputChange}
                      onBlur={handleBlur}

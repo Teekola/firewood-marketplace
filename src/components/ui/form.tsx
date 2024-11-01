@@ -4,6 +4,7 @@ import * as React from "react";
 
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
+import { useTranslations } from "next-intl";
 import {
    Controller,
    ControllerProps,
@@ -142,6 +143,7 @@ const FormMessage = React.forwardRef<
 >(({ className, children, ...props }, ref) => {
    const { error, formMessageId } = useFormField();
    const body = error ? String(error?.message) : children;
+   const t = useTranslations("form-messages");
 
    if (!body) {
       return null;
@@ -154,7 +156,7 @@ const FormMessage = React.forwardRef<
          className={cn("text-[0.8rem] font-medium text-destructive", className)}
          {...props}
       >
-         {body}
+         {typeof body === "string" ? t(body) : body}
       </p>
    );
 });

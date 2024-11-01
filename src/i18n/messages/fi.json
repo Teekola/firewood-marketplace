@@ -1,39 +1,64 @@
 {
-  "auth": {
-    "Sign in with Google": "Kirjaudu sisään Googlella",
-    "Sign In": "Kirjaudu sisään",
-    "Sign Out": "Kirjaudu ulos"
-  },
-  "settings": {
-    "preferences": {
-      "Toggle theme": "Vaihda teemaa",
-      "Light": "Vaalea",
-      "Dark": "Tumma",
-      "System": "Järjestelmä",
-      "Select language": "Valitse kieli"
-    }
-  },
-  "home": {
-    "Go to a secret page": "Siirry salaiselle sivulle"
-  },
-  "secret-page": {
-    "title": "Tämä on salainen sivu",
-    "Go to home page": "Siirry kotisivulle"
-  },
-  "request-offers": {
-    "Request Offers": "Tee tarjouspyyntö",
-    "Firewood": "Polttopuut",
-    "Abandon Request": "Hylkää tarjouspyyntö",
-    "abandon-request-description": "Tätä toimintoa ei voi peruuttaa. Syötetyt tiedot menetetään.",
-    "Wood type": "Puulaji",
-    "Amount": "Määrä",
-    "Max length": "Maksimipituus",
-    "Optional": "Valinnainen",
-    "Dryness": "Kuivuusaste",
-    "Continue": "Jatka"
-  },
-  "actions": {
-    "Cancel": "Peruuta",
-    "Abandon": "Hylkää"
-  }
+   "auth": {
+      "Sign in with Google": "Kirjaudu sisään Googlella",
+      "Sign In": "Kirjaudu sisään",
+      "Sign Out": "Kirjaudu ulos"
+   },
+   "settings": {
+      "preferences": {
+         "Toggle theme": "Vaihda teemaa",
+         "Light": "Vaalea",
+         "Dark": "Tumma",
+         "System": "Järjestelmä",
+         "Select language": "Valitse kieli"
+      }
+   },
+   "home": {
+      "Go to a secret page": "Siirry salaiselle sivulle"
+   },
+   "secret-page": {
+      "title": "Tämä on salainen sivu",
+      "Go to home page": "Siirry kotisivulle"
+   },
+   "request-offers": {
+      "Request Offers": "Tee tarjouspyyntö",
+      "Firewood": "Polttopuut",
+      "Delivery": "Toimitus",
+      "Contact": "Yhteystiedot",
+      "Submit": "Lähetä",
+      "Abandon Request": "Hylkää tarjouspyyntö",
+      "abandon-request-description": "Tätä toimintoa ei voi peruuttaa. Syötetyt tiedot menetetään.",
+      "Wood type": "Puulaji",
+      "Mixed": "Sekapuu",
+      "Birch": "Koivu",
+      "Pine": "Mänty",
+      "Dryness": "Kuivuusaste",
+      "Any": "Kaikki",
+      "Dry": "Kuiva",
+      "Green": "Tuore",
+      "Amount": "Määrä",
+      "Max length": "Maksimipituus",
+      "Optional": "Valinnainen",
+      "Continue": "Jatka",
+      "Home delivery": "Kotiinkuljetus",
+      "Pickup": "Nouto",
+      "Country": "Maa",
+      "Select country": "Valitse maa",
+      "Search country": "Etsi maata...",
+      "No country found": "Maata ei löydy.",
+      "Finland": "Suomi",
+      "Postal code": "Postinumero",
+      "Invalid postal code": "Virheellinen postinumero",
+      "Address": "Toimitusosoite"
+   },
+   "form-messages": {
+      "Insert a valid number": "Syötä lukuarvo",
+      "Invalid postal code": "Postinumero on virheellinen",
+      "Address is required for home delivery": "Osoite vaaditaan kotiinkuljetukseen"
+   },
+   "actions": {
+      "Cancel": "Peruuta",
+      "Abandon": "Hylkää",
+      "Close": "Sulje"
+   }
 }

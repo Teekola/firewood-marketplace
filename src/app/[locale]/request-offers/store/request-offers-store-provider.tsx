@@ -43,6 +43,26 @@ export function useRequestOffers() {
    return useRequestOffersStore((state) => state);
 }
 
-export function useValue() {
-   return useRequestOffersStore((state) => state.value);
+export function useFirewoodData() {
+   return useRequestOffersStore((state) => state.firewoodData);
+}
+
+export function useSetFirewoodData() {
+   return useRequestOffersStore((state) => state.setFirewoodData);
+}
+export function useDeliveryData() {
+   return useRequestOffersStore((state) => state.deliveryData);
+}
+
+export function useSetDeliveryData() {
+   return useRequestOffersStore((state) => state.setDeliveryData);
+}
+
+export function useLastUnlockedStep() {
+   const firewoodData = useFirewoodData();
+   const deliveryData = useDeliveryData();
+
+   if (deliveryData) return 3;
+   if (firewoodData) return 2;
+   return 1;
 }
