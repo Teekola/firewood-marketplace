@@ -229,7 +229,6 @@ function MaxLengthField() {
                </FormLabel>
                <FormControl>
                   <InputWithContent
-                     placeholder="-"
                      inputClassName="mr-8 text-right"
                      {...field}
                      onChange={handleInputChange}
