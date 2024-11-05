@@ -4,6 +4,9 @@ import { type ReactNode, createContext, useContext, useRef } from "react";
 
 import { useStore } from "zustand";
 
+import { contactFormSchema } from "../contact/contact-form";
+import { deliveryFormSchema } from "../delivery/delivery-form";
+import { firewoodFormSchema } from "../firewood/firewood-form";
 import { type RequestOffersStore, createRequestOffersStore } from "./request-offers-store";
 
 export type RequestOffersStoreApi = ReturnType<typeof createRequestOffersStore>;
@@ -58,11 +61,29 @@ export function useSetDeliveryData() {
    return useRequestOffersStore((state) => state.setDeliveryData);
 }
 
+export function useContactData() {
+   return useRequestOffersStore((state) => state.contactData);
+}
+
+export function useSetContactData() {
+   return useRequestOffersStore((state) => state.setContactData);
+}
+
 export function useLastUnlockedStep() {
    const firewoodData = useFirewoodData();
    const deliveryData = useDeliveryData();
+   const contactData = useContactData();
 
-   if (deliveryData) return 3;
-   if (firewoodData) return 2;
+   if (contactFormSchema.safeParse(contactData).success) return 4;
+   if (deliveryFormSchema.safeParse(deliveryData).success) return 3;
+   if (firewoodFormSchema.safeParse(firewoodData).success) return 2;
    return 1;
+}
+
+export function useClearRequestOffersStore() {
+   return useRequestOffersStore((state) => state.clear);
+}
+
+export function useIsHydrated() {
+   return useRequestOffersStore((state) => state.isHydrated);
 }

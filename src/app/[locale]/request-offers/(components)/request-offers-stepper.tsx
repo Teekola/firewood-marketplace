@@ -1,71 +1,63 @@
 "use client";
 
-import { ComponentProps, PropsWithChildren, useEffect, useId } from "react";
+import { ComponentProps, PropsWithChildren, useId } from "react";
 
+import { CheckIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 
-import { Link, usePathname, useRouter } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-import { useLastUnlockedStep } from "../store/request-offers-store-provider";
+import { useIsHydrated, useLastUnlockedStep } from "../store/request-offers-store-provider";
 
 const stepToProgressWidth = {
-   1: "40px",
-   2: "180px",
-   3: "322px",
+   1: "8%",
+   2: "38%",
+   3: "65%",
    4: "100%",
-};
-
-const pathnameToStep = {
-   "/request-offers/firewood": 1,
-   "/request-offers/delivery": 2,
-   "/request-offers/contact": 3,
-   "/request-offers/submit": 4,
 };
 
 export function RequestOffersStepper() {
    const t = useTranslations("request-offers");
    const lastUnlockedStep = useLastUnlockedStep();
-   const pathname = usePathname();
-   const router = useRouter();
-
-   const isAllowedPage =
-      pathname in pathnameToStep &&
-      pathnameToStep[pathname as keyof typeof pathnameToStep] <= lastUnlockedStep;
-
-   useEffect(() => {
-      if (isAllowedPage) return;
-
-      const lastUnlockedRoute = Object.entries(pathnameToStep).find(
-         ([, step]) => step === lastUnlockedStep
-      )![0];
-      router.push(lastUnlockedRoute as keyof typeof pathnameToStep);
-   }, [isAllowedPage, router, lastUnlockedStep]);
+   const isHydrated = useIsHydrated();
 
    return (
-      <nav className="relative">
+      <nav className={cn("relative", !isHydrated && "animate-pulse")}>
          <ol className="mx-auto flex w-[95%] justify-between gap-4">
-            <StepLink href="/request-offers/firewood" number={1} label={t("Firewood")} />
+            <StepLink
+               href="/request-offers/firewood"
+               number={1}
+               label={t("Firewood")}
+               completed={lastUnlockedStep > 1}
+               isLoading={!isHydrated}
+            />
             <StepLink
                href="/request-offers/delivery"
                disabled={lastUnlockedStep < 2}
+               completed={lastUnlockedStep > 2}
                number={2}
                label={t("Delivery")}
+               isLoading={!isHydrated}
             />
             <StepLink
                href="/request-offers/contact"
                disabled={lastUnlockedStep < 3}
+               completed={lastUnlockedStep > 3}
                number={3}
                label={t("Contact")}
+               isLoading={!isHydrated}
             />
             <StepLink
                href="/request-offers/submit"
                disabled={lastUnlockedStep < 4}
+               completed={lastUnlockedStep > 4}
                number={4}
                label={t("Submit")}
+               isLoading={!isHydrated}
             />
          </ol>
-         <div className="absolute left-[2.5%] top-[18px] -z-10 h-1 w-[95%] bg-muted">
+         <div className={cn("absolute left-[2.5%] top-[18px] -z-10 h-1 w-[95%] bg-muted")}>
             <div
                className="h-full w-10 bg-primary transition-all duration-500"
                style={{ width: stepToProgressWidth[lastUnlockedStep] }}
@@ -80,39 +72,45 @@ function StepLink({
    number,
    label,
    disabled: isDisabled,
+   completed,
+   isLoading,
 }: Readonly<{
    href: ComponentProps<typeof Link>["href"];
    number: number;
    label: string;
    disabled?: boolean;
+   completed?: boolean;
+   isLoading?: boolean;
 }>) {
+   const disabled = isLoading || isDisabled;
    const id = useId();
    const pathname = usePathname();
    const isActive = pathname === href;
    return (
-      <li className="mb-2 flex flex-col items-center gap-1 pb-5">
+      <li className={"mb-2 flex flex-col items-center gap-1 pb-5"}>
          <DisableAbleLink
             href={href}
             id={id}
-            disabled={isDisabled}
-            aria-disabled={isDisabled}
+            disabled={disabled}
+            aria-disabled={disabled}
             {...(isActive && { "aria-current": "step" })}
          >
             <div
                className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-full border-4 border-primary bg-primary text-lg font-bold text-primary-foreground",
                   isActive && "bg-primary-foreground text-primary",
-                  isDisabled && "border-muted bg-muted text-muted-foreground"
+                  disabled && "border-muted bg-muted text-muted-foreground"
                )}
             >
-               {number}
+               {!completed && number}
+               {completed && <CheckIcon className="h-6 w-6" />}
             </div>
          </DisableAbleLink>
          <label
             htmlFor={id}
             className={cn(
                "absolute bottom-2 text-xs font-medium text-foreground",
-               isDisabled && "text-muted-foreground"
+               disabled && "text-muted-foreground"
             )}
          >
             {label}

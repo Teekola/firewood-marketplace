@@ -74,12 +74,6 @@ export function DeliveryForm() {
       },
    });
 
-   // If page gets refreshed, updates the form values to match context
-   useEffect(() => {
-      if (!deliveryData) return;
-      form.reset(deliveryData);
-   }, [deliveryData, form]);
-
    const t = useTranslations("request-offers");
    const router = useRouter();
    const deliveryMethod = form.watch("deliveryMethod");
@@ -92,11 +86,19 @@ export function DeliveryForm() {
       router.push("/request-offers/contact");
    }
 
+   // TODO: FIX Sync with store so that form field values remain when changing page even without submitting
+
+   // If page gets refreshed, updates the form values to match context
+   useEffect(() => {
+      if (!deliveryData) return;
+      form.reset(deliveryData);
+   }, [deliveryData, form]);
+
    const canProceed = form.formState.isValid;
 
    return (
       <Form {...form}>
-         <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-lg space-y-6">
+         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 max-w-lg space-y-4">
             <FormField
                control={form.control}
                name="deliveryMethod"

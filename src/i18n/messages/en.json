@@ -49,12 +49,21 @@
       "Finland": "Finland",
       "Postal code": "Postal code",
       "Invalid postal code": "Invalid postal code",
-      "Address": "Address"
+      "Address": "Address",
+      "Phone": "Phone",
+      "Full name": "Full name",
+      "Full name placeholder": "First Last",
+      "Email": "Email",
+      "Type your email": "Type your email",
+      "Type your phone number": "Type your phone number"
    },
    "form-messages": {
       "Insert a valid number": "Insert a valid number",
       "Invalid postal code": "Invalid postal code",
-      "Address is required for home delivery": "Address is required for home delivery"
+      "Address is required for home delivery": "Address is required for home delivery",
+      "Name is required": "Name is required",
+      "The email is invalid": "The email is invalid",
+      "The phone number is invalid": "The phone number is invalid"
    },
    "actions": {
       "Cancel": "Cancel",

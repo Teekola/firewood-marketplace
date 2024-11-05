@@ -16,10 +16,20 @@ import {
    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/routing";
+import { useRouter } from "@/i18n/routing";
+
+import { useClearRequestOffersStore } from "../store/request-offers-store-provider";
 
 export function AbandonRequestDialog({ ...props }: ComponentProps<typeof AlertDialogTrigger>) {
    const t = useTranslations();
+   const clearStore = useClearRequestOffersStore();
+   const router = useRouter();
+
+   function handleAbort() {
+      router.push("/");
+      clearStore();
+   }
+
    return (
       <AlertDialog>
          <AlertDialogTrigger {...props} asChild>
@@ -38,9 +48,9 @@ export function AbandonRequestDialog({ ...props }: ComponentProps<typeof AlertDi
                <AlertDialogCancel>{t("actions.Cancel")}</AlertDialogCancel>
                <Button asChild variant="destructive">
                   <AlertDialogAction asChild>
-                     <Link href="/" className="bg-destructive">
+                     <Button type="button" className="bg-destructive" onClick={handleAbort}>
                         {t("actions.Abandon")}
-                     </Link>
+                     </Button>
                   </AlertDialogAction>
                </Button>
             </AlertDialogFooter>

@@ -1,10 +1,10 @@
 "use client";
 
-import { ChangeEvent, FocusEvent, useEffect } from "react";
+import { ChangeEvent, FocusEvent } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useForm, useFormContext } from "react-hook-form";
+import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -18,10 +18,16 @@ import {
 } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
 import { RadioGroup } from "@/components/ui/radio-group";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "@/i18n/routing";
 
+import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
-import { useFirewoodData, useSetFirewoodData } from "../store/request-offers-store-provider";
+import {
+   useFirewoodData,
+   useIsHydrated,
+   useSetFirewoodData,
+} from "../store/request-offers-store-provider";
 
 export const firewoodFormSchema = z.object({
    woodType: z.enum(["mixed", "birch", "pine"], { required_error: "Please, select a wood type" }),
@@ -33,22 +39,19 @@ export type FirewoodData = z.infer<typeof firewoodFormSchema>;
 
 export function FirewoodForm() {
    const firewoodData = useFirewoodData();
+   const isHydrated = useIsHydrated();
+
+   const defaultValues: DefaultValues<FirewoodData> = firewoodData ?? {
+      woodType: "mixed",
+      dryness: "any",
+      amount: "",
+      maxLength: "",
+   };
 
    const form = useForm<FirewoodData>({
       resolver: zodResolver(firewoodFormSchema),
-      defaultValues: firewoodData ?? {
-         woodType: "mixed",
-         dryness: "any",
-         amount: "",
-         maxLength: "",
-      },
+      defaultValues,
    });
-
-   // If page gets refreshed, updates the form values to match context
-   useEffect(() => {
-      if (!firewoodData) return;
-      form.reset(firewoodData);
-   }, [firewoodData, form]);
 
    const t = useTranslations("request-offers");
    const router = useRouter();
@@ -63,9 +66,13 @@ export function FirewoodForm() {
 
    const canProceed = form.formState.isValid;
 
+   if (!isHydrated) {
+      return <Skeleton className="mt-4 h-60 w-full max-w-lg space-y-6" />;
+   }
+
    return (
       <Form {...form}>
-         <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-lg space-y-6">
+         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 max-w-lg space-y-6">
             <FormField
                control={form.control}
                name="woodType"
@@ -114,6 +121,11 @@ export function FirewoodForm() {
             <Button type="submit" size="lg" className="!mt-12 w-full" data-disabled={!canProceed}>
                {t("Continue")}
             </Button>
+            <FormStoreSyncManager
+               formData={firewoodData}
+               setFormDataToStore={setFirewoodData}
+               defaultValues={defaultValues}
+            />
          </form>
       </Form>
    );

@@ -49,12 +49,21 @@
       "Finland": "Suomi",
       "Postal code": "Postinumero",
       "Invalid postal code": "Virheellinen postinumero",
-      "Address": "Toimitusosoite"
+      "Address": "Toimitusosoite",
+      "Phone": "Puhelinnumero",
+      "Full name": "Koko nimi",
+      "Full name placeholder": "Etunimi Sukunimi",
+      "Email": "Sähköpostiosoite",
+      "Type your email": "Kirjoita sähköpostiosoite",
+      "Type your phone number": "Kirjoita puhelinnumero"
    },
    "form-messages": {
       "Insert a valid number": "Syötä lukuarvo",
       "Invalid postal code": "Postinumero on virheellinen",
-      "Address is required for home delivery": "Osoite vaaditaan kotiinkuljetukseen"
+      "Address is required for home delivery": "Osoite vaaditaan kotiinkuljetukseen",
+      "Name is required": "Nimi vaaditaan",
+      "The email is invalid": "Sähköpostiosoite on virheellinen",
+      "The phone number is invalid": "Puhelinnumero on virheellinen"
    },
    "actions": {
       "Cancel": "Peruuta",

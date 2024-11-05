@@ -64,13 +64,22 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
 
    // Update filtered postal codes based on input value
    useEffect(() => {
-      if (debouncedInputValue) {
-         const filtered = postalCodeArrayFI.filter(({ code }) =>
-            code.toLowerCase().startsWith(debouncedInputValue.toLowerCase())
-         );
-         setFilteredPostalCodes(filtered.slice(0, 7));
-      } else {
+      if (!debouncedInputValue) {
          setFilteredPostalCodes(postalCodeArrayFI.slice(0, 7));
+         return;
+      }
+
+      const filtered = postalCodeArrayFI.filter(({ code }) =>
+         code.toLowerCase().startsWith(debouncedInputValue.toLowerCase())
+      );
+      setFilteredPostalCodes(filtered.slice(0, 7));
+
+      const fullCode = filtered.find((obj) => obj.code === debouncedInputValue);
+
+      if (fullCode) {
+         setOpen(false);
+         setCurrentName(fullCode.name);
+         return;
       }
    }, [debouncedInputValue]);
 
