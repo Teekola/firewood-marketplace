@@ -90,7 +90,7 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
          render={({ field }) => (
             <FormItem {...props}>
                <FormLabel>{t("Postal code")}</FormLabel>
-               <Command className="relative overflow-visible">
+               <Command className="relative h-auto overflow-visible bg-transparent">
                   <div className="flex w-full items-center gap-4">
                      <div className="flex w-full min-w-[150px] max-w-[150px] flex-wrap items-center justify-between gap-4 sm:max-w-[60%]">
                         <FormControl>
@@ -124,10 +124,10 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                      <p className="text-xs xs:text-sm">{currentName}</p>
                   </div>
 
-                  <div className="relative mt-1">
+                  <div className="relative">
                      <CommandList
                         className={cn(
-                           "absolute top-0 z-20 hidden w-full rounded-sm bg-card shadow transition-all animate-in fade-in-0 zoom-in-95 sm:max-w-[60%]",
+                           "absolute top-0 z-20 mt-1 hidden w-full rounded-sm bg-card shadow transition-all animate-in fade-in-0 zoom-in-95 sm:max-w-[60%]",
                            isOpen && "block"
                         )}
                      >

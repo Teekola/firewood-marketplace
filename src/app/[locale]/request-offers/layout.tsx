@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 
 import { AbandonRequestDialog } from "./(components)/abandon-request-dialog";
+import { PageWrapper } from "./(components)/page-wrapper";
 import { RequestOffersStepper } from "./(components)/request-offers-stepper";
-import { StepManager } from "./(components)/step-manager";
 import { RequestOffersStoreProvider } from "./store/request-offers-store-provider";
 
 export default async function RequestOffersLayout({
@@ -18,8 +18,9 @@ export default async function RequestOffersLayout({
          </p>
          <RequestOffersStoreProvider>
             <RequestOffersStepper />
-            <StepManager>{children}</StepManager>
-            <AbandonRequestDialog className="mt-10" />
+
+            <PageWrapper>{children}</PageWrapper>
+            <AbandonRequestDialog className="mt-20" />
          </RequestOffersStoreProvider>
       </div>
    );

@@ -18,16 +18,11 @@ import {
 } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
 import { RadioGroup } from "@/components/ui/radio-group";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
-import {
-   useFirewoodData,
-   useIsHydrated,
-   useSetFirewoodData,
-} from "../store/request-offers-store-provider";
+import { useFirewoodData, useSetFirewoodData } from "../store/request-offers-store-provider";
 
 export const firewoodFormSchema = z.object({
    woodType: z.enum(["mixed", "birch", "pine"], { required_error: "Please, select a wood type" }),
@@ -39,7 +34,6 @@ export type FirewoodData = z.infer<typeof firewoodFormSchema>;
 
 export function FirewoodForm() {
    const firewoodData = useFirewoodData();
-   const isHydrated = useIsHydrated();
 
    const defaultValues: DefaultValues<FirewoodData> = firewoodData ?? {
       woodType: "mixed",
@@ -66,59 +60,60 @@ export function FirewoodForm() {
 
    const canProceed = form.formState.isValid;
 
-   if (!isHydrated) {
-      return <Skeleton className="mt-4 h-60 w-full max-w-lg space-y-6" />;
-   }
-
    return (
       <Form {...form}>
-         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 max-w-lg space-y-6">
-            <FormField
-               control={form.control}
-               name="woodType"
-               render={({ field }) => (
-                  <FormItem className="space-y-1">
-                     <FormLabel>{t("Wood type")}</FormLabel>
-                     <RadioGroup
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
-                     >
-                        <RadioGroupItemCard value="mixed" label={t("Mixed")} />
-                        <RadioGroupItemCard value="birch" label={t("Birch")} />
-                        <RadioGroupItemCard value="pine" label={t("Pine")} />
-                     </RadioGroup>
-                     <FormMessage />
-                  </FormItem>
-               )}
-            />
+         <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mt-4 flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
+         >
+            <div className="space-y-4">
+               <FormField
+                  control={form.control}
+                  name="woodType"
+                  render={({ field }) => (
+                     <FormItem className="space-y-1">
+                        <FormLabel>{t("Wood type")}</FormLabel>
+                        <RadioGroup
+                           onValueChange={field.onChange}
+                           value={field.value}
+                           className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
+                        >
+                           <RadioGroupItemCard value="mixed" label={t("Mixed")} />
+                           <RadioGroupItemCard value="birch" label={t("Birch")} />
+                           <RadioGroupItemCard value="pine" label={t("Pine")} />
+                        </RadioGroup>
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
 
-            <FormField
-               control={form.control}
-               name="dryness"
-               render={({ field }) => (
-                  <FormItem className="space-y-1">
-                     <FormLabel>{t("Dryness")}</FormLabel>
-                     <RadioGroup
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
-                     >
-                        <RadioGroupItemCard value="any" label={t("Any")} />
-                        <RadioGroupItemCard value="dry" label={t("Dry")} />
-                        <RadioGroupItemCard value="green" label={t("Green")} />
-                     </RadioGroup>
-                     <FormMessage />
-                  </FormItem>
-               )}
-            />
+               <FormField
+                  control={form.control}
+                  name="dryness"
+                  render={({ field }) => (
+                     <FormItem className="space-y-1">
+                        <FormLabel>{t("Dryness")}</FormLabel>
+                        <RadioGroup
+                           onValueChange={field.onChange}
+                           value={field.value}
+                           className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
+                        >
+                           <RadioGroupItemCard value="any" label={t("Any")} />
+                           <RadioGroupItemCard value="dry" label={t("Dry")} />
+                           <RadioGroupItemCard value="green" label={t("Green")} />
+                        </RadioGroup>
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
 
-            <div className="flex w-full flex-wrap justify-between gap-3 xs:flex-nowrap">
-               <CubicMetresField />
-               <MaxLengthField />
+               <div className="flex w-full flex-wrap justify-between gap-3 xs:flex-nowrap">
+                  <CubicMetresField />
+                  <MaxLengthField />
+               </div>
             </div>
 
-            <Button type="submit" size="lg" className="!mt-12 w-full" data-disabled={!canProceed}>
+            <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
                {t("Continue")}
             </Button>
          </form>

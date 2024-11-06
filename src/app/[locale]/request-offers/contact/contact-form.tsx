@@ -18,15 +18,10 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
-import {
-   useContactData,
-   useIsHydrated,
-   useSetContactData,
-} from "../store/request-offers-store-provider";
+import { useContactData, useSetContactData } from "../store/request-offers-store-provider";
 
 export const contactFormSchema = z.object({
    name: z.string().min(1, "Name is required"),
@@ -38,7 +33,6 @@ export type ContactData = z.infer<typeof contactFormSchema>;
 
 export function ContactForm() {
    const contactData = useContactData();
-   const isHydrated = useIsHydrated();
 
    // TODO: Get these from the user profile
    const defaultValues: DefaultValues<ContactData> = contactData ?? {
@@ -65,41 +59,42 @@ export function ContactForm() {
 
    const canProceed = form.formState.isValid;
 
-   if (!isHydrated) {
-      return <Skeleton className="mt-4 h-60 w-full max-w-lg space-y-6" />;
-   }
-
    return (
       <Form {...form}>
-         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 max-w-lg space-y-4">
-            <FormField
-               name="name"
-               control={form.control}
-               render={({ field }) => (
-                  <FormItem className="w-full">
-                     <FormLabel>{t("Full name")}</FormLabel>
-                     <FormControl>
-                        <Input {...field} placeholder={t("Full name placeholder")} />
-                     </FormControl>
+         <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mt-4 flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
+         >
+            <div className="space-y-6">
+               <FormField
+                  name="name"
+                  control={form.control}
+                  render={({ field }) => (
+                     <FormItem className="w-full">
+                        <FormLabel>{t("Full name")}</FormLabel>
+                        <FormControl>
+                           <Input {...field} placeholder={t("Full name placeholder")} />
+                        </FormControl>
 
-                     <FormMessage />
-                  </FormItem>
-               )}
-            />
-            <FormField
-               name="email"
-               control={form.control}
-               render={({ field }) => (
-                  <FormItem className="w-full">
-                     <FormLabel>{t("Email")}</FormLabel>
-                     <FormControl>
-                        <Input {...field} placeholder={t("Type your email")} />
-                     </FormControl>
-                     <FormMessage />
-                  </FormItem>
-               )}
-            />
-            <PhoneField />
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
+               <FormField
+                  name="email"
+                  control={form.control}
+                  render={({ field }) => (
+                     <FormItem className="w-full">
+                        <FormLabel>{t("Email")}</FormLabel>
+                        <FormControl>
+                           <Input {...field} placeholder={t("Type your email")} />
+                        </FormControl>
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
+               <PhoneField />
+            </div>
             <Button type="submit" size="lg" className="!mt-12 w-full" data-disabled={!canProceed}>
                {t("Continue")}
             </Button>

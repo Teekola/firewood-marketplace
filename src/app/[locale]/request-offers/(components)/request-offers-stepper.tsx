@@ -9,9 +9,9 @@ import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import { useIsHydrated, useLastUnlockedStep } from "../store/request-offers-store-provider";
-import { stepToPath } from "./step-manager";
+import { stepToPath } from "./use-step-manager";
 
-const stepToProgressWidth = {
+const stepToProgressWidth: Record<number, string> = {
    1: "8%",
    2: "38%",
    3: "65%",
@@ -34,7 +34,7 @@ export function RequestOffersStepper() {
          <div className={cn("absolute left-[2.5%] top-[18px] -z-10 h-1 w-[95%] bg-muted")}>
             <div
                className="h-full w-10 bg-primary transition-all duration-500"
-               style={{ width: stepToProgressWidth[lastUnlockedStep] }}
+               style={{ width: stepToProgressWidth[lastUnlockedStep ?? 1] }}
             ></div>
          </div>
       </nav>
@@ -52,9 +52,9 @@ function StepLink({
    const pathname = usePathname();
    const lastUnlockedStep = useLastUnlockedStep();
    const isHydrated = useIsHydrated();
-   const isLoading = !isHydrated;
-   const isDisabled = lastUnlockedStep < step || isLoading;
-   const isCompleted = lastUnlockedStep > step;
+   const isLoading = !isHydrated || lastUnlockedStep === undefined;
+   const isDisabled = isLoading || lastUnlockedStep < step;
+   const isCompleted = lastUnlockedStep && lastUnlockedStep > step;
    const href = stepToPath[step];
    const isActive = pathname === href;
    return (

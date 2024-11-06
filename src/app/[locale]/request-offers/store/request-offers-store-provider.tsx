@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, createContext, useContext, useRef } from "react";
+import { type ReactNode, createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { useStore } from "zustand";
 
@@ -73,11 +73,28 @@ export function useLastUnlockedStep() {
    const firewoodData = useFirewoodData();
    const deliveryData = useDeliveryData();
    const contactData = useContactData();
+   const isHydrated = useIsHydrated();
 
-   if (contactFormSchema.safeParse(contactData).success) return 4;
-   if (deliveryFormSchema.safeParse(deliveryData).success) return 3;
-   if (firewoodFormSchema.safeParse(firewoodData).success) return 2;
-   return 1;
+   const [lastUnlockedStep, setLastUnlockedStep] = useState<number>();
+
+   useEffect(() => {
+      if (!isHydrated) return;
+      if (contactFormSchema.safeParse(contactData).success) {
+         setLastUnlockedStep(4);
+         return;
+      }
+      if (deliveryFormSchema.safeParse(deliveryData).success) {
+         setLastUnlockedStep(3);
+         return;
+      }
+      if (firewoodFormSchema.safeParse(firewoodData).success) {
+         setLastUnlockedStep(2);
+         return;
+      }
+      setLastUnlockedStep(1);
+   }, [isHydrated, firewoodData, deliveryData, contactData]);
+
+   return lastUnlockedStep;
 }
 
 export function useClearRequestOffersStore() {
