@@ -22,7 +22,7 @@ import { InputWithContent } from "@/components/ui/input-with-content";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
-import { DeliveryData } from "../delivery/delivery-form";
+import { DeliveryData } from "./delivery-form";
 
 const postalCodeArrayFI = Object.keys(postalCodes)
    .map((code) => ({

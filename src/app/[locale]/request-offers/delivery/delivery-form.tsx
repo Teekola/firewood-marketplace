@@ -32,13 +32,13 @@ import { useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
-import { PostalCodeField } from "../(components)/postal-code-field";
 import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
 import {
    useDeliveryData,
    useIsHydrated,
    useSetDeliveryData,
 } from "../store/request-offers-store-provider";
+import { PostalCodeField } from "./postal-code-field";
 
 export const deliveryFormSchema = z
    .object({
