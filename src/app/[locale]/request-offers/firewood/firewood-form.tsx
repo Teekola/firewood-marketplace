@@ -147,6 +147,7 @@ function transformDecimalInputValue(input: string) {
    return filteredValue;
 }
 
+// TODO: Get units based on user-selected system, which is selected in onboarding!
 function CubicMetresField() {
    const fieldName = "amount";
    const t = useTranslations("request-offers");
@@ -203,6 +204,8 @@ function CubicMetresField() {
    );
 }
 
+// TODO: Get units based on user-selected system, which is selected in onboarding!
+// TODO: The data is then stored in database always in metric format and converted in ui to user-preferred system
 function MaxLengthField() {
    const fieldName = "maxLength";
    const t = useTranslations("request-offers");
