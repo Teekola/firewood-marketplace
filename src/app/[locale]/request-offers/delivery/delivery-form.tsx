@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { CheckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
+import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -29,12 +27,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { RadioGroup } from "@/components/ui/radio-group";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
+import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { PostalCodeField } from "../(components)/postal-code-field";
 import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
-import { useDeliveryData, useSetDeliveryData } from "../store/request-offers-store-provider";
+import {
+   useDeliveryData,
+   useIsHydrated,
+   useSetDeliveryData,
+} from "../store/request-offers-store-provider";
 
 export const deliveryFormSchema = z
    .object({
@@ -63,15 +67,19 @@ const countries = [{ label: "Finland", value: "FI" }] as const;
 
 export function DeliveryForm() {
    const deliveryData = useDeliveryData();
+   const isHydrated = useIsHydrated();
+
+   // TODO: get the defaults from the user profile information!
+   const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
+      deliveryMethod: "homeDelivery",
+      country: "FI",
+      postalCode: "",
+      address: "",
+   };
 
    const form = useForm<DeliveryData>({
       resolver: zodResolver(deliveryFormSchema),
-      defaultValues: deliveryData ?? {
-         deliveryMethod: "homeDelivery",
-         country: "FI", // TODO: get the default country from the user profile information!
-         postalCode: "",
-         address: "",
-      },
+      defaultValues,
    });
 
    const t = useTranslations("request-offers");
@@ -86,15 +94,11 @@ export function DeliveryForm() {
       router.push("/request-offers/contact");
    }
 
-   // TODO: FIX Sync with store so that form field values remain when changing page even without submitting
-
-   // If page gets refreshed, updates the form values to match context
-   useEffect(() => {
-      if (!deliveryData) return;
-      form.reset(deliveryData);
-   }, [deliveryData, form]);
-
    const canProceed = form.formState.isValid;
+
+   if (!isHydrated) {
+      return <Skeleton className="mt-4 h-60 w-full max-w-lg space-y-6" />;
+   }
 
    return (
       <Form {...form}>
@@ -203,6 +207,11 @@ export function DeliveryForm() {
                {t("Continue")}
             </Button>
          </form>
+         <FormStoreSyncManager
+            formData={deliveryData}
+            setFormDataToStore={setDeliveryData}
+            defaultValues={defaultValues}
+         />
       </Form>
    );
 }

@@ -121,12 +121,12 @@ export function FirewoodForm() {
             <Button type="submit" size="lg" className="!mt-12 w-full" data-disabled={!canProceed}>
                {t("Continue")}
             </Button>
-            <FormStoreSyncManager
-               formData={firewoodData}
-               setFormDataToStore={setFirewoodData}
-               defaultValues={defaultValues}
-            />
          </form>
+         <FormStoreSyncManager
+            formData={firewoodData}
+            setFormDataToStore={setFirewoodData}
+            defaultValues={defaultValues}
+         />
       </Form>
    );
 }

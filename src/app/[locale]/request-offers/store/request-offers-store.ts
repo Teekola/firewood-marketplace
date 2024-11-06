@@ -7,15 +7,15 @@ import { FirewoodData } from "../firewood/firewood-form";
 
 export type RequestOffersStoreState = {
    firewoodData?: Partial<FirewoodData>;
-   deliveryData?: DeliveryData;
-   contactData?: ContactData;
+   deliveryData?: Partial<DeliveryData>;
+   contactData?: Partial<ContactData>;
    isHydrated?: boolean;
 };
 
 export type RequestOffersStoreActions = {
    setFirewoodData: (firewoodData: Partial<FirewoodData>) => void;
-   setDeliveryData: (deliveryData: DeliveryData) => void;
-   setContactData: (contactData: ContactData) => void;
+   setDeliveryData: (deliveryData: Partial<DeliveryData>) => void;
+   setContactData: (contactData: Partial<ContactData>) => void;
    clear: () => void;
    setHydrated: () => void;
 };
@@ -30,10 +30,7 @@ export function createRequestOffersStore(initState: RequestOffersStoreState = de
       persist<RequestOffersStore>(
          (set) => ({
             ...initState,
-            setFirewoodData: (firewoodData) => {
-               console.log("SET");
-               set((state) => ({ ...state, firewoodData }));
-            },
+            setFirewoodData: (firewoodData) => set((state) => ({ ...state, firewoodData })),
             setDeliveryData: (deliveryData) => set((state) => ({ ...state, deliveryData })),
             setContactData: (contactData) => set((state) => ({ ...state, contactData })),
             clear: () => {

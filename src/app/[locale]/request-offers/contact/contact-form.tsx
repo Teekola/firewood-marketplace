@@ -1,16 +1,17 @@
 "use client";
 
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useForm, useFormContext } from "react-hook-form";
+import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
    Form,
    FormControl,
+   FormDescription,
    FormField,
    FormItem,
    FormLabel,
@@ -20,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "@/i18n/routing";
 
+import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import {
    useContactData,
    useIsHydrated,
@@ -38,20 +40,17 @@ export function ContactForm() {
    const contactData = useContactData();
    const isHydrated = useIsHydrated();
 
+   // TODO: Get these from the user profile
+   const defaultValues: DefaultValues<ContactData> = contactData ?? {
+      name: "",
+      email: "",
+      phone: "",
+   };
+
    const form = useForm<ContactData>({
       resolver: zodResolver(contactFormSchema),
-      defaultValues: contactData ?? {
-         name: "",
-         email: "",
-         phone: "",
-      },
+      defaultValues,
    });
-
-   // If page gets refreshed, updates the form values to match context
-   useEffect(() => {
-      if (!contactData) return;
-      form.reset(contactData);
-   }, [contactData, form]);
 
    const t = useTranslations("request-offers");
    const router = useRouter();
@@ -67,7 +66,7 @@ export function ContactForm() {
    const canProceed = form.formState.isValid;
 
    if (!isHydrated) {
-      return <Skeleton className="my-20 h-12 w-full" />;
+      return <Skeleton className="mt-4 h-60 w-full max-w-lg space-y-6" />;
    }
 
    return (
@@ -82,6 +81,7 @@ export function ContactForm() {
                      <FormControl>
                         <Input {...field} placeholder={t("Full name placeholder")} />
                      </FormControl>
+
                      <FormMessage />
                   </FormItem>
                )}
@@ -104,6 +104,11 @@ export function ContactForm() {
                {t("Continue")}
             </Button>
          </form>
+         <FormStoreSyncManager
+            formData={contactData}
+            setFormDataToStore={setContactData}
+            defaultValues={defaultValues}
+         />
       </Form>
    );
 }
@@ -144,6 +149,7 @@ function PhoneField() {
                      placeholder={t("Type your phone number")}
                   />
                </FormControl>
+               <FormDescription>{t("You may use any format")}</FormDescription>
                <FormMessage />
             </FormItem>
          )}
