@@ -9,6 +9,7 @@ import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import { useIsHydrated, useLastUnlockedStep } from "../store/request-offers-store-provider";
+import { stepToPath } from "./step-manager";
 
 const stepToProgressWidth = {
    1: "8%",
@@ -25,10 +26,10 @@ export function RequestOffersStepper() {
    return (
       <nav className={cn("relative", !isHydrated && "animate-pulse")}>
          <ol className="mx-auto flex w-[95%] justify-between gap-4">
-            <StepLink href="/request-offers/firewood" step={1} label={t("Firewood")} />
-            <StepLink href="/request-offers/delivery" step={2} label={t("Delivery")} />
-            <StepLink href="/request-offers/contact" step={3} label={t("Contact")} />
-            <StepLink href="/request-offers/submit" step={4} label={t("Submit")} />
+            <StepLink step={1} label={t("Firewood")} />
+            <StepLink step={2} label={t("Delivery")} />
+            <StepLink step={3} label={t("Contact")} />
+            <StepLink step={4} label={t("Submit")} />
          </ol>
          <div className={cn("absolute left-[2.5%] top-[18px] -z-10 h-1 w-[95%] bg-muted")}>
             <div
@@ -41,12 +42,10 @@ export function RequestOffersStepper() {
 }
 
 function StepLink({
-   href,
    step,
    label,
 }: Readonly<{
-   href: ComponentProps<typeof Link>["href"];
-   step: number;
+   step: keyof typeof stepToPath;
    label: string;
 }>) {
    const id = useId();
@@ -56,6 +55,7 @@ function StepLink({
    const isLoading = !isHydrated;
    const isDisabled = lastUnlockedStep < step || isLoading;
    const isCompleted = lastUnlockedStep > step;
+   const href = stepToPath[step];
    const isActive = pathname === href;
    return (
       <li className={"mb-2 flex flex-col items-center gap-1 pb-5"}>
