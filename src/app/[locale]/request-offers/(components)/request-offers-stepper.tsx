@@ -25,37 +25,10 @@ export function RequestOffersStepper() {
    return (
       <nav className={cn("relative", !isHydrated && "animate-pulse")}>
          <ol className="mx-auto flex w-[95%] justify-between gap-4">
-            <StepLink
-               href="/request-offers/firewood"
-               number={1}
-               label={t("Firewood")}
-               completed={lastUnlockedStep > 1}
-               isLoading={!isHydrated}
-            />
-            <StepLink
-               href="/request-offers/delivery"
-               disabled={lastUnlockedStep < 2}
-               completed={lastUnlockedStep > 2}
-               number={2}
-               label={t("Delivery")}
-               isLoading={!isHydrated}
-            />
-            <StepLink
-               href="/request-offers/contact"
-               disabled={lastUnlockedStep < 3}
-               completed={lastUnlockedStep > 3}
-               number={3}
-               label={t("Contact")}
-               isLoading={!isHydrated}
-            />
-            <StepLink
-               href="/request-offers/submit"
-               disabled={lastUnlockedStep < 4}
-               completed={lastUnlockedStep > 4}
-               number={4}
-               label={t("Submit")}
-               isLoading={!isHydrated}
-            />
+            <StepLink href="/request-offers/firewood" step={1} label={t("Firewood")} />
+            <StepLink href="/request-offers/delivery" step={2} label={t("Delivery")} />
+            <StepLink href="/request-offers/contact" step={3} label={t("Contact")} />
+            <StepLink href="/request-offers/submit" step={4} label={t("Submit")} />
          </ol>
          <div className={cn("absolute left-[2.5%] top-[18px] -z-10 h-1 w-[95%] bg-muted")}>
             <div
@@ -69,48 +42,46 @@ export function RequestOffersStepper() {
 
 function StepLink({
    href,
-   number,
+   step,
    label,
-   disabled: isDisabled,
-   completed,
-   isLoading,
 }: Readonly<{
    href: ComponentProps<typeof Link>["href"];
-   number: number;
+   step: number;
    label: string;
-   disabled?: boolean;
-   completed?: boolean;
-   isLoading?: boolean;
 }>) {
-   const disabled = isLoading || isDisabled;
    const id = useId();
    const pathname = usePathname();
+   const lastUnlockedStep = useLastUnlockedStep();
+   const isHydrated = useIsHydrated();
+   const isLoading = !isHydrated;
+   const isDisabled = lastUnlockedStep < step || isLoading;
+   const isCompleted = lastUnlockedStep > step;
    const isActive = pathname === href;
    return (
       <li className={"mb-2 flex flex-col items-center gap-1 pb-5"}>
          <DisableAbleLink
             href={href}
             id={id}
-            disabled={disabled}
-            aria-disabled={disabled}
+            disabled={isDisabled}
+            aria-disabled={isDisabled}
             {...(isActive && { "aria-current": "step" })}
          >
             <div
                className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-full border-4 border-primary bg-primary text-lg font-bold text-primary-foreground",
                   isActive && "bg-primary-foreground text-primary",
-                  disabled && "border-muted bg-muted text-muted-foreground"
+                  isDisabled && "border-muted bg-muted text-muted-foreground"
                )}
             >
-               {!completed && number}
-               {completed && <CheckIcon className="h-6 w-6" />}
+               {!isCompleted && !isLoading && step}
+               {isCompleted && <CheckIcon className="h-6 w-6" />}
             </div>
          </DisableAbleLink>
          <label
             htmlFor={id}
             className={cn(
                "absolute bottom-2 text-xs font-medium text-foreground",
-               disabled && "text-muted-foreground"
+               isDisabled && "text-muted-foreground"
             )}
          >
             {label}
