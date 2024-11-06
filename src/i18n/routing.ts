@@ -48,3 +48,5 @@ export const localeToLocalizedLanguageName: Record<Locale, string> = {
 // that will consider the routing configuration
 export const { Link, redirect, usePathname, useRouter } =
    createLocalizedPathnamesNavigation(routing);
+
+export type Pathname = ReturnType<typeof usePathname>;

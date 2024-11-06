@@ -10,6 +10,7 @@ export type RequestOffersStoreState = {
    deliveryData?: Partial<DeliveryData>;
    contactData?: Partial<ContactData>;
    isHydrated?: boolean;
+   isStepVerified?: boolean;
 };
 
 export type RequestOffersStoreActions = {
@@ -18,6 +19,7 @@ export type RequestOffersStoreActions = {
    setContactData: (contactData: Partial<ContactData>) => void;
    clear: () => void;
    setHydrated: () => void;
+   setStepVerified: (b: boolean) => void;
 };
 
 export type RequestOffersStore = RequestOffersStoreState & RequestOffersStoreActions;
@@ -38,20 +40,24 @@ export function createRequestOffersStore(initState: RequestOffersStoreState = de
                sessionStorage.removeItem(STORAGE_NAME);
             },
             setHydrated: () => set((state) => ({ ...state, isHydrated: true })),
+            setStepVerified: (b) => set((state) => ({ ...state, isStepVerified: b })),
          }),
          {
             name: STORAGE_NAME,
             storage: createJSONStorage<RequestOffersStore>(() => sessionStorage),
+            partialize: (state: RequestOffersStoreState) =>
+               ({
+                  firewoodData: state.firewoodData,
+                  deliveryData: state.deliveryData,
+                  contactData: state.contactData,
+               }) as RequestOffersStore, // This cast is needed to get rid of Typescript error, does not affect functionality
             onRehydrateStorage: () => {
-               console.log("Hydrating...");
-
                return (state, error) => {
                   if (error) {
                      console.error("An error occurred during hydration");
                      return;
                   }
                   if (state) {
-                     console.log("Hydration finished");
                      state.setHydrated();
                   }
                };

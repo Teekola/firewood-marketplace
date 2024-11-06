@@ -18,9 +18,8 @@ export default async function RequestOffersLayout({
          </p>
          <RequestOffersStoreProvider>
             <RequestOffersStepper />
-            {children}
+            <StepManager>{children}</StepManager>
             <AbandonRequestDialog className="mt-10" />
-            <StepManager />
          </RequestOffersStoreProvider>
       </div>
    );

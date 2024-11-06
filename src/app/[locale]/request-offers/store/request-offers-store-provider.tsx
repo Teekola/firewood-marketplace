@@ -87,3 +87,11 @@ export function useClearRequestOffersStore() {
 export function useIsHydrated() {
    return useRequestOffersStore((state) => state.isHydrated);
 }
+
+export function useIsStepVerified() {
+   return useRequestOffersStore((state) => state.isStepVerified);
+}
+
+export function useSetStepVerified() {
+   return useRequestOffersStore((state) => state.setStepVerified);
+}
