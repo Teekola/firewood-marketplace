@@ -1,17 +1,14 @@
 "use client";
 
-import { ChangeEvent } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { DefaultValues, useForm, useFormContext } from "react-hook-form";
+import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
    Form,
    FormControl,
-   FormDescription,
    FormField,
    FormItem,
    FormLabel,
@@ -22,10 +19,11 @@ import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { useContactData, useSetContactData } from "../store/request-offers-store-provider";
+import { PhoneField } from "./phone-field";
 
 export const contactFormSchema = z.object({
    name: z.string().min(1, "Name is required"),
-   email: z.string().email("The email is invalid"),
+   email: z.string().min(1, "Email is required").email("The email is invalid"),
    phone: z.string().min(7, "The phone number is invalid").max(15, "The phone number is invalid"),
 });
 
@@ -87,7 +85,15 @@ export function ContactForm() {
                      <FormItem className="w-full">
                         <FormLabel>{t("Email")}</FormLabel>
                         <FormControl>
-                           <Input {...field} placeholder={t("Type your email")} />
+                           <Input
+                              {...field}
+                              inputMode="email"
+                              placeholder={t("Type your email")}
+                              onBlur={() => {
+                                 field.onBlur();
+                                 form.trigger(field.name);
+                              }}
+                           />
                         </FormControl>
                         <FormMessage />
                      </FormItem>
@@ -105,49 +111,5 @@ export function ContactForm() {
             defaultValues={defaultValues}
          />
       </Form>
-   );
-}
-
-function PhoneField() {
-   const form = useFormContext<ContactData>();
-   const t = useTranslations("request-offers");
-   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      let masked = "";
-
-      // Allow only + and digits for the first character
-      if (value.length > 0) {
-         masked += value[0]?.replace(/[^\d|\+]/g, "") ?? "";
-      }
-      // Allow only digits for other characters
-      masked += value.substring(1).replace(/[^\d]/g, "");
-
-      // Validate only when the error might need to be removed or added
-      const shouldValidate = form.formState.errors["phone"]
-         ? (masked.length >= 6 && masked.length <= 15) || masked.length < 1
-         : masked.length === 0 || masked.length > 15;
-
-      form.setValue("phone", masked, { shouldValidate, shouldDirty: true, shouldTouch: true });
-   };
-
-   return (
-      <FormField
-         name="phone"
-         control={form.control}
-         render={({ field }) => (
-            <FormItem className="w-full">
-               <FormLabel>{t("Phone")}</FormLabel>
-               <FormControl>
-                  <Input
-                     {...field}
-                     onChange={handlePhoneChange}
-                     placeholder={t("Type your phone number")}
-                  />
-               </FormControl>
-               <FormDescription>{t("You may use any format")}</FormDescription>
-               <FormMessage />
-            </FormItem>
-         )}
-      />
    );
 }

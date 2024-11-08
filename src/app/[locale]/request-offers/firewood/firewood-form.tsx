@@ -181,6 +181,7 @@ function CubicMetresField() {
                   <InputWithContent
                      placeholder="0,0"
                      inputClassName="mr-8 text-right"
+                     inputMode="decimal"
                      {...field}
                      onChange={handleInputChange}
                      onBlur={handleBlur}
@@ -241,6 +242,7 @@ function MaxLengthField() {
                   <InputWithContent
                      inputClassName="mr-8 text-right"
                      {...field}
+                     inputMode="decimal"
                      onChange={handleInputChange}
                      onBlur={handleBlur}
                      content={<p className="absolute right-2 text-base">{"cm"}</p>}

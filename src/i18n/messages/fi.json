@@ -1,80 +1,81 @@
 {
-  "auth": {
-    "Sign in with Google": "Kirjaudu sisään Googlella",
-    "Sign In": "Kirjaudu sisään",
-    "Sign Out": "Kirjaudu ulos"
-  },
-  "settings": {
-    "preferences": {
-      "Toggle theme": "Vaihda teemaa",
-      "Light": "Vaalea",
-      "Dark": "Tumma",
-      "System": "Järjestelmä",
-      "Select language": "Valitse kieli"
-    }
-  },
-  "home": {
-    "Go to a secret page": "Siirry salaiselle sivulle"
-  },
-  "secret-page": {
-    "title": "Tämä on salainen sivu",
-    "Go to home page": "Siirry kotisivulle"
-  },
-  "request-offers": {
-    "Request Offers": "Tee tarjouspyyntö",
-    "Firewood": "Polttopuut",
-    "Delivery": "Toimitus",
-    "Contact": "Yhteystiedot",
-    "Submit": "Lähetä",
-    "Abandon Request": "Hylkää tarjouspyyntö",
-    "abandon-request-description": "Tätä toimintoa ei voi peruuttaa. Syötetyt tiedot menetetään.",
-    "Wood type": "Puulaji",
-    "mixed": "sekapuu",
-    "birch": "koivu",
-    "pine": "mänty",
-    "Dryness": "Kuivuusaste",
-    "any": "kaikki",
-    "dry or green": "kuiva tai tuore",
-    "dry": "kuiva",
-    "green": "tuore",
-    "Amount": "Määrä",
-    "Max length": "Maksimipituus",
-    "Optional": "Valinnainen",
-    "Continue": "Jatka",
-    "home delivery": "kotiinkuljetus",
-    "pickup": "nouto",
-    "Country": "Maa",
-    "Select country": "Valitse maa",
-    "Search country": "Etsi maata...",
-    "No country found": "Maata ei löydy.",
-    "Finland": "Suomi",
-    "Postal code": "Postinumero",
-    "Invalid postal code": "Virheellinen postinumero",
-    "Address": "Toimitusosoite",
-    "Phone": "Puhelinnumero",
-    "Full name": "Koko nimi",
-    "Full name placeholder": "Etunimi Sukunimi",
-    "Email": "Sähköpostiosoite",
-    "Type your email": "Kirjoita sähköpostiosoite",
-    "Type your phone number": "Kirjoita puhelinnumero",
-    "You may use any format": "Voit syöttää numeron maakoodilla tai ilman",
-    "Additional information Optional": "Lisätiedot (Valinnainen)",
-    "Type special wishes or other useful information": "Kirjoita erityistoiveet tai muuta hyödyllistä tietoa tilaukseen liittyen",
-    "Delivery type": "Toimitustapa",
-    "Maximum length": "Maksimipituus",
-    "characters": "merkkiä"
-  },
-  "form-messages": {
-    "Insert a valid number": "Syötä lukuarvo",
-    "Invalid postal code": "Postinumero on virheellinen",
-    "Address is required for home delivery": "Osoite vaaditaan kotiinkuljetukseen",
-    "Name is required": "Nimi vaaditaan",
-    "The email is invalid": "Sähköpostiosoite on virheellinen",
-    "The phone number is invalid": "Puhelinnumero on virheellinen"
-  },
-  "actions": {
-    "Cancel": "Peruuta",
-    "Abandon": "Hylkää",
-    "Close": "Sulje"
-  }
+   "auth": {
+      "Sign in with Google": "Kirjaudu sisään Googlella",
+      "Sign In": "Kirjaudu sisään",
+      "Sign Out": "Kirjaudu ulos"
+   },
+   "settings": {
+      "preferences": {
+         "Toggle theme": "Vaihda teemaa",
+         "Light": "Vaalea",
+         "Dark": "Tumma",
+         "System": "Järjestelmä",
+         "Select language": "Valitse kieli"
+      }
+   },
+   "home": {
+      "Go to a secret page": "Siirry salaiselle sivulle"
+   },
+   "secret-page": {
+      "title": "Tämä on salainen sivu",
+      "Go to home page": "Siirry kotisivulle"
+   },
+   "request-offers": {
+      "Request Offers": "Tee tarjouspyyntö",
+      "Firewood": "Polttopuut",
+      "Delivery": "Toimitus",
+      "Contact": "Yhteystiedot",
+      "Submit": "Lähetä",
+      "Abandon Request": "Hylkää tarjouspyyntö",
+      "abandon-request-description": "Tätä toimintoa ei voi peruuttaa. Syötetyt tiedot menetetään.",
+      "Wood type": "Puulaji",
+      "mixed": "sekapuu",
+      "birch": "koivu",
+      "pine": "mänty",
+      "Dryness": "Kuivuusaste",
+      "any": "kaikki",
+      "dry or green": "kuiva tai tuore",
+      "dry": "kuiva",
+      "green": "tuore",
+      "Amount": "Määrä",
+      "Max length": "Maksimipituus",
+      "Optional": "Valinnainen",
+      "Continue": "Jatka",
+      "home delivery": "kotiinkuljetus",
+      "pickup": "nouto",
+      "Country": "Maa",
+      "Select country": "Valitse maa",
+      "Search country": "Etsi maata...",
+      "No country found": "Maata ei löydy.",
+      "Finland": "Suomi",
+      "Postal code": "Postinumero",
+      "Invalid postal code": "Virheellinen postinumero",
+      "Address": "Toimitusosoite",
+      "Phone": "Puhelinnumero",
+      "Full name": "Koko nimi",
+      "Full name placeholder": "Etunimi Sukunimi",
+      "Email": "Sähköpostiosoite",
+      "Type your email": "Kirjoita sähköpostiosoite",
+      "Type your phone number": "Kirjoita puhelinnumero",
+      "You may use any format": "Voit syöttää numeron maakoodilla tai ilman",
+      "Additional information Optional": "Lisätiedot (Valinnainen)",
+      "Type special wishes or other useful information": "Kirjoita erityistoiveet tai muuta hyödyllistä tietoa tilaukseen liittyen",
+      "Delivery type": "Toimitustapa",
+      "Maximum length": "Maksimipituus",
+      "characters": "merkkiä"
+   },
+   "form-messages": {
+      "Insert a valid number": "Syötä lukuarvo",
+      "Invalid postal code": "Postinumero on virheellinen",
+      "Address is required for home delivery": "Osoite vaaditaan kotiinkuljetukseen",
+      "Name is required": "Nimi vaaditaan",
+      "The email is invalid": "Sähköpostiosoite on virheellinen",
+      "Email is required": "Sähköpostiosoite vaaditaan",
+      "The phone number is invalid": "Puhelinnumero on virheellinen"
+   },
+   "actions": {
+      "Cancel": "Peruuta",
+      "Abandon": "Hylkää",
+      "Close": "Sulje"
+   }
 }

@@ -99,6 +99,7 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                                  {...field}
                                  className="max-w-sm"
                                  autoComplete="off"
+                                 type="tel"
                                  onFocus={(e) => {
                                     handleInputChange(e);
                                  }}
