@@ -19,6 +19,7 @@ import {
 import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
+import { stepToPath } from "../(components)/use-step-manager";
 import {
    useClearRequestOffersStore,
    useContactData,
@@ -26,6 +27,7 @@ import {
    useFirewoodData,
    useSetSubmitData,
    useSubmitData,
+   useValidSteps,
 } from "../store/request-offers-store-provider";
 
 const ADDITIONAL_INFORMATION_MAX_LENGTH = 450;
@@ -40,6 +42,7 @@ export function SubmitForm() {
    const firewoodData = useFirewoodData();
    const deliveryData = useDeliveryData();
    const contactData = useContactData();
+   const validSteps = useValidSteps();
    const clearStorage = useClearRequestOffersStore();
 
    const defaultValues: DefaultValues<SubmitData> = submitData ?? {
@@ -59,6 +62,17 @@ export function SubmitForm() {
    function onSubmit(data: SubmitData) {
       setSubmitData(data);
 
+      // Validate that all steps are valid and redirect to first invalid step if not
+      if (validSteps.size < 3) {
+         for (const step of [1, 2, 3]) {
+            if (!validSteps.has(step)) {
+               const pathname = stepToPath[step];
+               router.push(pathname);
+               return;
+            }
+         }
+      }
+
       console.log("Total submitted values", {
          firewoodData,
          deliveryData,
@@ -71,7 +85,7 @@ export function SubmitForm() {
       router.push("/");
    }
 
-   const canProceed = form.formState.isValid;
+   const canProceed = form.formState.isValid && validSteps.size === 3;
 
    return (
       <Form {...form}>
