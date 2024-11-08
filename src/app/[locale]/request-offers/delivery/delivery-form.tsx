@@ -32,7 +32,12 @@ import { cn } from "@/lib/utils";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
-import { useDeliveryData, useSetDeliveryData } from "../store/request-offers-store-provider";
+import { stepToPath } from "../(components)/use-step-manager";
+import {
+   useDeliveryData,
+   useLastUnlockedStep,
+   useSetDeliveryData,
+} from "../store/request-offers-store-provider";
 import { PostalCodeField } from "./postal-code-field";
 
 export const deliveryFormSchema = z
@@ -64,6 +69,7 @@ const countries = [{ label: "Finland", value: "FI" }] as const;
 
 export function DeliveryForm() {
    const deliveryData = useDeliveryData();
+   const lastUnlockedStep = useLastUnlockedStep();
 
    // TODO: get the defaults from the user profile information!
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
@@ -90,7 +96,8 @@ export function DeliveryForm() {
    function onSubmit(data: DeliveryData) {
       console.log("You submitted the following values", data);
       setDeliveryData(data);
-      router.push("/request-offers/contact");
+      const lastUnlockedPath = stepToPath[lastUnlockedStep ?? 3];
+      router.push(lastUnlockedPath);
    }
 
    const canProceed = form.formState.isValid;

@@ -22,7 +22,12 @@ import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
-import { useFirewoodData, useSetFirewoodData } from "../store/request-offers-store-provider";
+import { stepToPath } from "../(components)/use-step-manager";
+import {
+   useFirewoodData,
+   useLastUnlockedStep,
+   useSetFirewoodData,
+} from "../store/request-offers-store-provider";
 
 export const firewoodFormSchema = z.object({
    woodType: z.enum(["mixed", "birch", "pine"], { required_error: "Please, select a wood type" }),
@@ -34,6 +39,7 @@ export type FirewoodData = z.infer<typeof firewoodFormSchema>;
 
 export function FirewoodForm() {
    const firewoodData = useFirewoodData();
+   const lastUnlockedStep = useLastUnlockedStep();
 
    const defaultValues: DefaultValues<FirewoodData> = firewoodData ?? {
       woodType: "mixed",
@@ -55,7 +61,8 @@ export function FirewoodForm() {
    function onSubmit(data: FirewoodData) {
       console.log("You submitted the following values", data);
       setFirewoodData(data);
-      router.push("/request-offers/delivery");
+      const lastUnlockedPath = stepToPath[lastUnlockedStep ?? 2];
+      router.push(lastUnlockedPath);
    }
 
    const canProceed = form.formState.isValid;
