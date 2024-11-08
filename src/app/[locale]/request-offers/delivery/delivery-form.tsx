@@ -113,8 +113,11 @@ export function DeliveryForm() {
                            value={field.value}
                            className="grid grid-cols-2 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
                         >
-                           <RadioGroupItemCard value="homeDelivery" label={t("home delivery")} />
-                           <RadioGroupItemCard value="pickup" label={t("pickup")} />
+                           <RadioGroupItemCard
+                              value="homeDelivery"
+                              label={t("request-offers.home delivery")}
+                           />
+                           <RadioGroupItemCard value="pickup" label={t("request-offers.pickup")} />
                         </RadioGroup>
                         <FormMessage />
                      </FormItem>
