@@ -8,7 +8,11 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-import { useIsHydrated, useLastUnlockedStep } from "../store/request-offers-store-provider";
+import {
+   useIsHydrated,
+   useLastUnlockedStep,
+   useValidSteps,
+} from "../store/request-offers-store-provider";
 import { stepToPath } from "./use-step-manager";
 
 const stepToProgressWidth: Record<number, string> = {
@@ -51,10 +55,11 @@ function StepLink({
    const id = useId();
    const pathname = usePathname();
    const lastUnlockedStep = useLastUnlockedStep();
+   const validSteps = useValidSteps();
    const isHydrated = useIsHydrated();
    const isLoading = !isHydrated || lastUnlockedStep === undefined;
    const isDisabled = isLoading || lastUnlockedStep < step;
-   const isCompleted = lastUnlockedStep && lastUnlockedStep > step;
+   const isCompleted = validSteps.has(step);
    const href = stepToPath[step];
    const isActive = pathname === href;
    return (

@@ -105,6 +105,28 @@ export function useLastUnlockedStep() {
    return lastUnlockedStep;
 }
 
+export function useValidSteps() {
+   const firewoodData = useFirewoodData();
+   const deliveryData = useDeliveryData();
+   const contactData = useContactData();
+   const isHydrated = useIsHydrated();
+
+   const [validSteps, setValidSteps] = useState(new Set<number>());
+
+   useEffect(() => {
+      if (!isHydrated) return;
+      const step3 = contactFormSchema.safeParse(contactData).success;
+      const step2 = deliveryFormSchema.safeParse(deliveryData).success;
+      const step1 = firewoodFormSchema.safeParse(firewoodData).success;
+      const set = new Set(
+         [step1, step2, step3].map((step, i) => (step ? i + 1 : -1)).filter((step) => step > 0)
+      );
+      setValidSteps(set);
+   }, [isHydrated, firewoodData, deliveryData, contactData]);
+
+   return validSteps;
+}
+
 export function useClearRequestOffersStore() {
    return useRequestOffersStore((state) => state.clear);
 }
