@@ -62,7 +62,10 @@
       "dry or green": "dry or green",
       "Delivery type": "Delivery type",
       "Maximum length": "Maximum length",
-      "characters": "characters"
+      "characters": "characters",
+      "Buy as a company": "Buy as a company",
+      "Company name": "Company name",
+      "Insert company name": "Insert company name"
    },
    "countries": {
       "Finland": "Finland"
@@ -74,7 +77,8 @@
       "Name is required": "Name is required",
       "The email is invalid": "The email is invalid",
       "Email is required": "Email is required",
-      "The phone number is invalid": "The phone number is invalid"
+      "The phone number is invalid": "The phone number is invalid",
+      "Insert company name": "Insert company name"
    },
    "actions": {
       "Cancel": "Cancel",

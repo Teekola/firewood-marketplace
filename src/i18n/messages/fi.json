@@ -62,7 +62,10 @@
       "Type special wishes or other useful information": "Kirjoita erityistoiveet tai muuta hyödyllistä tietoa tilaukseen liittyen",
       "Delivery type": "Toimitustapa",
       "Maximum length": "Maksimipituus",
-      "characters": "merkkiä"
+      "characters": "merkkiä",
+      "Buy as a company": "Tilaa yrityksenä",
+      "Company name": "Yrityksen nimi",
+      "Insert company name": "Kirjoita yrityksen nimi"
    },
    "countries": {
       "Finland": "Suomi"
@@ -74,7 +77,8 @@
       "Name is required": "Nimi vaaditaan",
       "The email is invalid": "Sähköpostiosoite on virheellinen",
       "Email is required": "Sähköpostiosoite vaaditaan",
-      "The phone number is invalid": "Puhelinnumero on virheellinen"
+      "The phone number is invalid": "Puhelinnumero on virheellinen",
+      "Insert company name": "Kirjoita yrityksen nimi"
    },
    "actions": {
       "Cancel": "Peruuta",

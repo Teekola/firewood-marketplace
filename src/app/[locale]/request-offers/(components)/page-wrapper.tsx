@@ -13,9 +13,9 @@ export function PageWrapper({ children }: PropsWithChildren) {
 
    if (!isStepVerified)
       return (
-         <div className="h-[534px] min-h-[534px] space-y-4 xs:h-[450px] xs:min-h-[450px]">
+         <div className="h-[534px] min-h-[534px] space-y-4 xs:h-[480px] xs:min-h-[480px]">
             <Skeleton className="h-12" />
-            <Skeleton className="h-96" />
+            <Skeleton className="h-[470px] xs:h-[416px]" />
             <Skeleton className="h-10" />
          </div>
       );

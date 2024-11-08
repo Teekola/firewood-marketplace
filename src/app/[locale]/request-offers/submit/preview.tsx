@@ -53,6 +53,7 @@ export function Preview() {
                   <p>{contactData.name}</p>
                   <p>{contactData.email}</p>
                   <p>{contactData.phone}</p>
+                  {contactData.isCompany && <p>{contactData.companyName}</p>}
                </>
             )}
          </section>

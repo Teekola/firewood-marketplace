@@ -6,6 +6,7 @@ import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
    Form,
    FormControl,
@@ -21,11 +22,29 @@ import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { useContactData, useSetContactData } from "../store/request-offers-store-provider";
 import { PhoneField } from "./phone-field";
 
-export const contactFormSchema = z.object({
-   name: z.string().min(1, "Name is required"),
-   email: z.string().min(1, "Email is required").email("The email is invalid"),
-   phone: z.string().min(7, "The phone number is invalid").max(15, "The phone number is invalid"),
-});
+export const contactFormSchema = z
+   .object({
+      name: z.string().min(1, "Name is required"),
+      email: z.string().min(1, "Email is required").email("The email is invalid"),
+      phone: z
+         .string()
+         .min(7, "The phone number is invalid")
+         .max(15, "The phone number is invalid"),
+      isCompany: z.boolean().default(false),
+      companyName: z.string().optional(),
+   })
+   .refine(
+      (data) => {
+         if (data.isCompany && !data.companyName) {
+            return false;
+         }
+         return true;
+      },
+      {
+         message: "Insert company name",
+         path: ["companyName"],
+      }
+   );
 
 export type ContactData = z.infer<typeof contactFormSchema>;
 
@@ -37,6 +56,8 @@ export function ContactForm() {
       name: "",
       email: "",
       phone: "",
+      isCompany: false,
+      companyName: "",
    };
 
    const form = useForm<ContactData>({
@@ -44,6 +65,7 @@ export function ContactForm() {
       defaultValues,
    });
 
+   const isCompany = form.watch("isCompany");
    const t = useTranslations("request-offers");
    const router = useRouter();
 
@@ -100,8 +122,44 @@ export function ContactForm() {
                   )}
                />
                <PhoneField />
+               <div className="space-y-2">
+                  <FormField
+                     control={form.control}
+                     name="isCompany"
+                     render={({ field }) => (
+                        <FormItem className="flex flex-row items-center gap-2 space-y-0 rounded-md">
+                           <FormControl>
+                              <Checkbox
+                                 checked={field.value}
+                                 className="h-5 w-5"
+                                 onCheckedChange={field.onChange}
+                              />
+                           </FormControl>
+
+                           <FormLabel className="cursor-pointer leading-none">
+                              {t("Buy as a company")}
+                           </FormLabel>
+                        </FormItem>
+                     )}
+                  />
+                  {isCompany && (
+                     <FormField
+                        name="companyName"
+                        control={form.control}
+                        render={({ field }) => (
+                           <FormItem className="w-full">
+                              <FormLabel>{t("Company name")}</FormLabel>
+                              <FormControl>
+                                 <Input {...field} placeholder={t("Insert company name")} />
+                              </FormControl>
+                              <FormMessage />
+                           </FormItem>
+                        )}
+                     />
+                  )}
+               </div>
             </div>
-            <Button type="submit" size="lg" className="!mt-12 w-full" data-disabled={!canProceed}>
+            <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
                {t("Continue")}
             </Button>
          </form>
