@@ -19,7 +19,14 @@ import {
 import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
-import { useSetSubmitData, useSubmitData } from "../store/request-offers-store-provider";
+import {
+   useClearRequestOffersStore,
+   useContactData,
+   useDeliveryData,
+   useFirewoodData,
+   useSetSubmitData,
+   useSubmitData,
+} from "../store/request-offers-store-provider";
 
 const ADDITIONAL_INFORMATION_MAX_LENGTH = 450;
 export const submitFormSchema = z.object({
@@ -30,6 +37,10 @@ export type SubmitData = z.infer<typeof submitFormSchema>;
 
 export function SubmitForm() {
    const submitData = useSubmitData();
+   const firewoodData = useFirewoodData();
+   const deliveryData = useDeliveryData();
+   const contactData = useContactData();
+   const clearStorage = useClearRequestOffersStore();
 
    const defaultValues: DefaultValues<SubmitData> = submitData ?? {
       additionalInformation: "",
@@ -46,9 +57,18 @@ export function SubmitForm() {
    const setSubmitData = useSetSubmitData();
 
    function onSubmit(data: SubmitData) {
-      console.log("You submitted the following values", data);
       setSubmitData(data);
-      router.push("/request-offers/submit");
+
+      console.log("Total submitted values", {
+         firewoodData,
+         deliveryData,
+         contactData,
+         data,
+      });
+      // TODO: Store to database
+      // TODO: Change to correct redirect page
+      clearStorage();
+      router.push("/");
    }
 
    const canProceed = form.formState.isValid;
