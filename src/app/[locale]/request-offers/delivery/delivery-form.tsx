@@ -102,14 +102,14 @@ export function DeliveryForm() {
                   name="deliveryMethod"
                   render={({ field }) => (
                      <FormItem className="mb-8 space-y-1">
-                        <FormLabel>{t("Wood type")}</FormLabel>
+                        <FormLabel>{t("Delivery type")}</FormLabel>
                         <RadioGroup
                            onValueChange={field.onChange}
                            value={field.value}
                            className="grid grid-cols-2 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
                         >
-                           <RadioGroupItemCard value="homeDelivery" label={t("Home delivery")} />
-                           <RadioGroupItemCard value="pickup" label={t("Pickup")} />
+                           <RadioGroupItemCard value="homeDelivery" label={t("home delivery")} />
+                           <RadioGroupItemCard value="pickup" label={t("pickup")} />
                         </RadioGroup>
                         <FormMessage />
                      </FormItem>

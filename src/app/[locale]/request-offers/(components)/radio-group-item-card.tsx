@@ -16,7 +16,7 @@ export function RadioGroupItemCard({ value, label, icon, ...props }: RadioGroupI
             <FormControl>
                <RadioGroupItem value={value} className="sr-only" />
             </FormControl>
-            <div className="flex h-28 cursor-pointer items-center justify-center rounded-md border-4 border-muted bg-secondary p-1 hover:border-accent">
+            <div className="flex h-28 cursor-pointer items-center justify-center rounded-md border-4 border-muted bg-secondary p-1 capitalize hover:border-accent">
                {icon}
                {label}
             </div>

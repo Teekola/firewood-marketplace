@@ -78,9 +78,9 @@ export function FirewoodForm() {
                            value={field.value}
                            className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
                         >
-                           <RadioGroupItemCard value="mixed" label={t("Mixed")} />
-                           <RadioGroupItemCard value="birch" label={t("Birch")} />
-                           <RadioGroupItemCard value="pine" label={t("Pine")} />
+                           <RadioGroupItemCard value="mixed" label={t("mixed")} />
+                           <RadioGroupItemCard value="birch" label={t("birch")} />
+                           <RadioGroupItemCard value="pine" label={t("pine")} />
                         </RadioGroup>
                         <FormMessage />
                      </FormItem>
@@ -98,9 +98,9 @@ export function FirewoodForm() {
                            value={field.value}
                            className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
                         >
-                           <RadioGroupItemCard value="any" label={t("Any")} />
-                           <RadioGroupItemCard value="dry" label={t("Dry")} />
-                           <RadioGroupItemCard value="green" label={t("Green")} />
+                           <RadioGroupItemCard value="any" label={t("any")} />
+                           <RadioGroupItemCard value="dry" label={t("dry")} />
+                           <RadioGroupItemCard value="green" label={t("green")} />
                         </RadioGroup>
                         <FormMessage />
                      </FormItem>

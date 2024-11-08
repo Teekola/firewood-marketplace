@@ -64,6 +64,7 @@ function StepLink({
             id={id}
             disabled={isDisabled}
             aria-disabled={isDisabled}
+            scroll={false}
             {...(isActive && { "aria-current": "step" })}
          >
             <div

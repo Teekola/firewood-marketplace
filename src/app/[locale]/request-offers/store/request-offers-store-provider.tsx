@@ -69,6 +69,14 @@ export function useSetContactData() {
    return useRequestOffersStore((state) => state.setContactData);
 }
 
+export function useSubmitData() {
+   return useRequestOffersStore((state) => state.submitData);
+}
+
+export function useSetSubmitData() {
+   return useRequestOffersStore((state) => state.setSubmitData);
+}
+
 export function useLastUnlockedStep() {
    const firewoodData = useFirewoodData();
    const deliveryData = useDeliveryData();

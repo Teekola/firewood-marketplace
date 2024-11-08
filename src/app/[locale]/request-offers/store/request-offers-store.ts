@@ -4,11 +4,13 @@ import { createStore } from "zustand/vanilla";
 import { ContactData } from "../contact/contact-form";
 import { DeliveryData } from "../delivery/delivery-form";
 import { FirewoodData } from "../firewood/firewood-form";
+import { SubmitData } from "../submit/submit-form";
 
 export type RequestOffersStoreState = {
    firewoodData?: Partial<FirewoodData>;
    deliveryData?: Partial<DeliveryData>;
    contactData?: Partial<ContactData>;
+   submitData?: Partial<SubmitData>;
    isHydrated?: boolean;
    isStepVerified?: boolean;
 };
@@ -17,6 +19,7 @@ export type RequestOffersStoreActions = {
    setFirewoodData: (firewoodData: Partial<FirewoodData>) => void;
    setDeliveryData: (deliveryData: Partial<DeliveryData>) => void;
    setContactData: (contactData: Partial<ContactData>) => void;
+   setSubmitData: (submitData: Partial<SubmitData>) => void;
    clear: () => void;
    setHydrated: () => void;
    setStepVerified: (b: boolean) => void;
@@ -35,6 +38,7 @@ export function createRequestOffersStore(initState: RequestOffersStoreState = de
             setFirewoodData: (firewoodData) => set((state) => ({ ...state, firewoodData })),
             setDeliveryData: (deliveryData) => set((state) => ({ ...state, deliveryData })),
             setContactData: (contactData) => set((state) => ({ ...state, contactData })),
+            setSubmitData: (submitData) => set((state) => ({ ...state, submitData })),
             clear: () => {
                set(() => defaultInitState);
                sessionStorage.removeItem(STORAGE_NAME);
@@ -50,6 +54,7 @@ export function createRequestOffersStore(initState: RequestOffersStoreState = de
                   firewoodData: state.firewoodData,
                   deliveryData: state.deliveryData,
                   contactData: state.contactData,
+                  submitData: state.submitData,
                }) as RequestOffersStore, // This cast is needed to get rid of Typescript error, does not affect functionality
             onRehydrateStorage: () => {
                return (state, error) => {

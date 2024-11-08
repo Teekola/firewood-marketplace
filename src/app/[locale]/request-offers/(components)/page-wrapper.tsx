@@ -20,5 +20,5 @@ export function PageWrapper({ children }: PropsWithChildren) {
          </div>
       );
 
-   return <div className="h-[534px] min-h-[534px] xs:h-[450px] xs:min-h-[450px]">{children}</div>;
+   return <div className="h-[534px] min-h-[534px] xs:h-[480px] xs:min-h-[480px]">{children}</div>;
 }
