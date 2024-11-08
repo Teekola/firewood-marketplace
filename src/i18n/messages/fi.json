@@ -42,12 +42,12 @@
       "Optional": "Valinnainen",
       "Continue": "Jatka",
       "home delivery": "kotiinkuljetus",
+      "homeDelivery": "kotiinkuljetus",
       "pickup": "nouto",
       "Country": "Maa",
       "Select country": "Valitse maa",
       "Search country": "Etsi maata...",
       "No country found": "Maata ei löydy.",
-      "Finland": "Suomi",
       "Postal code": "Postinumero",
       "Invalid postal code": "Virheellinen postinumero",
       "Address": "Toimitusosoite",
@@ -63,6 +63,9 @@
       "Delivery type": "Toimitustapa",
       "Maximum length": "Maksimipituus",
       "characters": "merkkiä"
+   },
+   "countries": {
+      "Finland": "Suomi"
    },
    "form-messages": {
       "Insert a valid number": "Syötä lukuarvo",

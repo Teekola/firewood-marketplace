@@ -41,6 +41,7 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
    );
    const form = useFormContext<DeliveryData>();
    const inputValue = form.watch("postalCode");
+   const cityValue = form.watch("city");
    const [debouncedInputValue] = useDebounce(inputValue, 100);
    const [debouncedFilteredPostalCodes] = useDebounce(filteredPostalCodes, 300);
    const t = useTranslations("request-offers");
@@ -54,9 +55,13 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
          if (fullCode) {
             setOpen(false);
             setCurrentName(fullCode.name);
+            form.setValue("city", fullCode.name);
             return;
          }
          setCurrentName("");
+         if (cityValue !== "") {
+            form.setValue("city", "");
+         }
          if (!isOpen) setOpen(true);
       },
       200
@@ -152,11 +157,13 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                                     if (currentValue === inputValue) {
                                        return;
                                     }
+                                    form.setValue("city", name);
                                     form.setValue("postalCode", currentValue, {
                                        shouldValidate: true,
                                        shouldDirty: true,
                                        shouldTouch: true,
                                     });
+
                                     setCurrentName(name);
                                     setOpen(false);
                                  }}

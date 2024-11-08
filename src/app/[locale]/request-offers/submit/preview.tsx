@@ -39,7 +39,9 @@ export function Preview() {
                <>
                   <p className="capitalize">{t(deliveryData.deliveryMethod)}</p>
                   <p>
-                     {deliveryData.address} {deliveryData.postalCode} {deliveryData.country}
+                     {deliveryData.address} {deliveryData.postalCode}{" "}
+                     <span className="capitalize">{deliveryData.city?.toLowerCase()}</span>{" "}
+                     {deliveryData.countryName}
                   </p>
                </>
             )}

@@ -42,11 +42,11 @@
       "Continue": "Continue",
       "pickup": "pickup",
       "home delivery": "home delivery",
+      "homeDelivery": "home delivery",
       "Country": "Country",
       "Select country": "Select country",
       "Search country": "Search country...",
       "No country found": "No country found.",
-      "Finland": "Finland",
       "Postal code": "Postal code",
       "Invalid postal code": "Invalid postal code",
       "Address": "Address",
@@ -63,6 +63,9 @@
       "Delivery type": "Delivery type",
       "Maximum length": "Maximum length",
       "characters": "characters"
+   },
+   "countries": {
+      "Finland": "Finland"
    },
    "form-messages": {
       "Insert a valid number": "Insert a valid number",

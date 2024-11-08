@@ -41,7 +41,9 @@ export const deliveryFormSchema = z
          required_error: "Please, select a delivery method",
       }),
       country: z.string(),
+      countryName: z.string(),
       postalCode: z.string().min(5, { message: "Invalid postal code" }),
+      city: z.string(),
       address: z.string().optional(),
    })
    .refine(
@@ -67,7 +69,9 @@ export function DeliveryForm() {
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
       deliveryMethod: "homeDelivery",
       country: "FI",
+      countryName: "Finland",
       postalCode: "",
+      city: "",
       address: "",
    };
 
@@ -76,7 +80,8 @@ export function DeliveryForm() {
       defaultValues,
    });
 
-   const t = useTranslations("request-offers");
+   const t = useTranslations();
+
    const router = useRouter();
    const deliveryMethod = form.watch("deliveryMethod");
 
@@ -102,7 +107,7 @@ export function DeliveryForm() {
                   name="deliveryMethod"
                   render={({ field }) => (
                      <FormItem className="mb-8 space-y-1">
-                        <FormLabel>{t("Delivery type")}</FormLabel>
+                        <FormLabel>{t("request-offers.Delivery type")}</FormLabel>
                         <RadioGroup
                            onValueChange={field.onChange}
                            value={field.value}
@@ -121,7 +126,7 @@ export function DeliveryForm() {
                   name="country"
                   render={({ field }) => (
                      <FormItem className="flex flex-col">
-                        <FormLabel>{t("Country")}</FormLabel>
+                        <FormLabel>{t("request-offers.Country")}</FormLabel>
                         <Popover>
                            <PopoverTrigger asChild>
                               <FormControl>
@@ -135,11 +140,13 @@ export function DeliveryForm() {
                                  >
                                     {field.value
                                        ? t(
-                                            countries.find(
-                                               (country) => country.value === field.value
-                                            )?.label
+                                            `countries.${
+                                               countries.find(
+                                                  (country) => country.value === field.value
+                                               )?.label
+                                            }`
                                          )
-                                       : t("Select country")}{" "}
+                                       : t("request-offers.Select country")}{" "}
                                     {field.value && `– ${field.value}`}
                                     <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                  </Button>
@@ -147,9 +154,14 @@ export function DeliveryForm() {
                            </PopoverTrigger>
                            <PopoverContent className="max-h-[--radix-popover-content-available-height] w-[--radix-popover-trigger-width] p-0">
                               <Command>
-                                 <CommandInput placeholder={t("Search country")} className="h-9" />
+                                 <CommandInput
+                                    placeholder={t("request-offers.Search country")}
+                                    className="h-9"
+                                 />
                                  <CommandList>
-                                    <CommandEmpty>{t("No country found")}</CommandEmpty>
+                                    <CommandEmpty>
+                                       {t("request-offers.No country found")}
+                                    </CommandEmpty>
                                     <CommandGroup>
                                        {countries.map((country) => (
                                           <CommandItem
@@ -157,9 +169,10 @@ export function DeliveryForm() {
                                              key={country.value}
                                              onSelect={() => {
                                                 form.setValue("country", country.value);
+                                                form.setValue("countryName", country.label);
                                              }}
                                           >
-                                             {`${t(country.label)} – ${country.value}`}
+                                             {`${t(`countries.${country.label}`)} – ${country.value}`}
                                              <CheckIcon
                                                 className={cn(
                                                    "ml-auto h-4 w-4",
@@ -188,7 +201,7 @@ export function DeliveryForm() {
                      name="address"
                      render={({ field }) => (
                         <FormItem className="w-full">
-                           <FormLabel>{t("Address")}</FormLabel>
+                           <FormLabel>{t("request-offers.Address")}</FormLabel>
                            <FormControl>
                               <Input {...field} />
                            </FormControl>
@@ -200,7 +213,7 @@ export function DeliveryForm() {
             </div>
 
             <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-               {t("Continue")}
+               {t("request-offers.Continue")}
             </Button>
          </form>
          <FormStoreSyncManager
