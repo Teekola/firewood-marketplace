@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
 import {
    Command,
@@ -222,9 +223,16 @@ export function DeliveryForm() {
                )}
             </div>
 
-            <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-               {t("request-offers.Continue")}
-            </Button>
+            <div className="flex gap-2">
+               <BackButtonLink
+                  href="/request-offers/firewood"
+                  size="lg"
+                  label={t("request-offers.Back")}
+               />
+               <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
+                  {t("request-offers.Continue")}
+               </Button>
+            </div>
          </form>
          <FormStoreSyncManager
             formData={deliveryData}

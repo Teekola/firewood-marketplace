@@ -1,88 +1,89 @@
 {
-   "auth": {
-      "Sign in with Google": "Sign in with Google",
-      "Sign In": "Sign In",
-      "Sign Out": "Sign Out"
-   },
-   "settings": {
-      "preferences": {
-         "Toggle theme": "Toggle theme",
-         "Light": "Light",
-         "Dark": "Dark",
-         "System": "System",
-         "Select language": "Select language"
-      }
-   },
-   "home": {
-      "Go to a secret page": "Go to a secret page"
-   },
-   "secret-page": {
-      "title": "This is a secret page",
-      "Go to home page": "Go to home page"
-   },
-   "request-offers": {
-      "Request Offers": "Request Offers",
-      "Firewood": "Firewood",
-      "Delivery": "Delivery",
-      "Contact": "Contact",
-      "Submit": "Submit",
-      "Abandon Request": "Abandon Request",
-      "abandon-request-description": "This action cannot be undone. The inputted data will be lost.",
-      "Wood type": "Wood type",
-      "mixed": "mixed",
-      "birch": "birch",
-      "pine": "pine",
-      "Dryness": "Dryness",
-      "any": "any",
-      "dry": "dry",
-      "green": "green",
-      "Amount": "Amount",
-      "Max length": "Max length",
-      "Optional": "Optional",
-      "Continue": "Continue",
-      "pickup": "pickup",
-      "home delivery": "home delivery",
-      "homeDelivery": "home delivery",
-      "Country": "Country",
-      "Select country": "Select country",
-      "Search country": "Search country...",
-      "No country found": "No country found.",
-      "Postal code": "Postal code",
-      "Invalid postal code": "Invalid postal code",
-      "Address": "Address",
-      "Phone": "Phone",
-      "Full name": "Full name",
-      "Full name placeholder": "First Last",
-      "Email": "Email",
-      "Type your email": "Type your email",
-      "Type your phone number": "Type your phone number",
-      "You may use any format": "You may use any format",
-      "Additional information Optional": "Additional information (Optional)",
-      "Type special wishes or other useful information": "Type special wishes or other useful information",
-      "dry or green": "dry or green",
-      "Delivery type": "Delivery type",
-      "Maximum length": "Maximum length",
-      "characters": "characters",
-      "Buy as a company": "Buy as a company",
-      "Company name": "Company name",
-      "Insert company name": "Insert company name"
-   },
-   "countries": {
-      "Finland": "Finland"
-   },
-   "form-messages": {
-      "Insert a valid number": "Insert a valid number",
-      "Invalid postal code": "Invalid postal code",
-      "Address is required for home delivery": "Address is required for home delivery",
-      "Name is required": "Name is required",
-      "The email is invalid": "The email is invalid",
-      "Email is required": "Email is required",
-      "The phone number is invalid": "The phone number is invalid",
-      "Insert company name": "Insert company name"
-   },
-   "actions": {
-      "Cancel": "Cancel",
-      "Abandon": "Abandon",
-      "Close": "Close"
-   }
+  "auth": {
+    "Sign in with Google": "Sign in with Google",
+    "Sign In": "Sign In",
+    "Sign Out": "Sign Out"
+  },
+  "settings": {
+    "preferences": {
+      "Toggle theme": "Toggle theme",
+      "Light": "Light",
+      "Dark": "Dark",
+      "System": "System",
+      "Select language": "Select language"
+    }
+  },
+  "home": {
+    "Go to a secret page": "Go to a secret page"
+  },
+  "secret-page": {
+    "title": "This is a secret page",
+    "Go to home page": "Go to home page"
+  },
+  "request-offers": {
+    "Request Offers": "Request Offers",
+    "Firewood": "Firewood",
+    "Delivery": "Delivery",
+    "Contact": "Contact",
+    "Submit": "Submit",
+    "Abandon Request": "Abandon Request",
+    "abandon-request-description": "This action cannot be undone. The inputted data will be lost.",
+    "Wood type": "Wood type",
+    "mixed": "mixed",
+    "birch": "birch",
+    "pine": "pine",
+    "Dryness": "Dryness",
+    "any": "any",
+    "dry": "dry",
+    "green": "green",
+    "Amount": "Amount",
+    "Max length": "Max length",
+    "Optional": "Optional",
+    "Continue": "Continue",
+    "pickup": "pickup",
+    "home delivery": "home delivery",
+    "homeDelivery": "home delivery",
+    "Country": "Country",
+    "Select country": "Select country",
+    "Search country": "Search country...",
+    "No country found": "No country found.",
+    "Postal code": "Postal code",
+    "Invalid postal code": "Invalid postal code",
+    "Address": "Address",
+    "Phone": "Phone",
+    "Full name": "Full name",
+    "Full name placeholder": "First Last",
+    "Email": "Email",
+    "Type your email": "Type your email",
+    "Type your phone number": "Type your phone number",
+    "You may use any format": "You may use any format",
+    "Additional information Optional": "Additional information (Optional)",
+    "Type special wishes or other useful information": "Type special wishes or other useful information",
+    "dry or green": "dry or green",
+    "Delivery type": "Delivery type",
+    "Maximum length": "Maximum length",
+    "characters": "characters",
+    "Buy as a company": "Buy as a company",
+    "Company name": "Company name",
+    "Insert company name": "Insert company name",
+    "Back": "Back"
+  },
+  "countries": {
+    "Finland": "Finland"
+  },
+  "form-messages": {
+    "Insert a valid number": "Insert a valid number",
+    "Invalid postal code": "Invalid postal code",
+    "Address is required for home delivery": "Address is required for home delivery",
+    "Name is required": "Name is required",
+    "The email is invalid": "The email is invalid",
+    "Email is required": "Email is required",
+    "The phone number is invalid": "The phone number is invalid",
+    "Insert company name": "Insert company name"
+  },
+  "actions": {
+    "Cancel": "Cancel",
+    "Abandon": "Abandon",
+    "Close": "Close"
+  }
 }

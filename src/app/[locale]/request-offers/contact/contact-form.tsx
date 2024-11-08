@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -159,9 +160,12 @@ export function ContactForm() {
                   )}
                </div>
             </div>
-            <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-               {t("Continue")}
-            </Button>
+            <div className="flex gap-2">
+               <BackButtonLink href="/request-offers/delivery" label={t("Back")} size="lg" />
+               <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
+                  {t("Continue")}
+               </Button>
+            </div>
          </form>
          <FormStoreSyncManager
             formData={contactData}

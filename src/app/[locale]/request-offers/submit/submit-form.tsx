@@ -1,10 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SendHorizonalIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { BackButtonLink } from "@/components/back-button-link";
 import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import { Button } from "@/components/ui/button";
 import {
@@ -117,9 +119,13 @@ export function SubmitForm() {
                )}
             />
 
-            <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-               {t("Submit")}
-            </Button>
+            <div className="flex gap-2">
+               <BackButtonLink size="lg" href="/request-offers/contact" label={t("Back")} />
+               <Button type="submit" size="lg" className="group w-full" data-disabled={!canProceed}>
+                  <SendHorizonalIcon className="mr-4 h-4 w-4 transition-transform group-hover:translate-x-2" />{" "}
+                  {t("Submit")}
+               </Button>
+            </div>
          </form>
          <FormStoreSyncManager
             formData={submitData}
