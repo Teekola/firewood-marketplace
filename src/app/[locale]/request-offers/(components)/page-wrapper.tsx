@@ -13,7 +13,7 @@ export function PageWrapper({ children }: PropsWithChildren) {
 
    if (!isStepVerified)
       return (
-         <div className="flex h-[572px] min-h-[572px] flex-col space-y-4 xs:h-[512px] xs:min-h-[512px]">
+         <div className="flex h-[572px] min-h-[572px] flex-col space-y-4 xs:h-[520px] xs:min-h-[520px]">
             <Skeleton className="h-12" />
             <Skeleton className="h-[470px] xs:h-[416px]" />
             <Skeleton className="h-11" />
@@ -21,7 +21,7 @@ export function PageWrapper({ children }: PropsWithChildren) {
       );
 
    return (
-      <div className="flex h-[572px] min-h-[572px] flex-col xs:h-[512px] xs:min-h-[512px]">
+      <div className="flex h-[572px] min-h-[572px] flex-col xs:h-[520px] xs:min-h-[520px]">
          {children}
       </div>
    );
