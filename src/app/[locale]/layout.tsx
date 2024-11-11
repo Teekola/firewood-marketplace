@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
+import { auth } from "@/auth/auth";
+import { SessionProvider } from "@/components/auth/session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { nunitoSans } from "@/fonts/index";
 
@@ -18,7 +20,8 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   const messages = await getMessages();
+   const [messages, session] = await Promise.all([getMessages(), auth()]);
+
    return (
       // TODO: For SEO and Accessibility, should change lang based on locale
       <html lang="en" suppressHydrationWarning>
@@ -30,7 +33,7 @@ export default async function RootLayout({
                   enableSystem
                   disableTransitionOnChange
                >
-                  {children}
+                  <SessionProvider session={session}>{children}</SessionProvider>
                </ThemeProvider>
             </NextIntlClientProvider>
          </body>
