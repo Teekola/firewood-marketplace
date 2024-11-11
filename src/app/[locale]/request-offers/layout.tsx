@@ -20,7 +20,7 @@ export default async function RequestOffersLayout({
             <RequestOffersStepper />
 
             <PageWrapper>{children}</PageWrapper>
-            <AbandonRequestDialog className="mt-20" />
+            <AbandonRequestDialog className="mt-5" />
          </RequestOffersStoreProvider>
       </div>
    );
