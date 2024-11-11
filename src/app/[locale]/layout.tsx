@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-import { auth } from "@/auth/auth";
-import { SessionProvider } from "@/components/auth/session-provider";
+import { authWithUser } from "@/auth/auth";
+import { UserStoreProvider } from "@/components/auth/user-store-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { nunitoSans } from "@/fonts/index";
+import { ReactQueryProvider } from "@/lib/react-query";
 
 import "../globals.css";
 
@@ -20,7 +21,7 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   const [messages, session] = await Promise.all([getMessages(), auth()]);
+   const [messages, user] = await Promise.all([getMessages(), authWithUser()]);
 
    return (
       // TODO: For SEO and Accessibility, should change lang based on locale
@@ -33,7 +34,9 @@ export default async function RootLayout({
                   enableSystem
                   disableTransitionOnChange
                >
-                  <SessionProvider session={session}>{children}</SessionProvider>
+                  <UserStoreProvider user={user}>
+                     <ReactQueryProvider>{children}</ReactQueryProvider>
+                  </UserStoreProvider>
                </ThemeProvider>
             </NextIntlClientProvider>
          </body>
