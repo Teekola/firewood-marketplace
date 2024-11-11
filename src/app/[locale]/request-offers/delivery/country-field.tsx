@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { CheckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -23,6 +25,7 @@ import { DeliveryData } from "./delivery-form";
 const countries = [{ label: "Finland", value: "FI" }] as const;
 
 export function CountryField() {
+   const [isOpen, setOpen] = useState(false);
    const t = useTranslations();
    const form = useFormContext<DeliveryData>();
 
@@ -33,7 +36,7 @@ export function CountryField() {
          render={({ field }) => (
             <FormItem className="flex flex-col">
                <FormLabel>{t("request-offers.Country")}</FormLabel>
-               <Popover>
+               <Popover open={isOpen}>
                   <PopoverTrigger asChild>
                      <FormControl>
                         <Button
@@ -43,6 +46,7 @@ export function CountryField() {
                               "justify-between",
                               !field.value && "text-muted-foreground"
                            )}
+                           onClick={() => setOpen((prev) => !prev)}
                         >
                            {field.value
                               ? t(
@@ -75,9 +79,11 @@ export function CountryField() {
                                        t(`countries.${country.label}`),
                                        country.value,
                                     ]}
+                                    className="cursor-pointer"
                                     onSelect={() => {
                                        form.setValue("country", country.value);
                                        form.setValue("countryName", country.label);
+                                       setOpen(false);
                                     }}
                                  >
                                     {`${t(`countries.${country.label}`)} – ${country.value}`}
