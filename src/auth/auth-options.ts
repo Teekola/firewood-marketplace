@@ -1,8 +1,25 @@
-import type { NextAuthConfig } from "next-auth";
+import type { DefaultSession, NextAuthConfig } from "next-auth";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { JWT } from "next-auth/jwt";
 import Google from "next-auth/providers/google";
 
 import { env } from "@/env/server";
 import { routing } from "@/i18n/routing";
+
+declare module "next-auth" {
+   interface Session {
+      user: {
+         id: string;
+      } & DefaultSession["user"];
+   }
+}
+
+declare module "next-auth/jwt" {
+   /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
+   interface JWT {
+      id: string;
+   }
+}
 
 // This is used so that the defined keys are not undefined
 type AuthPages = NextAuthConfig["pages"] & {
@@ -48,4 +65,21 @@ export const authOptions = {
       }),
    ],
    pages,
+   callbacks: {
+      jwt({ token, user }) {
+         if (user?.id) {
+            token.id = user.id;
+         }
+         return token;
+      },
+      session({ session, token }) {
+         return {
+            ...session,
+            user: {
+               ...session.user,
+               id: token.id,
+            },
+         };
+      },
+   },
 } satisfies NextAuthConfig;
