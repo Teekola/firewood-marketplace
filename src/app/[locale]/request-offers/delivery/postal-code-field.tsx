@@ -106,7 +106,9 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                                  autoComplete="off"
                                  type="tel"
                                  onFocus={(e) => {
-                                    handleInputChange(e);
+                                    if (e.currentTarget.value.length > 0) {
+                                       handleInputChange(e);
+                                    }
                                  }}
                                  onChange={(e) => {
                                     field.onChange(e);
