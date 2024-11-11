@@ -30,9 +30,9 @@ export function PhoneField() {
       masked += value.substring(1).replace(/[^\d]/g, "");
 
       // Validate only when the error might need to be removed or added
-      const shouldValidate = form.formState.errors["phone"]
+      const shouldValidate = form.formState.errors.phone
          ? (masked.length >= 6 && masked.length <= 15) || masked.length < 1
-         : masked.length === 0 || masked.length > 15;
+         : form.formState.isValid || masked.length > 6 || masked.length > 15 || masked.length === 0;
 
       form.setValue("phone", masked, { shouldValidate, shouldDirty: true, shouldTouch: true });
    };
