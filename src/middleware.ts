@@ -1,66 +1,55 @@
 import { NextResponse } from "next/server";
 
-import { withAuth } from "next-auth/middleware";
+import NextAuth from "next-auth";
 import createMiddleware from "next-intl/middleware";
 
 import {
    CALLBACK_URL_KEY,
    DEFAULT_ROUTE,
+   authOptions,
    authPages,
    pages,
    protectedPages,
-} from "./auth/auth-options";
+} from "@/auth/auth-options";
+
 import { routing } from "./i18n/routing";
 import { testPathnameRegex } from "./lib/utils";
 
 const handleI18nRouting = createMiddleware(routing);
 
-export default withAuth(
-   // Note that this callback is only invoked if
-   // the `authorized` callback has returned `true`
-   // and not for pages listed in `pages`.
-   function middleware(req) {
-      const {
-         nextauth: { token },
-         nextUrl,
-      } = req;
+const { auth } = NextAuth(authOptions);
 
-      const isSignedIn = !!token;
+export default auth(async function middleware(req) {
+   const { auth, nextUrl } = req;
 
-      const isProtectedRoute = testPathnameRegex({
-         paths: protectedPages,
-         pathName: nextUrl.pathname,
-      });
+   const isSignedIn = !!auth;
 
-      // Redirect to sign in with callback url
-      if (isProtectedRoute && !isSignedIn) {
-         const redirectUrl = new URL(
-            `${pages.signIn}?${CALLBACK_URL_KEY}=${nextUrl.href}`,
-            nextUrl.origin
-         );
-         return NextResponse.redirect(redirectUrl);
-      }
-      const isAuthPage = testPathnameRegex({ paths: authPages, pathName: nextUrl.pathname });
+   const isProtectedRoute = testPathnameRegex({
+      paths: protectedPages,
+      pathName: nextUrl.pathname,
+   });
 
-      // Redirect to callback url or default
-      if (isAuthPage && isSignedIn) {
-         const targetUrl = new URL(
-            nextUrl.searchParams.get(CALLBACK_URL_KEY) ?? DEFAULT_ROUTE,
-            nextUrl.origin
-         );
-         return NextResponse.redirect(targetUrl);
-      }
-
-      return handleI18nRouting(req);
-   },
-   {
-      callbacks: {
-         authorized: async () => {
-            return true; // Allows running the middleware always
-         },
-      },
+   // Redirect to sign in with callback url
+   if (isProtectedRoute && !isSignedIn) {
+      const redirectUrl = new URL(
+         `${pages.signIn}?${CALLBACK_URL_KEY}=${nextUrl.href}`,
+         nextUrl.origin
+      );
+      return NextResponse.redirect(redirectUrl);
    }
-);
+   const isAuthPage = testPathnameRegex({ paths: authPages, pathName: nextUrl.pathname });
+
+   // Redirect to callback url or default
+   if (isAuthPage && isSignedIn) {
+      const targetUrl = new URL(
+         nextUrl.searchParams.get(CALLBACK_URL_KEY) ?? DEFAULT_ROUTE,
+         nextUrl.origin
+      );
+      return NextResponse.redirect(targetUrl);
+   }
+
+   return handleI18nRouting(req);
+});
 
 // You can also use a regex to match multiple routes or you can negate certain
 // routes in order to protect all remaining routes. The following example avoids
