@@ -6,16 +6,17 @@
 
 generator client {
    provider        = "prisma-client-js"
-   previewFeatures = ["driverAdapters"]
+   previewFeatures = ["driverAdapters", "postgresqlExtensions"]
 }
 
 datasource db {
-   provider  = "postgresql"
+   provider   = "postgresql"
    // Uses connection pooling
-   url       = env("POSTGRES_PRISMA_URL")
+   url        = env("POSTGRES_PRISMA_URL")
    // Uses direct connection, ⚠️ make sure to keep this to `POSTGRES_URL_NON_POOLING`
    // or you'll have dangling databases from migrations
-   directUrl = env("POSTGRES_URL_NON_POOLING")
+   directUrl  = env("POSTGRES_URL_NON_POOLING")
+   extensions = [postgis]
 }
 
 model User {
@@ -24,14 +25,105 @@ model User {
    email         String?   @unique
    emailVerified DateTime? @map("email_verified")
    image         String?
-   phone         String?
-   countryCode   String?
-   countryName   String?
-   postalCode    String?
-   city          String?
-   address       String?
+   isRegistered  Boolean   @default(false) @map("is_registered")
+   buyer         Buyer?
+   seller        Seller?
    accounts      Account[]
    sessions      Session[]
+   createdAt     DateTime  @default(now()) @map("created_at")
+   updatedAt     DateTime  @updatedAt @map("updated_at")
+}
+
+model Buyer {
+   id                String             @id @default(cuid())
+   user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+   userId            String             @unique @map("user_id")
+   name              String?
+   email             String?
+   phone             String?
+   countryCode       String?            @map("country_code")
+   countryName       String?            @map("country_name")
+   postalCode        String?            @map("postal_code")
+   city              String?
+   address           String?
+   quotationRequests QuotationRequest[]
+   offerViews        OfferView[]
+}
+
+model Location {
+   id          String                                @id @default(cuid())
+   countryCode String                                @map("country_code")
+   countryName String                                @map("country_name")
+   postalCode  String                                @map("postal_code")
+   coordinates Unsupported("geography(Point, 4326)")
+   createdAt   DateTime                              @default(now()) @map("created_at")
+   updatedAt   DateTime                              @updatedAt @map("updated_at")
+   seller      Seller[]
+
+   @@unique([postalCode, countryCode])
+}
+
+model Seller {
+   id                    String                 @id @default(cuid())
+   plan                  Plan
+   locationId            String
+   location              Location               @relation(fields: [locationId], references: [id])
+   numberOfSentOffers    Int                    @default(0) @map("number_of_sent_offers")
+   user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+   userId                String                 @unique @map("user_id")
+   offers                Offer[]
+   quotationRequests     QuotationRequest[]
+   quotationRequestViews QuotationRequestView[]
+   createdAt             DateTime               @default(now()) @map("created_at")
+   updatedAt             DateTime               @updatedAt @map("updated_at")
+}
+
+enum Plan {
+   FREE
+}
+
+model Offer {
+   id                 String           @id @default(cuid())
+   quotationRequest   QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
+   quotationRequestId String           @map("quotation_request_id")
+   seller             Seller           @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+   sellerId           String           @map("seller_id")
+   createdAt          DateTime         @default(now()) @map("created_at")
+   updatedAt          DateTime         @updatedAt @map("updated_at")
+   views              OfferView[]
+}
+
+model OfferView {
+   id           String   @id @default(cuid())
+   offer        Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+   offerId      String   @map("offer_id")
+   buyer        Buyer    @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+   buyerId      String   @map("buyer_id")
+   lastViewedAt DateTime @default(now()) @map("last_viewed_at")
+
+   @@unique([offerId, buyerId])
+}
+
+model QuotationRequest {
+   id        String                 @id @default(cuid())
+   buyer     Buyer                  @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+   buyerId   String                 @map("buyer_id")
+   offers    Offer[]
+   createdAt DateTime               @default(now())
+   updatedAt DateTime               @updatedAt @map("updated_at")
+   sellers   Seller[]
+   views     QuotationRequestView[]
+}
+
+model QuotationRequestView {
+   id                 String           @id @default(cuid())
+   quotationRequest   QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
+   quotationRequestId String
+   seller             Seller           @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+   sellerId           String
+   lastViewedAt       DateTime         @default(now()) @map("last_viewed_at")
+
+   @@unique([quotationRequestId, sellerId])
 }
 
 model Account {
