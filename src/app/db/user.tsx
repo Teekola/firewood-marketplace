@@ -1,3 +1,5 @@
+import { unstable_cache } from "next/cache";
+
 import { Prisma } from "@prisma/client";
 
 import { prisma } from "@/prisma";
@@ -20,13 +22,16 @@ function createUserDTO(user: UserDTO): UserDTO {
    };
 }
 
-export async function getUserById(id: string) {
-   const user = await prisma.user.findUnique({
-      where: { id },
-      select: userDTOFields,
-   });
+export const getUserById = unstable_cache(
+   async (id: string) => {
+      const user = await prisma.user.findUnique({
+         where: { id },
+         select: userDTOFields,
+      });
 
-   if (!user) return null;
+      if (!user) return null;
 
-   return createUserDTO(user);
-}
+      return createUserDTO(user);
+   },
+   ["get-user-by-id"] // Can be revalidated by calling revalidateTag("get-user-by-id")
+);
