@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useUser } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
 import {
@@ -55,29 +56,18 @@ export const deliveryFormSchema = z
    );
 export type DeliveryData = z.infer<typeof deliveryFormSchema>;
 
-const countryToCountryName: Record<string, string> = {
-   FI: "Finland",
-};
-
 export function DeliveryForm() {
    const deliveryData = useDeliveryData();
    const lastUnlockedStep = useLastUnlockedStep();
-
-   // TODO: get the defaults from the user profile information!
-   const user = {
-      countryCode: undefined,
-      city: undefined,
-      postalCode: undefined,
-      address: undefined,
-   };
+   const user = useUser();
 
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
       deliveryMethod: "homeDelivery",
-      countryCode: user.countryCode,
-      countryName: user.countryCode ? countryToCountryName[user.countryCode] : undefined,
-      postalCode: "",
-      city: "",
-      address: "",
+      countryCode: user.countryCode ?? "FI",
+      countryName: user.countryName ?? "Finland",
+      postalCode: user.postalCode ?? "",
+      city: user.city ?? "",
+      address: user.address ?? "",
    };
 
    const form = useForm<DeliveryData>({

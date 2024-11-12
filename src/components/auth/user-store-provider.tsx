@@ -51,7 +51,9 @@ export function useUserStore<T>(selector: (store: UserStore) => T): T {
 }
 
 export function useUser() {
-   return useUserStore((state) => state.user);
+   const user = useUserStore((state) => state.user);
+   if (!user) throw Error(`User is ${user}`); // User should always be defined in the context when using useUser
+   return user;
 }
 
 export function useSetUser() {
