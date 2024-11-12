@@ -10,12 +10,6 @@ const userDTOFields = Prisma.validator<Prisma.UserSelect>()({
    name: true,
    email: true,
    image: true,
-   phone: true,
-   countryCode: true,
-   countryName: true,
-   postalCode: true,
-   city: true,
-   address: true,
 });
 
 export type UserDTO = Prisma.UserGetPayload<{ select: typeof userDTOFields }>;
@@ -26,12 +20,6 @@ function createUserDTO(user: UserDTO) {
       name: user.name,
       email: user.email,
       image: user.image,
-      phone: user.phone,
-      countryCode: user.countryCode,
-      countryName: user.countryName,
-      postalCode: user.postalCode,
-      city: user.city,
-      address: user.address,
    };
 }
 

@@ -54,10 +54,11 @@ export function ContactForm() {
    const contactData = useContactData();
    const user = useUser();
 
+   // TODO: Get these from buyer
    const defaultValues: DefaultValues<ContactData> = contactData ?? {
       name: user.name ?? "",
       email: user.email ?? "",
-      phone: user.phone ?? "",
+      phone: "",
       isCompany: false,
       companyName: "",
    };

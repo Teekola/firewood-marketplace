@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { useUser } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
 import {
@@ -59,15 +58,14 @@ export type DeliveryData = z.infer<typeof deliveryFormSchema>;
 export function DeliveryForm() {
    const deliveryData = useDeliveryData();
    const lastUnlockedStep = useLastUnlockedStep();
-   const user = useUser();
 
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
       deliveryMethod: "homeDelivery",
-      countryCode: user.countryCode ?? "FI",
-      countryName: user.countryName ?? "Finland",
-      postalCode: user.postalCode ?? "",
-      city: user.city ?? "",
-      address: user.address ?? "",
+      countryCode: "FI", // TODO: Get these from buyer
+      countryName: "Finland",
+      postalCode: "",
+      city: "",
+      address: "",
    };
 
    const form = useForm<DeliveryData>({
