@@ -12,6 +12,7 @@ const config = {
    endOfLine: "lf",
    plugins: ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
    importOrder: [
+      "^server-only$", // server-only first
       "^react$", // react imports first
       "^next(/.*)?$", // next imports then
       "^@?\\w", // external imports (including the ones with or without @)
