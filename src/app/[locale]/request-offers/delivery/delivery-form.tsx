@@ -35,7 +35,7 @@ export const deliveryFormSchema = z
       deliveryMethod: z.enum(["homeDelivery", "pickup"], {
          required_error: "Please, select a delivery method",
       }),
-      country: z.string(),
+      countryCode: z.string(),
       countryName: z.string(),
       postalCode: z.string().min(5, { message: "Invalid postal code" }),
       city: z.string(),
@@ -55,15 +55,26 @@ export const deliveryFormSchema = z
    );
 export type DeliveryData = z.infer<typeof deliveryFormSchema>;
 
+const countryToCountryName: Record<string, string> = {
+   FI: "Finland",
+};
+
 export function DeliveryForm() {
    const deliveryData = useDeliveryData();
    const lastUnlockedStep = useLastUnlockedStep();
 
    // TODO: get the defaults from the user profile information!
+   const user = {
+      countryCode: undefined,
+      city: undefined,
+      postalCode: undefined,
+      address: undefined,
+   };
+
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
       deliveryMethod: "homeDelivery",
-      country: "FI",
-      countryName: "Finland",
+      countryCode: user.countryCode,
+      countryName: user.countryCode ? countryToCountryName[user.countryCode] : undefined,
       postalCode: "",
       city: "",
       address: "",

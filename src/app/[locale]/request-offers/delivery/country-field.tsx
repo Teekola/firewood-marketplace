@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 
 import { DeliveryData } from "./delivery-form";
 
-const countries = [{ label: "Finland", value: "FI" }] as const;
+const countries = [{ label: "Finland", code: "FI" }] as const;
 
 export function CountryField() {
    const [isOpen, setOpen] = useState(false);
@@ -32,7 +32,7 @@ export function CountryField() {
    return (
       <FormField
          control={form.control}
-         name="country"
+         name="countryCode"
          render={({ field }) => (
             <FormItem className="flex flex-col">
                <FormLabel>{t("request-offers.Country")}</FormLabel>
@@ -51,7 +51,7 @@ export function CountryField() {
                            {field.value
                               ? t(
                                    `countries.${
-                                      countries.find((country) => country.value === field.value)
+                                      countries.find((country) => country.code === field.value)
                                          ?.label
                                    }`
                                 )
@@ -73,26 +73,24 @@ export function CountryField() {
                               {countries.map((country) => (
                                  <CommandItem
                                     value={country.label}
-                                    key={country.value}
+                                    key={country.code}
                                     keywords={[
                                        country.label,
                                        t(`countries.${country.label}`),
-                                       country.value,
+                                       country.code,
                                     ]}
                                     className="cursor-pointer"
                                     onSelect={() => {
-                                       form.setValue("country", country.value);
+                                       form.setValue("countryCode", country.code);
                                        form.setValue("countryName", country.label);
                                        setOpen(false);
                                     }}
                                  >
-                                    {`${t(`countries.${country.label}`)} – ${country.value}`}
+                                    {`${t(`countries.${country.label}`)} – ${country.code}`}
                                     <CheckIcon
                                        className={cn(
                                           "ml-auto h-4 w-4",
-                                          country.value === field.value
-                                             ? "opacity-100"
-                                             : "opacity-0"
+                                          country.code === field.value ? "opacity-100" : "opacity-0"
                                        )}
                                     />
                                  </CommandItem>
