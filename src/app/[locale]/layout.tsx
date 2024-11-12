@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-import { authWithUser } from "@/auth/auth";
 import { UserStoreProvider } from "@/components/auth/user-store-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { nunitoSans } from "@/fonts/index";
 import { ReactQueryProvider } from "@/lib/react-query";
 
+import { getUser } from "../db/user";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   const [messages, user] = await Promise.all([getMessages(), authWithUser()]);
+   const [messages, user] = await Promise.all([getMessages(), getUser()]);
 
    return (
       // TODO: For SEO and Accessibility, should change lang based on locale
