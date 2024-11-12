@@ -10,6 +10,7 @@ declare module "next-auth" {
    interface Session {
       user: {
          id: string;
+         isRegistered?: boolean;
       } & DefaultSession["user"];
    }
 }
@@ -18,6 +19,7 @@ declare module "next-auth/jwt" {
    /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
    interface JWT {
       id: string;
+      isRegistered?: boolean;
    }
 }
 
@@ -26,9 +28,10 @@ type AuthPages = NextAuthConfig["pages"] & {
    signIn: string;
 };
 
-export const pages: AuthPages = {
+export const pages = {
    signIn: "/auth/sign-in",
-};
+   newUser: "/secret-page", // TODO: Update to register flow page
+} satisfies AuthPages;
 const protectedRoutes = ["/secret-page", "/request-offers/.*"];
 
 export const authPages = [pages.signIn];
@@ -41,8 +44,8 @@ function regexifyPath(path: string): RegExp {
  *
  * @returns array of all localized pathnames
  */
-function getProtectedPages(protectedRoutes: string[]) {
-   const pathnames = protectedRoutes.flatMap((route) => {
+function getLocalizedPages(routes: string[]) {
+   const pathnames = routes.flatMap((route) => {
       const regex = regexifyPath(route);
       return Object.keys(routing.pathnames)
          .filter((path) => regex.test(path))
@@ -52,7 +55,8 @@ function getProtectedPages(protectedRoutes: string[]) {
    });
    return pathnames;
 }
-export const protectedPages = getProtectedPages(protectedRoutes);
+export const protectedPages = getLocalizedPages(protectedRoutes);
+export const newUserPages = getLocalizedPages([pages.newUser]);
 export const CALLBACK_URL_KEY = "callbackUrl";
 export const DEFAULT_ROUTE = "/";
 
@@ -78,6 +82,7 @@ export const authOptions = {
             user: {
                ...session.user,
                id: token.id,
+               isRegistered: token.isRegistered ?? false,
             },
          };
       },

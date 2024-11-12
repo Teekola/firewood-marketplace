@@ -8,6 +8,7 @@ import {
    DEFAULT_ROUTE,
    authOptions,
    authPages,
+   newUserPages,
    pages,
    protectedPages,
 } from "@/auth/auth-options";
@@ -37,6 +38,24 @@ export default auth(async function middleware(req) {
       );
       return NextResponse.redirect(redirectUrl);
    }
+
+   const isRegistered = isSignedIn && !!auth.user.isRegistered;
+   const isNewUserPage = testPathnameRegex({ paths: newUserPages, pathName: nextUrl.pathname });
+
+   // Redirect new users to register flow
+   // TODO: Ensure that after the flow is completed, the token gets updated with isRegistered=true
+   // TODO: Need to ask if the user intends to buy or sell or both
+   // TODO: Need to ask preferences (metric system vs. imperial system)
+   // TODO: Design the flow such that the user who intends to buy gets to the request offers asap,
+   // and the user who intends to sell gets to choose to either setup the selling or request offers
+   if (isProtectedRoute && isSignedIn && !isRegistered && !isNewUserPage) {
+      const redirectUrl = new URL(
+         `${pages.newUser}?${CALLBACK_URL_KEY}=${nextUrl.href}`,
+         nextUrl.origin
+      );
+      return NextResponse.redirect(redirectUrl);
+   }
+
    const isAuthPage = testPathnameRegex({ paths: authPages, pathName: nextUrl.pathname });
 
    // Redirect to callback url or default
