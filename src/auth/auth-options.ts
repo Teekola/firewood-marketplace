@@ -5,6 +5,7 @@ import Google from "next-auth/providers/google";
 
 import { env } from "@/env/server";
 import { routing } from "@/i18n/routing";
+import { prismaEdge } from "@/prismaEdge";
 
 declare module "next-auth" {
    interface Session {
@@ -30,7 +31,7 @@ type AuthPages = NextAuthConfig["pages"] & {
 
 export const pages = {
    signIn: "/auth/sign-in",
-   newUser: "/secret-page", // TODO: Update to register flow page
+   newUser: "/new-user",
 } satisfies AuthPages;
 const protectedRoutes = ["/secret-page", "/request-offers/.*"];
 
@@ -70,10 +71,16 @@ export const authOptions = {
    ],
    pages,
    callbacks: {
-      jwt({ token, user }) {
+      async jwt({ token, user }) {
          if (user?.id) {
             token.id = user.id;
          }
+         const userData = await prismaEdge.user.findUnique({
+            select: { isRegistered: true },
+            where: { id: token.id },
+         });
+         token.isRegistered = userData?.isRegistered;
+
          return token;
       },
       session({ session, token }) {

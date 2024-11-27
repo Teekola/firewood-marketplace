@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
+import { useUser } from "@/components/auth/user-store-provider";
 import { Button } from "@/components/ui/button";
 import {
    Form,
@@ -115,7 +116,7 @@ export function FirewoodForm() {
                />
 
                <div className="flex w-full flex-wrap justify-between gap-3 xs:flex-nowrap">
-                  <CubicMetresField />
+                  <VolumeField />
                   <MaxLengthField />
                </div>
             </div>
@@ -149,11 +150,14 @@ function transformDecimalInputValue(input: string) {
    return filteredValue;
 }
 
-// TODO: Get units based on user-selected system, which is selected in onboarding!
-function CubicMetresField() {
+function VolumeField() {
    const fieldName = "amount";
    const t = useTranslations("request-offers");
    const form = useFormContext<FirewoodData>();
+
+   // TODO: USE PREFERRED UNIT SYSTEM IN THE UI (NEED TO CONVERT TO METRIC SYSTEM BEFORE SUBMITTING)
+   const user = useUser();
+   console.log(user);
 
    // Transform input value to contain numbers and decimal separator only
    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {

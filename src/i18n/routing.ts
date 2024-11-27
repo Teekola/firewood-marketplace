@@ -14,6 +14,10 @@ export const routing = defineRouting({
          en: "/secret-page",
          fi: "/salainen-sivu",
       },
+      "/new-user": {
+         en: "/new-user",
+         fi: "/uusi-kayttaja",
+      },
       "/request-offers": {
          en: "/request-offers",
          fi: "/tee-tarjouspyynto",

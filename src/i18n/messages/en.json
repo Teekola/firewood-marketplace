@@ -85,5 +85,14 @@
     "Cancel": "Cancel",
     "Abandon": "Abandon",
     "Close": "Close"
+  },
+  "new-user-page": {
+    "title": "Welcome!",
+    "Unit system": "Unit system",
+    "Metric": "Metric",
+    "Imperial": "Imperial",
+    "Register as a seller": "Register as a seller",
+    "Please choose your preferences first": "Please, choose your preferences first",
+    "Confirm choices": "Confirm choices"
   }
 }

@@ -10,6 +10,7 @@ const userDTOFields = Prisma.validator<Prisma.UserSelect>()({
    name: true,
    email: true,
    image: true,
+   preferredUnitSystem: true,
 });
 
 export type UserDTO = Prisma.UserGetPayload<{ select: typeof userDTOFields }>;
@@ -20,6 +21,7 @@ function createUserDTO(user: UserDTO) {
       name: user.name,
       email: user.email,
       image: user.image,
+      preferredUnitSystem: user.preferredUnitSystem,
    };
 }
 
@@ -32,6 +34,25 @@ const getUserById = async (id: string) => {
    if (!user) return null;
 
    return createUserDTO(user);
+};
+
+export const updateUserById = async ({
+   id,
+   data,
+}: {
+   id: string;
+   data: Prisma.UserUpdateInput;
+}) => {
+   const session = await auth();
+   if (!session) return null;
+
+   const updatedUser = await prisma.user.update({
+      where: { id },
+      data,
+   });
+
+   // TODO: Decide how to deal with the error of user not found code P2025
+   return createUserDTO(updatedUser);
 };
 
 /**
