@@ -66,7 +66,7 @@ model Location {
 model Seller {
    id                    String                 @id @default(cuid())
    plan                  Plan
-   locationId            String
+   locationId            String                 @map("location_id")
    location              Location               @relation(fields: [locationId], references: [id])
    numberOfSentOffers    Int                    @default(0) @map("number_of_sent_offers")
    user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -109,7 +109,7 @@ model QuotationRequest {
    buyer     Buyer                  @relation(fields: [buyerId], references: [id], onDelete: Cascade)
    buyerId   String                 @map("buyer_id")
    offers    Offer[]
-   createdAt DateTime               @default(now())
+   createdAt DateTime               @default(now()) @map("created_at")
    updatedAt DateTime               @updatedAt @map("updated_at")
    sellers   Seller[]
    views     QuotationRequestView[]
@@ -118,9 +118,9 @@ model QuotationRequest {
 model QuotationRequestView {
    id                 String           @id @default(cuid())
    quotationRequest   QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
-   quotationRequestId String
+   quotationRequestId String           @map("quotation_request_id")
    seller             Seller           @relation(fields: [sellerId], references: [id], onDelete: Cascade)
-   sellerId           String
+   sellerId           String           @map("seller_id")
    lastViewedAt       DateTime         @default(now()) @map("last_viewed_at")
 
    @@unique([quotationRequestId, sellerId])
