@@ -78,10 +78,11 @@ export const authOptions = {
             token.id = user.id;
          }
          // Fetch this from an API route so that edge issues do not arise
+         const http = env.NODE_ENV === "development" ? "http" : "https";
          const isRegistered = (
             await (
                await fetch(
-                  `${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/is-registered?id=${token.id}`
+                  `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/is-registered?id=${token.id}`
                )
             ).json()
          ).isRegistered as boolean;
