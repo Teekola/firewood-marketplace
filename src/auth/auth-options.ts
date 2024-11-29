@@ -3,9 +3,11 @@ import type { DefaultSession, NextAuthConfig } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import Google from "next-auth/providers/google";
 
+import { env as clientEnv } from "@/env/client";
 import { env } from "@/env/server";
 import { routing } from "@/i18n/routing";
-import { prismaEdge } from "@/prismaEdge";
+
+// import { prismaEdge } from "@/prismaEdge";
 
 declare module "next-auth" {
    interface Session {
@@ -75,11 +77,16 @@ export const authOptions = {
          if (user?.id) {
             token.id = user.id;
          }
-         const userData = await prismaEdge.user.findUnique({
-            select: { isRegistered: true },
-            where: { id: token.id },
-         });
-         token.isRegistered = userData?.isRegistered;
+         // Fetch this from an API route so that edge issues do not arise
+         const isRegistered = (
+            await (
+               await fetch(
+                  `${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/is-registered?id=${token.id}`
+               )
+            ).json()
+         ).isRegistered as boolean;
+
+         token.isRegistered = isRegistered;
 
          return token;
       },
