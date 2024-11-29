@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useUser } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/back-button-link";
 import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "@/i18n/routing";
+import { cubicFeetToCubicMeters, inchesToCentimeters } from "@/lib/utils/unit-conversions";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { stepToPath } from "../(components)/use-step-manager";
@@ -46,6 +48,7 @@ export function SubmitForm() {
    const contactData = useContactData();
    const validSteps = useValidSteps();
    const clearStorage = useClearRequestOffersStore();
+   const user = useUser();
 
    const defaultValues: DefaultValues<SubmitData> = submitData ?? {
       additionalInformation: "",
@@ -75,12 +78,23 @@ export function SubmitForm() {
          }
       }
 
+      const isImperial = user.preferredUnitSystem === "IMPERIAL";
+      // convert to metric values if they were inputted as imperial system values
+      if (isImperial) {
+         firewoodData!.amount = cubicFeetToCubicMeters(Number(firewoodData!.amount));
+
+         if (firewoodData?.maxLength) {
+            firewoodData.maxLength = inchesToCentimeters(Number(firewoodData.maxLength));
+         }
+      }
+
       console.log("Total submitted values", {
          firewoodData,
          deliveryData,
          contactData,
          data,
       });
+
       // TODO: Store to database
       // TODO: Change to correct redirect page
       clearStorage();

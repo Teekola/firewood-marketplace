@@ -155,9 +155,8 @@ function VolumeField() {
    const t = useTranslations("request-offers");
    const form = useFormContext<FirewoodData>();
 
-   // TODO: USE PREFERRED UNIT SYSTEM IN THE UI (NEED TO CONVERT TO METRIC SYSTEM BEFORE SUBMITTING)
    const user = useUser();
-   console.log(user);
+   const unit = user.preferredUnitSystem === "METRIC" ? "m" : "ft";
 
    // Transform input value to contain numbers and decimal separator only
    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -198,7 +197,7 @@ function VolumeField() {
                      onBlur={handleBlur}
                      content={
                         <p className="absolute right-4 text-base">
-                           {"m"}
+                           {unit}
                            <span className="-translate-y-1/5 absolute text-xs">{"3"}</span>
                         </p>
                      }
@@ -211,12 +210,13 @@ function VolumeField() {
    );
 }
 
-// TODO: Get units based on user-selected system, which is selected in onboarding!
-// TODO: The data is then stored in database always in metric format and converted in ui to user-preferred system
 function MaxLengthField() {
    const fieldName = "maxLength";
    const t = useTranslations("request-offers");
    const form = useFormContext<FirewoodData>();
+
+   const user = useUser();
+   const unit = user.preferredUnitSystem === "METRIC" ? "cm" : "in";
 
    // Transform input value to contain numbers and decimal separator only
    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -256,7 +256,7 @@ function MaxLengthField() {
                      inputMode="decimal"
                      onChange={handleInputChange}
                      onBlur={handleBlur}
-                     content={<p className="absolute right-2 text-base">{"cm"}</p>}
+                     content={<p className="absolute right-2 text-base">{unit}</p>}
                   />
                </FormControl>
                <FormMessage />
