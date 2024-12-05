@@ -20,7 +20,7 @@ import {
 import { RadioGroup } from "@/components/ui/radio-group";
 
 import { RadioGroupItemCard } from "../request-offers/(components)/radio-group-item-card";
-import { saveUserPreferences } from "./saveUserPreferences";
+import { saveUserPreferences } from "./save-user-preferences";
 
 export const newUserFormSchema = z.object({
    registerAsSeller: z.boolean(),
