@@ -24,6 +24,9 @@ import { cubicFeetToCubicMeters, inchesToCentimeters } from "@/lib/utils/unit-co
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { stepToPath } from "../(components)/use-step-manager";
+import { ContactData } from "../contact/contact-form";
+import { DeliveryData } from "../delivery/delivery-form";
+import { FirewoodData } from "../firewood/firewood-form";
 import {
    useClearRequestOffersStore,
    useContactData,
@@ -33,6 +36,7 @@ import {
    useSubmitData,
    useValidSteps,
 } from "../store/request-offers-store-provider";
+import { submitQuotationRequest } from "./actions";
 
 const ADDITIONAL_INFORMATION_MAX_LENGTH = 450;
 export const submitFormSchema = z.object({
@@ -64,7 +68,7 @@ export function SubmitForm() {
 
    const setSubmitData = useSetSubmitData();
 
-   function onSubmit(data: SubmitData) {
+   async function onSubmit(data: SubmitData) {
       setSubmitData(data);
 
       // Validate that all steps are valid and redirect to first invalid step if not
@@ -78,13 +82,18 @@ export function SubmitForm() {
          }
       }
 
+      // We can assert this because of the validation done above
+      const fData = { ...firewoodData, maxLength: firewoodData?.maxLength ?? "" } as FirewoodData;
+      const dData = deliveryData as DeliveryData;
+      const cData = contactData as ContactData;
+
       const isImperial = user.preferredUnitSystem === "IMPERIAL";
       // convert to metric values if they were inputted as imperial system values
       if (isImperial) {
-         firewoodData!.amount = cubicFeetToCubicMeters(Number(firewoodData!.amount));
+         fData.amount = cubicFeetToCubicMeters(Number(fData.amount));
 
-         if (firewoodData?.maxLength) {
-            firewoodData.maxLength = inchesToCentimeters(Number(firewoodData.maxLength));
+         if (fData?.maxLength) {
+            fData.maxLength = inchesToCentimeters(Number(fData.maxLength));
          }
       }
 
@@ -95,7 +104,13 @@ export function SubmitForm() {
          data,
       });
 
-      // TODO: Store to database
+      // TODO: Store to database using server action
+      await submitQuotationRequest({
+         firewoodData: fData,
+         deliveryData: dData,
+         contactData: cData,
+         submitData: data,
+      });
       // TODO: Change to correct redirect page
       clearStorage();
       router.push("/");
