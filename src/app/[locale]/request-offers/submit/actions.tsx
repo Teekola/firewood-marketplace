@@ -3,7 +3,6 @@
 import { DeliveryMethod, WoodDryness, WoodType } from "@prisma/client";
 
 import { auth } from "@/auth/auth";
-import { env } from "@/env/server";
 import { prisma } from "@/prisma";
 
 import { ContactData } from "../contact/contact-form";
@@ -39,65 +38,11 @@ export async function submitQuotationRequest({
       throw new Error("Unauthorized.");
    }
 
-   let location = await prisma.location.findUnique({
-      postalCode: deliveryData.postalCode,
-      countryCode: deliveryData.countryCode,
-   });
-
-   console.log("ACTIONS: location:", location);
-
-   if (!location) {
-      const locationDataArr = await (
-         await fetch(
-            `https://geocode.maps.co/search?country=${deliveryData.countryCode}&postalCode=${deliveryData.postalCode}&api_key=${env.GEOCODE_API_KEY}`
-         )
-      ).json();
-
-      // TODO: Improve this case handling, TODO: Backup to the city search in case postalcode was not found!
-      // TODO: Nicely return back to the form if the location is not usable etc.
-      if (
-         !locationDataArr ||
-         !locationDataArr[0] ||
-         !locationDataArr[0].lat ||
-         !locationDataArr[0].lon
-      ) {
-         throw new Error("Location data was not found.");
-      }
-
-      const locationData = locationDataArr[0];
-      console.log(locationData);
-
-      const coordinates = {
-         latitude: locationData.lat,
-         longitude: locationData.lon,
-      };
-      try {
-         const newLocation = await prisma.location.create({
-            countryCode: deliveryData.countryCode,
-            countryName: deliveryData.countryName,
-            postalCode: deliveryData.postalCode,
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude,
-         });
-         location = newLocation;
-      } catch (error) {
-         // TODO: log this to logger
-         console.error(error);
-         const newLocation = await prisma.location.findUnique({ postalCode: "", countryCode: "" });
-         if (!newLocation) {
-            // TODO: Improve error handling
-            throw new Error("Could not create location, but location does not exist.");
-         }
-
-         location = newLocation;
-      }
-   }
-
    // Finds all sellers that have maxDistanceKm lower than the distance in km
-   const sellers = await prisma.location.findSellersWithinDistance(
-      location.coordinates.latitude,
-      location.coordinates.longitude
-   );
+   const sellers = await prisma.sellerLocation.findSellersWithinDistance({
+      latitude: deliveryData.latitude,
+      longitude: deliveryData.longitude,
+   });
 
    console.log("ACTIONS: sellers:", sellers);
 

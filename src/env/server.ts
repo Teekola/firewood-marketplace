@@ -10,7 +10,6 @@ export const env = createEnv({
       POSTGRES_URL_NON_POOLING: z.string().url(),
       ENV: z.enum(["development", "production", "test", "staging", "preview"]),
       NODE_ENV: z.enum(["development", "production", "test", "staging", "preview"]).optional(),
-      GEOCODE_API_KEY: z.string().min(1),
    },
    experimental__runtimeEnv: process.env,
 });

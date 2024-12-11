@@ -35,11 +35,13 @@ export const deliveryFormSchema = z
       deliveryMethod: z.enum(["homeDelivery", "pickup"], {
          required_error: "Please, select a delivery method",
       }),
-      countryCode: z.string(),
+      countryCode: z.enum(["FI", "US"]),
       countryName: z.string(),
       postalCode: z.string().min(5, { message: "Invalid postal code" }),
       city: z.string(),
       address: z.string().optional(),
+      latitude: z.number(),
+      longitude: z.number(),
    })
    .refine(
       (data) => {

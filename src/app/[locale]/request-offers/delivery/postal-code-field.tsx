@@ -3,8 +3,8 @@
 import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 
 import { CheckCircledIcon } from "@radix-ui/react-icons";
+import { useQuery } from "@tanstack/react-query";
 import { Command as CommandPrimitive } from "cmdk";
-import postalCodes from "datasets-fi-postalcodes";
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormContext } from "react-hook-form";
@@ -23,44 +23,65 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 import { DeliveryData } from "./delivery-form";
+import { parsePostalCodeFile } from "./parse-postal-code-file";
 
-const postalCodeArrayFI = Object.keys(postalCodes)
-   .map((code) => ({
-      code,
-      name: postalCodes[code] as string,
-   }))
-   .sort((a, b) => (a.code < b.code ? -1 : a.code > b.code ? 1 : a.name > b.name ? -1 : 1));
+const POSTAL_CODES_BASE_URL = "https://polttopuutori-postal-codes.s3.eu-north-1.amazonaws.com";
 
 type PostalCodeFieldProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
    const [isOpen, setOpen] = useState(false);
    const [currentName, setCurrentName] = useState("");
-   const [filteredPostalCodes, setFilteredPostalCodes] = useState<typeof postalCodeArrayFI>(
-      postalCodeArrayFI.slice(0, 5)
-   );
+
    const form = useFormContext<DeliveryData>();
    const inputValue = form.watch("postalCode");
    const cityValue = form.watch("city");
+   const countryCode = form.watch("countryCode");
+
+   const {
+      data: postalCodes,
+      isLoading,
+      isError,
+   } = useQuery({
+      queryKey: ["postalCodes", countryCode],
+      queryFn: async () => {
+         const response = await fetch(`${POSTAL_CODES_BASE_URL}/${countryCode}.txt`);
+         const text = await response.text();
+         return parsePostalCodeFile(text);
+      },
+      enabled: !!countryCode,
+   });
+   const [filteredPostalCodes, setFilteredPostalCodes] = useState(postalCodes?.slice(0, 7) ?? []);
+
    const [debouncedInputValue] = useDebounce(inputValue, 100);
    const [debouncedFilteredPostalCodes] = useDebounce(filteredPostalCodes, 300);
    const t = useTranslations("request-offers");
 
-   const isValid = inputValue === filteredPostalCodes[0]?.code;
+   const isValid = inputValue === filteredPostalCodes[0]?.postalCode;
 
    const handleInputChange = useDebouncedCallback(
       (e: ChangeEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
-         const fullCode = filteredPostalCodes.find((obj) => obj.code === e.target.value);
+         const correctPostalCodeInfo = filteredPostalCodes.find(
+            (obj) => obj.postalCode === e.target.value
+         );
 
-         if (fullCode) {
+         if (correctPostalCodeInfo) {
             setOpen(false);
-            setCurrentName(fullCode.name);
-            form.setValue("city", fullCode.name);
+            setCurrentName(correctPostalCodeInfo.placeName);
+            form.setValue("city", correctPostalCodeInfo.placeName);
+            form.setValue("latitude", correctPostalCodeInfo.latitude);
+            form.setValue("longitude", correctPostalCodeInfo.longitude, {
+               shouldValidate: true,
+               shouldDirty: true,
+               shouldTouch: true,
+            });
             return;
          }
          setCurrentName("");
          if (cityValue !== "") {
             form.setValue("city", "");
+            form.resetField("latitude");
+            form.resetField("longitude");
          }
          if (!isOpen) setOpen(true);
       },
@@ -69,24 +90,28 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
 
    // Update filtered postal codes based on input value
    useEffect(() => {
+      if (!postalCodes || isLoading || isError) {
+         // TODO: Handle this case
+         return;
+      }
       if (!debouncedInputValue) {
-         setFilteredPostalCodes(postalCodeArrayFI.slice(0, 7));
+         setFilteredPostalCodes(postalCodes.slice(0, 7));
          return;
       }
 
-      const filtered = postalCodeArrayFI.filter(({ code }) =>
-         code.toLowerCase().startsWith(debouncedInputValue.toLowerCase())
+      const filtered = postalCodes.filter(({ postalCode }) =>
+         postalCode.toLowerCase().startsWith(debouncedInputValue.toLowerCase())
       );
       setFilteredPostalCodes(filtered.slice(0, 7));
 
-      const fullCode = filtered.find((obj) => obj.code === debouncedInputValue);
+      const fullCode = filtered.find((obj) => obj.postalCode === debouncedInputValue);
 
       if (fullCode) {
          setOpen(false);
-         setCurrentName(fullCode.name);
+         setCurrentName(fullCode.placeName);
          return;
       }
-   }, [debouncedInputValue]);
+   }, [debouncedInputValue, postalCodes, isError, isLoading]);
 
    return (
       <FormField
@@ -149,37 +174,41 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                            <CommandEmpty>{t("Invalid postal code")}</CommandEmpty>
                         )}
                         <CommandGroup>
-                           {filteredPostalCodes.map(({ code, name }) => (
-                              <CommandItem
-                                 key={code}
-                                 value={code}
-                                 // Allows selecting options without input blur firing and closing the menu
-                                 onMouseDown={(e) => e.preventDefault()}
-                                 onSelect={(currentValue) => {
-                                    if (currentValue === inputValue) {
-                                       return;
-                                    }
-                                    form.setValue("city", name);
-                                    form.setValue("postalCode", currentValue, {
-                                       shouldValidate: true,
-                                       shouldDirty: true,
-                                       shouldTouch: true,
-                                    });
+                           {filteredPostalCodes.map(
+                              ({ postalCode, placeName, latitude, longitude }) => (
+                                 <CommandItem
+                                    key={postalCode}
+                                    value={postalCode}
+                                    // Allows selecting options without input blur firing and closing the menu
+                                    onMouseDown={(e) => e.preventDefault()}
+                                    onSelect={(currentValue) => {
+                                       if (currentValue === inputValue) {
+                                          return;
+                                       }
+                                       form.setValue("city", placeName);
+                                       form.setValue("latitude", latitude);
+                                       form.setValue("longitude", longitude);
+                                       form.setValue("postalCode", currentValue, {
+                                          shouldValidate: true,
+                                          shouldDirty: true,
+                                          shouldTouch: true,
+                                       });
 
-                                    setCurrentName(name);
-                                    setOpen(false);
-                                 }}
-                                 className="flex items-center justify-between"
-                              >
-                                 {code} {name}
-                                 <Check
-                                    className={cn(
-                                       "mr-2 h-4 w-4",
-                                       inputValue === code ? "opacity-100" : "opacity-0"
-                                    )}
-                                 />
-                              </CommandItem>
-                           ))}
+                                       setCurrentName(placeName);
+                                       setOpen(false);
+                                    }}
+                                    className="flex items-center justify-between"
+                                 >
+                                    {postalCode} {placeName}
+                                    <Check
+                                       className={cn(
+                                          "mr-2 h-4 w-4",
+                                          inputValue === postalCode ? "opacity-100" : "opacity-0"
+                                       )}
+                                    />
+                                 </CommandItem>
+                              )
+                           )}
                         </CommandGroup>
                      </CommandList>
                   </div>
