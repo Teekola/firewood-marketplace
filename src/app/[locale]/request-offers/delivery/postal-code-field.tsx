@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { DeliveryData } from "./delivery-form";
 import { parsePostalCodeFile } from "./parse-postal-code-file";
 
+// TODO: Add credits link to GeoNames so that use is legal!
 const POSTAL_CODES_BASE_URL = "https://polttopuutori-postal-codes.s3.eu-north-1.amazonaws.com";
 
 type PostalCodeFieldProps = React.HTMLAttributes<HTMLDivElement>;
