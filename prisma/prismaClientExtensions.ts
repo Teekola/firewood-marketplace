@@ -29,16 +29,14 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                latitude: number;
                longitude: number;
             }) {
-               const point = `POINT(${data.longitude} ${data.latitude})`;
-
-               const now = new Date();
                const id = createId(); // This is necessary because prisma could not automatically generate the cuid
+               const point = `POINT(${data.longitude} ${data.latitude})`;
 
                const result = await prisma.$queryRaw<{ id: string }[]>`
                   INSERT INTO "SellerLocation"
                      (id, seller_id, country_code, country_name, postal_code, coordinates, created_at, updated_at)
                   VALUES
-                     (${id}, ${data.sellerId}, ${data.countryCode}, ${data.countryName}, ${data.postalCode}, ST_GeomFromText(${point}, 4326), ${now}, ${now})
+                     (${id}, ${data.sellerId}, ${data.countryCode}, ${data.countryName}, ${data.postalCode}, ST_GeomFromText(${point}, 4326), now(), now())
                   RETURNING id`;
 
                // Return the created location with the id
