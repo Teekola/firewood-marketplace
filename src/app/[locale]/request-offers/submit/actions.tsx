@@ -1,25 +1,14 @@
 "use server";
 
-import { DeliveryMethod, WoodDryness, WoodType } from "@prisma/client";
-
+import { getBuyerByUserId, updateNullBuyerData } from "@/app/db/buyer";
+import { createQuotationRequest } from "@/app/db/quotation-request";
+import { findSellersWithinDistance } from "@/app/db/seller-location";
 import { auth } from "@/auth/auth";
-import { prisma } from "@/prisma";
 
 import { ContactData } from "../contact/contact-form";
 import { DeliveryData } from "../delivery/delivery-form";
 import { FirewoodData } from "../firewood/firewood-form";
 import { SubmitData } from "./submit-form";
-
-const toEnum = {
-   mixed: WoodType.MIXED,
-   birch: WoodType.BIRCH,
-   pine: WoodType.PINE,
-   any: WoodDryness.ANY,
-   dry: WoodDryness.DRY,
-   green: WoodDryness.GREEN,
-   homeDelivery: DeliveryMethod.HOME_DELIVERY,
-   pickup: DeliveryMethod.PICKUP,
-} as const;
 
 export async function submitQuotationRequest({
    firewoodData,
@@ -32,64 +21,54 @@ export async function submitQuotationRequest({
    contactData: ContactData;
    submitData: SubmitData;
 }) {
-   console.log("Submitted");
+   console.log("ACTIONS: Submitted");
+
    const session = await auth();
    if (!session) {
       throw new Error("Unauthorized.");
    }
 
-   // Finds all sellers that have maxDistanceKm lower than the distance in km
-   const sellers = await prisma.sellerLocation.findSellersWithinDistance({
-      latitude: deliveryData.latitude,
+   const sellersPromise = findSellersWithinDistance({
       longitude: deliveryData.longitude,
+      latitude: deliveryData.latitude,
    });
 
+   const buyerPromise = await getBuyerByUserId(session.user.id);
+
+   const [sellers, buyer] = await Promise.all([sellersPromise, buyerPromise]);
+
+   // TODO: Remove debug
    console.log("ACTIONS: sellers:", sellers);
-
-   const buyer = await prisma.buyer.findUnique({
-      where: { userId: session.user.id },
-      select: { id: true },
-   });
-
    console.log("ACTIONS: buyer:", buyer);
 
+   // TODO: Improve handling
    if (!buyer) throw new Error("User does not have buyerId");
 
-   // Create the quotation request
-   const quotationRequest = await prisma.quotationRequest.create({
-      data: {
-         buyerId: buyer.id,
-         sellers: {
-            connect: sellers.map((seller) => ({ id: seller.id })),
-         },
-         woodType: toEnum[firewoodData.woodType],
-         woodDryness: toEnum[firewoodData.dryness],
-         ...(firewoodData.maxLength && { woodMaxLengthCm: Number(firewoodData.maxLength) }),
-         woodAmountCubicMeters: Number(firewoodData.amount),
-         deliveryMethod: toEnum[deliveryData.deliveryMethod],
-         countryCode: deliveryData.countryCode,
-         countryName: deliveryData.countryName,
-         postalCode: deliveryData.postalCode,
-         city: deliveryData.city,
-         ...(deliveryData.address && { address: deliveryData.address }),
-         buyerName: contactData.name,
-         buyerEmail: contactData.email,
-         buyerPhone: contactData.phone,
-         ...(contactData.isCompany && { buyerCompanyName: contactData.companyName }),
-         ...(submitData.additionalInformation && {
-            additionalInformation: submitData.additionalInformation,
-         }),
-      },
-      // TODO: Remove when tested
-      select: {
-         id: true,
-         buyer: true,
-         sellers: true,
-      },
+   const updateBuyerPromise = updateNullBuyerData({
+      id: buyer.id,
+      currentData: buyer,
+      deliveryData,
+      contactData,
    });
 
-   console.log(quotationRequest);
+   const quotationRequestPromise = createQuotationRequest({
+      buyerId: buyer.id,
+      sellerIds: sellers.map((seller) => seller.id),
+      firewoodData,
+      deliveryData,
+      contactData,
+      submitData,
+   });
 
+   const [quotationRequest, updatedBuyer] = await Promise.all([
+      quotationRequestPromise,
+      updateBuyerPromise,
+   ]);
+
+   // TODO: Remove debug, add observability logging
+   console.log("ACTIONS: created quotation request:", quotationRequest);
+   console.log("ACTIONS: number of sellers:", quotationRequest.sellers.length);
+   console.log("ACTIONS: updated buyer:", updatedBuyer);
    // To retrieve all quotationRequests for a seller in the dashboard
    //await prisma.quotationRequest.findMany({ where: { sellers: { some: { id: "" } } } });
 }

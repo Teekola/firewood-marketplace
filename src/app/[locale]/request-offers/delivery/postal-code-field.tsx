@@ -28,6 +28,12 @@ import { parsePostalCodeFile } from "./parse-postal-code-file";
 // TODO: Add credits link to GeoNames so that use is legal!
 const POSTAL_CODES_BASE_URL = "https://polttopuutori-postal-codes.s3.eu-north-1.amazonaws.com";
 
+async function fetchPostalCodesByCountryCode(countryCode: DeliveryData["countryCode"]) {
+   const response = await fetch(`${POSTAL_CODES_BASE_URL}/${countryCode}.txt`);
+   const text = await response.text();
+   return parsePostalCodeFile(text);
+}
+
 type PostalCodeFieldProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
@@ -45,11 +51,7 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
       isError,
    } = useQuery({
       queryKey: ["postalCodes", countryCode],
-      queryFn: async () => {
-         const response = await fetch(`${POSTAL_CODES_BASE_URL}/${countryCode}.txt`);
-         const text = await response.text();
-         return parsePostalCodeFile(text);
-      },
+      queryFn: async () => fetchPostalCodesByCountryCode(countryCode),
       enabled: !!countryCode,
    });
    const [filteredPostalCodes, setFilteredPostalCodes] = useState(postalCodes?.slice(0, 7) ?? []);

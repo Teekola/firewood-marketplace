@@ -52,6 +52,9 @@ model Buyer {
    postalCode        String?            @map("postal_code")
    city              String?
    address           String?
+   companyName       String?
+   longitude         Float?
+   latitude          Float?
    quotationRequests QuotationRequest[]
    offerViews        OfferView[]
 }
