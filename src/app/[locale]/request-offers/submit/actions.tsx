@@ -69,6 +69,10 @@ export async function submitQuotationRequest({
    console.log("ACTIONS: created quotation request:", quotationRequest);
    console.log("ACTIONS: number of sellers:", quotationRequest.sellers.length);
    console.log("ACTIONS: updated buyer:", updatedBuyer);
+
+   // TODO: Send emails to the sellers
+
+   return { numberOfSellers: quotationRequest.sellers.length };
    // To retrieve all quotationRequests for a seller in the dashboard
    //await prisma.quotationRequest.findMany({ where: { sellers: { some: { id: "" } } } });
 }

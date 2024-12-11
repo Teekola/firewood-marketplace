@@ -69,6 +69,8 @@ export function SubmitForm() {
    const setSubmitData = useSetSubmitData();
 
    async function onSubmit(data: SubmitData) {
+      // TODO: Display loading state!
+
       setSubmitData(data);
 
       // Validate that all steps are valid and redirect to first invalid step if not
@@ -81,7 +83,6 @@ export function SubmitForm() {
             }
          }
       }
-
       // We can assert this because of the validation done above
       const fData = { ...firewoodData, maxLength: firewoodData?.maxLength ?? "" } as FirewoodData;
       const dData = deliveryData as DeliveryData;
@@ -104,15 +105,16 @@ export function SubmitForm() {
          data,
       });
 
-      // TODO: Store to database using server action
-      await submitQuotationRequest({
+      // Create quotation request and send it to nearest sellers
+      const { numberOfSellers } = await submitQuotationRequest({
          firewoodData: fData,
          deliveryData: dData,
          contactData: cData,
          submitData: data,
       });
-      // TODO: Change to correct redirect page
+      console.log("Number of sellers:", numberOfSellers);
       clearStorage();
+      // TODO: Change to correct redirect page / display success message etc.
       router.push("/");
    }
 
