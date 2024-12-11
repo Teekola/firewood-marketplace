@@ -41,9 +41,13 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                      (${id}, ${data.sellerId}, ${data.countryCode}, ${data.countryName}, ${data.postalCode}, ST_GeomFromText(${point}, 4326), now(), now())
                   RETURNING id, created_at, updated_at`;
 
+               // TODO: Improve error handling
+               if (result.length < 1) {
+                  throw new Error("Could not create seller location");
+               }
                // Return the created location with the id
                const location: SellerLocation = {
-                  id: result[0]?.id || "",
+                  id: result[0].id,
                   sellerId: data.sellerId,
                   countryCode: data.countryCode,
                   countryName: data.countryName,
