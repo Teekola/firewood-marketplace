@@ -22,7 +22,10 @@ import { cn } from "@/lib/utils";
 
 import { DeliveryData } from "./delivery-form";
 
-const countries = [{ label: "Finland", code: "FI" }] as const;
+const countries = [
+   { label: "Finland", code: "FI" },
+   { label: "United States", code: "US" },
+] as const;
 
 export function CountryField() {
    const [isOpen, setOpen] = useState(false);
