@@ -10,7 +10,6 @@ export default async function RequestOffersLayout({
 }: Readonly<{ children: React.ReactNode }>) {
    const t = await getTranslations();
 
-   // TODO: The submit step submits the request to database
    return (
       <div className="mx-auto max-w-lg p-3">
          <p className="mb-3 text-base text-muted-foreground">
