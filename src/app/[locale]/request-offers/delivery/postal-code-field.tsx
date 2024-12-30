@@ -29,7 +29,10 @@ import { parsePostalCodeFile } from "./parse-postal-code-file";
 const POSTAL_CODES_BASE_URL = "https://polttopuutori-postal-codes.s3.eu-north-1.amazonaws.com";
 
 async function fetchPostalCodesByCountryCode(countryCode: DeliveryData["countryCode"]) {
-   const response = await fetch(`${POSTAL_CODES_BASE_URL}/${countryCode}.txt`);
+   const response = await fetch(`${POSTAL_CODES_BASE_URL}/${countryCode}.txt`, {
+      cache: "force-cache",
+      next: { revalidate: 86400 }, // Cache for 1 day
+   });
    const text = await response.text();
    return parsePostalCodeFile(text);
 }
