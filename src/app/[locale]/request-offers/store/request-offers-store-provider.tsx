@@ -20,7 +20,7 @@ export interface RequestOffersStoreProviderProps {
 }
 
 export function RequestOffersStoreProvider({ children }: RequestOffersStoreProviderProps) {
-   const storeRef = useRef<RequestOffersStoreApi>();
+   const storeRef = useRef<RequestOffersStoreApi>(undefined);
    if (!storeRef.current) {
       storeRef.current = createRequestOffersStore();
    }
