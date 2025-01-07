@@ -13,13 +13,6 @@
          "Select language": "Valitse kieli"
       }
    },
-   "home": {
-      "Go to a secret page": "Siirry salaiselle sivulle"
-   },
-   "secret-page": {
-      "title": "Tämä on salainen sivu",
-      "Go to home page": "Siirry kotisivulle"
-   },
    "request-offers": {
       "Request Offers": "Tee tarjouspyyntö",
       "Firewood": "Polttopuut",

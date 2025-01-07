@@ -35,7 +35,7 @@ export const pages = {
    signIn: "/auth/sign-in",
    newUser: "/new-user",
 } satisfies AuthPages;
-const protectedRoutes = ["/secret-page", "/request-offers/.*"];
+const protectedRoutes = ["/request-offers/.*"];
 
 export const authPages = [pages.signIn];
 
