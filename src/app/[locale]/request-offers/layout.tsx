@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { AbandonRequestDialog } from "./(components)/abandon-request-dialog";
 import { PageWrapper } from "./(components)/page-wrapper";
 import { RequestOffersStepper } from "./(components)/request-offers-stepper";
-import { RequestOffersStoreProvider } from "./store/request-offers-store-provider";
+import { RequestOffersStoreProvider } from "./(store)/request-offers-store-provider";
 
 export default async function RequestOffersLayout({
    children,

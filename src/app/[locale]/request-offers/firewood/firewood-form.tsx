@@ -28,7 +28,7 @@ import {
    useFirewoodData,
    useLastUnlockedStep,
    useSetFirewoodData,
-} from "../store/request-offers-store-provider";
+} from "../(store)/request-offers-store-provider";
 
 export const firewoodFormSchema = z.object({
    woodType: z.enum(["mixed", "birch", "pine"], { required_error: "Please, select a wood type" }),

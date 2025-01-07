@@ -24,9 +24,6 @@ import { cubicFeetToCubicMeters, inchesToCentimeters } from "@/lib/utils/unit-co
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
 import { stepToPath } from "../(components)/use-step-manager";
-import { ContactData } from "../contact/contact-form";
-import { DeliveryData } from "../delivery/delivery-form";
-import { FirewoodData } from "../firewood/firewood-form";
 import {
    useClearRequestOffersStore,
    useContactData,
@@ -35,7 +32,10 @@ import {
    useSetSubmitData,
    useSubmitData,
    useValidSteps,
-} from "../store/request-offers-store-provider";
+} from "../(store)/request-offers-store-provider";
+import { ContactData } from "../contact/contact-form";
+import { DeliveryData } from "../delivery/delivery-form";
+import { FirewoodData } from "../firewood/firewood-form";
 import { submitQuotationRequest } from "./actions";
 
 const ADDITIONAL_INFORMATION_MAX_LENGTH = 450;
