@@ -1,6 +1,6 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { routing } from "@/i18n/routing";
+import { Locale, routing } from "@/i18n/routing";
 
 import { AbandonRequestDialog } from "./(components)/abandon-request-dialog";
 import { PageWrapper } from "./(components)/page-wrapper";
@@ -13,7 +13,11 @@ export function generateStaticParams() {
 
 export default async function RequestOffersLayout({
    children,
-}: Readonly<{ children: React.ReactNode }>) {
+   params,
+}: Readonly<{ children: React.ReactNode; params: Promise<{ locale: Locale }> }>) {
+   const { locale } = await params;
+   setRequestLocale(locale);
+
    const t = await getTranslations();
 
    return (
