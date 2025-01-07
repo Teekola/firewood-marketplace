@@ -3,8 +3,12 @@ import { getTranslations } from "next-intl/server";
 import { AuthButton } from "@/components/auth/auth-button";
 import { LanguageDropdown } from "@/components/language-dropdown/language-dropdown";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Link } from "@/i18n/routing";
+import { Link, routing } from "@/i18n/routing";
 import { Button } from "@/ui/button";
+
+export function generateStaticParams() {
+   return routing.locales.map((locale) => ({ locale }));
+}
 
 export default async function Home() {
    const t = await getTranslations();

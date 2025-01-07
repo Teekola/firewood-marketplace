@@ -1,6 +1,12 @@
 import { getTranslations } from "next-intl/server";
 
+import { routing } from "@/i18n/routing";
+
 import { NewUserForm } from "./new-user-form";
+
+export function generateStaticParams() {
+   return routing.locales.map((locale) => ({ locale }));
+}
 
 export default async function NewUserPage() {
    const t = await getTranslations();
