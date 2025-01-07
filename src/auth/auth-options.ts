@@ -1,4 +1,3 @@
-import { UnitSystem } from "@prisma/client";
 import type { DefaultSession, NextAuthConfig } from "next-auth";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { JWT } from "next-auth/jwt";
@@ -8,11 +7,18 @@ import { env as clientEnv } from "@/env/client";
 import { env } from "@/env/server";
 import { routing } from "@/i18n/routing";
 
+const UnitSystem = {
+   METRIC: "METRIC",
+   IMPERIAL: "IMPERIAL",
+} as const;
+
+type UnitSystemT = keyof typeof UnitSystem;
+
 declare module "next-auth" {
    interface Session {
       user: {
          id: string;
-         preferredUnitSystem?: UnitSystem;
+         preferredUnitSystem?: UnitSystemT;
       } & DefaultSession["user"];
    }
 }
@@ -21,7 +27,7 @@ declare module "next-auth/jwt" {
    /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
    interface JWT {
       id: string;
-      preferredUnitSystem?: UnitSystem;
+      preferredUnitSystem?: UnitSystemT;
    }
 }
 
@@ -83,7 +89,7 @@ export const authOptions = {
          const http = env.NODE_ENV === "development" ? "http" : "https";
          const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/get-and-set-null-preferred-unit-system?id=${token.id}`;
          const preferredUnitSystem = (await (await fetch(url)).json())
-            .preferredUnitSystem as UnitSystem;
+            .preferredUnitSystem as UnitSystemT;
 
          token.preferredUnitSystem = preferredUnitSystem;
 
