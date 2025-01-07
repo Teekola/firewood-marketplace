@@ -1,16 +1,19 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { AuthButton } from "@/components/auth/auth-button";
 import { LanguageDropdown } from "@/components/language-dropdown/language-dropdown";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Link, routing } from "@/i18n/routing";
+import { Link, Locale, routing } from "@/i18n/routing";
 import { Button } from "@/ui/button";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function Home() {
+export default async function Home({ params }: Readonly<{ params: Promise<{ locale: Locale }> }>) {
+   const { locale } = await params;
+   setRequestLocale(locale);
+
    const t = await getTranslations();
    return (
       <>
