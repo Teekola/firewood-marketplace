@@ -7,6 +7,7 @@ import { env as clientEnv } from "@/env/client";
 import { env } from "@/env/server";
 import { routing } from "@/i18n/routing";
 
+// DO NOT IMPORT PRISMA IN THIS FILE, OR IN MIDDLEWARE, OTHERWISE VERCEL DEPLOYMENT FAILS
 const UnitSystem = {
    METRIC: "METRIC",
    IMPERIAL: "IMPERIAL",
