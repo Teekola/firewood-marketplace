@@ -81,8 +81,7 @@ export const authOptions = {
          }
 
          const http = env.NODE_ENV === "development" ? "http" : "https";
-         const urlWithoutQuery = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/get-and-set-null-preferred-unit-system`;
-         const url = token.id ? `${urlWithoutQuery}?id=${token.id}` : urlWithoutQuery;
+         const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/get-and-set-null-preferred-unit-system?id=${token.id}`;
          const preferredUnitSystem = (await (await fetch(url)).json())
             .preferredUnitSystem as UnitSystem;
 
