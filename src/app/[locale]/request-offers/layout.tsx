@@ -1,9 +1,15 @@
 import { getTranslations } from "next-intl/server";
 
+import { routing } from "@/i18n/routing";
+
 import { AbandonRequestDialog } from "./(components)/abandon-request-dialog";
 import { PageWrapper } from "./(components)/page-wrapper";
 import { RequestOffersStepper } from "./(components)/request-offers-stepper";
-import { RequestOffersStoreProvider } from "./store/request-offers-store-provider";
+import { RequestOffersStoreProvider } from "./(store)/request-offers-store-provider";
+
+export function generateStaticParams() {
+   return routing.locales.map((locale) => ({ locale }));
+}
 
 export default async function RequestOffersLayout({
    children,

@@ -12,7 +12,7 @@ import {
    useIsHydrated,
    useLastUnlockedStep,
    useValidSteps,
-} from "../store/request-offers-store-provider";
+} from "../(store)/request-offers-store-provider";
 import { stepToPath } from "./use-step-manager";
 
 const stepToProgressWidth: Record<number, string> = {

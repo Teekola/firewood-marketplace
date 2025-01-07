@@ -1,6 +1,11 @@
 import { useTranslations } from "next-intl";
 
 import { GoogleSignInButton } from "@/components/auth/google-sign-in-button";
+import { routing } from "@/i18n/routing";
+
+export function generateStaticParams() {
+   return routing.locales.map((locale) => ({ locale }));
+}
 
 export default function SignInPage() {
    const t = useTranslations("auth");

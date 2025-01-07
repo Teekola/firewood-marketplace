@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
-import { useContactData, useSetContactData } from "../store/request-offers-store-provider";
+import { useContactData, useSetContactData } from "../(store)/request-offers-store-provider";
 import { PhoneField } from "./phone-field";
 
 export const contactFormSchema = z

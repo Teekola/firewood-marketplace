@@ -26,7 +26,7 @@ import {
    useDeliveryData,
    useLastUnlockedStep,
    useSetDeliveryData,
-} from "../store/request-offers-store-provider";
+} from "../(store)/request-offers-store-provider";
 import { CountryField } from "./country-field";
 import { PostalCodeField } from "./postal-code-field";
 

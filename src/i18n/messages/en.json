@@ -13,13 +13,6 @@
          "Select language": "Select language"
       }
    },
-   "home": {
-      "Go to a secret page": "Go to a secret page"
-   },
-   "secret-page": {
-      "title": "This is a secret page",
-      "Go to home page": "Go to home page"
-   },
    "request-offers": {
       "Request Offers": "Request Offers",
       "Firewood": "Firewood",
@@ -95,5 +88,13 @@
       "Register as a seller": "Register as a seller",
       "Please choose your preferences first": "Please, choose your preferences first",
       "Confirm choices": "Confirm choices"
+   },
+   "metadata": {
+      "page-titles": {
+         "request-offers-firewood": "Request Offers For Firewood - Select Firewood Options",
+         "request-offers-delivery": "Request Offers For Firewood - Select Delivery Options",
+         "request-offers-contact": "Request Offers For Firewood - Select Contact Options",
+         "request-offers-submit": "Request Offers For Firewood - Review and Submit"
+      }
    }
 }

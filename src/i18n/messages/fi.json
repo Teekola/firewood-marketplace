@@ -13,13 +13,6 @@
          "Select language": "Valitse kieli"
       }
    },
-   "home": {
-      "Go to a secret page": "Siirry salaiselle sivulle"
-   },
-   "secret-page": {
-      "title": "Tämä on salainen sivu",
-      "Go to home page": "Siirry kotisivulle"
-   },
    "request-offers": {
       "Request Offers": "Tee tarjouspyyntö",
       "Firewood": "Polttopuut",
@@ -95,5 +88,13 @@
       "Register as a seller": "Rekisteröidyn myyjäksi",
       "Please choose your preferences first": "Valitse ensin mieltymyksesi",
       "Confirm choices": "Vahvista valinnat"
+   },
+   "metadata": {
+      "page-titles": {
+         "request-offers-firewood": "Pyydä polttopuutarjous - Valitse millaista puuta haluat",
+         "request-offers-delivery": "Pyydä polttopuutarjous - Toimitustiedot",
+         "request-offers-contact": "Pyydä polttopuutarjous - Yhteystiedot",
+         "request-offers-submit": "Pyydä polttopuutarjous - Tarkista ja lähetä"
+      }
    }
 }

@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { useIsStepVerified } from "../store/request-offers-store-provider";
+import { useIsStepVerified } from "../(store)/request-offers-store-provider";
 import { useStepManager } from "./use-step-manager";
 
 export function PageWrapper({ children }: PropsWithChildren) {

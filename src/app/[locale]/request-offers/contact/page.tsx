@@ -1,8 +1,20 @@
 import { getTranslations } from "next-intl/server";
 
+import { Locale } from "@/i18n/routing";
+
 import { ContactForm } from "./contact-form";
 
-export default async function FirewoodPage() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+   const { locale } = await params;
+   const t = await getTranslations({ locale, namespace: "metadata.page-titles" });
+
+   return {
+      title: t("request-offers-contact"),
+      description: "",
+   };
+}
+
+export default async function ContactPage() {
    const t = await getTranslations();
    return (
       <>
