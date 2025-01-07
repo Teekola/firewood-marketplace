@@ -14,7 +14,7 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
    const { locale } = await params;
    setRequestLocale(locale);
 
-   const t = await getTranslations();
+   const t = await getTranslations("request-offers");
    return (
       <>
          <div className="bg-secondary">
@@ -37,7 +37,7 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
          </div>
          <main className="mx-auto max-w-screen-xl p-3">
             <Button asChild>
-               <Link href="/request-offers/firewood">{t("request-offers.Request Offers")}</Link>
+               <Link href="/request-offers/firewood">{t("Request Offers")}</Link>
             </Button>
          </main>
       </>
