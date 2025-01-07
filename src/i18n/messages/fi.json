@@ -80,15 +80,6 @@
       "Abandon": "Hylkää",
       "Close": "Sulje"
    },
-   "new-user-page": {
-      "title": "Tervetuloa!",
-      "Unit system": "Yksikköjärjestelmä",
-      "Metric": "Metrinen",
-      "Imperial": "Imperiaalinen",
-      "Register as a seller": "Rekisteröidyn myyjäksi",
-      "Please choose your preferences first": "Valitse ensin mieltymyksesi",
-      "Confirm choices": "Vahvista valinnat"
-   },
    "metadata": {
       "page-titles": {
          "request-offers-firewood": "Pyydä polttopuutarjous - Valitse millaista puuta haluat",

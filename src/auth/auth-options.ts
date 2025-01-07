@@ -1,3 +1,4 @@
+import { UnitSystem } from "@prisma/client";
 import type { DefaultSession, NextAuthConfig } from "next-auth";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { JWT } from "next-auth/jwt";
@@ -7,13 +8,11 @@ import { env as clientEnv } from "@/env/client";
 import { env } from "@/env/server";
 import { routing } from "@/i18n/routing";
 
-// import { prismaEdge } from "@/prismaEdge";
-
 declare module "next-auth" {
    interface Session {
       user: {
          id: string;
-         isRegistered?: boolean;
+         preferredUnitSystem?: UnitSystem;
       } & DefaultSession["user"];
    }
 }
@@ -22,7 +21,7 @@ declare module "next-auth/jwt" {
    /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
    interface JWT {
       id: string;
-      isRegistered?: boolean;
+      preferredUnitSystem?: UnitSystem;
    }
 }
 
@@ -33,7 +32,6 @@ type AuthPages = NextAuthConfig["pages"] & {
 
 export const pages = {
    signIn: "/auth/sign-in",
-   newUser: "/new-user",
 } satisfies AuthPages;
 const protectedRoutes = ["/request-offers/.*"];
 
@@ -59,7 +57,6 @@ function getLocalizedPages(routes: string[]) {
    return pathnames;
 }
 export const protectedPages = getLocalizedPages(protectedRoutes);
-export const newUserPages = getLocalizedPages([pages.newUser]);
 export const CALLBACK_URL_KEY = "callbackUrl";
 export const DEFAULT_ROUTE = "/";
 
@@ -77,17 +74,18 @@ export const authOptions = {
          if (user?.id) {
             token.id = user.id;
          }
-         // Fetch this from an API route so that edge issues do not arise
-         const http = env.NODE_ENV === "development" ? "http" : "https";
-         const isRegistered = (
-            await (
-               await fetch(
-                  `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/is-registered?id=${token.id}`
-               )
-            ).json()
-         ).isRegistered as boolean;
 
-         token.isRegistered = isRegistered;
+         // If the unit system is already set in token, we can return it
+         if (token.preferredUnitSystem) {
+            return token;
+         }
+
+         const http = env.NODE_ENV === "development" ? "http" : "https";
+         const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/get-and-set-null-preferred-unit-system?id=${token.id}`;
+         const preferredUnitSystem = (await (await fetch(url)).json())
+            .preferredUnitSystem as UnitSystem;
+
+         token.preferredUnitSystem = preferredUnitSystem;
 
          return token;
       },
@@ -97,7 +95,7 @@ export const authOptions = {
             user: {
                ...session.user,
                id: token.id,
-               isRegistered: token.isRegistered ?? false,
+               preferredUnitSystem: token.preferredUnitSystem ?? UnitSystem.METRIC,
             },
          };
       },

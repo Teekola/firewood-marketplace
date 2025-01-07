@@ -8,7 +8,6 @@ import {
    DEFAULT_ROUTE,
    authOptions,
    authPages,
-   newUserPages,
    pages,
    protectedPages,
 } from "@/auth/auth-options";
@@ -37,26 +36,6 @@ export default auth(async function middleware(req) {
          nextUrl.origin
       );
       return NextResponse.redirect(redirectUrl);
-   }
-
-   const isRegistered = isSignedIn && !!auth.user.isRegistered;
-   const isNewUserPage = testPathnameRegex({ paths: newUserPages, pathName: nextUrl.pathname });
-
-   // Redirect new users to new user page first
-   if (isProtectedRoute && isSignedIn && !isRegistered && !isNewUserPage) {
-      const redirectUrl = new URL(
-         `${pages.newUser}?${CALLBACK_URL_KEY}=${nextUrl.href}`,
-         nextUrl.origin
-      );
-      return NextResponse.redirect(redirectUrl);
-   }
-
-   if (isNewUserPage && isSignedIn && isRegistered) {
-      const targetUrl = new URL(
-         nextUrl.searchParams.get(CALLBACK_URL_KEY) ?? DEFAULT_ROUTE,
-         nextUrl.origin
-      );
-      return NextResponse.redirect(targetUrl);
    }
 
    const isAuthPage = testPathnameRegex({ paths: authPages, pathName: nextUrl.pathname });
