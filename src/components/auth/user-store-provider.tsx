@@ -1,7 +1,8 @@
 "use client";
 
-import { type ReactNode, createContext, useContext, useEffect, useRef } from "react";
+import { type ReactNode, createContext, useContext, useEffect, useRef, useState } from "react";
 
+import { UnitSystem } from "@prisma/client";
 import { useStore } from "zustand";
 
 import { UserDTO } from "@/app/db/user";
@@ -50,10 +51,41 @@ export function useUserStore<T>(selector: (store: UserStore) => T): T {
    return useStore(userStoreContext, selector);
 }
 
+const defaultUserData: UserDTO = {
+   preferredUnitSystem: UnitSystem.METRIC,
+   id: "guest",
+   name: "guest",
+   email: null,
+   image: null,
+};
+
+// Gets the correct unit system based on geolocation and uses other default values
+export function useDefaultUser() {
+   const [defaultUser, setDefaultUser] = useState(defaultUserData);
+
+   useEffect(() => {
+      (async () => {
+         const getPreferredUnitSystem = await fetch(
+            "/api/auth/get-unit-system-based-on-geolocation",
+            { cache: "no-store" } // this cannot be cached as it needs to read the headers always
+         );
+         const { preferredUnitSystem } = await getPreferredUnitSystem.json();
+
+         setDefaultUser((prev) => ({ ...prev, preferredUnitSystem }));
+      })();
+   }, []);
+   return defaultUser;
+}
+
 export function useUser() {
    const user = useUserStore((state) => state.user);
-   if (!user) throw Error(`User is ${user}`); // User should always be defined in the context when using useUser
-   return user;
+   const defaultUser = useDefaultUser();
+
+   if (user) {
+      return user;
+   }
+
+   return defaultUser;
 }
 
 export function useSetUser() {

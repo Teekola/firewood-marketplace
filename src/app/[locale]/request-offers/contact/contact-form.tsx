@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { useUser } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -52,12 +51,11 @@ export type ContactData = z.infer<typeof contactFormSchema>;
 
 export function ContactForm() {
    const contactData = useContactData();
-   const user = useUser();
 
-   // TODO: Get these from buyer
+   // TODO: Get these from buyer object if it exists
    const defaultValues: DefaultValues<ContactData> = contactData ?? {
-      name: user.name ?? "",
-      email: user.email ?? "",
+      name: "",
+      email: "",
       phone: "",
       isCompany: false,
       companyName: "",
