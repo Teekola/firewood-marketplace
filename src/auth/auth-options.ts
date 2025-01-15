@@ -42,7 +42,7 @@ export const pages = {
 } satisfies AuthPages;
 
 // example of all routes within /dashboard: "/dashboard/.*"
-const protectedRoutes: string[] = [];
+const protectedRoutes = ["/user/.*"];
 
 export const authPages = [pages.signIn];
 
