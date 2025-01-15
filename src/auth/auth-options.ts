@@ -40,7 +40,9 @@ type AuthPages = NextAuthConfig["pages"] & {
 export const pages = {
    signIn: "/auth/sign-in",
 } satisfies AuthPages;
-const protectedRoutes = ["/request-offers/.*"];
+
+// example of all routes within /dashboard: "/dashboard/.*"
+const protectedRoutes: string[] = [];
 
 export const authPages = [pages.signIn];
 
