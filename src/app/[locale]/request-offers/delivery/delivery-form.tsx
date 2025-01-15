@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useGeolocationData } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +28,7 @@ import {
    useLastUnlockedStep,
    useSetDeliveryData,
 } from "../(store)/request-offers-store-provider";
-import { CountryField } from "./country-field";
+import { CountryField, countries } from "./country-field";
 import { PostalCodeField } from "./postal-code-field";
 
 export const deliveryFormSchema = z
@@ -60,11 +61,14 @@ export type DeliveryData = z.infer<typeof deliveryFormSchema>;
 export function DeliveryForm() {
    const deliveryData = useDeliveryData();
    const lastUnlockedStep = useLastUnlockedStep();
+   const geolocationData = useGeolocationData();
+
+   const defaultCountryData = countries.find((country) => country.code === geolocationData.country);
 
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
       deliveryMethod: "homeDelivery",
-      countryCode: "FI", // TODO: Get these from buyer
-      countryName: "Finland",
+      countryCode: defaultCountryData?.code ?? "FI", // TODO: Get these from buyer
+      countryName: defaultCountryData?.label ?? "US",
       postalCode: "",
       city: "",
       address: "",

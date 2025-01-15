@@ -11,5 +11,5 @@ export async function GET(request: NextRequest) {
    const isImperialCountry = !!country && imperialSystemCountries.has(country);
    const preferredUnitSystem = isImperialCountry ? UnitSystem.IMPERIAL : UnitSystem.METRIC;
 
-   return Response.json({ preferredUnitSystem });
+   return Response.json({ preferredUnitSystem, country: country ?? "Finland" });
 }

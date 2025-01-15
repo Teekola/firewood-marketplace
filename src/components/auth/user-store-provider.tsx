@@ -51,41 +51,41 @@ export function useUserStore<T>(selector: (store: UserStore) => T): T {
    return useStore(userStoreContext, selector);
 }
 
-const defaultUserData: UserDTO = {
+const defaultGeolocationData = {
    preferredUnitSystem: UnitSystem.METRIC,
-   id: "guest",
-   name: "guest",
-   email: null,
-   image: null,
+   country: "FI",
 };
 
 // Gets the correct unit system based on geolocation and uses other default values
-export function useDefaultUser() {
-   const [defaultUser, setDefaultUser] = useState(defaultUserData);
+export function useGeolocationData() {
+   const [geolocationData, setGeolocationData] = useState(defaultGeolocationData);
 
    useEffect(() => {
       (async () => {
          const getPreferredUnitSystem = await fetch(
-            "/api/auth/get-unit-system-based-on-geolocation",
+            "/api/auth/get-geolocation-data",
             { cache: "no-store" } // this cannot be cached as it needs to read the headers always
          );
-         const { preferredUnitSystem } = await getPreferredUnitSystem.json();
+         const { preferredUnitSystem, country } = await getPreferredUnitSystem.json();
 
-         setDefaultUser((prev) => ({ ...prev, preferredUnitSystem }));
+         setGeolocationData((prev) => ({ ...prev, preferredUnitSystem, country }));
       })();
    }, []);
-   return defaultUser;
+   return geolocationData;
 }
 
 export function useUser() {
    const user = useUserStore((state) => state.user);
-   const defaultUser = useDefaultUser();
+   const geolocationData = useGeolocationData();
 
    if (user) {
       return user;
    }
 
-   return defaultUser;
+   return {
+      country: geolocationData.country,
+      preferredUnitSystem: geolocationData.preferredUnitSystem,
+   };
 }
 
 export function useSetUser() {

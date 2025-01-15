@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 
 import { DeliveryData } from "./delivery-form";
 
-const countries = [
+export const countries = [
    { label: "Finland", code: "FI" },
    { label: "United States", code: "US" },
 ] as const;
