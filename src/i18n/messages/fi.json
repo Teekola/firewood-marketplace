@@ -2,7 +2,12 @@
    "auth": {
       "Sign in with Google": "Kirjaudu sisään Googlella",
       "Sign In": "Kirjaudu sisään",
-      "Sign Out": "Kirjaudu ulos"
+      "Sign Out": "Kirjaudu ulos",
+      "Register with Google": "Rekisteröidy Googlella",
+      "New user": "Uusi käyttäjä",
+      "Register here": "Rekisteröidy tästä",
+      "Already have an account": "Onko sinulla jo tili",
+      "to fill in the details": "täyttääksesi tiedot automaattisesti"
    },
    "settings": {
       "preferences": {

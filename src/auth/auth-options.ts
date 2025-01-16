@@ -79,23 +79,16 @@ export const authOptions = {
    ],
    pages,
    callbacks: {
-      async jwt({ token, user }) {
+      async jwt({ token, user, trigger }) {
+         if (trigger === "signUp") {
+            const http = env.NODE_ENV === "development" ? "http" : "https";
+            const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/register-user?id=${user.id}`;
+            await fetch(url);
+         }
+
          if (user?.id) {
             token.id = user.id;
          }
-
-         // If the unit system is already set in token, we can return it
-         if (token.preferredUnitSystem) {
-            return token;
-         }
-
-         const http = env.NODE_ENV === "development" ? "http" : "https";
-         const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/get-and-set-null-preferred-unit-system?id=${token.id}`;
-         const preferredUnitSystem = (await (await fetch(url)).json())
-            .preferredUnitSystem as UnitSystemT;
-
-         token.preferredUnitSystem = preferredUnitSystem;
-
          return token;
       },
       session({ session, token }) {

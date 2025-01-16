@@ -19,8 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/routing";
 
-import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
-import { useContactData, useSetContactData } from "../(store)/request-offers-store-provider";
+import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
+import { useContactData, useSetContactData } from "../../(store)/request-offers-store-provider";
 import { PhoneField } from "./phone-field";
 
 export const contactFormSchema = z
@@ -86,7 +86,7 @@ export function ContactForm() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="mt-4 flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
          >
-            <div className="space-y-6">
+            <div className="space-y-4">
                <FormField
                   name="name"
                   control={form.control}

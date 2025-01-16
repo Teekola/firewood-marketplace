@@ -25,7 +25,6 @@ model User {
    email               String?     @unique
    emailVerified       DateTime?   @map("email_verified")
    image               String?
-   isRegistered        Boolean     @default(false) @map("is_registered")
    preferredUnitSystem UnitSystem?
    buyer               Buyer?
    seller              Seller?

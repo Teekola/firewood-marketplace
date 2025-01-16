@@ -21,14 +21,14 @@ import { InputWithContent } from "@/components/ui/input-with-content";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { useRouter } from "@/i18n/routing";
 
-import { FormStoreSyncManager } from "../(components)/form-store-sync-manager";
-import { RadioGroupItemCard } from "../(components)/radio-group-item-card";
-import { stepToPath } from "../(components)/use-step-manager";
+import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
+import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";
+import { stepToPath } from "../../(components)/use-step-manager";
 import {
    useFirewoodData,
    useLastUnlockedStep,
    useSetFirewoodData,
-} from "../(store)/request-offers-store-provider";
+} from "../../(store)/request-offers-store-provider";
 
 export const firewoodFormSchema = z.object({
    woodType: z.enum(["mixed", "birch", "pine"], { required_error: "Please, select a wood type" }),

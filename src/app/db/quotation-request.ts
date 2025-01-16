@@ -2,10 +2,10 @@ import { DeliveryMethod, WoodDryness, WoodType } from "@prisma/client";
 
 import { prisma } from "@/prisma";
 
-import { ContactData } from "../[locale]/request-offers/contact/contact-form";
-import { DeliveryData } from "../[locale]/request-offers/delivery/delivery-form";
-import { FirewoodData } from "../[locale]/request-offers/firewood/firewood-form";
-import { SubmitData } from "../[locale]/request-offers/submit/submit-form";
+import { ContactData } from "../[locale]/request-offers/(stepper)/contact/contact-form";
+import { DeliveryData } from "../[locale]/request-offers/(stepper)/delivery/delivery-form";
+import { FirewoodData } from "../[locale]/request-offers/(stepper)/firewood/firewood-form";
+import { SubmitData } from "../[locale]/request-offers/(stepper)/submit/submit-form";
 
 const toEnum = {
    mixed: WoodType.MIXED,

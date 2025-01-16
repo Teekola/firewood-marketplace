@@ -30,6 +30,14 @@ export const routing = defineRouting({
          en: "/request-offers/submit",
          fi: "/tee-tarjouspyynto/laheta",
       },
+      "/request-offers/submitting": {
+         en: "/request-offers/submitting",
+         fi: "/tee-tarjouspyynto/lahetetaan",
+      },
+      "/request-offers/submitted": {
+         en: "/request-offers/submitted",
+         fi: "/tee-tarjouspyynto/lahetetty",
+      },
    },
 });
 
