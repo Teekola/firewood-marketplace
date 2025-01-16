@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 
-import { auth } from "@/auth/auth";
 import { Locale } from "@/i18n/routing";
 
 import { Preview } from "./preview";
@@ -18,13 +17,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 
 export default async function SubmitPage() {
    const t = await getTranslations();
-   const session = await auth();
+
    return (
       <>
          <h1 className="text-4xl font-extrabold">{t("request-offers.Submit")}</h1>
          <div className="mt-4 flex h-full max-w-lg flex-col gap-4">
             <Preview />
-            <SubmitForm session={session} />
+            <SubmitForm />
          </div>
       </>
    );
