@@ -1,10 +1,13 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { SessionWithBuyer } from "@/auth/auth";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -49,16 +52,18 @@ export const contactFormSchema = z
 
 export type ContactData = z.infer<typeof contactFormSchema>;
 
-export function ContactForm() {
+export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>) {
    const contactData = useContactData();
+   const t = useTranslations("request-offers");
+   const router = useRouter();
+   const setContactData = useSetContactData();
 
-   // TODO: Get these from buyer object if it exists
    const defaultValues: DefaultValues<ContactData> = contactData ?? {
-      name: "",
-      email: "",
-      phone: "",
+      name: session?.buyer?.name ?? "",
+      email: session?.buyer?.email ?? "",
+      phone: session?.buyer?.phone ?? "",
       isCompany: false,
-      companyName: "",
+      companyName: session?.buyer?.companyName ?? "",
    };
 
    const form = useForm<ContactData>({
@@ -67,18 +72,49 @@ export function ContactForm() {
    });
 
    const isCompany = form.watch("isCompany");
-   const t = useTranslations("request-offers");
-   const router = useRouter();
+   const canProceed = form.formState.isValid;
 
-   const setContactData = useSetContactData();
+   // This updates the values in the form if the user signs in and has buyer data
+   useEffect(() => {
+      if (!session) return;
+      const { buyer } = session;
+      if (!buyer) return;
+
+      if (buyer.name) {
+         form.setValue("name", buyer.name, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+         });
+      }
+      if (buyer.email) {
+         form.setValue("email", buyer.email, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+         });
+      }
+      if (buyer.phone) {
+         form.setValue("phone", buyer.phone, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+         });
+      }
+      if (buyer.companyName) {
+         form.setValue("companyName", buyer.companyName, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+         });
+      }
+   }, [session, form]);
 
    function onSubmit(data: ContactData) {
       console.log("You submitted the following values", data);
       setContactData(data);
       router.push("/request-offers/submit");
    }
-
-   const canProceed = form.formState.isValid;
 
    return (
       <Form {...form}>

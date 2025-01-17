@@ -1,10 +1,13 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { SessionWithBuyer } from "@/auth/auth";
 import { useGeolocationData } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
@@ -28,7 +31,7 @@ import {
    useLastUnlockedStep,
    useSetDeliveryData,
 } from "../../(store)/request-offers-store-provider";
-import { CountryField, countries } from "./country-field";
+import { CountryField, DEFAULT_COUNTRY, countries } from "./country-field";
 import { PostalCodeField } from "./postal-code-field";
 
 export const deliveryFormSchema = z
@@ -58,20 +61,29 @@ export const deliveryFormSchema = z
    );
 export type DeliveryData = z.infer<typeof deliveryFormSchema>;
 
-export function DeliveryForm() {
+export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }>) {
    const deliveryData = useDeliveryData();
    const lastUnlockedStep = useLastUnlockedStep();
    const geolocationData = useGeolocationData();
+   const t = useTranslations();
+   const router = useRouter();
+   const setDeliveryData = useSetDeliveryData();
 
-   const defaultCountryData = countries.find((country) => country.code === geolocationData.country);
+   // Only use the country code if it is a valid option
+   const countryCode = session?.buyer?.countryCode
+      ? session.buyer.countryCode
+      : geolocationData.country;
+   const validCountryCode = countries.find((country) => country.code === countryCode);
 
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
       deliveryMethod: "homeDelivery",
-      countryCode: defaultCountryData?.code ?? "FI", // TODO: Get these from buyer
-      countryName: defaultCountryData?.label ?? "US",
-      postalCode: "",
-      city: "",
-      address: "",
+      countryCode: validCountryCode ? validCountryCode.code : DEFAULT_COUNTRY.code,
+      countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
+      postalCode: session?.buyer?.postalCode ?? "",
+      city: session?.buyer?.city ?? "",
+      address: session?.buyer?.address ?? "",
+      latitude: session?.buyer?.latitude ?? undefined,
+      longitude: session?.buyer?.longitude ?? undefined,
    };
 
    const form = useForm<DeliveryData>({
@@ -79,12 +91,46 @@ export function DeliveryForm() {
       defaultValues,
    });
 
-   const t = useTranslations();
-
-   const router = useRouter();
    const deliveryMethod = form.watch("deliveryMethod");
+   const canProceed = form.formState.isValid;
 
-   const setDeliveryData = useSetDeliveryData();
+   // This updates the values in the form if the user signs in and has buyer data
+   useEffect(() => {
+      if (!session) return;
+      const { buyer } = session;
+      if (!buyer) return;
+
+      if (buyer.countryCode) {
+         const found = countries.find((country) => country.code === buyer.countryCode);
+         if (found) {
+            form.setValue("countryCode", found.code, { shouldDirty: true, shouldTouch: true });
+            form.setValue("countryName", found.label, {
+               shouldDirty: true,
+               shouldValidate: true,
+               shouldTouch: true,
+            });
+         }
+      }
+
+      if (buyer.postalCode && buyer.city && buyer.latitude && buyer.longitude) {
+         form.setValue("postalCode", buyer.postalCode, { shouldDirty: true, shouldTouch: true });
+         form.setValue("city", buyer.city, { shouldDirty: true, shouldTouch: true });
+         form.setValue("latitude", buyer.latitude, { shouldDirty: true, shouldTouch: true });
+         form.setValue("longitude", buyer.longitude, {
+            shouldDirty: true,
+            shouldValidate: true,
+            shouldTouch: true,
+         });
+      }
+
+      if (buyer.address) {
+         form.setValue("address", buyer.address, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+         });
+      }
+   }, [session, form]);
 
    function onSubmit(data: DeliveryData) {
       console.log("You submitted the following values", data);
@@ -92,8 +138,6 @@ export function DeliveryForm() {
       const lastUnlockedPath = stepToPath[lastUnlockedStep ?? 3];
       router.push(lastUnlockedPath);
    }
-
-   const canProceed = form.formState.isValid;
 
    return (
       <Form {...form}>
