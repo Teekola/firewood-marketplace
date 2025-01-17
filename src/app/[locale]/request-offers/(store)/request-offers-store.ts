@@ -1,10 +1,10 @@
 import { createJSONStorage, persist } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
 
-import { ContactData } from "../contact/contact-form";
-import { DeliveryData } from "../delivery/delivery-form";
-import { FirewoodData } from "../firewood/firewood-form";
-import { SubmitData } from "../submit/submit-form";
+import { ContactData } from "../(stepper)/contact/contact-form";
+import { DeliveryData } from "../(stepper)/delivery/delivery-form";
+import { FirewoodData } from "../(stepper)/firewood/firewood-form";
+import { SubmitData } from "../(stepper)/submit/submit-form";
 
 export type RequestOffersStoreState = {
    firewoodData?: Partial<FirewoodData>;

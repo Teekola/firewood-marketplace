@@ -22,12 +22,15 @@ import { cn } from "@/lib/utils";
 
 import { DeliveryData } from "./delivery-form";
 
-const countries = [
+export const countries = [
    { label: "Finland", code: "FI" },
    { label: "United States", code: "US" },
 ] as const;
+export const DEFAULT_COUNTRY = countries[0];
 
-export function CountryField() {
+type CountryFieldProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CountryField({ ...props }: Readonly<CountryFieldProps>) {
    const [isOpen, setOpen] = useState(false);
    const t = useTranslations();
    const form = useFormContext<DeliveryData>();
@@ -37,7 +40,10 @@ export function CountryField() {
          control={form.control}
          name="countryCode"
          render={({ field }) => (
-            <FormItem className="flex flex-col">
+            <FormItem
+               {...props}
+               className={cn("flex flex-col", props.className && props.className)}
+            >
                <FormLabel>{t("request-offers.Country")}</FormLabel>
                <Popover open={isOpen}>
                   <PopoverTrigger asChild>

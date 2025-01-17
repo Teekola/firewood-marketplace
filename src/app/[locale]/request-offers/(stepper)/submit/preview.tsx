@@ -9,7 +9,7 @@ import {
    useContactData,
    useDeliveryData,
    useFirewoodData,
-} from "../(store)/request-offers-store-provider";
+} from "../../(store)/request-offers-store-provider";
 
 export function Preview() {
    const firewoodData = useFirewoodData();

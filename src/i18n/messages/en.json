@@ -2,7 +2,12 @@
    "auth": {
       "Sign in with Google": "Sign in with Google",
       "Sign In": "Sign In",
-      "Sign Out": "Sign Out"
+      "Sign Out": "Sign Out",
+      "Register with Google": "Register with Google",
+      "New user": "New user",
+      "Register here": "Register here",
+      "Already have an account": "Already have an account",
+      "to fill in the details": "to fill in the details."
    },
    "settings": {
       "preferences": {

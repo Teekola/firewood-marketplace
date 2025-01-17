@@ -1,7 +1,8 @@
 "use client";
 
-import { type ReactNode, createContext, useContext, useEffect, useRef } from "react";
+import { type ReactNode, createContext, useContext, useEffect, useRef, useState } from "react";
 
+import { UnitSystem } from "@prisma/client";
 import { useStore } from "zustand";
 
 import { UserDTO } from "@/app/db/user";
@@ -50,10 +51,41 @@ export function useUserStore<T>(selector: (store: UserStore) => T): T {
    return useStore(userStoreContext, selector);
 }
 
+const defaultGeolocationData = {
+   preferredUnitSystem: UnitSystem.METRIC,
+   country: "FI",
+};
+
+// Gets the correct unit system based on geolocation and uses other default values
+export function useGeolocationData() {
+   const [geolocationData, setGeolocationData] = useState(defaultGeolocationData);
+
+   useEffect(() => {
+      (async () => {
+         const getPreferredUnitSystem = await fetch(
+            "/api/auth/get-geolocation-data",
+            { cache: "no-store" } // this cannot be cached as it needs to read the headers always
+         );
+         const { preferredUnitSystem, country } = await getPreferredUnitSystem.json();
+
+         setGeolocationData((prev) => ({ ...prev, preferredUnitSystem, country }));
+      })();
+   }, []);
+   return geolocationData;
+}
+
 export function useUser() {
    const user = useUserStore((state) => state.user);
-   if (!user) throw Error(`User is ${user}`); // User should always be defined in the context when using useUser
-   return user;
+   const geolocationData = useGeolocationData();
+
+   if (user) {
+      return user;
+   }
+
+   return {
+      country: geolocationData.country,
+      preferredUnitSystem: geolocationData.preferredUnitSystem,
+   };
 }
 
 export function useSetUser() {
