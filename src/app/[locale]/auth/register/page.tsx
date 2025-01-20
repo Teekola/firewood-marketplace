@@ -1,13 +1,13 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { SignInOptions } from "@/components/auth/sign-in-options";
+import { RegisterOptions } from "@/components/auth/register-options";
 import { Locale, routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function SignInPage({
+export default async function RegisterPage({
    params,
 }: Readonly<{ params: Promise<{ locale: Locale }> }>) {
    const { locale } = await params;
@@ -16,8 +16,8 @@ export default async function SignInPage({
    const t = await getTranslations("auth");
    return (
       <div className="mx-auto flex h-screen max-w-screen-sm flex-col items-center justify-center gap-4">
-         <h1 className="h2">{t("Sign In")}</h1>
-         <SignInOptions />
+         <h1 className="h2">{t("Register")}</h1>
+         <RegisterOptions />
       </div>
    );
 }

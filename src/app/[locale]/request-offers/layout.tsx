@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 
+import { Topbar } from "@/components/topbar";
 import { Locale, routing } from "@/i18n/routing";
 
 import { RequestOffersStoreProvider } from "./(store)/request-offers-store-provider";
@@ -19,8 +20,11 @@ export default async function RequestOffersLayout({
    setRequestLocale(locale);
 
    return (
-      <div className="mx-auto max-w-lg p-3">
-         <RequestOffersStoreProvider>{children}</RequestOffersStoreProvider>
-      </div>
+      <>
+         <Topbar />
+         <div className="mx-auto max-w-lg p-3">
+            <RequestOffersStoreProvider>{children}</RequestOffersStoreProvider>
+         </div>
+      </>
    );
 }

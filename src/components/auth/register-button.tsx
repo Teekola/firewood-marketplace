@@ -1,3 +1,5 @@
+import { ComponentProps } from "react";
+
 import { getTranslations } from "next-intl/server";
 
 import { auth } from "@/auth/auth";
@@ -6,7 +8,7 @@ import { Button } from "@/ui/button";
 
 import { SignOutButton } from "./sign-out-button";
 
-export async function AuthButton() {
+export async function RegisterButton({ ...props }: Readonly<ComponentProps<typeof Button>>) {
    const t = await getTranslations();
    const session = await auth();
 
@@ -16,5 +18,9 @@ export async function AuthButton() {
       return <SignOutButton />;
    }
 
-   return <Button asChild>{<Link href="/auth/sign-in">{t("auth.Sign In")}</Link>}</Button>;
+   return (
+      <Button {...props} asChild>
+         {<Link href="/auth/register">{t("auth.Register")}</Link>}
+      </Button>
+   );
 }
