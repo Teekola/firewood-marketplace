@@ -95,5 +95,10 @@
       "request-offers-contact": "Request Offers For Firewood - Select Contact Options",
       "request-offers-submit": "Request Offers For Firewood - Review and Submit"
     }
+  },
+  "new-user": {
+    "Continue": "Continue",
+    "Welcome to Polttopuutori": "Welcome to Polttopuutori",
+    "I intend to": "I intend to"
   }
 }

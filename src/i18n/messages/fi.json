@@ -95,5 +95,10 @@
       "request-offers-contact": "Pyydä polttopuutarjous - Yhteystiedot",
       "request-offers-submit": "Pyydä polttopuutarjous - Tarkista ja lähetä"
     }
+  },
+  "new-user": {
+    "Continue": "Jatka",
+    "Welcome to Polttopuutori": "Tervetuloa Polttopuutoriin",
+    "I intend to": "Aion käyttää alustaa"
   }
 }

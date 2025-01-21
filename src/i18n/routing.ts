@@ -12,7 +12,7 @@ export const routing = defineRouting({
       "/auth/sign-in": "/auth/sign-in", // This can not be localized
       "/auth/register": {
          en: "/register",
-         fi: "/rekisteröidy",
+         fi: "/rekisteroidy",
       },
       "/request-offers": {
          en: "/request-offers",
