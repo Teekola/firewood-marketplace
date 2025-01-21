@@ -5,15 +5,14 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { RegisterButton } from "./auth/register-button";
 import { SignInButton } from "./auth/sign-in-button";
 import { SignOutButton } from "./auth/sign-out-button";
+import { Logo } from "./logo";
 
 export async function Topbar() {
    const session = await auth();
    return (
       <div className="bg-secondary">
          <div className="mx-auto flex max-w-screen-xl justify-between p-3">
-            <div className="text-secondary-foreground-foreground my-auto text-2xl font-extrabold">
-               {"Polttopuutori"}
-            </div>
+            <Logo className="my-auto" />
 
             <div className="rounded bg-card"></div>
             <div className="flex gap-2">
