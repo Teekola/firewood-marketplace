@@ -65,7 +65,9 @@
     "Buy as a company": "Tilaa yrityksenä",
     "Company name": "Yrityksen nimi",
     "Insert company name": "Kirjoita yrityksen nimi",
-    "Back": "Takaisin"
+    "Back": "Takaisin",
+    "Sign in to submit": "Kirjaudu sisään lähettääksesi",
+    "Register to submit": "Rekisteröidy lähettääksesi"
   },
   "countries": {
     "Finland": "Suomi",
