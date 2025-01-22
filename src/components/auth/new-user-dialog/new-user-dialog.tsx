@@ -6,6 +6,7 @@ import { auth } from "@/auth/auth";
 import {
    Dialog,
    DialogContent,
+   DialogDescription,
    DialogFooter,
    DialogHeader,
    DialogTitle,
@@ -21,8 +22,6 @@ export async function NewUserDialog({ ...props }: Readonly<SignInDialogProps>) {
 
    if (!session) return null;
 
-   console.log(session);
-
    if (session.user.isRegistered) {
       return null;
    }
@@ -34,6 +33,9 @@ export async function NewUserDialog({ ...props }: Readonly<SignInDialogProps>) {
                <DialogTitle className="text-2xl">{t("Welcome to Polttopuutori")}</DialogTitle>
             </DialogHeader>
             <NewUserForm />
+            <DialogDescription className="sr-only">
+               {t("Please select what you intend to use the platform for")}
+            </DialogDescription>
             <DialogFooter></DialogFooter>
          </DialogContent>
       </Dialog>

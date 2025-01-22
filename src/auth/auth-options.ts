@@ -87,7 +87,6 @@ export const authOptions = {
    pages,
    callbacks: {
       async jwt({ token, user, trigger }) {
-         console.log(user);
          if (trigger === "signUp") {
             const http = env.NODE_ENV === "development" ? "http" : "https";
             const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/register-user?id=${user.id}`;

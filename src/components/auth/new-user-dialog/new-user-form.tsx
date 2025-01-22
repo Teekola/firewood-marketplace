@@ -1,12 +1,20 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { useTranslations } from "next-intl";
-import { DefaultValues, useForm } from "react-hook-form";
+import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+   Form,
+   FormControl,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+} from "@/components/ui/form";
 
 export const newUserFormSchema = z.object({
    isSeller: z.boolean(),
@@ -39,31 +47,13 @@ export function NewUserForm() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="mt-4 flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
          >
-            <FormLabel>
-               {t("I intend to")}
+            <p>
+               {t("I intend to use the platform for")}
                {"..."}
-            </FormLabel>
+            </p>
             <div className="flex gap-2">
-               <FormField
-                  control={form.control}
-                  name="isSeller"
-                  render={({ field }) => (
-                     <FormItem className="w-full space-y-1" {...field}>
-                        <div className="flex h-28 w-full cursor-pointer items-center justify-center rounded-md border-4 border-muted bg-secondary p-1 capitalize hover:border-accent"></div>
-                        <FormMessage />
-                     </FormItem>
-                  )}
-               />
-               <FormField
-                  control={form.control}
-                  name="isSeller"
-                  render={({ field }) => (
-                     <FormItem className="w-full space-y-1" {...field}>
-                        <div className="flex h-28 cursor-pointer items-center justify-center rounded-md border-4 border-muted bg-secondary p-1 capitalize hover:border-accent"></div>
-                        <FormMessage />
-                     </FormItem>
-                  )}
-               />
+               <ToggleField name="isSeller" label={t("For selling")} />
+               <ToggleField name="isBuyer" label={t("For buying")} />
             </div>
 
             <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
@@ -71,5 +61,33 @@ export function NewUserForm() {
             </Button>
          </form>
       </Form>
+   );
+}
+
+function ToggleField({ name, label }: { name: keyof NewUserFormData; label: string }) {
+   const form = useFormContext<NewUserFormData>();
+
+   return (
+      <FormField
+         control={form.control}
+         name={name}
+         render={({ field }) => (
+            <FormItem className="w-full space-y-1" {...field}>
+               <FormLabel className="[&:has(:focus-visible)>div]:ring-2 [&:has(:focus-visible)>div]:ring-primary [&:has(:focus-visible)>div]:ring-offset-4 [&:has([data-state=checked])>div]:border-primary">
+                  <FormControl>
+                     <CheckboxPrimitive.Root
+                        checked={field.value}
+                        onCheckedChange={(checked) => field.onChange(checked)}
+                        className="sr-only"
+                     />
+                  </FormControl>
+                  <div className="flex h-28 w-full cursor-pointer items-center justify-center rounded-md border-4 border-muted bg-secondary p-1 capitalize hover:border-accent">
+                     {label}
+                  </div>
+                  <FormMessage />
+               </FormLabel>
+            </FormItem>
+         )}
+      />
    );
 }
