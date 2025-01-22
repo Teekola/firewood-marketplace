@@ -1,12 +1,13 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 
 import { getBuyerByUserId } from "@/app/db/buyer";
 import { authOptions } from "@/auth/auth-options";
 import { prismaEdge } from "@/prismaEdge";
 
+import { ExtendedPrismaAdapter } from "./extended-prisma-adapter";
+
 export const { auth, handlers, signIn, signOut } = NextAuth({
-   adapter: PrismaAdapter(prismaEdge),
+   adapter: ExtendedPrismaAdapter(prismaEdge),
    session: { strategy: "jwt" },
    ...authOptions,
 });

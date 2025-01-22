@@ -26,7 +26,8 @@
          "@/prisma": ["./prisma/prisma"],
          "@/prismaEdge": ["./prisma/prismaEdge"],
          "@/components/*": ["./src/components/*"],
-         "@/ui/*": ["./src/components/ui/*"]
+         "@/ui/*": ["./src/components/ui/*"],
+         "@/hooks/*": ["./src/hooks/*"]
       },
       "types": ["vitest/jsdom", "@testing-library/jest-dom"],
       "target": "ES2017"

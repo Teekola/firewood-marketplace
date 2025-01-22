@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { SignInOptions } from "@/components/auth/sign-in-options";
+import { RegisterOptions } from "@/components/auth/register-options";
 import { Logo } from "@/components/logo";
 import { Link, Locale, routing } from "@/i18n/routing";
 
@@ -8,7 +8,7 @@ export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function SignInPage({
+export default async function RegisterPage({
    params,
 }: Readonly<{ params: Promise<{ locale: Locale }> }>) {
    const { locale } = await params;
@@ -19,14 +19,13 @@ export default async function SignInPage({
       <div className="flex h-screen flex-col items-center justify-center gap-4 bg-secondary">
          <div className="flex w-full max-w-screen-xs flex-col items-center gap-5 rounded bg-card px-5 py-20 shadow">
             <Logo className="-mt-5 mb-5 text-xl" />
-            <h1 className="h2">{t("Sign In")}</h1>
-            <SignInOptions />
-
-            <p className="mt-5 text-sm">
-               {t("New user")}
+            <h1 className="h2">{t("Register")}</h1>
+            <RegisterOptions />
+            <p className="mt-5 text-right text-sm">
+               {t("Already have an account")}
                {"? "}
-               <Link href="/auth/register" className="cursor-pointer underline">
-                  {t("Register here")}
+               <Link href="/auth/sign-in" className="cursor-pointer underline">
+                  {t("Sign In")}
                </Link>
             </p>
          </div>

@@ -10,6 +10,34 @@ export const routing = defineRouting({
    pathnames: {
       "/": "/",
       "/auth/sign-in": "/auth/sign-in", // This can not be localized
+      "/auth/register": {
+         en: "/register",
+         fi: "/rekisteroidy",
+      },
+      "/dashboard": {
+         en: "/dashboard",
+         fi: "/paneeli",
+      },
+      "/dashboard/seller": {
+         en: "/seller",
+         fi: "/myyja",
+      },
+      "/dashboard/seller/profile": {
+         en: "/seller/profile",
+         fi: "/myyja/profiili",
+      },
+      "/dashboard/seller/location": {
+         en: "/seller/location",
+         fi: "/myyja/sijainti",
+      },
+      "/dashboard/seller/quotation-requests": {
+         en: "/seller/quotation-requests",
+         fi: "/myyja/tarjouspyynnot",
+      },
+      "/dashboard/buyer": {
+         en: "/buyer-dashboard",
+         fi: "/ostajan-paneeli",
+      },
       "/request-offers": {
          en: "/request-offers",
          fi: "/tee-tarjouspyynto",

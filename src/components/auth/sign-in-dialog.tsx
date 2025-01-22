@@ -13,8 +13,8 @@ import {
    DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { GoogleRegisterButton } from "./google-register-button";
-import { GoogleSignInButton } from "./google-sign-in-button";
+import { RegisterOptions } from "./register-options";
+import { SignInOptions } from "./sign-in-options";
 
 type DialogType = "sign-in" | "register";
 
@@ -48,7 +48,7 @@ export function SignInDialog({
             <DialogHeader>
                <DialogTitle>{signInTitle}</DialogTitle>
             </DialogHeader>
-            <GoogleSignInButton />
+            <SignInOptions />
             <DialogFooter>
                <p className="text-sm">
                   {t("New user")}
@@ -68,7 +68,7 @@ export function SignInDialog({
             <DialogHeader>
                <DialogTitle>{registerTitle}</DialogTitle>
             </DialogHeader>
-            <GoogleRegisterButton />
+            <RegisterOptions />
             <DialogFooter>
                <p className="text-sm">
                   {t("Already have an account")}

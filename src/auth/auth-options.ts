@@ -13,14 +13,20 @@ const UnitSystem = {
    IMPERIAL: "IMPERIAL",
 } as const;
 
-type UnitSystemT = keyof typeof UnitSystem;
+export type UnitSystemT = keyof typeof UnitSystem;
 
 declare module "next-auth" {
    interface Session {
       user: {
          id: string;
          preferredUnitSystem?: UnitSystemT;
+         isRegistered?: boolean;
       } & DefaultSession["user"];
+   }
+
+   interface User {
+      preferredUnitSystem?: UnitSystemT;
+      isRegistered?: boolean;
    }
 }
 
@@ -29,6 +35,7 @@ declare module "next-auth/jwt" {
    interface JWT {
       id: string;
       preferredUnitSystem?: UnitSystemT;
+      isRegistered?: boolean;
    }
 }
 
@@ -40,11 +47,10 @@ type AuthPages = NextAuthConfig["pages"] & {
 export const pages = {
    signIn: "/auth/sign-in",
 } satisfies AuthPages;
+export const registerPage = "/auth/register";
 
 // example of all routes within /dashboard: "/dashboard/.*"
-const protectedRoutes = ["/user/.*"];
-
-export const authPages = [pages.signIn];
+const protectedRoutes = ["/dashboard/.*"];
 
 function regexifyPath(path: string): RegExp {
    const escaped = path.replace(/\//g, "\\/"); // replace / with \/
@@ -65,6 +71,7 @@ function getLocalizedPages(routes: string[]) {
    });
    return pathnames;
 }
+export const authPages = [pages.signIn, registerPage, ...getLocalizedPages([registerPage])];
 export const protectedPages = getLocalizedPages(protectedRoutes);
 export const CALLBACK_URL_KEY = "callbackUrl";
 export const DEFAULT_ROUTE = "/";
@@ -89,6 +96,10 @@ export const authOptions = {
          if (user?.id) {
             token.id = user.id;
          }
+
+         if (user?.isRegistered) {
+            token.isRegistered = user.isRegistered;
+         }
          return token;
       },
       session({ session, token }) {
@@ -97,6 +108,7 @@ export const authOptions = {
             user: {
                ...session.user,
                id: token.id,
+               isRegistered: token.isRegistered ?? false,
                preferredUnitSystem: token.preferredUnitSystem ?? UnitSystem.METRIC,
             },
          };
