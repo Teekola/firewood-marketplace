@@ -86,7 +86,10 @@
   "actions": {
     "Cancel": "Cancel",
     "Abandon": "Abandon",
-    "Close": "Close"
+    "Close": "Close",
+    "More": "More",
+    "Navigate to": "Navigate to",
+    "Select a page to navigate to": "Select a page to navigate to"
   },
   "metadata": {
     "page-titles": {
@@ -103,5 +106,26 @@
     "For selling": "Selling",
     "For buying": "Buying",
     "Please select what you intend to use the platform for": "Please, select what you intend to use the platform for"
+  },
+  "breadcrumbs": {
+    "/": "/Home",
+    "/auth/sign-in": "/Sign In",
+    "/auth/register": "/Register",
+    "/dashboard": "/Dashboard",
+    "/dashboard/seller": "/Dashboard/Seller",
+    "/dashboard/seller/profile": "/Dashboard/Seller/Profile",
+    "/dashboard/seller/location": "/Dashboard/Seller/Location",
+    "/dashboard/seller/quotation-requests": "/Dashboard/Seller/Quotation Requests",
+    "/dashboard/buyer": "/Dashboard/Buyer"
+  },
+  "dashboard": {
+    "Seller Dashboard": "Seller Dashboard",
+    "Profile": "Profile",
+    "Location": "Location",
+    "Quotation Requests": "Quotation Requests",
+    "Seller Location": "Seller Location",
+    "Define location settings These affect the offers you receive": "Define location settings. These affect the offers you receive.",
+    "Seller Profile": "Seller Profile",
+    "Define contact information that potential buyers receive upon accepting an offer": "Define contact information that potential buyers receive upon accepting an offer."
   }
 }

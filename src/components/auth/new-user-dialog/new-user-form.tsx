@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+// import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
@@ -16,6 +17,9 @@ import {
    FormLabel,
    FormMessage,
 } from "@/components/ui/form";
+import { useRouter } from "@/i18n/routing";
+
+import { registerUser } from "./actions";
 
 export const newUserFormSchema = z.object({
    isSeller: z.boolean(),
@@ -23,7 +27,7 @@ export const newUserFormSchema = z.object({
 });
 export type NewUserFormData = z.infer<typeof newUserFormSchema>;
 
-export function NewUserForm() {
+export function NewUserForm({ userId }: Readonly<{ userId: string }>) {
    const defaultValues: DefaultValues<NewUserFormData> = {
       isSeller: false,
       isBuyer: false,
@@ -35,11 +39,20 @@ export function NewUserForm() {
    });
 
    const t = useTranslations("new-user");
+   const router = useRouter();
 
    const canProceed = form.formState.isValid;
 
-   function onSubmit(data: NewUserFormData) {
-      console.log(data);
+   async function onSubmit(data: NewUserFormData) {
+      const result = await registerUser({ userId, isSeller: data.isSeller });
+      console.log("Registered user", result.id);
+      // await signIn("update"); // TODO: Need to update token!
+      if (data.isSeller) {
+         router.push("/dashboard/seller");
+         return;
+      }
+
+      router.push("/dashboard/buyer");
    }
 
    return (

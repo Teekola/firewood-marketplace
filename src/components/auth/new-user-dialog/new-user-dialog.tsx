@@ -34,7 +34,7 @@ export async function NewUserDialog({ ...props }: Readonly<SignInDialogProps>) {
             <DialogDescription className="sr-only">
                {t("Please select what you intend to use the platform for")}
             </DialogDescription>
-            <NewUserForm />
+            <NewUserForm userId={session.user.id} />
          </DialogContent>
       </Dialog>
    );
