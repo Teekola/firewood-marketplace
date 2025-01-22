@@ -7,7 +7,6 @@ import {
    Dialog,
    DialogContent,
    DialogDescription,
-   DialogFooter,
    DialogHeader,
    DialogTitle,
 } from "@/components/ui/dialog";
@@ -28,15 +27,14 @@ export async function NewUserDialog({ ...props }: Readonly<SignInDialogProps>) {
 
    return (
       <Dialog {...props} open={!session.user.isRegistered}>
-         <DialogContent hideCloseButton className="min-h-48">
+         <DialogContent hideCloseButton>
             <DialogHeader>
                <DialogTitle className="text-2xl">{t("Welcome to Polttopuutori")}</DialogTitle>
             </DialogHeader>
-            <NewUserForm />
             <DialogDescription className="sr-only">
                {t("Please select what you intend to use the platform for")}
             </DialogDescription>
-            <DialogFooter></DialogFooter>
+            <NewUserForm />
          </DialogContent>
       </Dialog>
    );

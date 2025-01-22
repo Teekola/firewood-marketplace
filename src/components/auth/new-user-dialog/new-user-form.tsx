@@ -7,6 +7,7 @@ import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { DialogFooter } from "@/components/ui/dialog";
 import {
    Form,
    FormControl,
@@ -45,7 +46,7 @@ export function NewUserForm() {
       <Form {...form}>
          <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mt-4 flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
+            className="flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
          >
             <p>
                {t("I intend to use the platform for")}
@@ -56,9 +57,11 @@ export function NewUserForm() {
                <ToggleField name="isBuyer" label={t("For buying")} />
             </div>
 
-            <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-               {t("Continue")}
-            </Button>
+            <DialogFooter>
+               <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
+                  {t("Continue")}
+               </Button>
+            </DialogFooter>
          </form>
       </Form>
    );

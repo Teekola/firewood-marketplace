@@ -20,7 +20,7 @@ export async function Topbar() {
                   <ThemeToggle />
                   <LanguageDropdown />
                </section>
-               <section className="flex min-w-36 justify-end gap-2">
+               <section className="flex justify-end gap-2">
                   {!session && <SignInButton variant="outline" />}
                   {!session && <RegisterButton />}
                   {session && <SignOutButton />}
