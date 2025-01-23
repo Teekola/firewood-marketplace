@@ -2,6 +2,7 @@
 
 import { Plan } from "@prisma/client";
 
+import { unstable_update } from "@/auth/auth";
 import { prismaEdge } from "@/prismaEdge";
 
 interface RegsiterUserArgs {
@@ -27,5 +28,9 @@ export async function registerUser({ userId, isSeller }: RegsiterUserArgs) {
          id: true,
       },
    });
+
+   // The JWT needs to be updated
+   await unstable_update({ user: { isRegistered: true } });
+
    return updated;
 }

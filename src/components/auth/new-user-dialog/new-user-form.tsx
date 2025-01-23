@@ -46,7 +46,7 @@ export function NewUserForm({ userId }: Readonly<{ userId: string }>) {
    async function onSubmit(data: NewUserFormData) {
       const result = await registerUser({ userId, isSeller: data.isSeller });
       console.log("Registered user", result.id);
-      // await signIn("update"); // TODO: Need to update token!
+
       if (data.isSeller) {
          router.push("/dashboard/seller");
          return;

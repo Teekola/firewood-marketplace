@@ -86,11 +86,18 @@ export const authOptions = {
    ],
    pages,
    callbacks: {
-      async jwt({ token, user, trigger }) {
+      async jwt({ token, user, trigger, session }) {
          if (trigger === "signUp") {
             const http = env.NODE_ENV === "development" ? "http" : "https";
             const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/register-user?id=${user.id}`;
             await fetch(url);
+         }
+
+         // Updates the token. The update data is provided in the session
+         if (trigger === "update") {
+            if (session?.user?.isRegistered) {
+               token.isRegistered = session.user.isRegistered;
+            }
          }
 
          if (user?.id) {
