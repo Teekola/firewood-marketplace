@@ -50,7 +50,7 @@ export const pages = {
 export const registerPage = "/auth/register";
 
 // example of all routes within /dashboard: "/dashboard/.*"
-const protectedRoutes = ["/dashboard/.*"];
+const protectedRoutes = ["/dashboard", "/dashboard/.*"];
 
 function regexifyPath(path: string): RegExp {
    const escaped = path.replace(/\//g, "\\/"); // replace / with \/
