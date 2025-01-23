@@ -21,16 +21,30 @@ import { useRouter } from "@/i18n/routing";
 
 import { registerUser } from "./actions";
 
-export const newUserFormSchema = z.object({
-   isSeller: z.boolean(),
-   isBuyer: z.boolean(),
-});
+export const newUserFormSchema = z
+   .object({
+      isSeller: z.boolean(),
+      isBuyer: z.boolean(),
+   })
+   .refine(
+      (v) => {
+         if (!v.isSeller && !v.isBuyer) {
+            return false;
+         }
+         return true;
+      },
+      {
+         message: "Please select at least one option",
+         path: ["isBuyer"],
+      }
+   );
+
 export type NewUserFormData = z.infer<typeof newUserFormSchema>;
 
 export function NewUserForm({ userId }: Readonly<{ userId: string }>) {
    const defaultValues: DefaultValues<NewUserFormData> = {
-      isSeller: false,
       isBuyer: false,
+      isSeller: false,
    };
 
    const form = useForm<NewUserFormData>({
@@ -66,8 +80,8 @@ export function NewUserForm({ userId }: Readonly<{ userId: string }>) {
                {"..."}
             </p>
             <div className="flex gap-2">
-               <ToggleField name="isSeller" label={t("For selling")} />
                <ToggleField name="isBuyer" label={t("For buying")} />
+               <ToggleField name="isSeller" label={t("For selling")} />
             </div>
 
             <DialogFooter>
@@ -89,18 +103,21 @@ function ToggleField({ name, label }: { name: keyof NewUserFormData; label: stri
          name={name}
          render={({ field }) => (
             <FormItem className="w-full space-y-1" {...field}>
-               <FormLabel className="[&:has(:focus-visible)>div]:ring-2 [&:has(:focus-visible)>div]:ring-primary [&:has(:focus-visible)>div]:ring-offset-4 [&:has([data-state=checked])>div]:border-primary">
+               <FormLabel className="[&:has(:focus-visible)>div]:outline [&:has(:focus-visible)>div]:outline-offset-4 [&:has(:focus-visible)>div]:outline-primary [&:has([data-state=checked])>div]:border-primary">
                   <FormControl>
                      <CheckboxPrimitive.Root
                         checked={field.value}
-                        onCheckedChange={(checked) => field.onChange(checked)}
+                        onCheckedChange={(checked) => {
+                           field.onChange(checked);
+                           form.clearErrors();
+                        }}
                         className="sr-only"
                      />
                   </FormControl>
                   <div className="flex h-28 w-full cursor-pointer items-center justify-center rounded-md border-4 border-muted bg-secondary p-1 capitalize hover:border-accent">
                      {label}
                   </div>
-                  <FormMessage />
+                  <FormMessage className="mt-2" />
                </FormLabel>
             </FormItem>
          )}
