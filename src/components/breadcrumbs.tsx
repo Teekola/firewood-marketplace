@@ -132,13 +132,13 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                <BreadcrumbItem key={index}>
                   {item.href ? (
                      <>
-                        <BreadcrumbLink asChild className="max-w-20 truncate md:max-w-none">
+                        <BreadcrumbLink asChild className="max-w-32 truncate md:max-w-none">
                            <Link href={item.href}>{item.label}</Link>
                         </BreadcrumbLink>
                         <BreadcrumbSeparator />
                      </>
                   ) : (
-                     <BreadcrumbPage className="max-w-20 truncate md:max-w-none">
+                     <BreadcrumbPage className="max-w-32 truncate md:max-w-none">
                         {item.label}
                      </BreadcrumbPage>
                   )}

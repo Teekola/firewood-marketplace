@@ -22,6 +22,10 @@ export const routing = defineRouting({
          en: "/seller",
          fi: "/myyja",
       },
+      "/dashboard/seller/dashboard": {
+         en: "/seller/dashboard",
+         fi: "/myyja/paneeli",
+      },
       "/dashboard/seller/profile": {
          en: "/seller/profile",
          fi: "/myyja/profiili",

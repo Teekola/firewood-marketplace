@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { BackButtonLink } from "@/components/back-button-link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Locale, Pathname, routing } from "@/i18n/routing";
 
@@ -9,22 +10,12 @@ export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function SellerDashboardLayout({
-   children,
-   params,
-}: Readonly<{
-   children: React.ReactNode;
-   params: Promise<{ locale: Locale }>;
-}>) {
-   const { locale } = await params;
-   setRequestLocale(locale);
-
+export async function getSidebarNavItems() {
    const t = await getTranslations("dashboard");
-
-   const sidebarNavItems: { title: string; href: Pathname }[] = [
+   const sidebarNavItems: { title: string; href: Pathname | Pathname[] }[] = [
       {
-         title: t("Seller Dashboard"),
-         href: "/dashboard/seller",
+         title: t("Overview"),
+         href: ["/dashboard/seller", "/dashboard/seller/dashboard"],
       },
       {
          title: t("Profile"),
@@ -39,18 +30,35 @@ export default async function SellerDashboardLayout({
          href: "/dashboard/seller/quotation-requests",
       },
    ];
+   return sidebarNavItems;
+}
+
+export default async function SellerDashboardLayout({
+   children,
+   params,
+}: Readonly<{
+   children: React.ReactNode;
+   params: Promise<{ locale: Locale }>;
+}>) {
+   const { locale } = await params;
+   setRequestLocale(locale);
+
+   const t = await getTranslations("dashboard");
+
+   const sidebarNavItems = await getSidebarNavItems();
 
    return (
       <>
          <Breadcrumbs className="mb-4" />
+         <BackButtonLink label={t("actions.Back")} className="mb-4" />
          <header className="mb-4 border-b pb-4">
             <h2 className="text-2xl font-bold leading-tight">{t("Seller Dashboard")}</h2>
          </header>
          <div className="flex gap-12">
-            <aside className="-mx-4 hidden w-64 md:block">
+            <aside className="hidden w-64 md:block 2xl:-mx-4">
                <SidebarNav items={sidebarNavItems} />
             </aside>
-            <div>{children}</div>
+            {children}
          </div>
       </>
    );

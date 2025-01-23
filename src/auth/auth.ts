@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 
 import { getBuyerByUserId } from "@/app/db/buyer";
+import { getSellerByUserId } from "@/app/db/seller";
 import { authOptions } from "@/auth/auth-options";
 import { prismaEdge } from "@/prismaEdge";
 
@@ -21,3 +22,14 @@ export const authWithBuyer = async () => {
    return { ...session, buyer };
 };
 export type SessionWithBuyer = Awaited<ReturnType<typeof authWithBuyer>>;
+
+export const authWithSeller = async () => {
+   const session = await auth();
+
+   if (!session) return null;
+
+   const seller = await getSellerByUserId(session.user.id);
+
+   return { ...session, seller };
+};
+export type SessionWithSeller = Awaited<ReturnType<typeof authWithBuyer>>;

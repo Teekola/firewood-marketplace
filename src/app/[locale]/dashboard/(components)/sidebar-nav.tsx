@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
    items: {
-      href: Pathname;
+      href: Pathname | Pathname[];
       title: string;
    }[];
 }
@@ -18,13 +18,14 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
       <nav className={cn("flex flex-col space-y-1", className)} {...props}>
          {items.map((item) => (
             <Link
-               key={item.href}
-               href={item.href}
+               key={Array.isArray(item.href) ? item.href[0] : item.href}
+               href={Array.isArray(item.href) ? item.href[0] : item.href}
                className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  pathname === item.href
-                     ? "bg-muted hover:bg-muted"
-                     : "hover:bg-transparent hover:underline",
+                  pathname === item.href ||
+                     (Array.isArray(item.href) && item.href.includes(pathname))
+                     ? "border border-input md:border-none md:bg-muted md:hover:bg-muted"
+                     : "h-16 border border-input shadow-sm hover:bg-accent hover:text-accent-foreground md:h-auto md:border-none md:shadow-none md:hover:bg-transparent md:hover:underline",
                   "justify-start"
                )}
             >

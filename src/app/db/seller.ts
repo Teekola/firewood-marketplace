@@ -4,7 +4,7 @@ import { auth } from "@/auth/auth";
 import { prisma } from "@/prisma";
 
 // TODO: create Seller DTO
-const getSellerByUserId = async (userId: string) => {
+export const getSellerByUserId = async (userId: string) => {
    const seller = await prisma.seller.findUnique({
       where: { userId },
       select: {
