@@ -18,6 +18,14 @@ const toEnum = {
    pickup: DeliveryMethod.PICKUP,
 } as const;
 
+export const getQuotationRequestsBySellerId = async ({ sellerId }: { sellerId: string }) => {
+   const quotationRequests = await prisma.quotationRequest.findMany({
+      where: { sellers: { some: { id: sellerId } } },
+   });
+
+   return quotationRequests;
+};
+
 export const createQuotationRequest = async ({
    buyerId,
    sellerIds,
