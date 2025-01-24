@@ -3,7 +3,7 @@ import "server-only";
 import { auth } from "@/auth/auth";
 import { prisma } from "@/prisma";
 
-// TODO: create Seller DTO
+// TODO: Use raw query to get the location with latitude and longitude as well
 export const getSellerByUserId = async (userId: string) => {
    const seller = await prisma.seller.findUnique({
       where: { userId },

@@ -46,3 +46,62 @@ export const findSellersWithinDistance = async ({
 
    return sellers;
 };
+
+export const createSellerLocation = async ({
+   sellerId,
+   countryCode,
+   countryName,
+   postalCode,
+   city,
+   latitude,
+   longitude,
+}: {
+   sellerId: string;
+   countryCode: string;
+   countryName: string;
+   postalCode: string;
+   city: string;
+   latitude: number;
+   longitude: number;
+}) => {
+   const location = await prisma.sellerLocation.create({
+      sellerId,
+      countryCode,
+      countryName,
+      postalCode,
+      city,
+      latitude,
+      longitude,
+   });
+   return location;
+};
+
+export type UpdateSellerLocationArgs = {
+   sellerId: string;
+   countryCode: string;
+   countryName: string;
+   postalCode: string;
+   city: string;
+   latitude: number;
+   longitude: number;
+};
+
+export const updateSellerLocation = async ({
+   sellerId,
+   countryCode,
+   countryName,
+   postalCode,
+   city,
+   latitude,
+   longitude,
+}: UpdateSellerLocationArgs) => {
+   const location = await prisma.sellerLocation.update(sellerId, {
+      countryCode,
+      countryName,
+      postalCode,
+      city,
+      latitude,
+      longitude,
+   });
+   return location;
+};
