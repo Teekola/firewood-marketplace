@@ -15,18 +15,15 @@ export default async function DashboardPage() {
 
    return (
       <>
-         <div className="mb-4 flex">
-            <SignOutButton variant="outline" className="ml-auto" />
+         <div className="mb-4 flex justify-end gap-2">
+            {!isSeller && <Button className="ml-auto"> {t("Become a Seller")}</Button>}
+            <SignOutButton variant="outline" />
          </div>
          <div className="flex w-full flex-col gap-2 md:grid md:grid-cols-3 lg:grid-cols-5">
             {isSeller && (
                <DashboardLink href="/dashboard/seller">{t("Seller Dashboard")}</DashboardLink>
             )}
-            {!isSeller && (
-               <Button asChild variant="default" className="h-16 w-full md:h-32">
-                  <Link href="/dashboard/seller">{t("Become a Seller")}</Link>
-               </Button>
-            )}
+
             <DashboardLink href="/dashboard">{t("Buyer Dashboard")}</DashboardLink>
             <DashboardLink href="/dashboard">{t("User Settings")}</DashboardLink>
          </div>
