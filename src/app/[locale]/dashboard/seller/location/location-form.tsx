@@ -55,8 +55,8 @@ export function SellerLocationForm() {
       countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
       postalCode: sellerLocation?.postalCode ?? "",
       city: sellerLocation?.city ?? "",
-      latitude: undefined, // TODO: Might need to make a custom function for find unique so that the session can get latitude and longitude data
-      longitude: undefined,
+      latitude: sellerLocation?.coordinates.latitude,
+      longitude: sellerLocation?.coordinates.longitude,
    };
 
    const form = useForm<SellerLocationFormData>({
@@ -68,7 +68,6 @@ export function SellerLocationForm() {
 
    const { mutateAsync: saveSellerLocation } = useMutation({
       mutationFn: upsertSellerLocation,
-      // Perform optimistic update
       onMutate: async (newData) => {
          // Cancel outgoing fetches for the query to avoid overwriting the optimistic update
          await queryClient.cancelQueries({ queryKey: [sellerLocationQueryKey] });
@@ -80,7 +79,7 @@ export function SellerLocationForm() {
          queryClient.setQueryData<Partial<SellerLocation> | undefined>(
             [sellerLocationQueryKey],
             (old) => {
-               if (!old) return newData; // In case there's no data (initial load or error state)
+               if (!old) return newData;
 
                return {
                   ...old,
@@ -116,6 +115,8 @@ export function SellerLocationForm() {
             countryName: validCountryCode?.label ?? DEFAULT_COUNTRY.label,
             postalCode: sellerLocation.postalCode,
             city: sellerLocation.city,
+            latitude: sellerLocation.coordinates.latitude,
+            longitude: sellerLocation.coordinates.longitude,
          });
       }
    }, [isLoading, sellerLocation, form.reset, form, countryCode]);
