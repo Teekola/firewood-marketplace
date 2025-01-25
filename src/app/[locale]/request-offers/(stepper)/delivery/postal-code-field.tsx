@@ -41,7 +41,6 @@ type PostalCodeFieldProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
    const [isOpen, setOpen] = useState(false);
-   const [currentName, setCurrentName] = useState("");
 
    const form = useFormContext<DeliveryData>();
    const inputValue = form.watch("postalCode");
@@ -73,7 +72,7 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
 
          if (correctPostalCodeInfo) {
             setOpen(false);
-            setCurrentName(correctPostalCodeInfo.placeName);
+
             form.setValue("city", correctPostalCodeInfo.placeName);
             form.setValue("latitude", correctPostalCodeInfo.latitude);
             form.setValue("longitude", correctPostalCodeInfo.longitude, {
@@ -83,7 +82,7 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
             });
             return;
          }
-         setCurrentName("");
+
          if (cityValue !== "") {
             form.setValue("city", "");
             form.resetField("latitude");
@@ -114,7 +113,6 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
 
       if (fullCode) {
          setOpen(false);
-         setCurrentName(fullCode.placeName);
          return;
       }
    }, [debouncedInputValue, postalCodes, isError, isLoading]);
@@ -160,7 +158,7 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                            </CommandPrimitive.Input>
                         </FormControl>
                      </div>
-                     <p className="text-xs xs:text-sm">{currentName}</p>
+                     <p className="text-xs xs:text-sm">{cityValue}</p>
                   </div>
 
                   <div className="relative">
@@ -200,7 +198,6 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                                           shouldTouch: true,
                                        });
 
-                                       setCurrentName(placeName);
                                        setOpen(false);
                                     }}
                                     className="flex items-center justify-between"

@@ -92,6 +92,8 @@ export function CountryField({ ...props }: Readonly<CountryFieldProps>) {
                                     onSelect={() => {
                                        form.setValue("countryCode", country.code);
                                        form.setValue("countryName", country.label);
+                                       form.setValue("postalCode", "");
+                                       form.setValue("city", "");
                                        setOpen(false);
                                     }}
                                  >
