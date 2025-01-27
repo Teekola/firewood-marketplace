@@ -51,7 +51,7 @@ export default async function SellerDashboardLayout({
       <>
          <Breadcrumbs className="mb-4" />
          <BackButtonLink label={t("actions.Back")} className="mb-4" />
-         <header className="mb-4 border-b pb-4">
+         <header className="mb-4 hidden border-b pb-4 md:block">
             <h2 className="text-2xl font-bold leading-tight">{t("Seller Dashboard")}</h2>
          </header>
          <div className="flex gap-12">
