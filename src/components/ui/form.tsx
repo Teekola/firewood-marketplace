@@ -12,6 +12,7 @@ import {
    FieldValues,
    FormProvider,
    useFormContext,
+   useFormState,
 } from "react-hook-form";
 
 import { Label } from "@/components/ui/label";
@@ -162,6 +163,24 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
+const FormRootError = React.forwardRef<
+   HTMLParagraphElement,
+   React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => {
+   const { errors } = useFormState();
+   const rootError = errors.root;
+   const t = useTranslations("form-messages");
+   if (!rootError) {
+      return null;
+   }
+   return (
+      <p ref={ref} className={cn("text-sm font-medium text-destructive", className)} {...props}>
+         {typeof rootError.message === "string" ? t(rootError.message) : rootError.message}
+      </p>
+   );
+});
+FormRootError.displayName = "FormRootError";
+
 export {
    useFormField,
    Form,
@@ -171,4 +190,5 @@ export {
    FormDescription,
    FormMessage,
    FormField,
+   FormRootError,
 };
