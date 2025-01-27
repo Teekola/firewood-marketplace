@@ -3,7 +3,7 @@
 import { getBuyerByUserId, updateNullBuyerData } from "@/app/db/buyer";
 import { createQuotationRequest } from "@/app/db/quotation-request";
 import { findSellersWithinDistance } from "@/app/db/seller-location";
-import { auth } from "@/auth/auth";
+import { authWithSeller } from "@/auth/auth";
 
 import { ContactData } from "../(stepper)/contact/contact-form";
 import { DeliveryData } from "../(stepper)/delivery/delivery-form";
@@ -23,7 +23,7 @@ export async function submitQuotationRequest({
 }) {
    console.log("ACTIONS: Submitted");
 
-   const session = await auth();
+   const session = await authWithSeller();
    if (!session) {
       throw new Error("Unauthorized.");
    }
@@ -51,9 +51,18 @@ export async function submitQuotationRequest({
       contactData,
    });
 
+   // Ensure that the request is not sent to the buyer (they could also be a seller)
+   const currentSellerId = session?.seller?.id;
+   const sellerIds = sellers.reduce((ids, seller) => {
+      if (seller.id !== currentSellerId) {
+         ids.push(seller.id);
+      }
+      return ids;
+   }, [] as string[]);
+
    const quotationRequestPromise = createQuotationRequest({
       buyerId: buyer.id,
-      sellerIds: sellers.map((seller) => seller.id),
+      sellerIds,
       firewoodData,
       deliveryData,
       contactData,
