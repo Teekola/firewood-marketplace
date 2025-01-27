@@ -20,7 +20,7 @@ export default async function DashboardLayout({
    return (
       <>
          <Topbar />
-         <div className="mx-auto max-w-screen-xl p-3">{children}</div>
+         <div className="mx-auto w-full max-w-screen-xl p-3">{children}</div>
       </>
    );
 }
