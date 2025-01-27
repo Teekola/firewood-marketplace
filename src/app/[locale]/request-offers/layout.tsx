@@ -22,7 +22,7 @@ export default async function RequestOffersLayout({
    return (
       <>
          <Topbar />
-         <div className="mx-auto max-w-lg p-3">
+         <div className="mx-auto h-full w-full max-w-lg p-3">
             <RequestOffersStoreProvider>{children}</RequestOffersStoreProvider>
          </div>
       </>

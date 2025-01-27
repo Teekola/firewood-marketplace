@@ -23,6 +23,7 @@ import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";
+import { StickyFooter } from "../../(components)/sticky-footer";
 import { stepToPath } from "../../(components)/use-step-manager";
 import {
    useFirewoodData,
@@ -54,6 +55,8 @@ export function FirewoodForm() {
       defaultValues,
    });
 
+   const canProceed = form.formState.isValid;
+
    const t = useTranslations("request-offers");
    const router = useRouter();
 
@@ -66,13 +69,11 @@ export function FirewoodForm() {
       router.push(lastUnlockedPath);
    }
 
-   const canProceed = form.formState.isValid;
-
    return (
       <Form {...form}>
          <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mt-4 flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
+            className="mt-4 flex h-full max-w-lg flex-col justify-between gap-4"
          >
             <div className="space-y-4">
                <FormField
@@ -121,9 +122,11 @@ export function FirewoodForm() {
                </div>
             </div>
 
-            <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-               {t("Continue")}
-            </Button>
+            <StickyFooter>
+               <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
+                  {t("Continue")}
+               </Button>
+            </StickyFooter>
          </form>
          <FormStoreSyncManager
             formData={firewoodData}

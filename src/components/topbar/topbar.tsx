@@ -24,7 +24,7 @@ export async function Topbar() {
                   <ThemeToggle />
                   <LanguageDropdown />
                </section>
-               <section className="flex justify-end gap-2">
+               <section className="hidden justify-end gap-2 sm:flex">
                   {!session && <SignInButton variant="outline" />}
                   {!session && <RegisterButton />}
                   {session && <DashboardButton />}

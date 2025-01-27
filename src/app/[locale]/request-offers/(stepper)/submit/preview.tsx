@@ -1,9 +1,12 @@
 "use client";
 
+import { ComponentProps } from "react";
+
 import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Link, Pathname } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 import {
    useContactData,
@@ -11,14 +14,17 @@ import {
    useFirewoodData,
 } from "../../(store)/request-offers-store-provider";
 
-export function Preview() {
+export function Preview({ ...props }: Readonly<ComponentProps<"div">>) {
    const firewoodData = useFirewoodData();
    const deliveryData = useDeliveryData();
    const contactData = useContactData();
    const t = useTranslations("request-offers");
 
    return (
-      <div className="flex flex-col gap-4 text-sm">
+      <div
+         {...props}
+         className={cn("flex flex-col gap-4 text-sm", props.className && props.className)}
+      >
          <section>
             <PreviewTitle title={t("Firewood")} href="/request-offers/firewood" />
             {firewoodData && (

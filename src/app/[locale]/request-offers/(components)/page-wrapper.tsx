@@ -13,16 +13,19 @@ export function PageWrapper({ children }: PropsWithChildren) {
 
    if (!isStepVerified)
       return (
-         <div className="flex h-[640px] min-h-[640px] flex-col space-y-4 xs:h-[600px] xs:min-h-[600px]">
-            <Skeleton className="h-12" />
-            <Skeleton className="h-[470px] xs:h-[416px]" />
-            <Skeleton className="h-11" />
+         <div className="flex h-full max-h-[700px] flex-col justify-between space-y-3 xs:max-h-[640px]">
+            <Skeleton className="h-14 w-60" />
+            <Skeleton className="h-full" />
+            <div className="space-y-4">
+               <Skeleton className="mt-6 h-10" />
+               <Skeleton className="h-8 w-44" />
+            </div>
          </div>
       );
 
    return (
-      <div className="flex h-[660px] min-h-[660px] flex-col xs:h-[640px] xs:min-h-[640px]">
-         {children}
-      </div>
+      <>
+         <div className="h-full max-h-[700px] xs:max-h-[600px]">{children}</div>
+      </>
    );
 }

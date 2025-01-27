@@ -25,6 +25,7 @@ import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";
+import { StickyFooter } from "../../(components)/sticky-footer";
 import { stepToPath } from "../../(components)/use-step-manager";
 import {
    useDeliveryData,
@@ -65,7 +66,7 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
    const deliveryData = useDeliveryData();
    const lastUnlockedStep = useLastUnlockedStep();
    const geolocationData = useGeolocationData();
-   const t = useTranslations();
+   const t = useTranslations("request-offers");
    const router = useRouter();
    const setDeliveryData = useSetDeliveryData();
 
@@ -92,6 +93,7 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
    });
 
    const deliveryMethod = form.watch("deliveryMethod");
+
    const canProceed = form.formState.isValid;
 
    // This updates the values in the form if the user signs in and has buyer data
@@ -143,7 +145,7 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
       <Form {...form}>
          <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mt-4 flex h-full max-w-lg flex-1 flex-col justify-between gap-4"
+            className="mt-4 flex h-full max-w-lg flex-col justify-between gap-4"
          >
             <div className="space-y-4">
                <FormField
@@ -151,17 +153,14 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
                   name="deliveryMethod"
                   render={({ field }) => (
                      <FormItem className="mb-8 space-y-1">
-                        <FormLabel>{t("request-offers.Delivery type")}</FormLabel>
+                        <FormLabel>{t("Delivery type")}</FormLabel>
                         <RadioGroup
                            onValueChange={field.onChange}
                            value={field.value}
                            className="grid grid-cols-2 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
                         >
-                           <RadioGroupItemCard
-                              value="homeDelivery"
-                              label={t("request-offers.home delivery")}
-                           />
-                           <RadioGroupItemCard value="pickup" label={t("request-offers.pickup")} />
+                           <RadioGroupItemCard value="homeDelivery" label={t("home delivery")} />
+                           <RadioGroupItemCard value="pickup" label={t("pickup")} />
                         </RadioGroup>
                         <FormMessage />
                      </FormItem>
@@ -177,7 +176,7 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
                      name="address"
                      render={({ field }) => (
                         <FormItem className="w-full">
-                           <FormLabel>{t("request-offers.Address")}</FormLabel>
+                           <FormLabel>{t("Address")}</FormLabel>
                            <FormControl>
                               <Input {...field} />
                            </FormControl>
@@ -188,16 +187,12 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
                )}
             </div>
 
-            <div className="flex gap-2">
-               <BackButtonLink
-                  href="/request-offers/firewood"
-                  size="lg"
-                  label={t("request-offers.Back")}
-               />
+            <StickyFooter>
+               <BackButtonLink href="/request-offers/firewood" label={t("Back")} size="lg" />
                <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-                  {t("request-offers.Continue")}
+                  {t("Continue")}
                </Button>
-            </div>
+            </StickyFooter>
          </form>
          <FormStoreSyncManager
             formData={deliveryData}

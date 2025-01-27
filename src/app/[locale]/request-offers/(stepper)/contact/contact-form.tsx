@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
+import { StickyFooter } from "../../(components)/sticky-footer";
 import { useContactData, useSetContactData } from "../../(store)/request-offers-store-provider";
 import { PhoneField } from "./phone-field";
 
@@ -72,6 +73,7 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
    });
 
    const isCompany = form.watch("isCompany");
+
    const canProceed = form.formState.isValid;
 
    // This updates the values in the form if the user signs in and has buyer data
@@ -196,12 +198,13 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
                   )}
                </div>
             </div>
-            <div className="flex gap-2">
+
+            <StickyFooter>
                <BackButtonLink href="/request-offers/delivery" label={t("Back")} size="lg" />
                <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
                   {t("Continue")}
                </Button>
-            </div>
+            </StickyFooter>
          </form>
          <FormStoreSyncManager
             formData={contactData}

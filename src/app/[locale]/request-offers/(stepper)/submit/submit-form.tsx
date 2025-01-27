@@ -1,5 +1,7 @@
 "use client";
 
+import { ComponentProps } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizonalIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -19,13 +21,16 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
+import { StickyFooter } from "../../(components)/sticky-footer";
 import {
    useSetSubmitData,
    useSubmitData,
    useValidSteps,
 } from "../../(store)/request-offers-store-provider";
+import { Preview } from "./preview";
 
 const ADDITIONAL_INFORMATION_MAX_LENGTH = 450;
 export const submitFormSchema = z.object({
@@ -34,7 +39,7 @@ export const submitFormSchema = z.object({
 
 export type SubmitData = z.infer<typeof submitFormSchema>;
 
-export function SubmitForm() {
+export function SubmitForm({ ...props }: Readonly<ComponentProps<"form">>) {
    const submitData = useSubmitData();
 
    const validSteps = useValidSteps();
@@ -54,6 +59,7 @@ export function SubmitForm() {
    const setSubmitData = useSetSubmitData();
 
    async function onSubmit(data: SubmitData) {
+      if (!canProceed) return;
       setSubmitData(data);
       router.push("/request-offers/submitting");
    }
@@ -64,9 +70,14 @@ export function SubmitForm() {
       <>
          <Form {...form}>
             <form
+               {...props}
                onSubmit={form.handleSubmit(onSubmit)}
-               className="flex h-full flex-col justify-between"
+               className={cn(
+                  "flex h-full flex-col justify-between",
+                  props.className && props.className
+               )}
             >
+               <Preview className="mb-6" />
                <FormField
                   name="additionalInformation"
                   control={form.control}
@@ -92,7 +103,7 @@ export function SubmitForm() {
                   )}
                />
 
-               <div className="flex gap-2">
+               <StickyFooter>
                   <BackButtonLink size="lg" href="/request-offers/contact" label={t("Back")} />
                   <Button
                      type="submit"
@@ -103,7 +114,7 @@ export function SubmitForm() {
                      <SendHorizonalIcon className="mr-4 h-4 w-4 transition-transform group-hover:translate-x-2" />{" "}
                      {t("Submit")}
                   </Button>
-               </div>
+               </StickyFooter>
             </form>
             <FormStoreSyncManager
                formData={submitData}

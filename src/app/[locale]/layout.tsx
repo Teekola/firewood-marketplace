@@ -26,7 +26,9 @@ export default async function RootLayout({
    return (
       // TODO: For SEO and Accessibility, should change lang based on locale
       <html lang="en" suppressHydrationWarning>
-         <body className={`${nunitoSans.variable} font-sans antialiased`}>
+         <body
+            className={`${nunitoSans.variable} flex h-screen min-h-screen w-full flex-col font-sans antialiased`}
+         >
             <NextIntlClientProvider messages={messages}>
                <ThemeProvider
                   attribute="class"
