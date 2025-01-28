@@ -8,7 +8,6 @@ import { SellerLocation } from "../../../prisma/prismaClientExtensions";
 type SellerResult = {
    sellerId: string;
    plan: string;
-   maxDistanceKm: number;
    numberOfSentOffers: number;
    locationId: string | null;
    countryCode: string | null;
@@ -17,6 +16,7 @@ type SellerResult = {
    city: string | null;
    longitude: number | null;
    latitude: number | null;
+   maxDistanceKm: number | null;
    createdAt: Date | null;
    updatedAt: Date | null;
 }[];
@@ -26,7 +26,6 @@ export const getSellerByUserId = async (userId: string) => {
         SELECT 
             s.id AS "sellerId",
             s.plan AS "plan",
-            s.max_distance_km AS "maxDistanceKm",
             s.number_of_sent_offers AS "numberOfSentOffers",
             l.id AS "locationId",
             l.country_code AS "countryCode",
@@ -35,6 +34,7 @@ export const getSellerByUserId = async (userId: string) => {
             l.city AS "city",
             ST_X(l.coordinates::geometry) AS "longitude", 
             ST_Y(l.coordinates::geometry) AS "latitude",
+            l.max_distance_km AS "maxDistanceKm",
             l.created_at AS "createdAt",
             l.updated_at AS "updatedAt"
         FROM 
@@ -49,7 +49,7 @@ export const getSellerByUserId = async (userId: string) => {
 
    if (result.length === 0) return null;
 
-   const { sellerId, plan, maxDistanceKm, numberOfSentOffers, ...locationData } = result[0];
+   const { sellerId, plan, numberOfSentOffers, ...locationData } = result[0];
 
    const location: SellerLocation | null = locationData.locationId
       ? {
@@ -63,6 +63,7 @@ export const getSellerByUserId = async (userId: string) => {
               latitude: locationData.latitude!,
               longitude: locationData.longitude!,
            },
+           maxDistanceKm: locationData.maxDistanceKm!,
            createdAt: locationData.createdAt!,
            updatedAt: locationData.updatedAt!,
         }
@@ -71,7 +72,6 @@ export const getSellerByUserId = async (userId: string) => {
    return {
       id: sellerId,
       plan,
-      maxDistanceKm,
       numberOfSentOffers,
       userId,
       location,

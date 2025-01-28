@@ -4,3 +4,11 @@ export function cubicFeetToCubicMeters(cubicFeet: number) {
 export function inchesToCentimeters(inches: number) {
    return (inches * 2.54).toFixed(2); // Convert inches to centimeters
 }
+export function kilometersToMiles(km: number): number {
+   const MILES_PER_KILOMETER = 0.621371;
+   return km * MILES_PER_KILOMETER;
+}
+export function milesToKilometers(mi: number): number {
+   const KILOMETERS_PER_MILE = 1.60934;
+   return mi * KILOMETERS_PER_MILE;
+}

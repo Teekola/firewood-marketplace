@@ -14,6 +14,7 @@ export type SellerLocation = {
    postalCode: string;
    city: string;
    coordinates: Coordinates;
+   maxDistanceKm: number;
    createdAt: Date;
    updatedAt: Date;
 };
@@ -27,6 +28,7 @@ type UpdateRaw = {
    city: string;
    longitude: number;
    latitude: number;
+   max_distance_km: number;
    created_at: string;
    updated_at: string;
 }[];
@@ -43,6 +45,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                city: string;
                latitude: number;
                longitude: number;
+               maxDistanceKm: number;
             }) {
                const id = createId(); // This is necessary because prisma could not automatically generate the cuid
                const point = `POINT(${data.longitude} ${data.latitude})`;
@@ -51,9 +54,9 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                   { id: string; created_at: string; updated_at: string }[]
                >`
                   INSERT INTO "SellerLocation"
-                     (id, seller_id, country_code, country_name, postal_code, city, coordinates, created_at, updated_at)
+                     (id, seller_id, country_code, country_name, postal_code, city, coordinates, max_distance_km, created_at, updated_at)
                   VALUES
-                     (${id}, ${data.sellerId}, ${data.countryCode}, ${data.countryName}, ${data.postalCode}, ${data.city}, ST_GeomFromText(${point}, 4326), now(), now())
+                     (${id}, ${data.sellerId}, ${data.countryCode}, ${data.countryName}, ${data.postalCode}, ${data.city}, ST_GeomFromText(${point}, 4326), ${data.maxDistanceKm}, now(), now())
                   RETURNING id, created_at, updated_at`;
 
                // TODO: Improve error handling
@@ -72,6 +75,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                      latitude: data.latitude,
                      longitude: data.longitude,
                   },
+                  maxDistanceKm: data.maxDistanceKm,
                   createdAt: new Date(result[0].created_at),
                   updatedAt: new Date(result[0].updated_at),
                };
@@ -89,6 +93,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                   city: string;
                   latitude: number;
                   longitude: number;
+                  maxDistanceKm: number;
                }
             ) {
                const countryCode = data.countryCode;
@@ -98,6 +103,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                const latitude = data.latitude;
                const longitude = data.longitude;
                const point = `POINT(${longitude} ${latitude})`;
+               const maxDistanceKm = data.maxDistanceKm;
 
                const result = await prisma.$queryRaw<UpdateRaw>`
                   UPDATE "SellerLocation"
@@ -107,9 +113,10 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                      postal_code = ${postalCode},
                      city = ${city},
                      coordinates = ST_GeomFromText(${point}, 4326),
+                     max_distance_km = ${maxDistanceKm},
                      updated_at = now()
                   WHERE seller_id = ${sellerId}
-                  RETURNING id, seller_id, country_code, country_name, postal_code, city, ST_X(coordinates::geometry) AS longitude, ST_Y(coordinates::geometry) AS latitude, created_at, updated_at
+                  RETURNING id, seller_id, country_code, country_name, postal_code, city, ST_X(coordinates::geometry) AS longitude, ST_Y(coordinates::geometry) AS latitude, max_distance_km, created_at, updated_at
                `;
 
                console.log({ result });
@@ -129,6 +136,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                      latitude: result[0].latitude,
                      longitude: result[0].longitude,
                   },
+                  maxDistanceKm: result[0].max_distance_km,
                   createdAt: new Date(result[0].created_at),
                   updatedAt: new Date(result[0].updated_at),
                };

@@ -138,6 +138,8 @@
       "actions": {
          "Back": "Back",
          "Save": "Save"
-      }
+      },
+      "Max distance": "Max distance",
+      "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Set the rough maximum distance for quotation requests. The larger the distance the more quotation requests you will receive. We recommend setting this rather too high than too low. The location is determined based on postal codes so this is not very accurate."
    }
 }

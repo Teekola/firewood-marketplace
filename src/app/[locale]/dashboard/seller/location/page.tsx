@@ -4,8 +4,10 @@ import { getSellerLocation } from "./actions";
 import { SellerLocationForm } from "./location-form";
 
 export default async function SellerInformationPage() {
-   const t = await getTranslations("dashboard");
-   const sellerLocation = await getSellerLocation();
+   const [t, sellerLocation] = await Promise.all([
+      getTranslations("dashboard"),
+      getSellerLocation(),
+   ]);
 
    return (
       <div>

@@ -138,6 +138,8 @@
       "actions": {
          "Back": "Takaisin",
          "Save": "Tallenna"
-      }
+      },
+      "Max distance": "Maksimietäisyys",
+      "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Aseta maksimietäisyys, jolta saat tarjouspyyntöjä. Mitä suurempi etäisyys on, sitä enemmän pyyntöjä saat. Suosittelemme asettamaan tämän mieluummin liian korkeaksi kuin liian pieneksi. Etäisyys lasketaan postinumeroiden perusteella, joten tämä ei ole täysin tarkka."
    }
 }

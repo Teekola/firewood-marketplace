@@ -60,23 +60,23 @@ model Buyer {
 }
 
 model SellerLocation {
-   id          String                                @id
-   countryCode String                                @map("country_code")
-   countryName String                                @map("country_name")
-   postalCode  String                                @map("postal_code")
-   city        String
-   coordinates Unsupported("geography(Point, 4326)")
-   createdAt   DateTime                              @default(now()) @map("created_at")
-   updatedAt   DateTime                              @updatedAt @map("updated_at")
-   seller      Seller                                @relation(fields: [sellerId], references: [id])
-   sellerId    String                                @unique @map("seller_id")
+   id            String                                @id
+   countryCode   String                                @map("country_code")
+   countryName   String                                @map("country_name")
+   postalCode    String                                @map("postal_code")
+   city          String
+   coordinates   Unsupported("geography(Point, 4326)")
+   maxDistanceKm Int                                   @default(50) @map("max_distance_km")
+   createdAt     DateTime                              @default(now()) @map("created_at")
+   updatedAt     DateTime                              @updatedAt @map("updated_at")
+   seller        Seller                                @relation(fields: [sellerId], references: [id])
+   sellerId      String                                @unique @map("seller_id")
 }
 
 model Seller {
    id                    String                 @id @default(cuid())
    plan                  Plan
    location              SellerLocation?
-   maxDistanceKm         Int                    @default(50) @map("max_distance_km")
    numberOfSentOffers    Int                    @default(0) @map("number_of_sent_offers")
    user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
    userId                String                 @unique @map("user_id")

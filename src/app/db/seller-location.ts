@@ -30,7 +30,7 @@ export const findSellersWithinDistance = async ({
          "SellerLocation" l
          ON s.id = l.seller_id
       WHERE
-         ST_DistanceSphere(l.coordinates::geometry, ST_MakePoint(${longitude}, ${latitude})) <= (s.max_distance_km * 1000);
+         ST_DistanceSphere(l.coordinates::geometry, ST_MakePoint(${longitude}, ${latitude})) <= (l.max_distance_km * 1000);
    `;
 
    // Transform to custom Seller type
@@ -47,6 +47,17 @@ export const findSellersWithinDistance = async ({
    return sellers;
 };
 
+export type SellerLocationArgs = {
+   sellerId: string;
+   countryCode: string;
+   countryName: string;
+   postalCode: string;
+   city: string;
+   latitude: number;
+   longitude: number;
+   maxDistanceKm: number;
+};
+
 export const createSellerLocation = async ({
    sellerId,
    countryCode,
@@ -55,15 +66,8 @@ export const createSellerLocation = async ({
    city,
    latitude,
    longitude,
-}: {
-   sellerId: string;
-   countryCode: string;
-   countryName: string;
-   postalCode: string;
-   city: string;
-   latitude: number;
-   longitude: number;
-}) => {
+   maxDistanceKm,
+}: SellerLocationArgs) => {
    const location = await prisma.sellerLocation.create({
       sellerId,
       countryCode,
@@ -72,18 +76,9 @@ export const createSellerLocation = async ({
       city,
       latitude,
       longitude,
+      maxDistanceKm,
    });
    return location;
-};
-
-export type UpdateSellerLocationArgs = {
-   sellerId: string;
-   countryCode: string;
-   countryName: string;
-   postalCode: string;
-   city: string;
-   latitude: number;
-   longitude: number;
 };
 
 export const updateSellerLocation = async ({
@@ -94,7 +89,8 @@ export const updateSellerLocation = async ({
    city,
    latitude,
    longitude,
-}: UpdateSellerLocationArgs) => {
+   maxDistanceKm,
+}: SellerLocationArgs) => {
    const location = await prisma.sellerLocation.update(sellerId, {
       countryCode,
       countryName,
@@ -102,6 +98,7 @@ export const updateSellerLocation = async ({
       city,
       latitude,
       longitude,
+      maxDistanceKm,
    });
    return location;
 };

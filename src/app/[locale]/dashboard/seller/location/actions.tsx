@@ -3,7 +3,7 @@
 import { Prisma } from "@prisma/client";
 
 import {
-   UpdateSellerLocationArgs,
+   SellerLocationArgs,
    createSellerLocation,
    updateSellerLocation,
 } from "@/app/db/seller-location";
@@ -37,7 +37,8 @@ export async function upsertSellerLocation({
    city,
    latitude,
    longitude,
-}: Omit<UpdateSellerLocationArgs, "sellerId">) {
+   maxDistanceKm,
+}: Omit<SellerLocationArgs, "sellerId">) {
    const session = await authWithSeller();
 
    if (!session || !session.seller) {
@@ -62,6 +63,7 @@ export async function upsertSellerLocation({
             city,
             longitude,
             latitude,
+            maxDistanceKm,
          });
          console.log("Created Seller Location", createdLocation);
 
@@ -80,6 +82,7 @@ export async function upsertSellerLocation({
          city,
          longitude,
          latitude,
+         maxDistanceKm,
       });
       console.log("Update Seller Location", updatedLocation);
       return updatedLocation;
