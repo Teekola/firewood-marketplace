@@ -6,7 +6,7 @@ import { QuotationRequest } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 
 import { getQuotationRequestsForSeller } from "./actions";
-import { sellerQuotationRequestsQueryKey } from "./page";
+import { sellerQuotationRequestsQueryKey } from "./constants";
 import QuotationRequestDialog from "./quotation-request-dialog";
 import { QuotationRequestListItem } from "./quotation-request-list-item";
 
