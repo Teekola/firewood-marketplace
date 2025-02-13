@@ -27,7 +27,6 @@ export default async function RootLayout({
    const [{ locale }, messages, user] = await Promise.all([params, getMessages(), getUser()]);
 
    return (
-      // TODO: For SEO and Accessibility, should change lang based on locale
       <html lang={locale} suppressHydrationWarning>
          <body
             className={`${nunitoSans.variable} flex h-screen min-h-screen w-full flex-col font-sans antialiased`}
