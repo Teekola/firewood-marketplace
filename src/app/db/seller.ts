@@ -19,6 +19,10 @@ type SellerResult = {
    maxDistanceKm: number | null;
    createdAt: Date | null;
    updatedAt: Date | null;
+   profileId: string | null;
+   sellerName: string | null;
+   sellerEmail: string | null;
+   sellerPhone: string | null;
 }[];
 
 export const getSellerByUserId = async (userId: string) => {
@@ -35,21 +39,30 @@ export const getSellerByUserId = async (userId: string) => {
             ST_X(l.coordinates::geometry) AS "longitude", 
             ST_Y(l.coordinates::geometry) AS "latitude",
             l.max_distance_km AS "maxDistanceKm",
-            l.created_at AS "createdAt",
-            l.updated_at AS "updatedAt"
-        FROM 
-            "Seller" s
-        LEFT JOIN 
-            "SellerLocation" l
-        ON 
-            s.id = l.seller_id
-        WHERE 
-            s.user_id = ${userId};
+            s.created_at AS "createdAt",
+            s.updated_at AS "updatedAt",
+            p.id AS "profileId",
+            p.name AS "sellerName",
+            p.email AS "sellerEmail",
+            p.phone AS "sellerPhone"
+        FROM "Seller" s
+        LEFT JOIN "SellerLocation" l ON s.id = l.seller_id
+        LEFT JOIN "SellerProfile" p ON s.id = p.seller_id
+        WHERE s.user_id = ${userId};
     `;
 
    if (result.length === 0) return null;
 
-   const { sellerId, plan, numberOfSentOffers, ...locationData } = result[0];
+   const {
+      sellerId,
+      plan,
+      numberOfSentOffers,
+      profileId,
+      sellerName,
+      sellerEmail,
+      sellerPhone,
+      ...locationData
+   } = result[0];
 
    const location: SellerLocation | null = locationData.locationId
       ? {
@@ -69,12 +82,21 @@ export const getSellerByUserId = async (userId: string) => {
         }
       : null;
 
+   const profile = profileId
+      ? {
+           name: sellerName,
+           email: sellerEmail,
+           phone: sellerPhone,
+        }
+      : null;
+
    return {
       id: sellerId,
       plan,
       numberOfSentOffers,
       userId,
       location,
+      profile,
    };
 };
 

@@ -1,7 +1,10 @@
 import { getTranslations } from "next-intl/server";
 
+import { getSellerProfile } from "./actions";
+import { SellerProfileForm } from "./seller-profile-form";
+
 export default async function SellerInformationPage() {
-   const t = await getTranslations("dashboard");
+   const [t, sellerProfile] = await Promise.all([getTranslations("dashboard"), getSellerProfile()]);
    return (
       <div>
          <header>
@@ -12,6 +15,7 @@ export default async function SellerInformationPage() {
                )}
             </p>
          </header>
+         <SellerProfileForm sellerProfile={sellerProfile} />
       </div>
    );
 }

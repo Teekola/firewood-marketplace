@@ -60,7 +60,7 @@ model Buyer {
 }
 
 model SellerLocation {
-   id            String                                @id
+   id            String                                @id @default(cuid())
    countryCode   String                                @map("country_code")
    countryName   String                                @map("country_name")
    postalCode    String                                @map("postal_code")
@@ -77,6 +77,7 @@ model Seller {
    id                    String                 @id @default(cuid())
    plan                  Plan
    location              SellerLocation?
+   profile               SellerProfile?
    numberOfSentOffers    Int                    @default(0) @map("number_of_sent_offers")
    user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
    userId                String                 @unique @map("user_id")
@@ -85,6 +86,15 @@ model Seller {
    quotationRequestViews QuotationRequestView[]
    createdAt             DateTime               @default(now()) @map("created_at")
    updatedAt             DateTime               @updatedAt @map("updated_at")
+}
+
+model SellerProfile {
+   id       String  @id @default(cuid())
+   seller   Seller  @relation(fields: [sellerId], references: [id])
+   sellerId String  @unique @map("seller_id")
+   name     String?
+   email    String?
+   phone    String?
 }
 
 enum Plan {
