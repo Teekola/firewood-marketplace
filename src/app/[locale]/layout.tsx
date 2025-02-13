@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import { UserStoreProvider } from "@/components/auth/user-store-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { nunitoSans } from "@/fonts/index";
+import { Locale } from "@/i18n/routing";
 import { ReactQueryProvider } from "@/lib/react-query";
 
 import { getUser } from "../db/user";
@@ -18,14 +19,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
    children,
+   params,
 }: Readonly<{
    children: React.ReactNode;
+   params: Promise<{ locale: Locale }>;
 }>) {
-   const [messages, user] = await Promise.all([getMessages(), getUser()]);
+   const [{ locale }, messages, user] = await Promise.all([params, getMessages(), getUser()]);
 
    return (
       // TODO: For SEO and Accessibility, should change lang based on locale
-      <html lang="en" suppressHydrationWarning>
+      <html lang={locale} suppressHydrationWarning>
          <body
             className={`${nunitoSans.variable} flex h-screen min-h-screen w-full flex-col font-sans antialiased`}
          >
