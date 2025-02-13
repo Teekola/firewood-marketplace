@@ -2,11 +2,19 @@
 
 import { ComponentProps } from "react";
 
+import { UnitSystem } from "@prisma/client";
 import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { useUser } from "@/components/auth/user-store-provider";
 import { Link, Pathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import {
+   imperialWoodAmountUnit,
+   imperialWoodLengthUnit,
+   metricWoodAmountUnit,
+   metricWoodLengthUnit,
+} from "@/lib/utils/units";
 
 import {
    useContactData,
@@ -20,6 +28,10 @@ export function Preview({ ...props }: Readonly<ComponentProps<"div">>) {
    const contactData = useContactData();
    const t = useTranslations("request-offers");
 
+   const isImperial = useUser().preferredUnitSystem === UnitSystem.IMPERIAL;
+   const amountUnit = isImperial ? imperialWoodAmountUnit : metricWoodAmountUnit;
+   const lengthUnit = isImperial ? imperialWoodLengthUnit : metricWoodLengthUnit;
+
    return (
       <div
          {...props}
@@ -30,12 +42,12 @@ export function Preview({ ...props }: Readonly<ComponentProps<"div">>) {
             {firewoodData && (
                <p className="mt-1">
                   <span className="relative pr-3">
-                     {firewoodData.amount} {"m"}
+                     {firewoodData.amount} {amountUnit}
                      <span className="-translate-y-1/5 absolute text-xs">{"3"}</span>
                   </span>
                   {firewoodData.dryness === "any" ? t("dry or green") : t(firewoodData.dryness)}{" "}
                   {t(firewoodData.woodType)}
-                  {firewoodData.maxLength && `, ${firewoodData.maxLength} cm`}
+                  {firewoodData.maxLength && `, ${firewoodData.maxLength} ${lengthUnit}`}
                </p>
             )}
          </section>

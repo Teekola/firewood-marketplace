@@ -20,6 +20,12 @@ import {
 import { InputWithContent } from "@/components/ui/input-with-content";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { useRouter } from "@/i18n/routing";
+import {
+   imperialWoodAmountUnit,
+   imperialWoodLengthUnit,
+   metricWoodAmountUnit,
+   metricWoodLengthUnit,
+} from "@/lib/utils/units";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";
@@ -164,7 +170,8 @@ function VolumeField() {
    const form = useFormContext<FirewoodData>();
 
    const user = useUser();
-   const unit = user.preferredUnitSystem === "METRIC" ? "m" : "ft";
+   const unit =
+      user.preferredUnitSystem === "METRIC" ? metricWoodAmountUnit : imperialWoodAmountUnit;
    const decimalSeparator = user.preferredUnitSystem === "METRIC" ? "," : ".";
 
    // Transform input value to contain numbers and decimal separator only
@@ -225,7 +232,8 @@ function MaxLengthField() {
    const form = useFormContext<FirewoodData>();
 
    const user = useUser();
-   const unit = user.preferredUnitSystem === "METRIC" ? "cm" : "in";
+   const unit =
+      user.preferredUnitSystem === "METRIC" ? metricWoodLengthUnit : imperialWoodLengthUnit;
    const decimalSeparator = user.preferredUnitSystem === "METRIC" ? "," : ".";
 
    // Transform input value to contain numbers and decimal separator only
