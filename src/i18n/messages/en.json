@@ -120,6 +120,7 @@
       "/dashboard/seller/profile": "/Dashboard/Seller Dashboard/Profile",
       "/dashboard/seller/location": "/Dashboard/Seller Dashboard/Location",
       "/dashboard/seller/quotation-requests": "/Dashboard/Seller Dashboard/Quotation Requests",
+      "/dashboard/seller/quotation-requests/rejected": "/Dashboard/Seller Dashboard/Quotation Requests/Rejected",
       "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
       "/dashboard/buyer": "/Dashboard/Buyer"
    },
@@ -148,6 +149,8 @@
          "Seller name instruction": "Seller's name or company name",
          "Email": "Email"
       },
-      "Sent Offers": "Sent Offers"
+      "Sent Offers": "Sent Offers",
+      "Rejected": "Rejected",
+      "Active": "Active"
    }
 }

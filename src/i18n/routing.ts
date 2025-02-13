@@ -38,6 +38,10 @@ export const routing = defineRouting({
          en: "/seller/quotation-requests",
          fi: "/myyja/tarjouspyynnot",
       },
+      "/dashboard/seller/quotation-requests/rejected": {
+         en: "/seller/quotation-requests/rejected",
+         fi: "/myyja/tarjouspyynnot/hylatyt",
+      },
       "/dashboard/seller/offers": {
          en: "/seller/offers",
          fi: "/myyja/tarjoukset",

@@ -1,12 +1,17 @@
 "use client";
 
+import { useState } from "react";
+
+import { QuotationRequest } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 
 import { getQuotationRequestsForSeller } from "./actions";
 import { sellerQuotationRequestsQueryKey } from "./page";
+import QuotationRequestDialog from "./quotation-request-dialog";
 import { QuotationRequestListItem } from "./quotation-request-list-item";
 
 export function QuotationRequestsList() {
+   const [openQuotationRequest, setOpenQuotationRequest] = useState<QuotationRequest | null>(null);
    const { data: quotationRequests, error } = useQuery({
       queryKey: sellerQuotationRequestsQueryKey,
       queryFn: getQuotationRequestsForSeller,
@@ -23,10 +28,21 @@ export function QuotationRequestsList() {
    }
 
    return (
-      <ul className="flex w-full flex-col">
-         {quotationRequests.map((qr) => (
-            <QuotationRequestListItem key={qr.id} quotationRequest={qr} />
-         ))}
-      </ul>
+      <>
+         <ul className="flex w-full flex-col">
+            {quotationRequests.map((qr) => (
+               <QuotationRequestListItem
+                  key={qr.id}
+                  quotationRequest={qr}
+                  handleOpenQuotationRequest={() => setOpenQuotationRequest(qr)}
+               />
+            ))}
+         </ul>
+         <QuotationRequestDialog
+            quotationRequest={openQuotationRequest}
+            handleDialogClose={() => setOpenQuotationRequest(null)}
+            isOpen={openQuotationRequest !== null}
+         />
+      </>
    );
 }
