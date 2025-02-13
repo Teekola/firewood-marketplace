@@ -137,18 +137,23 @@ export function FirewoodForm() {
    );
 }
 
-function transformDecimalInputValue(input: string) {
-   let filteredValue = input.replace(/[^0-9.,]/g, "").replace(/\./g, ",");
+const dotRegex = /\./g;
+const commaRegex = /\,/g;
 
-   const decimalIndex = filteredValue.indexOf(",");
+function transformDecimalInputValue(input: string, decimalSeparator = ",") {
+   const replaceRegex = decimalSeparator === "," ? dotRegex : commaRegex;
+   let filteredValue = input.replace(/[^0-9.,]/g, "").replace(replaceRegex, decimalSeparator);
 
+   const decimalIndex = filteredValue.indexOf(decimalSeparator);
+
+   const limitToOneRegex = decimalSeparator === "," ? commaRegex : dotRegex;
    // Allow only one comma
    filteredValue =
       filteredValue.slice(0, decimalIndex + 1) +
-      filteredValue.slice(decimalIndex + 1).replace(/\,/g, "");
+      filteredValue.slice(decimalIndex + 1).replace(limitToOneRegex, "");
 
    if (decimalIndex === 0) {
-      filteredValue = filteredValue.replace(",", "");
+      filteredValue = filteredValue.replace(decimalSeparator, "");
    }
    return filteredValue;
 }
@@ -160,10 +165,11 @@ function VolumeField() {
 
    const user = useUser();
    const unit = user.preferredUnitSystem === "METRIC" ? "m" : "ft";
+   const decimalSeparator = user.preferredUnitSystem === "METRIC" ? "," : ".";
 
    // Transform input value to contain numbers and decimal separator only
    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
-      const value = transformDecimalInputValue(e.target.value);
+      const value = transformDecimalInputValue(e.target.value, decimalSeparator);
 
       form.setValue(fieldName, value, {
          shouldDirty: true,
@@ -175,7 +181,7 @@ function VolumeField() {
    // If , is last char, remove it
    function handleBlur(e: FocusEvent<HTMLInputElement, Element>) {
       const value = e.target.value;
-      if (value[value.length - 1] === ",") {
+      if (value[value.length - 1] === decimalSeparator) {
          form.setValue(fieldName, value.slice(0, -1), {
             shouldDirty: false,
             shouldTouch: false,
@@ -220,10 +226,11 @@ function MaxLengthField() {
 
    const user = useUser();
    const unit = user.preferredUnitSystem === "METRIC" ? "cm" : "in";
+   const decimalSeparator = user.preferredUnitSystem === "METRIC" ? "," : ".";
 
    // Transform input value to contain numbers and decimal separator only
    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
-      const value = transformDecimalInputValue(e.target.value);
+      const value = transformDecimalInputValue(e.target.value, decimalSeparator);
 
       form.setValue(fieldName, value, {
          shouldDirty: true,
@@ -235,7 +242,7 @@ function MaxLengthField() {
    // If , is last char, remove it
    function handleBlur(e: FocusEvent<HTMLInputElement, Element>) {
       const value = e.target.value;
-      if (value[value.length - 1] === ",") {
+      if (value[value.length - 1] === decimalSeparator) {
          form.setValue(fieldName, value.slice(0, -1), {
             shouldDirty: false,
             shouldTouch: false,

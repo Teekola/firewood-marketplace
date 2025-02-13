@@ -40,10 +40,10 @@ export const createQuotationRequest = async ({
    deliveryData: DeliveryData;
    contactData: ContactData;
    submitData: SubmitData;
-}) =>
-   await prisma.quotationRequest.create({
+}) => {
+   return await prisma.quotationRequest.create({
       data: {
-         buyerId: buyerId,
+         buyerId,
          sellers: {
             connect: sellerIds.map((id) => ({ id })),
          },
@@ -70,3 +70,4 @@ export const createQuotationRequest = async ({
          sellers: { select: { id: true } },
       },
    });
+};

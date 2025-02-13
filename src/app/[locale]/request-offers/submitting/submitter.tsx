@@ -53,6 +53,10 @@ export function Submitter() {
             if (fData?.maxLength) {
                fData.maxLength = inchesToCentimeters(Number(fData.maxLength));
             }
+         } else {
+            // convert possible commas in metric values to dots
+            fData.amount = fData.amount.replace(/\,/g, ".");
+            fData.maxLength = fData.maxLength.replace(/\,/g, ".");
          }
 
          // Create quotation request and send it to nearest sellers

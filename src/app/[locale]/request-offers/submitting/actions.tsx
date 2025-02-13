@@ -82,6 +82,4 @@ export async function submitQuotationRequest({
    // TODO: Send emails to the sellers
 
    return { numberOfSellers: quotationRequest.sellers.length };
-   // To retrieve all quotationRequests for a seller in the dashboard
-   //await prisma.quotationRequest.findMany({ where: { sellers: { some: { id: "" } } } });
 }
