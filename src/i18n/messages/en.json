@@ -120,6 +120,7 @@
       "/dashboard/seller/profile": "/Dashboard/Seller Dashboard/Profile",
       "/dashboard/seller/location": "/Dashboard/Seller Dashboard/Location",
       "/dashboard/seller/quotation-requests": "/Dashboard/Seller Dashboard/Quotation Requests",
+      "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
       "/dashboard/buyer": "/Dashboard/Buyer"
    },
    "dashboard": {
@@ -146,6 +147,7 @@
          "Seller name": "Seller name",
          "Seller name instruction": "Seller's name or company name",
          "Email": "Email"
-      }
+      },
+      "Sent Offers": "Sent Offers"
    }
 }

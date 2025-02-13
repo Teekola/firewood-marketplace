@@ -29,6 +29,10 @@ export async function getSidebarNavItems() {
          title: t("Quotation Requests"),
          href: "/dashboard/seller/quotation-requests",
       },
+      {
+         title: t("Sent Offers"),
+         href: "/dashboard/seller/offers",
+      },
    ];
    return sidebarNavItems;
 }
