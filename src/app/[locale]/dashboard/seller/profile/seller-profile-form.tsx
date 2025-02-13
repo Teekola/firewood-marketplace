@@ -95,14 +95,7 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
                      <FormItem className="w-full">
                         <FormLabel>{t("profile.Email")}</FormLabel>
                         <FormControl>
-                           <Input
-                              {...field}
-                              inputMode="email"
-                              // onBlur={() => {
-                              //    field.onBlur();
-                              //    form.trigger(field.name);
-                              // }}
-                           />
+                           <Input {...field} inputMode="email" />
                         </FormControl>
                         <FormMessage />
                      </FormItem>
