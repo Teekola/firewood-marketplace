@@ -3,14 +3,15 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getQuotationRequestsForSeller } from "./actions";
-
-export const sellerQuotationRequestsQueryKey = "seller-quotation-requests";
+import { sellerQuotationRequestsQueryKey } from "./page";
+import { QuotationRequestListItem } from "./quotation-request-list-item";
 
 export function QuotationRequestsList() {
    const { data: quotationRequests, error } = useQuery({
-      queryKey: [sellerQuotationRequestsQueryKey],
+      queryKey: sellerQuotationRequestsQueryKey,
       queryFn: getQuotationRequestsForSeller,
-      refetchInterval: 30 * 1000, // Refetch every 30 seconds
+      refetchInterval: 30 * 1000, // Refetch every 30 seconds,
+      staleTime: 5 * 1000, // Keep data fresh for 5 seconds
    });
 
    if (error) {
@@ -22,9 +23,9 @@ export function QuotationRequestsList() {
    }
 
    return (
-      <ul>
+      <ul className="flex w-full flex-col">
          {quotationRequests.map((qr) => (
-            <li key={qr.id}>{qr.id}</li>
+            <QuotationRequestListItem key={qr.id} quotationRequest={qr} />
          ))}
       </ul>
    );

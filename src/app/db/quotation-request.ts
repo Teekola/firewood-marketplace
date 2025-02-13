@@ -26,6 +26,8 @@ export const getQuotationRequestsBySellerId = async ({ sellerId }: { sellerId: s
    return quotationRequests;
 };
 
+export type QuotationRequest = Awaited<ReturnType<typeof getQuotationRequestsBySellerId>>[number];
+
 export const createQuotationRequest = async ({
    buyerId,
    sellerIds,
