@@ -29,7 +29,7 @@ export function QuotationRequestsList() {
 
    return (
       <>
-         <ul className="flex w-full flex-col">
+         <ul className="flex w-full flex-col gap-1">
             {quotationRequests.map((qr) => (
                <QuotationRequestListItem
                   key={qr.id}
