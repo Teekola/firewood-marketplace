@@ -65,8 +65,8 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
       countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
       postalCode: sellerLocation?.postalCode ?? "",
       city: sellerLocation?.city ?? "",
-      latitude: sellerLocation?.coordinates.latitude,
-      longitude: sellerLocation?.coordinates.longitude,
+      latitude: sellerLocation?.coordinates.latitude ?? 0,
+      longitude: sellerLocation?.coordinates.longitude ?? 0,
       maxDistance,
    };
 

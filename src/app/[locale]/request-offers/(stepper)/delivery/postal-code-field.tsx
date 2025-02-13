@@ -73,8 +73,14 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
          if (correctPostalCodeInfo) {
             setOpen(false);
 
-            form.setValue("city", correctPostalCodeInfo.placeName);
-            form.setValue("latitude", correctPostalCodeInfo.latitude);
+            form.setValue("city", correctPostalCodeInfo.placeName, {
+               shouldDirty: true,
+               shouldTouch: true,
+            });
+            form.setValue("latitude", correctPostalCodeInfo.latitude, {
+               shouldDirty: true,
+               shouldTouch: true,
+            });
             form.setValue("longitude", correctPostalCodeInfo.longitude, {
                shouldValidate: true,
                shouldDirty: true,
@@ -189,9 +195,18 @@ export function PostalCodeField({ ...props }: PostalCodeFieldProps) {
                                        if (currentValue === inputValue) {
                                           return;
                                        }
-                                       form.setValue("city", placeName);
-                                       form.setValue("latitude", latitude);
-                                       form.setValue("longitude", longitude);
+                                       form.setValue("city", placeName, {
+                                          shouldDirty: true,
+                                          shouldTouch: true,
+                                       });
+                                       form.setValue("latitude", latitude, {
+                                          shouldDirty: true,
+                                          shouldTouch: true,
+                                       });
+                                       form.setValue("longitude", longitude, {
+                                          shouldDirty: true,
+                                          shouldTouch: true,
+                                       });
                                        form.setValue("postalCode", currentValue, {
                                           shouldValidate: true,
                                           shouldDirty: true,
