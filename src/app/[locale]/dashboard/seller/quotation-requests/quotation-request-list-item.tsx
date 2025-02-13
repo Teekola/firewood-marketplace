@@ -44,7 +44,7 @@ export function QuotationRequestListItem({
                <p className="text-sm text-muted-foreground">{updatedAt}</p>
             </div>
             <Button variant="outline" className="my-auto" onClick={handleOpenQuotationRequest}>
-               {"View"}
+               {t("View")}
             </Button>
          </Card>
       </li>
