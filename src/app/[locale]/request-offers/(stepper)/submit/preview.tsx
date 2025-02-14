@@ -83,7 +83,7 @@ function PreviewTitle({ href, title }: Readonly<{ href: Pathname; title: string 
    return (
       <p className="inline-flex items-center gap-2 text-sm font-bold">
          {title}{" "}
-         <Link href={href}>
+         <Link href={{ pathname: href, params: { id: "" } }}>
             <EditIcon className="h-[18px] w-[18px] cursor-pointer" />
          </Link>
       </p>

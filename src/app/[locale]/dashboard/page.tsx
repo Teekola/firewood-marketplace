@@ -37,7 +37,7 @@ interface DashboardLinkProps extends ComponentProps<typeof Button> {
 function DashboardLink({ href, children }: Readonly<PropsWithChildren<DashboardLinkProps>>) {
    return (
       <Button asChild variant="outline" className="h-16 w-full md:h-32">
-         <Link href={href}>{children}</Link>
+         <Link href={{ pathname: href, params: { id: "" } }}>{children}</Link>
       </Button>
    );
 }
