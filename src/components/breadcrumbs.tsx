@@ -40,16 +40,18 @@ const maxItemsToDisplayByDevice = {
 
 function useBreadcrumbs() {
    const pathname = usePathname();
+   const staticPathname = pathname.replace(/\/\[[^\]]+\]/g, "");
+
    const t = useTranslations("breadcrumbs");
    const breadCrumbs: { href?: Pathname; label: string }[] = [];
 
-   const translated = t(pathname);
+   const translated = t(staticPathname);
    const parts = translated.split("/").filter(Boolean);
-   const hrefParts = pathname.split("/").filter(Boolean);
+   const hrefParts = staticPathname.split("/").filter(Boolean);
 
    parts.forEach((part, i) => {
       const href = ("/" + hrefParts.slice(0, i + 1).join("/")) as Pathname;
-      breadCrumbs.push({ ...(href !== pathname && { href }), label: part });
+      breadCrumbs.push({ ...(href !== staticPathname && { href }), label: part });
    });
 
    return breadCrumbs;
@@ -91,7 +93,9 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                            <DropdownMenuContent align="start">
                               {breadCrumbs.slice(1, -2).map((item, index) => (
                                  <DropdownMenuItem key={index}>
-                                    <Link href={item.href!}>{item.label}</Link>
+                                    <Link href={{ pathname: item.href!, params: { id: "" } }}>
+                                       {item.label}
+                                    </Link>
                                  </DropdownMenuItem>
                               ))}
                            </DropdownMenuContent>
@@ -111,7 +115,11 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                               </DrawerHeader>
                               <div className="grid gap-1 px-4">
                                  {breadCrumbs.slice(1, -2).map((item, index) => (
-                                    <Link key={index} href={item.href!} className="py-1 text-sm">
+                                    <Link
+                                       key={index}
+                                       href={{ pathname: item.href!, params: { id: "" } }}
+                                       className="py-1 text-sm"
+                                    >
                                        {item.label}
                                     </Link>
                                  ))}
@@ -133,7 +141,9 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                   {item.href ? (
                      <>
                         <BreadcrumbLink asChild className="max-w-32 truncate md:max-w-none">
-                           <Link href={item.href}>{item.label}</Link>
+                           <Link href={{ pathname: item.href, params: { id: "" } }}>
+                              {item.label}
+                           </Link>
                         </BreadcrumbLink>
                         <BreadcrumbSeparator />
                      </>

@@ -53,6 +53,10 @@ export type QuotationRequest = Awaited<
    ReturnType<typeof getPendingQuotationRequestsBySellerId>
 >[number]["quotationRequest"];
 
+export const getQuotationRequest = async ({ id }: { id: string }) => {
+   return await prisma.quotationRequest.findUnique({ where: { id } });
+};
+
 export const createQuotationRequest = async ({
    buyerId,
    sellerIds,

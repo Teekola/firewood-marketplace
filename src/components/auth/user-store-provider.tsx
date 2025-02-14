@@ -57,10 +57,16 @@ const defaultGeolocationData = {
 };
 
 // Gets the correct unit system based on geolocation and uses other default values
+// Caches the data in local storage
 export function useGeolocationData() {
    const [geolocationData, setGeolocationData] = useState(defaultGeolocationData);
 
    useEffect(() => {
+      const storedData = localStorage.getItem("geolocationData");
+      if (storedData) {
+         setGeolocationData(JSON.parse(storedData));
+         return;
+      }
       (async () => {
          const getPreferredUnitSystem = await fetch(
             "/api/auth/get-geolocation-data",
@@ -68,7 +74,11 @@ export function useGeolocationData() {
          );
          const { preferredUnitSystem, country } = await getPreferredUnitSystem.json();
 
-         setGeolocationData((prev) => ({ ...prev, preferredUnitSystem, country }));
+         setGeolocationData((prev) => {
+            const newData = { ...prev, preferredUnitSystem, country };
+            localStorage.setItem("geolocationData", JSON.stringify(newData)); // Cache for future use
+            return newData;
+         });
       })();
    }, []);
    return geolocationData;
