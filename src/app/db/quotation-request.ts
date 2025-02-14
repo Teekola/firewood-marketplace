@@ -1,4 +1,9 @@
-import { DeliveryMethod, WoodDryness, WoodType } from "@prisma/client";
+import {
+   DeliveryMethod,
+   SellerQuotationRequestStatus,
+   WoodDryness,
+   WoodType,
+} from "@prisma/client";
 
 import { prisma } from "@/prisma";
 
@@ -18,15 +23,35 @@ const toEnum = {
    pickup: DeliveryMethod.PICKUP,
 } as const;
 
-export const getQuotationRequestsBySellerId = async ({ sellerId }: { sellerId: string }) => {
-   const quotationRequests = await prisma.quotationRequest.findMany({
-      where: { sellers: { some: { id: sellerId } } },
+export const getPendingQuotationRequestsBySellerId = async ({ sellerId }: { sellerId: string }) => {
+   const quotationRequests = await prisma.sellerQuotationRequest.findMany({
+      where: { sellerId, status: SellerQuotationRequestStatus.PENDING },
+      include: {
+         quotationRequest: true,
+      },
    });
 
    return quotationRequests;
 };
 
-export type QuotationRequest = Awaited<ReturnType<typeof getQuotationRequestsBySellerId>>[number];
+export const getRejectedQuotationRequestsBySellerId = async ({
+   sellerId,
+}: {
+   sellerId: string;
+}) => {
+   const quotationRequests = await prisma.sellerQuotationRequest.findMany({
+      where: { sellerId, status: SellerQuotationRequestStatus.REJECTED },
+      select: {
+         quotationRequest: true,
+      },
+   });
+
+   return quotationRequests;
+};
+
+export type QuotationRequest = Awaited<
+   ReturnType<typeof getPendingQuotationRequestsBySellerId>
+>[number]["quotationRequest"];
 
 export const createQuotationRequest = async ({
    buyerId,
@@ -46,8 +71,10 @@ export const createQuotationRequest = async ({
    return await prisma.quotationRequest.create({
       data: {
          buyerId,
-         sellers: {
-            connect: sellerIds.map((id) => ({ id })),
+         sellerQuotationRequest: {
+            createMany: {
+               data: sellerIds.map((sellerId) => ({ sellerId })),
+            },
          },
          woodType: toEnum[firewoodData.woodType],
          woodDryness: toEnum[firewoodData.dryness],
@@ -69,7 +96,9 @@ export const createQuotationRequest = async ({
       },
       select: {
          id: true,
-         sellers: { select: { id: true } },
+         _count: {
+            select: { sellerQuotationRequest: true },
+         },
       },
    });
 };

@@ -53,6 +53,8 @@ export async function submitQuotationRequest({
 
    // Ensure that the request is not sent to the buyer (they could also be a seller)
    const currentSellerId = session?.seller?.id;
+
+   // Filter out the current seller's id and convert to string array of ids
    const sellerIds = sellers.reduce((ids, seller) => {
       if (seller.id !== currentSellerId) {
          ids.push(seller.id);
@@ -61,8 +63,8 @@ export async function submitQuotationRequest({
    }, [] as string[]);
 
    const quotationRequestPromise = createQuotationRequest({
-      buyerId: buyer.id,
       sellerIds,
+      buyerId: buyer.id,
       firewoodData,
       deliveryData,
       contactData,
@@ -76,10 +78,10 @@ export async function submitQuotationRequest({
 
    // TODO: Remove debug, add observability logging
    console.log("ACTIONS: created quotation request:", quotationRequest);
-   console.log("ACTIONS: number of sellers:", quotationRequest.sellers.length);
+   console.log("ACTIONS: number of sellers:", quotationRequest._count.sellerQuotationRequest);
    console.log("ACTIONS: updated buyer:", updatedBuyer);
 
    // TODO: Send emails to the sellers
 
-   return { numberOfSellers: quotationRequest.sellers.length };
+   return { numberOfSellers: quotationRequest._count.sellerQuotationRequest };
 }

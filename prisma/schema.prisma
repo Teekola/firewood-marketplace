@@ -19,134 +19,14 @@ datasource db {
    extensions = [postgis]
 }
 
-model User {
-   id                  String      @id @default(cuid())
-   name                String?
-   email               String?     @unique
-   emailVerified       DateTime?   @map("email_verified")
-   image               String?
-   preferredUnitSystem UnitSystem?
-   isRegistered        Boolean     @default(false)
-   buyer               Buyer?
-   seller              Seller?
-   accounts            Account[]
-   sessions            Session[]
-   createdAt           DateTime    @default(now()) @map("created_at")
-   updatedAt           DateTime    @updatedAt @map("updated_at")
-}
-
-enum UnitSystem {
-   METRIC
-   IMPERIAL
-}
-
-model Buyer {
-   id                String             @id @default(cuid())
-   user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-   userId            String             @unique @map("user_id")
-   name              String?
-   email             String?
-   phone             String?
-   countryCode       String?            @map("country_code")
-   countryName       String?            @map("country_name")
-   postalCode        String?            @map("postal_code")
-   city              String?
-   address           String?
-   companyName       String?
-   longitude         Float?
-   latitude          Float?
-   quotationRequests QuotationRequest[]
-   offerViews        OfferView[]
-}
-
-model SellerLocation {
-   id            String                                @id @default(cuid())
-   countryCode   String                                @map("country_code")
-   countryName   String                                @map("country_name")
-   postalCode    String                                @map("postal_code")
-   city          String
-   coordinates   Unsupported("geography(Point, 4326)")
-   maxDistanceKm Int                                   @default(50) @map("max_distance_km")
-   createdAt     DateTime                              @default(now()) @map("created_at")
-   updatedAt     DateTime                              @updatedAt @map("updated_at")
-   seller        Seller                                @relation(fields: [sellerId], references: [id])
-   sellerId      String                                @unique @map("seller_id")
-}
-
-model Seller {
-   id                    String                 @id @default(cuid())
-   plan                  Plan
-   location              SellerLocation?
-   profile               SellerProfile?
-   numberOfSentOffers    Int                    @default(0) @map("number_of_sent_offers")
-   user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-   userId                String                 @unique @map("user_id")
-   offers                Offer[]
-   quotationRequests     QuotationRequest[]
-   quotationRequestViews QuotationRequestView[]
-   createdAt             DateTime               @default(now()) @map("created_at")
-   updatedAt             DateTime               @updatedAt @map("updated_at")
-}
-
-model SellerProfile {
-   id       String  @id @default(cuid())
-   seller   Seller  @relation(fields: [sellerId], references: [id])
-   sellerId String  @unique @map("seller_id")
-   name     String?
-   email    String?
-   phone    String?
-}
-
 enum Plan {
    FREE
 }
 
-model Offer {
-   id                 String           @id @default(cuid())
-   quotationRequest   QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
-   quotationRequestId String           @map("quotation_request_id")
-   seller             Seller           @relation(fields: [sellerId], references: [id], onDelete: Cascade)
-   sellerId           String           @map("seller_id")
-   createdAt          DateTime         @default(now()) @map("created_at")
-   updatedAt          DateTime         @updatedAt @map("updated_at")
-   views              OfferView[]
-}
-
-model OfferView {
-   id           String   @id @default(cuid())
-   offer        Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
-   offerId      String   @map("offer_id")
-   buyer        Buyer    @relation(fields: [buyerId], references: [id], onDelete: Cascade)
-   buyerId      String   @map("buyer_id")
-   lastViewedAt DateTime @default(now()) @map("last_viewed_at")
-
-   @@unique([offerId, buyerId])
-}
-
-model QuotationRequest {
-   id                    String                 @id @default(cuid())
-   buyer                 Buyer                  @relation(fields: [buyerId], references: [id], onDelete: Cascade)
-   buyerId               String                 @map("buyer_id")
-   offers                Offer[]
-   createdAt             DateTime               @default(now()) @map("created_at")
-   updatedAt             DateTime               @updatedAt @map("updated_at")
-   sellers               Seller[]
-   views                 QuotationRequestView[]
-   woodType              WoodType
-   woodDryness           WoodDryness
-   woodAmountCubicMeters Int
-   woodMaxLengthCm       Int?
-   deliveryMethod        DeliveryMethod
-   countryCode           String
-   countryName           String
-   postalCode            String
-   city                  String
-   address               String?
-   buyerName             String
-   buyerEmail            String
-   buyerPhone            String
-   buyerCompanyName      String?
-   additionalInformation String?
+enum SellerQuotationRequestStatus {
+   PENDING
+   ACCEPTED
+   REJECTED
 }
 
 enum WoodType {
@@ -166,15 +46,116 @@ enum DeliveryMethod {
    PICKUP
 }
 
-model QuotationRequestView {
-   id                 String           @id @default(cuid())
-   quotationRequest   QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
-   quotationRequestId String           @map("quotation_request_id")
-   seller             Seller           @relation(fields: [sellerId], references: [id], onDelete: Cascade)
-   sellerId           String           @map("seller_id")
-   lastViewedAt       DateTime         @default(now()) @map("last_viewed_at")
+enum UnitSystem {
+   METRIC
+   IMPERIAL
+}
+
+model User {
+   id                  String      @id @default(cuid())
+   name                String?
+   email               String?     @unique
+   emailVerified       DateTime?   @map("email_verified")
+   image               String?
+   preferredUnitSystem UnitSystem?
+   isRegistered        Boolean     @default(false)
+   buyer               Buyer?
+   seller              Seller?
+   accounts            Account[]
+   sessions            Session[]
+   createdAt           DateTime    @default(now()) @map("created_at")
+   updatedAt           DateTime    @updatedAt @map("updated_at")
+}
+
+model Buyer {
+   id                String             @id @default(cuid())
+   user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+   userId            String             @unique @map("user_id")
+   name              String?
+   email             String?
+   phone             String?
+   countryCode       String?            @map("country_code")
+   countryName       String?            @map("country_name")
+   postalCode        String?            @map("postal_code")
+   city              String?
+   address           String?
+   companyName       String?
+   longitude         Float?
+   latitude          Float?
+   quotationRequests QuotationRequest[]
+}
+
+model Seller {
+   id                 String                   @id @default(cuid())
+   plan               Plan
+   location           SellerLocation?
+   profile            SellerProfile?
+   numberOfSentOffers Int                      @default(0) @map("number_of_sent_offers")
+   user               User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+   userId             String                   @unique @map("user_id")
+   createdAt          DateTime                 @default(now()) @map("created_at")
+   updatedAt          DateTime                 @updatedAt @map("updated_at")
+   quotationRequests  SellerQuotationRequest[]
+}
+
+model SellerLocation {
+   id            String                                @id @default(cuid())
+   countryCode   String                                @map("country_code")
+   countryName   String                                @map("country_name")
+   postalCode    String                                @map("postal_code")
+   city          String
+   coordinates   Unsupported("geography(Point, 4326)")
+   maxDistanceKm Int                                   @default(50) @map("max_distance_km")
+   createdAt     DateTime                              @default(now()) @map("created_at")
+   updatedAt     DateTime                              @updatedAt @map("updated_at")
+   seller        Seller                                @relation(fields: [sellerId], references: [id])
+   sellerId      String                                @unique @map("seller_id")
+}
+
+model SellerProfile {
+   id       String  @id @default(cuid())
+   seller   Seller  @relation(fields: [sellerId], references: [id])
+   sellerId String  @unique @map("seller_id")
+   name     String?
+   email    String?
+   phone    String?
+}
+
+model QuotationRequest {
+   id                     String                   @id @default(cuid())
+   buyer                  Buyer                    @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+   buyerId                String                   @map("buyer_id")
+   createdAt              DateTime                 @default(now()) @map("created_at")
+   updatedAt              DateTime                 @updatedAt @map("updated_at")
+   woodType               WoodType                 @map("wood_type")
+   woodDryness            WoodDryness              @map("wood_dryness")
+   woodAmountCubicMeters  Int                      @map("wood_amount_cubic_meters")
+   woodMaxLengthCm        Int?                     @map("wood_max_length_cm")
+   deliveryMethod         DeliveryMethod           @map("delivery_method")
+   countryCode            String                   @map("country_code")
+   countryName            String                   @map("country_name")
+   postalCode             String                   @map("postal_code")
+   city                   String
+   address                String?
+   buyerName              String                   @map("buyer_name")
+   buyerEmail             String                   @map("buyer_email")
+   buyerPhone             String                   @map("buyer_phone")
+   buyerCompanyName       String?                  @map("buyer_company_name")
+   additionalInformation  String?                  @map("additional_information")
+   sellerQuotationRequest SellerQuotationRequest[]
+}
+
+model SellerQuotationRequest {
+   id                 String                       @id @default(cuid())
+   quotationRequest   QuotationRequest             @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
+   quotationRequestId String                       @map("quotation_request_id")
+   seller             Seller                       @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+   sellerId           String                       @map("seller_id")
+   hasViewed          Boolean                      @default(false) @map("has_viewed")
+   status             SellerQuotationRequestStatus @default(PENDING)
 
    @@unique([quotationRequestId, sellerId])
+   @@index(status)
 }
 
 model Account {
