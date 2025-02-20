@@ -40,7 +40,7 @@ export const routing = defineRouting({
       },
       "/dashboard/seller/quotation-requests/id/[id]": {
          en: "/seller/quotation-requests/id/[id]",
-         fi: "/myyja/tarjouspyynnot/id[id]",
+         fi: "/myyja/tarjouspyynnot/id/[id]",
       },
       "/dashboard/seller/quotation-requests/rejected": {
          en: "/seller/quotation-requests/rejected",
