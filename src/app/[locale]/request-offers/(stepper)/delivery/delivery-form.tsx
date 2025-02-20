@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup } from "@/components/ui/radio-group";
-import { useRouter } from "@/i18n/routing";
+import { StaticPathname, useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";
@@ -138,7 +138,7 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
       console.log("You submitted the following values", data);
       setDeliveryData(data);
       const lastUnlockedPath = stepToPath[lastUnlockedStep ?? 3];
-      router.push(lastUnlockedPath);
+      router.push(lastUnlockedPath as StaticPathname);
    }
 
    return (

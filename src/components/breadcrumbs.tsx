@@ -31,7 +31,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Link, Pathname, usePathname } from "@/i18n/routing";
+import { Link, Pathname, StaticPathname, usePathname } from "@/i18n/routing";
 
 const maxItemsToDisplayByDevice = {
    mobile: 3,
@@ -93,9 +93,7 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                            <DropdownMenuContent align="start">
                               {breadCrumbs.slice(1, -2).map((item, index) => (
                                  <DropdownMenuItem key={index}>
-                                    <Link href={{ pathname: item.href!, params: { id: "" } }}>
-                                       {item.label}
-                                    </Link>
+                                    <Link href={item.href as StaticPathname}>{item.label}</Link>
                                  </DropdownMenuItem>
                               ))}
                            </DropdownMenuContent>
@@ -117,7 +115,7 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                                  {breadCrumbs.slice(1, -2).map((item, index) => (
                                     <Link
                                        key={index}
-                                       href={{ pathname: item.href!, params: { id: "" } }}
+                                       href={item.href as StaticPathname}
                                        className="py-1 text-sm"
                                     >
                                        {item.label}
@@ -141,9 +139,7 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                   {item.href ? (
                      <>
                         <BreadcrumbLink asChild className="max-w-32 truncate md:max-w-none">
-                           <Link href={{ pathname: item.href, params: { id: "" } }}>
-                              {item.label}
-                           </Link>
+                           <Link href={item.href as StaticPathname}>{item.label}</Link>
                         </BreadcrumbLink>
                         <BreadcrumbSeparator />
                      </>

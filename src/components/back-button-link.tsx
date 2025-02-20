@@ -4,7 +4,7 @@ import { ComponentProps } from "react";
 
 import { ArrowLeftIcon } from "lucide-react";
 
-import { Link, Pathname, usePathname } from "@/i18n/routing";
+import { Link, Pathname, StaticPathname, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import { Button } from "./ui/button";
@@ -29,7 +29,7 @@ export function BackButtonLink({ label, href, ...props }: Readonly<BackButtonLin
          type="button"
          className={cn("group inline-flex items-center justify-between gap-2", props.className)}
       >
-         <Link href={{ pathname: finalHref, params: { id: "" } }} scroll={false}>
+         <Link href={finalHref as StaticPathname} scroll={false}>
             <ArrowLeftIcon className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             {label}
          </Link>

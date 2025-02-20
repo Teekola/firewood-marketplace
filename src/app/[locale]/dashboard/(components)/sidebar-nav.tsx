@@ -1,7 +1,7 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import { Link, Pathname, usePathname } from "@/i18n/routing";
+import { Link, Pathname, StaticPathname, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
@@ -27,10 +27,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
          {items.map((item) => (
             <Link
                key={Array.isArray(item.href) ? item.href[0] : item.href}
-               href={{
-                  pathname: Array.isArray(item.href) ? item.href[0] : item.href,
-                  params: { id: "" },
-               }}
+               href={(Array.isArray(item.href) ? item.href[0] : item.href) as StaticPathname}
                className={cn(
                   buttonVariants({ variant: "ghost" }),
                   isPathnameWithinHref(pathname, item.href)

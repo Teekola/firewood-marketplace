@@ -2,8 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { getPendingQuotationRequestsForSeller } from "./actions";
-import { sellerQuotationRequestsQueryKey } from "./constants";
+import { getPendingQuotationRequestsForSeller } from "../actions";
+import { sellerQuotationRequestsQueryKey } from "../constants";
 import { QuotationRequestListItem } from "./quotation-request-list-item";
 
 export function QuotationRequestsList() {
@@ -24,7 +24,7 @@ export function QuotationRequestsList() {
 
    return (
       <>
-         <ul className="flex w-full flex-col gap-1">
+         <ul className="flex min-h-20 w-full flex-col gap-1">
             {sellerQuotationRequests.map((sqr) => (
                <QuotationRequestListItem key={sqr.id} quotationRequest={sqr.quotationRequest} />
             ))}

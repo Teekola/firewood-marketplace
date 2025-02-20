@@ -97,3 +97,7 @@ export const localeToLocalizedLanguageName: Record<Locale, string> = {
 export const { Link, redirect, usePathname, useRouter } = createNavigation(routing);
 
 export type Pathname = ReturnType<typeof usePathname>;
+export type StaticPathname = Exclude<
+   keyof typeof routing.pathnames,
+   `${string}[${string}]${string}`
+>;

@@ -1,6 +1,6 @@
-import { getQuotationRequest } from "@/app/db/quotation-request";
+import { notFound } from "next/navigation";
 
-import QuotationRequestDialog from "../quotation-request-dialog";
+import { getQuotationRequest } from "@/app/db/quotation-request";
 
 export default async function QuotationRequestPage({
    params,
@@ -8,5 +8,7 @@ export default async function QuotationRequestPage({
    const { id } = await params;
    const quotationRequest = await getQuotationRequest({ id });
 
-   return <QuotationRequestDialog isOpen={true} quotationRequest={quotationRequest} />;
+   if (!quotationRequest) return notFound();
+
+   return <div>{quotationRequest.id}</div>;
 }

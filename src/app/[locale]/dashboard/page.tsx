@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { authWithSeller } from "@/auth/auth";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Button } from "@/components/ui/button";
-import { Link, Pathname } from "@/i18n/routing";
+import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 
 export default async function DashboardPage() {
    const session = await authWithSeller();
@@ -37,7 +37,7 @@ interface DashboardLinkProps extends ComponentProps<typeof Button> {
 function DashboardLink({ href, children }: Readonly<PropsWithChildren<DashboardLinkProps>>) {
    return (
       <Button asChild variant="outline" className="h-16 w-full md:h-32">
-         <Link href={{ pathname: href, params: { id: "" } }}>{children}</Link>
+         <Link href={href as StaticPathname}>{children}</Link>
       </Button>
    );
 }

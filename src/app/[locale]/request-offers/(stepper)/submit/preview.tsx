@@ -7,7 +7,7 @@ import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { useUser } from "@/components/auth/user-store-provider";
-import { Link, Pathname } from "@/i18n/routing";
+import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import {
    imperialWoodAmountUnit,
@@ -83,7 +83,7 @@ function PreviewTitle({ href, title }: Readonly<{ href: Pathname; title: string 
    return (
       <p className="inline-flex items-center gap-2 text-sm font-bold">
          {title}{" "}
-         <Link href={{ pathname: href, params: { id: "" } }}>
+         <Link href={href as StaticPathname}>
             <EditIcon className="h-[18px] w-[18px] cursor-pointer" />
          </Link>
       </p>

@@ -5,7 +5,7 @@ import { ComponentProps, PropsWithChildren, useId } from "react";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 
-import { Link, usePathname } from "@/i18n/routing";
+import { Link, StaticPathname, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import {
@@ -65,7 +65,7 @@ function StepLink({
    return (
       <li className={"mb-2 flex flex-col items-center gap-1 pb-5"}>
          <DisableAbleLink
-            href={href}
+            href={href as StaticPathname}
             id={id}
             disabled={isDisabled}
             aria-disabled={isDisabled}

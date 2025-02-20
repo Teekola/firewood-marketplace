@@ -1,7 +1,7 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
-import { getPendingQuotationRequestsForSeller } from "./actions";
-import { sellerQuotationRequestsQueryKey } from "./constants";
+import { getPendingQuotationRequestsForSeller } from "../actions";
+import { sellerQuotationRequestsQueryKey } from "../constants";
 import { QuotationRequestsList } from "./quotation-requests-list";
 
 export default async function SellerQuotationRequestsPage() {
