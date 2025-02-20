@@ -27,7 +27,10 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
          {items.map((item) => (
             <Link
                key={Array.isArray(item.href) ? item.href[0] : item.href}
-               href={Array.isArray(item.href) ? item.href[0] : item.href}
+               href={{
+                  pathname: Array.isArray(item.href) ? item.href[0] : item.href,
+                  params: { id: "" },
+               }}
                className={cn(
                   buttonVariants({ variant: "ghost" }),
                   isPathnameWithinHref(pathname, item.href)
