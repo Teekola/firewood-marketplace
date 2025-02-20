@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
 import { RadioGroup } from "@/components/ui/radio-group";
-import { useRouter } from "@/i18n/routing";
+import { StaticPathname, useRouter } from "@/i18n/routing";
 import {
    imperialWoodAmountUnit,
    imperialWoodLengthUnit,
@@ -72,7 +72,7 @@ export function FirewoodForm() {
       console.log("You submitted the following values", data);
       setFirewoodData(data);
       const lastUnlockedPath = stepToPath[lastUnlockedStep ?? 2];
-      router.push(lastUnlockedPath);
+      router.push(lastUnlockedPath as StaticPathname);
    }
 
    return (
