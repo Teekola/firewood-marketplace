@@ -14,13 +14,19 @@ interface BackButtonLinkProps extends ComponentProps<typeof Button> {
    label: string;
 }
 
+function getPreviousPath(pathname: Pathname) {
+   const splittedPath = pathname.split("/");
+   const lastAcceptablePathIndex =
+      splittedPath[splittedPath.length - 1] === "id"
+         ? splittedPath.length - 2
+         : splittedPath.length - 2;
+   return splittedPath.slice(0, lastAcceptablePathIndex).join("/") as Pathname;
+}
+
 export function BackButtonLink({ label, href, ...props }: Readonly<BackButtonLinkProps>) {
    const pathname = usePathname();
 
-   const splittedPath = pathname.split("/");
-   const finalHref = href
-      ? href
-      : (splittedPath.slice(0, splittedPath.length - 1).join("/") as Pathname);
+   const finalHref = href ? href : getPreviousPath(pathname);
    return (
       <Button
          {...props}
