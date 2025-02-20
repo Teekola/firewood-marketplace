@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { Pathname, usePathname, useRouter } from "@/i18n/routing";
+import { Pathname, StaticPathname, usePathname, useRouter } from "@/i18n/routing";
 
 import { useLastUnlockedStep, useSetStepVerified } from "../(store)/request-offers-store-provider";
 
@@ -41,6 +41,6 @@ export function useStepManager() {
          return;
       }
       setStepVerified(false);
-      router.push(stepToPath[lastUnlockedStep]);
+      router.push(stepToPath[lastUnlockedStep] as StaticPathname);
    }, [currentStep, lastUnlockedStep, router, setStepVerified]);
 }
