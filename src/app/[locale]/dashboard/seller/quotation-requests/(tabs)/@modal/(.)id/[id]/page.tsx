@@ -1,6 +1,6 @@
 import { getQuotationRequest } from "@/app/db/quotation-request";
 
-import QuotationRequestDialog from "../quotation-request-dialog";
+import QuotationRequestDialog from "../../../quotation-request-dialog";
 
 export default async function QuotationRequestPage({
    params,

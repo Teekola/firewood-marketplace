@@ -38,9 +38,9 @@ export const routing = defineRouting({
          en: "/seller/quotation-requests",
          fi: "/myyja/tarjouspyynnot",
       },
-      "/dashboard/seller/quotation-requests/[id]": {
-         en: "/seller/quotation-requests/[id]",
-         fi: "/myyja/tarjouspyynnot/[id]",
+      "/dashboard/seller/quotation-requests/id/[id]": {
+         en: "/seller/quotation-requests/id/[id]",
+         fi: "/myyja/tarjouspyynnot/id[id]",
       },
       "/dashboard/seller/quotation-requests/rejected": {
          en: "/seller/quotation-requests/rejected",

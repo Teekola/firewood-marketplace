@@ -4,7 +4,10 @@ import { getTranslations } from "next-intl/server";
 
 import { TabLink } from "./tab-link";
 
-export default async function QuotationRequestsLayout({ children }: Readonly<PropsWithChildren>) {
+export default async function QuotationRequestsLayout({
+   children,
+   modal,
+}: Readonly<PropsWithChildren<{ modal: React.ReactNode }>>) {
    const t = await getTranslations("dashboard");
    return (
       <div className="flex w-full flex-col gap-4">
@@ -14,6 +17,7 @@ export default async function QuotationRequestsLayout({ children }: Readonly<Pro
             <TabLink href="/dashboard/seller/quotation-requests/rejected" label={t("Rejected")} />
          </div>
          {children}
+         {modal}
       </div>
    );
 }

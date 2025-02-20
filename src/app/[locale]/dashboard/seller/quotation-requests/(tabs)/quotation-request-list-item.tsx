@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { QuotationRequest } from "@/app/db/quotation-request";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
-import { Link } from "@/i18n/routing";
+import { Link, Pathname } from "@/i18n/routing";
 
 import { QuotationRequestTitle } from "./quotation-request-title";
 import { useQuotationRequestData } from "./use-quotation-request-data";
@@ -20,7 +20,7 @@ export function QuotationRequestListItem({
 
    const { updatedAt } = useQuotationRequestData(quotationRequest);
 
-   const linkPathname = "/dashboard/seller/quotation-requests/[id]";
+   const linkPathname: Pathname = "/dashboard/seller/quotation-requests/id/[id]";
 
    return (
       <li>
