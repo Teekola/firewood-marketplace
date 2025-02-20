@@ -1,12 +1,13 @@
 "use client";
 
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { useRouter } from "@/i18n/routing";
 
-import { QuotationRequestTitle } from "./quotation-request-title";
+import QuotationRequestDetails from "../(components)/quotation-request-details";
 
 export default function QuotationRequestDialog({
    isOpen,
@@ -16,6 +17,7 @@ export default function QuotationRequestDialog({
    quotationRequest: QuotationRequest | null;
 }>) {
    const router = useRouter();
+   const t = useTranslations("dashboard");
 
    function handleClose() {
       if (window.history.length > 1) {
@@ -30,11 +32,14 @@ export default function QuotationRequestDialog({
       <Dialog open={isOpen} onOpenChange={handleClose}>
          <DialogContent>
             <DialogHeader>
-               <DialogTitle className="font-bold">
-                  <QuotationRequestTitle quotationRequest={quotationRequest} />
+               <DialogTitle className="text-2xl font-bold">
+                  {t("Quotation request details")}
                </DialogTitle>
-               <DialogDescription>{"Quotation Request Details"}</DialogDescription>
+               <DialogDescription className="sr-only">
+                  {t("Quotation request details")}
+               </DialogDescription>
             </DialogHeader>
+            <QuotationRequestDetails quotationRequest={quotationRequest} />
          </DialogContent>
       </Dialog>
    );
