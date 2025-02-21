@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
 import { useQuotationRequestData } from "../(hooks)/use-quotation-request-data";
 
@@ -52,7 +53,16 @@ export default function QuotationRequestDetails({
          </p>
 
          <div className="mt-4 flex max-w-none flex-col gap-2 xs:max-w-md xs:flex-row">
-            <Button className="w-full">{t("quotation-request.Make offer")}</Button>
+            <Button asChild className="w-full">
+               <Link
+                  href={{
+                     pathname: "/dashboard/seller/quotation-requests/id/[id]/make-offer",
+                     params: { id: qr.id },
+                  }}
+               >
+                  {t("quotation-request.Make offer")}
+               </Link>
+            </Button>
             <Button className="w-full" variant="outline">
                {t("actions.Reject")}
             </Button>

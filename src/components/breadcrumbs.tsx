@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { useParams } from "next/navigation";
+
 import { useTranslations } from "next-intl";
 
 import {
@@ -40,18 +42,40 @@ const maxItemsToDisplayByDevice = {
 
 function useBreadcrumbs() {
    const pathname = usePathname();
+   const params = useParams();
+
    const staticPathname = pathname.replace(/\/\[[^\]]+\]/g, "");
 
    const t = useTranslations("breadcrumbs");
-   const breadCrumbs: { href?: Pathname; label: string }[] = [];
+   const breadCrumbs: {
+      href?: StaticPathname | { pathname: Pathname; params: { id: string } };
+      label: string;
+   }[] = [];
 
    const translated = t(staticPathname);
    const parts = translated.split("/").filter(Boolean);
-   const hrefParts = staticPathname.split("/").filter(Boolean);
+   const hrefParts = pathname.split("/").filter(Boolean);
+
+   // Handle the case where there is "id" in the route, in which case the path needs
+   // to include the dynamic id and replace that id with the route of the item
+   if (hrefParts.includes("id")) {
+      hrefParts.splice(hrefParts.indexOf("id"), 2, "id/[id]");
+
+      parts.forEach((part, i) => {
+         const path = ("/" + hrefParts.slice(0, i + 1).join("/")) as Pathname;
+         breadCrumbs.push({
+            ...(path !== pathname && {
+               href: { pathname: path, params: { id: params.id as string } },
+            }),
+            label: part,
+         });
+      });
+      return breadCrumbs;
+   }
 
    parts.forEach((part, i) => {
-      const href = ("/" + hrefParts.slice(0, i + 1).join("/")) as Pathname;
-      breadCrumbs.push({ ...(href !== staticPathname && { href }), label: part });
+      const href = ("/" + hrefParts.slice(0, i + 1).join("/")) as StaticPathname;
+      breadCrumbs.push({ ...(href !== pathname && { href }), label: part });
    });
 
    return breadCrumbs;
@@ -76,7 +100,9 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
       <Breadcrumb {...props}>
          <BreadcrumbList>
             <BreadcrumbItem>
-               <BreadcrumbLink href={breadCrumbs[0].href}>{breadCrumbs[0].label}</BreadcrumbLink>
+               <BreadcrumbLink asChild>
+                  <Link href={breadCrumbs[0].href!}> {breadCrumbs[0].label}</Link>
+               </BreadcrumbLink>
             </BreadcrumbItem>
             {breadCrumbs.length > 1 && <BreadcrumbSeparator />}
             {breadCrumbs.length > maxItemsToDisplay ? (
@@ -91,9 +117,11 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                               <BreadcrumbEllipsis className="h-4 w-4" />
                            </DropdownMenuTrigger>
                            <DropdownMenuContent align="start">
-                              {breadCrumbs.slice(1, -2).map((item, index) => (
+                              {breadCrumbs.slice(1, -3).map((item, index) => (
                                  <DropdownMenuItem key={index}>
-                                    <Link href={item.href as StaticPathname}>{item.label}</Link>
+                                    <BreadcrumbLink asChild>
+                                       <Link href={item.href!}>{item.label}</Link>
+                                    </BreadcrumbLink>
                                  </DropdownMenuItem>
                               ))}
                            </DropdownMenuContent>
@@ -113,13 +141,9 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                               </DrawerHeader>
                               <div className="grid gap-1 px-4">
                                  {breadCrumbs.slice(1, -2).map((item, index) => (
-                                    <Link
-                                       key={index}
-                                       href={item.href as StaticPathname}
-                                       className="py-1 text-sm"
-                                    >
-                                       {item.label}
-                                    </Link>
+                                    <BreadcrumbLink asChild key={index} className="py-1 text-sm">
+                                       <Link href={item.href!}>{item.label}</Link>
+                                    </BreadcrumbLink>
                                  ))}
                               </div>
                               <DrawerFooter className="pt-4">
@@ -139,7 +163,7 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                   {item.href ? (
                      <>
                         <BreadcrumbLink asChild className="max-w-32 truncate md:max-w-none">
-                           <Link href={item.href as StaticPathname}>{item.label}</Link>
+                           <Link href={item.href}>{item.label}</Link>
                         </BreadcrumbLink>
                         <BreadcrumbSeparator />
                      </>

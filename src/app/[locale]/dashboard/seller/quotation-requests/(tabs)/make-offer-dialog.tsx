@@ -9,12 +9,10 @@ import { QuotationRequest } from "@/app/db/quotation-request";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { usePathname, useRouter } from "@/i18n/routing";
 
-import QuotationRequestDetails from "../(components)/quotation-request-details";
+const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
+const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]/make-offer";
 
-const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests";
-const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
-
-export default function QuotationRequestDialog({
+export default function MakeOfferDialog({
    isOpen,
    quotationRequest,
 }: Readonly<{
@@ -22,13 +20,9 @@ export default function QuotationRequestDialog({
    quotationRequest: QuotationRequest | null;
 }>) {
    const router = useRouter();
-   const t = useTranslations("dashboard");
+   const t = useTranslations();
    const [open, setOpen] = useState(isOpen);
    const pathname = usePathname();
-
-   function handleClose() {
-      router.push(DIALOG_PREVIOUS_ROUTE);
-   }
 
    useEffect(() => {
       if (pathname === DIALOG_ROUTE) setOpen(true);
@@ -36,18 +30,22 @@ export default function QuotationRequestDialog({
    }, [pathname]);
 
    if (!quotationRequest) return null;
+
+   const handleClose = () => {
+      router.push({ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: quotationRequest.id } });
+   };
+
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent>
             <DialogHeader>
                <DialogTitle className="text-2xl font-bold">
-                  {t("Quotation request details")}
+                  {t("quotation-request.Make an Offer")}
                </DialogTitle>
                <DialogDescription className="sr-only">
-                  {t("Quotation request details")}
+                  {t("dashboard.Quotation request details")}
                </DialogDescription>
             </DialogHeader>
-            <QuotationRequestDetails quotationRequest={quotationRequest} />
          </DialogContent>
       </Dialog>
    );
