@@ -2,44 +2,27 @@
 
 import { PropsWithChildren } from "react";
 
-import { UnitSystem, WoodDryness } from "@prisma/client";
+import { WoodDryness } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
-import { useUser } from "@/components/auth/user-store-provider";
 import { Button } from "@/components/ui/button";
-import { centimetersToInches, cubicMetersToCubicFeet } from "@/lib/utils/unit-conversions";
-import {
-   imperialWoodAmountUnit,
-   imperialWoodLengthUnit,
-   metricWoodAmountUnit,
-   metricWoodLengthUnit,
-} from "@/lib/utils/units";
+
+import { useQuotationRequestData } from "../(tabs)/use-quotation-request-data";
 
 export default function QuotationRequestDetails({
    quotationRequest: qr,
 }: Readonly<{ quotationRequest: QuotationRequest }>) {
    const t = useTranslations();
-   const isImperial = useUser().preferredUnitSystem === UnitSystem.IMPERIAL;
-   const amountUnit = isImperial ? imperialWoodAmountUnit : metricWoodAmountUnit;
-   const lengthUnit = isImperial ? imperialWoodLengthUnit : metricWoodLengthUnit;
 
-   const convertedWoodAmount = isImperial
-      ? cubicMetersToCubicFeet(qr.woodAmountCubicMeters)
-      : qr.woodAmountCubicMeters;
-
-   const convertedMaxLength = qr.woodMaxLengthCm
-      ? isImperial
-         ? centimetersToInches(qr.woodMaxLengthCm)
-         : qr.woodMaxLengthCm
-      : undefined;
+   const { updatedAt, amount, amountUnit, lengthUnit, maxLength } = useQuotationRequestData(qr);
 
    return (
       <div className="flex flex-col gap-3">
          <PreviewSection title={t("request-offers.Firewood")}>
             <p>
                <span className="relative pr-3">
-                  {convertedWoodAmount} {amountUnit}
+                  {amount} {amountUnit}
                   <span className="-translate-y-1/5 absolute text-xs">{"3"}</span>
                </span>
                {qr.woodDryness === WoodDryness.ANY
@@ -47,10 +30,7 @@ export default function QuotationRequestDetails({
                   : t(`request-offers.${qr.woodDryness.toLowerCase()}`)}{" "}
                {t(`request-offers.${qr.woodType.toLowerCase()}`)}
             </p>
-            <p>
-               {convertedMaxLength &&
-                  `${t("request-offers.Max length")}: ${convertedMaxLength} ${lengthUnit}`}
-            </p>
+            <p>{maxLength && `${t("request-offers.Max length")}: ${maxLength} ${lengthUnit}`}</p>
          </PreviewSection>
          <PreviewSection title={t("request-offers.Delivery")}>
             <p className="capitalize">{t(`request-offers.${qr.deliveryMethod}`)}</p>
@@ -66,6 +46,10 @@ export default function QuotationRequestDetails({
                {qr.additionalInformation}
             </PreviewSection>
          )}
+
+         <p className="mt-2 text-sm text-muted-foreground">
+            {t("quotation-request.Last updated")} {updatedAt}
+         </p>
 
          <div className="mt-4 flex max-w-none flex-col gap-2 xs:max-w-md xs:flex-row">
             <Button className="w-full">{t("quotation-request.Make offer")}</Button>
