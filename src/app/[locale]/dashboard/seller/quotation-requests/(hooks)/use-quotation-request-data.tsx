@@ -5,13 +5,13 @@ import { useFormatter } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
 import { useUser } from "@/components/auth/user-store-provider";
-import { centimetersToInches, cubicMetersToCubicFeet } from "@/lib/utils/unit-conversions";
 import {
    imperialWoodAmountUnit,
    imperialWoodLengthUnit,
    metricWoodAmountUnit,
    metricWoodLengthUnit,
-} from "@/lib/utils/units";
+} from "@/i18n/units";
+import { centimetersToInches, cubicMetersToCubicFeet } from "@/lib/utils/unit-conversions";
 
 export function useQuotationRequestData(quotationRequest: QuotationRequest) {
    const format = useFormatter();

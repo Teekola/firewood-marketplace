@@ -9,15 +9,19 @@ import { QuotationRequest } from "@/app/db/quotation-request";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { usePathname, useRouter } from "@/i18n/routing";
 
+import { MakeOfferForm } from "../(components)/(make-offer-form)/make-offer-form";
+
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
 const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]/make-offer";
 
 export default function MakeOfferDialog({
    isOpen,
    quotationRequest,
+   countryCode,
 }: Readonly<{
    isOpen: boolean;
    quotationRequest: QuotationRequest | null;
+   countryCode: string;
 }>) {
    const router = useRouter();
    const t = useTranslations();
@@ -43,8 +47,9 @@ export default function MakeOfferDialog({
                   {t("quotation-request.Make an Offer")}
                </DialogTitle>
                <DialogDescription className="sr-only">
-                  {t("dashboard.Quotation request details")}
+                  {t("offer.Fill in the form to make an offer")}
                </DialogDescription>
+               <MakeOfferForm countryCode={countryCode} />
             </DialogHeader>
          </DialogContent>
       </Dialog>

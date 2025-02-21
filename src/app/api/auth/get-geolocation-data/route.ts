@@ -3,7 +3,7 @@ import { type NextRequest } from "next/server";
 import { UnitSystem } from "@prisma/client";
 import { geolocation } from "@vercel/functions";
 
-import { imperialSystemCountries } from "../../../../lib/imperial-system-countries";
+import { imperialSystemCountries } from "../../../../i18n/imperial-system-countries";
 
 export async function GET(request: NextRequest) {
    // Get country code from geolocation data and determine unit system

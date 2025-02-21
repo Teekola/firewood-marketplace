@@ -25,7 +25,7 @@ import {
    imperialWoodLengthUnit,
    metricWoodAmountUnit,
    metricWoodLengthUnit,
-} from "@/lib/utils/units";
+} from "@/i18n/units";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
 import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";

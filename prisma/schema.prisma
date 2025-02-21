@@ -51,6 +51,11 @@ enum UnitSystem {
    IMPERIAL
 }
 
+enum Currency {
+   EUR
+   USD
+}
+
 model User {
    id                  String      @id @default(cuid())
    name                String?
@@ -156,6 +161,12 @@ model SellerQuotationRequest {
 
    @@unique([quotationRequestId, sellerId])
    @@index(status)
+}
+
+model Offer {
+   id       String   @id @default(cuid())
+   price    String
+   currency Currency
 }
 
 model Account {

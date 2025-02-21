@@ -8,13 +8,13 @@ import { useTranslations } from "next-intl";
 
 import { useUser } from "@/components/auth/user-store-provider";
 import { Link, Pathname, StaticPathname } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
 import {
    imperialWoodAmountUnit,
    imperialWoodLengthUnit,
    metricWoodAmountUnit,
    metricWoodLengthUnit,
-} from "@/lib/utils/units";
+} from "@/i18n/units";
+import { cn } from "@/lib/utils";
 
 import {
    useContactData,
