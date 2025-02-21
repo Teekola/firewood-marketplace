@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { QuotationRequest } from "@/app/db/quotation-request";
 import { Button } from "@/components/ui/button";
 
-import { useQuotationRequestData } from "../(tabs)/use-quotation-request-data";
+import { useQuotationRequestData } from "../(hooks)/use-quotation-request-data";
 
 export default function QuotationRequestDetails({
    quotationRequest: qr,
