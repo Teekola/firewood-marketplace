@@ -110,6 +110,7 @@ export function CurrencyField() {
                   <FormControl>
                      <Input
                         {...field}
+                        inputMode="numeric"
                         value={field.value}
                         onChange={(e) => handlePriceChange(e.target.value, field.onChange)}
                         onBlur={(e) => handlePriceBlur(e.target.value, field.onChange)}

@@ -16,23 +16,14 @@ export default function QuotationRequestDetails({
 }: Readonly<{ quotationRequest: QuotationRequest }>) {
    const t = useTranslations();
 
-   const { updatedAt, amount, amountUnit, lengthUnit, maxLength } = useQuotationRequestData(qr);
+   const { updatedAt } = useQuotationRequestData(qr);
 
    return (
       <div className="flex flex-col gap-3">
          <PreviewSection title={t("request-offers.Firewood")}>
-            <p>
-               <span className="relative pr-3">
-                  {amount} {amountUnit}
-                  <span className="-translate-y-1/5 absolute text-xs">{"3"}</span>
-               </span>
-               {qr.woodDryness === WoodDryness.ANY
-                  ? t("request-offers.dry or green")
-                  : t(`request-offers.${qr.woodDryness.toLowerCase()}`)}{" "}
-               {t(`request-offers.${qr.woodType.toLowerCase()}`)}
-            </p>
-            <p>{maxLength && `${t("request-offers.Max length")}: ${maxLength} ${lengthUnit}`}</p>
+            <FirewoodDetails quotationRequest={qr} />
          </PreviewSection>
+
          <PreviewSection title={t("request-offers.Delivery")}>
             <p className="capitalize">{t(`request-offers.${qr.deliveryMethod}`)}</p>
             {qr.address && <p>{qr.address}</p>}
@@ -68,6 +59,32 @@ export default function QuotationRequestDetails({
             </Button>
          </div>
       </div>
+   );
+}
+
+export function FirewoodDetails({
+   quotationRequest: qr,
+}: Readonly<{
+   quotationRequest: QuotationRequest;
+}>) {
+   const t = useTranslations();
+   const { amount, amountUnit, lengthUnit, maxLength } = useQuotationRequestData(qr);
+
+   return (
+      <>
+         <p>
+            <span className="relative pr-3">
+               {amount} {amountUnit}
+               <span className="-translate-y-1/5 absolute text-xs">{"3"}</span>
+            </span>
+            {qr.woodDryness === WoodDryness.ANY
+               ? t("request-offers.dry or green")
+               : t(`request-offers.${qr.woodDryness.toLowerCase()}`)}{" "}
+            {t(`request-offers.${qr.woodType.toLowerCase()}`)}
+            {", "}
+            {maxLength && `${t("request-offers.Max length")} ${maxLength} ${lengthUnit}`}
+         </p>
+      </>
    );
 }
 

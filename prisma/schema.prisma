@@ -101,6 +101,7 @@ model Seller {
    createdAt          DateTime                 @default(now()) @map("created_at")
    updatedAt          DateTime                 @updatedAt @map("updated_at")
    quotationRequests  SellerQuotationRequest[]
+   offers             Offer[]
 }
 
 model SellerLocation {
@@ -148,6 +149,7 @@ model QuotationRequest {
    buyerCompanyName       String?                  @map("buyer_company_name")
    additionalInformation  String?                  @map("additional_information")
    sellerQuotationRequest SellerQuotationRequest[]
+   offers                 Offer[]
 }
 
 model SellerQuotationRequest {
@@ -164,9 +166,18 @@ model SellerQuotationRequest {
 }
 
 model Offer {
-   id       String   @id @default(cuid())
-   price    String
-   currency Currency
+   id                   String           @id @default(cuid())
+   quotationRequest     QuotationRequest @relation(fields: [quotationRequestId], references: [id])
+   quotationRequestId   String           @map("quotation_request_id")
+   seller               Seller           @relation(fields: [sellerId], references: [id])
+   sellerId             String           @map("seller_id")
+   price                String
+   currency             Currency
+   earliestAvailability DateTime         @map("earliest_availability")
+   acceptedAt           DateTime?        @map("accepted_at")
+   rejectedAt           DateTime?        @map("rejected_at")
+   createdAt            DateTime         @default(now()) @map("created_at")
+   updatedAt            DateTime         @updatedAt @map("updated_at")
 }
 
 model Account {

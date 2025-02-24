@@ -170,3 +170,14 @@ body {
       @apply leading-7 [&:not(:first-child)]:mt-6;
    }
 }
+
+/* ---break---*/
+
+@layer base {
+   * {
+      @apply border-border outline-ring/50;
+   }
+   body {
+      @apply bg-background text-foreground;
+   }
+}

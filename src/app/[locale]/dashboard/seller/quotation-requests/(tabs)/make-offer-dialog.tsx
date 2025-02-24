@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { DeliveryMethod } from "@prisma/client";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
@@ -10,6 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/compon
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { MakeOfferForm } from "../(components)/(make-offer-form)/make-offer-form";
+import { ShortQuotationRequestDetails } from "../(components)/short-quotation-request-details";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
 const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]/make-offer";
@@ -41,15 +43,21 @@ export default function MakeOfferDialog({
 
    return (
       <Dialog open={open} onOpenChange={handleClose}>
-         <DialogContent>
+         <DialogContent disableCloseOnOverlayClick>
             <DialogHeader>
-               <DialogTitle className="text-2xl font-bold">
+               <DialogTitle className="text-left text-2xl font-bold">
                   {t("quotation-request.Make an Offer")}
                </DialogTitle>
                <DialogDescription className="sr-only">
                   {t("offer.Fill in the form to make an offer")}
                </DialogDescription>
-               <MakeOfferForm countryCode={countryCode} />
+               <div className="border-b pb-4">
+                  <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
+               </div>
+               <MakeOfferForm
+                  countryCode={countryCode}
+                  isHomeDelivery={quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY}
+               />
             </DialogHeader>
          </DialogContent>
       </Dialog>

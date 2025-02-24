@@ -40,7 +40,7 @@ export default function QuotationRequestDialog({
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent>
             <DialogHeader>
-               <DialogTitle className="text-2xl font-bold">
+               <DialogTitle className="text-left text-2xl font-bold">
                   {t("Quotation request details")}
                </DialogTitle>
                <DialogDescription className="sr-only">
