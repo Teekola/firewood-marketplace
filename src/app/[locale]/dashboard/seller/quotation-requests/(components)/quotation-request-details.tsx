@@ -43,8 +43,8 @@ export default function QuotationRequestDetails({
             {t("quotation-request.Last updated")} {updatedAt}
          </p>
 
-         <div className="mt-4 flex max-w-none flex-col gap-2 xs:max-w-md xs:flex-row">
-            <Button asChild className="w-full">
+         <div className="mt-4 flex flex-col gap-2 sm:flex-row-reverse">
+            <Button asChild className="w-full" size="lg">
                <Link
                   href={{
                      pathname: "/dashboard/seller/quotation-requests/id/[id]/make-offer",
@@ -54,7 +54,7 @@ export default function QuotationRequestDetails({
                   {t("quotation-request.Make offer")}
                </Link>
             </Button>
-            <Button className="w-full" variant="outline">
+            <Button className="w-full" variant="outline" size="lg">
                {t("actions.Reject")}
             </Button>
          </div>

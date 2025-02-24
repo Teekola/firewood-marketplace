@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { countryCodeToCurrency } from "@/i18n/currencies";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
@@ -156,9 +156,21 @@ export function MakeOfferForm({
                )}
             />
 
-            <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 sm:w-fit">
-               {t("actions.Submit")}
-            </Button>
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row-reverse">
+               <Button type="submit" size="lg" data-disabled={!canProceed} className="w-full">
+                  {t("actions.Submit")}
+               </Button>
+               <Button asChild size="lg" variant="outline" type="button" className="w-full">
+                  <Link
+                     href={{
+                        pathname: `/dashboard/seller/quotation-requests/id/[id]`,
+                        params: { id: quotationRequestId },
+                     }}
+                  >
+                     {t("actions.Cancel")}
+                  </Link>
+               </Button>
+            </div>
             <FormRootError />
          </form>
       </Form>
