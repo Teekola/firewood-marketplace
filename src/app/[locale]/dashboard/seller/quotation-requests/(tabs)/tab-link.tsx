@@ -11,7 +11,8 @@ export function TabLink({ href, label }: Readonly<{ href: Pathname; label: strin
          href={{ pathname: href, params: { id: "" } }}
          className={cn(
             "w-full rounded px-2 py-2 text-center text-sm font-semibold text-muted-foreground transition",
-            pathname === href && "bg-card text-card-foreground shadow"
+            pathname === href &&
+               "cursor-default bg-card text-card-foreground shadow active:pointer-events-none"
          )}
       >
          {label}
