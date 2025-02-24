@@ -168,6 +168,7 @@
     "Make an Offer": "Make an Offer"
   },
   "offer": {
-    "Price": "Price"
+    "Price": "Price",
+    "Fill in the form to make an offer": "Fill in the form to make an offer."
   }
 }

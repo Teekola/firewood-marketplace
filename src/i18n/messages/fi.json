@@ -168,6 +168,7 @@
     "Make an Offer": "Tee tarjous"
   },
   "offer": {
-    "Price": "Hinta"
+    "Price": "Hinta",
+    "Fill in the form to make an offer": "Täytä lomake tehdäksesi tarjouksen"
   }
 }
