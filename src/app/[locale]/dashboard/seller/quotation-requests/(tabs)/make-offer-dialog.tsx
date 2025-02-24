@@ -55,6 +55,7 @@ export default function MakeOfferDialog({
                   <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
                </div>
                <MakeOfferForm
+                  quotationRequestId={quotationRequest.id}
                   countryCode={countryCode}
                   isHomeDelivery={quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY}
                />

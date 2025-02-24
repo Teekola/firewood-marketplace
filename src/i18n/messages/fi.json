@@ -166,7 +166,8 @@
     "Make offer": "Tee tarjous",
     "Last updated": "Päivitetty",
     "Make an Offer": "Tee tarjous",
-    "Additional information": "Lisätiedot"
+    "Additional information": "Lisätiedot",
+    "There are no pending quotation requests": "Sinulle ei ole tullut uusia tarjouspyyntöjä."
   },
   "offer": {
     "Price": "Hinta",

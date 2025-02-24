@@ -35,6 +35,7 @@ export default async function MakeOfferPage({
             </div>
 
             <MakeOfferForm
+               quotationRequestId={quotationRequest.id}
                countryCode={auth.seller.location.countryCode}
                isHomeDelivery={quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY}
             />

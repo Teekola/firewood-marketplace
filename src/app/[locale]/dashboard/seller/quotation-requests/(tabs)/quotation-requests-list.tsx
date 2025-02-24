@@ -1,12 +1,14 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { getPendingQuotationRequestsForSeller } from "../actions";
 import { sellerQuotationRequestsQueryKey } from "../constants";
 import { QuotationRequestListItem } from "./quotation-request-list-item";
 
 export function QuotationRequestsList() {
+   const t = useTranslations();
    const { data: sellerQuotationRequests, error } = useQuery({
       queryKey: sellerQuotationRequestsQueryKey,
       queryFn: getPendingQuotationRequestsForSeller,
@@ -19,7 +21,7 @@ export function QuotationRequestsList() {
    }
 
    if (!sellerQuotationRequests || sellerQuotationRequests.length < 1) {
-      return <p>{"There are no quotation requests yet!"}</p>;
+      return <p>{t("quotation-request.There are no pending quotation requests")}</p>;
    }
 
    return (

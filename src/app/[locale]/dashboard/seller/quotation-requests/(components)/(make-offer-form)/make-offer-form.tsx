@@ -24,10 +24,12 @@ import {
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { countryCodeToCurrency } from "@/i18n/currencies";
+import { useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
 
+import { createOffer } from "../../actions";
 import { CurrencyField } from "./currency-field";
 
 export const makeOfferFormSchema = z.object({
@@ -41,12 +43,19 @@ export type MakeOfferFormData = z.infer<typeof makeOfferFormSchema>;
 interface MakeOfferFormProps extends ComponentProps<"form"> {
    countryCode: string;
    isHomeDelivery: boolean;
+   quotationRequestId: string;
 }
 
-export function MakeOfferForm({ countryCode, isHomeDelivery, ...props }: MakeOfferFormProps) {
+export function MakeOfferForm({
+   quotationRequestId,
+   countryCode,
+   isHomeDelivery,
+   ...props
+}: MakeOfferFormProps) {
    const t = useTranslations();
    const format = useFormatter();
    const locale = useLocale();
+   const router = useRouter();
 
    const defaultValues: DefaultValues<MakeOfferFormData> = {
       price: "",
@@ -67,8 +76,10 @@ export function MakeOfferForm({ countryCode, isHomeDelivery, ...props }: MakeOff
 
       try {
          form.reset(data);
-         // TODO: CREATE THE OFFER
-         // TODO: Display message stating that the offer was made and provide link to "see offer"
+         const offer = await createOffer({ quotationRequestId, ...data });
+         console.log(offer);
+         // TODO: Display toast message stating that the offer was made and provide link to "see offer"
+         router.push(`/dashboard/seller/quotation-requests`);
          // TODO: make the not viewed offer indicator
       } catch (error) {
          const errorData = parseError(error);

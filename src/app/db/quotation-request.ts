@@ -106,3 +106,26 @@ export const createQuotationRequest = async ({
       },
    });
 };
+
+export const updateSellerQuotationRequestStatus = async ({
+   status,
+   quotationRequestId,
+   sellerId,
+}: {
+   status: SellerQuotationRequestStatus;
+   quotationRequestId: string;
+   sellerId: string;
+}) => {
+   const result = await prisma.sellerQuotationRequest.update({
+      where: {
+         quotationRequestId_sellerId: {
+            quotationRequestId,
+            sellerId,
+         },
+      },
+      data: {
+         status,
+      },
+   });
+   return result;
+};

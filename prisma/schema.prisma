@@ -25,7 +25,7 @@ enum Plan {
 
 enum SellerQuotationRequestStatus {
    PENDING
-   ACCEPTED
+   OFFER_SENT
    REJECTED
 }
 
@@ -150,6 +150,8 @@ model QuotationRequest {
    additionalInformation  String?                  @map("additional_information")
    sellerQuotationRequest SellerQuotationRequest[]
    offers                 Offer[]
+
+   @@index(buyerId)
 }
 
 model SellerQuotationRequest {
@@ -178,6 +180,8 @@ model Offer {
    rejectedAt           DateTime?        @map("rejected_at")
    createdAt            DateTime         @default(now()) @map("created_at")
    updatedAt            DateTime         @updatedAt @map("updated_at")
+
+   @@index(sellerId)
 }
 
 model Account {
