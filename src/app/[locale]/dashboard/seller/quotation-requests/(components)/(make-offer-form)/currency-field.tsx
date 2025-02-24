@@ -17,16 +17,20 @@ import { cn } from "@/lib/utils";
 
 import { MakeOfferFormData } from "./make-offer-form";
 
-const currencyConfigs = {
-   EUR: { label: "Euro (€)", symbol: "€", decimalSeparator: ",", symbolPosition: "after" },
-   USD: { label: "US Dollar ($)", symbol: "$", decimalSeparator: ".", symbolPosition: "before" },
-} as const;
-
 export function CurrencyField() {
    const { control, setValue, watch } = useFormContext<MakeOfferFormData>();
-   const t = useTranslations("offer");
+   const t = useTranslations("");
    const currency = watch("currency");
    const price = watch("price");
+   const currencyConfigs = {
+      EUR: { label: "Euro (€)", symbol: "€", decimalSeparator: ",", symbolPosition: "after" },
+      USD: {
+         label: `${t("currencies.US Dollar")} ($)`,
+         symbol: "$",
+         decimalSeparator: ".",
+         symbolPosition: "before",
+      },
+   } as const;
    const { symbol, decimalSeparator, symbolPosition } = currencyConfigs[currency];
 
    const formatPrice = (value: string) => {
@@ -92,7 +96,7 @@ export function CurrencyField() {
 
    return (
       <FormItem className="w-full">
-         <FormLabel>{t("Price")}</FormLabel>
+         <FormLabel>{t("offer.Price")}</FormLabel>
          <div
             className={cn(
                "flex flex-row items-center",
