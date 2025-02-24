@@ -43,7 +43,7 @@ export default function QuotationRequestDetails({
             {t("quotation-request.Last updated")} {updatedAt}
          </p>
 
-         <div className="mt-4 flex flex-col gap-2 sm:flex-row-reverse">
+         <div className="mt-4 flex max-w-lg flex-col gap-2 sm:flex-row-reverse">
             <Button asChild className="w-full" size="lg">
                <Link
                   href={{
