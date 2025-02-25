@@ -26,15 +26,15 @@ export function QuotationRequestsList() {
    const { ref, inView } = useInView();
    const [sortOrder, setSortOrder] = useState<SortOrder>("newest-first");
 
-   const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isFetching } =
+   const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
       useInfiniteQuery({
-         queryKey: [...sellerQuotationRequestsQueryKey, sortOrder],
+         queryKey: [...sellerQuotationRequestsQueryKey, { sort: sortOrder, limit }],
          queryFn: ({ pageParam }: { pageParam: string | null }) =>
             getPendingQuotationRequestsForSeller({ cursor: pageParam, limit, sort: sortOrder }),
          getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
          initialPageParam: null,
          refetchInterval: 30 * 1000,
-         staleTime: 5 * 1000,
+         staleTime: 15 * 1000,
       });
 
    // Fetch next page when the last item is in view
@@ -43,11 +43,6 @@ export function QuotationRequestsList() {
          fetchNextPage();
       }
    }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-   // Apply ordering
-   useEffect(() => {
-      refetch();
-   }, [sortOrder, refetch]);
 
    if (error) {
       return <p>{error.message}</p>;
