@@ -193,5 +193,8 @@
   "sorting": {
     "newest-first": "Newest first",
     "oldest-first": "Oldest first"
+  },
+  "instructions": {
+    "Please wait": "Please wait"
   }
 }

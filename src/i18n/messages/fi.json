@@ -192,5 +192,8 @@
   "sorting": {
     "newest-first": "Uusin ensin",
     "oldest-first": "Vanhin ensin"
+  },
+  "instructions": {
+    "Please wait": "Odota hetki"
   }
 }

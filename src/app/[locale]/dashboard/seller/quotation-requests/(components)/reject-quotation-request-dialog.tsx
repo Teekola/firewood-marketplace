@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
@@ -16,6 +16,7 @@ import {
    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { ButtonLoading } from "@/components/ui/button-loading";
 import { useRouter } from "@/i18n/routing";
 
 import { rejectQuotationRequest } from "../actions";
@@ -29,10 +30,13 @@ export function RejectQuotationRequestDialog({
    ...props
 }: RejectQuotationRequestDialogProps) {
    const t = useTranslations();
+   const [isLoading, setIsLoading] = useState(false);
 
    const router = useRouter();
 
-   async function handleReject() {
+   async function handleReject(e: React.MouseEvent<HTMLButtonElement>) {
+      e.preventDefault();
+      setIsLoading(true);
       await rejectQuotationRequest(quotationRequestId);
       // TODO: Display a toast informing that the request was rejected
       router.push("/dashboard/seller/quotation-requests");
@@ -54,19 +58,21 @@ export function RejectQuotationRequestDialog({
                   {t("quotation-request.reject-request-description")}
                </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
+            <AlertDialogFooter className="w-full justify-self-end sm:w-72">
                <AlertDialogCancel asChild>
-                  <Button type="button" variant="outline">
+                  <Button type="button" variant="outline" className="w-full">
                      {t("actions.Cancel")}
                   </Button>
                </AlertDialogCancel>
-               <Button asChild variant="destructive">
-                  <AlertDialogAction asChild>
-                     <Button type="button" className="bg-destructive" onClick={handleReject}>
+
+               {!isLoading && (
+                  <Button asChild variant="destructive" className="w-full">
+                     <AlertDialogAction onClick={handleReject}>
                         {t("actions.Reject")}
-                     </Button>
-                  </AlertDialogAction>
-               </Button>
+                     </AlertDialogAction>
+                  </Button>
+               )}
+               {isLoading && <ButtonLoading className="w-full" variant="destructive" />}
             </AlertDialogFooter>
          </AlertDialogContent>
       </AlertDialog>
