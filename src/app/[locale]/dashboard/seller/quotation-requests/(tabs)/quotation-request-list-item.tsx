@@ -1,5 +1,7 @@
 "use client";
 
+import { forwardRef } from "react";
+
 import { DeliveryMethod, WoodDryness } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
@@ -10,11 +12,10 @@ import { Link, Pathname } from "@/i18n/routing";
 
 import { useQuotationRequestData } from "../(hooks)/use-quotation-request-data";
 
-export function QuotationRequestListItem({
-   quotationRequest,
-}: Readonly<{
-   quotationRequest: QuotationRequest;
-}>) {
+export const QuotationRequestListItem = forwardRef<
+   HTMLLIElement,
+   Readonly<{ quotationRequest: QuotationRequest }>
+>(({ quotationRequest }, ref) => {
    const t = useTranslations();
 
    const { updatedAt, amount, amountUnit, lengthUnit, maxLength } =
@@ -23,7 +24,7 @@ export function QuotationRequestListItem({
    const linkPathname: Pathname = "/dashboard/seller/quotation-requests/id/[id]";
 
    return (
-      <li>
+      <li ref={ref}>
          <Card className="flex flex-col justify-between gap-4 p-4 xs:flex-row">
             <div className="flex flex-col gap-2">
                <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
@@ -57,4 +58,5 @@ export function QuotationRequestListItem({
          </Card>
       </li>
    );
-}
+});
+QuotationRequestListItem.displayName = "QuotationRequestListItem";

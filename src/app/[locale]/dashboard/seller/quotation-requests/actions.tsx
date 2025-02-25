@@ -8,18 +8,39 @@ import {
    getActiveOffersBySellerId,
 } from "@/app/db/offer";
 import {
-   getPendingQuotationRequestsBySellerId,
+   getPendingQuotationRequestsBySellerIdPaginated,
    updateSellerQuotationRequestStatus,
 } from "@/app/db/quotation-request";
 import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
+import { SortOrder } from "@/lib/utils/types";
 
 // TODO: need to implement pagination
-export async function getPendingQuotationRequestsForSeller() {
+export async function getPendingQuotationRequestsForSeller({
+   cursor,
+   limit = 10,
+   sort = "newest-first",
+}: {
+   cursor: string | null;
+   limit?: number;
+   sort?: SortOrder;
+}) {
    const session = await authWithSeller();
    if (!session || !session.seller) {
-      return [];
+      return { requests: [], nextCursor: null };
    }
-   return await getPendingQuotationRequestsBySellerId({ sellerId: session.seller.id });
+
+   const results = await getPendingQuotationRequestsBySellerIdPaginated({
+      sellerId: session.seller.id,
+      cursor,
+      limit,
+      sort,
+   });
+
+   const hasMore = results.length > limit;
+   const requests = hasMore ? results.slice(0, limit) : results;
+   const nextCursor = hasMore ? requests[requests.length - 1].id : null;
+
+   return { requests, nextCursor };
 }
 
 export async function rejectQuotationRequest(quotationRequestId: string) {

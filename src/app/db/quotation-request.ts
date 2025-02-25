@@ -5,6 +5,7 @@ import {
    WoodType,
 } from "@prisma/client";
 
+import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
 
 import { ContactData } from "../[locale]/request-offers/(stepper)/contact/contact-form";
@@ -23,12 +24,25 @@ const toEnum = {
    pickup: DeliveryMethod.PICKUP,
 } as const;
 
-export const getPendingQuotationRequestsBySellerId = async ({ sellerId }: { sellerId: string }) => {
+export const getPendingQuotationRequestsBySellerIdPaginated = async ({
+   sellerId,
+   cursor,
+   limit,
+   sort = "newest-first",
+}: {
+   sellerId: string;
+   cursor: string | null;
+   limit: number;
+   sort?: SortOrder;
+}) => {
    const quotationRequests = await prisma.sellerQuotationRequest.findMany({
       where: { sellerId, status: SellerQuotationRequestStatus.PENDING },
       include: {
          quotationRequest: true,
       },
+      take: limit + 1, // take 1 extra to check if there is more data and use as cursor
+      ...(cursor && { cursor: { id: cursor }, skip: 1 }),
+      orderBy: { id: sort === "newest-first" ? "desc" : "asc" },
    });
 
    return quotationRequests;
@@ -50,7 +64,7 @@ export const getRejectedQuotationRequestsBySellerId = async ({
 };
 
 export type QuotationRequest = Awaited<
-   ReturnType<typeof getPendingQuotationRequestsBySellerId>
+   ReturnType<typeof getPendingQuotationRequestsBySellerIdPaginated>
 >[number]["quotationRequest"];
 
 export const getQuotationRequest = async ({ id }: { id: string }) => {

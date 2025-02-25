@@ -183,5 +183,12 @@
   },
   "currencies": {
     "US Dollar": "US Dollar"
+  },
+  "pagination": {
+    "Loading more": "Loading more..."
+  },
+  "sorting": {
+    "newest-first": "Newest first",
+    "oldest-first": "Oldest first"
   }
 }

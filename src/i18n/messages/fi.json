@@ -182,5 +182,12 @@
   },
   "currencies": {
     "US Dollar": "Yhdysvaltain dollari"
+  },
+  "pagination": {
+    "Loading more": "Ladataan lisää..."
+  },
+  "sorting": {
+    "newest-first": "Uusin ensin",
+    "oldest-first": "Vanhin ensin"
   }
 }

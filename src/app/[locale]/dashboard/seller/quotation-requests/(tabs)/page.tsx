@@ -6,9 +6,11 @@ import { QuotationRequestsList } from "./quotation-requests-list";
 
 export default async function SellerQuotationRequestsPage() {
    const queryClient = new QueryClient();
-   await queryClient.prefetchQuery({
-      queryKey: sellerQuotationRequestsQueryKey,
-      queryFn: getPendingQuotationRequestsForSeller,
+   await queryClient.prefetchInfiniteQuery({
+      queryKey: [...sellerQuotationRequestsQueryKey, "newest-first"],
+      queryFn: ({ pageParam = null }) =>
+         getPendingQuotationRequestsForSeller({ cursor: pageParam, limit: 10 }),
+      initialPageParam: null,
    });
 
    return (
