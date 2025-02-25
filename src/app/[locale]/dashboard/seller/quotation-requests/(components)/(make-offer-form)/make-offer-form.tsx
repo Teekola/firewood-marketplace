@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Currency } from "@prisma/client";
@@ -11,6 +11,7 @@ import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { ButtonLoading } from "@/components/ui/button-loading";
 import { Calendar } from "@/components/ui/calendar";
 import {
    Form,
@@ -56,6 +57,7 @@ export function MakeOfferForm({
    const format = useFormatter();
    const locale = useLocale();
    const router = useRouter();
+   const [isSubmitting, setIsSubmitting] = useState(false);
 
    const defaultValues: DefaultValues<MakeOfferFormData> = {
       price: "",
@@ -73,6 +75,7 @@ export function MakeOfferForm({
    async function onSubmit(data: MakeOfferFormData) {
       if (!canProceed) return;
       console.log(data);
+      setIsSubmitting(true);
 
       try {
          form.reset(data);
@@ -82,6 +85,7 @@ export function MakeOfferForm({
          router.push(`/dashboard/seller/quotation-requests`);
          // TODO: make the not viewed offer indicator
       } catch (error) {
+         setIsSubmitting(false);
          const errorData = parseError(error);
          form.reset(defaultValues);
          form.setError("root", { type: "upsertSellerProfileError", message: errorData.message });
@@ -157,9 +161,12 @@ export function MakeOfferForm({
             />
 
             <div className="mt-4 flex flex-col gap-2 sm:flex-row-reverse">
-               <Button type="submit" size="lg" data-disabled={!canProceed} className="w-full">
-                  {t("actions.Submit")}
-               </Button>
+               {!isSubmitting && (
+                  <Button type="submit" size="lg" data-disabled={!canProceed} className="w-full">
+                     {t("actions.Submit")}
+                  </Button>
+               )}
+               {isSubmitting && <ButtonLoading size="lg" className="w-full" />}
                <Button asChild size="lg" variant="outline" type="button" className="w-full">
                   <Link
                      href={{
