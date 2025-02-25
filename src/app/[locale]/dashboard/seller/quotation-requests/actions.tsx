@@ -9,6 +9,7 @@ import {
 } from "@/app/db/offer";
 import {
    getPendingQuotationRequestsBySellerIdPaginated,
+   getPendingQuotationRequestsCountBySellerId,
    updateSellerQuotationRequestStatus,
 } from "@/app/db/quotation-request";
 import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
@@ -26,21 +27,24 @@ export async function getPendingQuotationRequestsForSeller({
 }) {
    const session = await authWithSeller();
    if (!session || !session.seller) {
-      return { requests: [], nextCursor: null };
+      return { requests: [], nextCursor: null, count: 0 };
    }
 
-   const results = await getPendingQuotationRequestsBySellerIdPaginated({
-      sellerId: session.seller.id,
-      cursor,
-      limit,
-      sort,
-   });
+   const [results, count] = await Promise.all([
+      getPendingQuotationRequestsBySellerIdPaginated({
+         sellerId: session.seller.id,
+         cursor,
+         limit,
+         sort,
+      }),
+      getPendingQuotationRequestsCountBySellerId({ sellerId: session.seller.id }),
+   ]);
 
    const hasMore = results.length > limit;
    const requests = hasMore ? results.slice(0, limit) : results;
    const nextCursor = hasMore ? requests[requests.length - 1].id : null;
 
-   return { requests, nextCursor };
+   return { requests, nextCursor, count };
 }
 
 export async function rejectQuotationRequest(quotationRequestId: string) {

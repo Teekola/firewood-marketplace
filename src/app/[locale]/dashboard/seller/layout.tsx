@@ -58,7 +58,7 @@ export default async function SellerDashboardLayout({
          <header className="mb-4 hidden border-b pb-4 md:block">
             <h2 className="text-2xl font-bold leading-tight">{t("Seller Dashboard")}</h2>
          </header>
-         <div className="flex gap-12">
+         <div className="flex h-full gap-12">
             <aside className="hidden w-64 md:block 2xl:-mx-4">
                <SidebarNav items={sidebarNavItems} />
             </aside>

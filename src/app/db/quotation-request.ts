@@ -48,6 +48,17 @@ export const getPendingQuotationRequestsBySellerIdPaginated = async ({
    return quotationRequests;
 };
 
+export const getPendingQuotationRequestsCountBySellerId = async ({
+   sellerId,
+}: {
+   sellerId: string;
+}) => {
+   const count = await prisma.sellerQuotationRequest.count({
+      where: { sellerId, status: SellerQuotationRequestStatus.PENDING },
+   });
+   return count;
+};
+
 export const getRejectedQuotationRequestsBySellerId = async ({
    sellerId,
 }: {

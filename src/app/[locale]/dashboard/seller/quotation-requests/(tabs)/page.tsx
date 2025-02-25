@@ -15,10 +15,8 @@ export default async function SellerQuotationRequestsPage() {
    });
 
    return (
-      <div className="w-full">
-         <HydrationBoundary state={dehydrate(queryClient)}>
-            <QuotationRequestsList />
-         </HydrationBoundary>
-      </div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+         <QuotationRequestsList />
+      </HydrationBoundary>
    );
 }

@@ -7,6 +7,7 @@ import { ArrowUpDownIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useInView } from "react-intersection-observer";
 
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
    Select,
    SelectContent,
@@ -14,6 +15,7 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { SortOrder } from "@/lib/utils/types";
 
 import { getPendingQuotationRequestsForSeller } from "../actions";
@@ -49,42 +51,69 @@ export function QuotationRequestsList() {
    }
 
    const requests = data?.pages.flatMap((page) => page.requests) || [];
+   const count = data?.pages[0].count;
 
    if (requests.length === 0 && !isFetching) {
       return <p>{t("quotation-request.There are no pending quotation requests")}</p>;
    }
 
    return (
-      <div className="flex flex-col gap-1">
-         <Select value={sortOrder} onValueChange={(value) => setSortOrder(value as SortOrder)}>
-            <SelectTrigger
-               className="mb-2 max-w-32 self-end"
-               icon={<ArrowUpDownIcon className="h-4 w-4 opacity-50" />}
-            >
-               <SelectValue asChild>
-                  <p>{t(`sorting.${sortOrder}`)}</p>
-               </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-               <SelectItem value="newest-first">{t("sorting.newest-first")}</SelectItem>
-               <SelectItem value="oldest-first">{t("sorting.oldest-first")}</SelectItem>
-            </SelectContent>
-         </Select>
-         {isFetching && requests.length === 0 && (
-            <p className="animate-pulse py-4 text-center text-sm">{t("pagination.Loading more")}</p>
-         )}
-         <ul className="flex min-h-20 w-full flex-col gap-1">
-            {requests.map((sqr, index) => (
-               <QuotationRequestListItem
-                  key={sqr.id}
-                  quotationRequest={sqr.quotationRequest}
-                  ref={index === requests.length - 1 ? ref : null}
-               />
-            ))}
-         </ul>
+      <div className="flex h-full flex-col gap-1 overflow-hidden">
+         <div className="flex items-center">
+            {count && (
+               <p className="text-sm text-muted-foreground">
+                  {t("pagination.displayed-results", { displayed: requests.length, total: count })}{" "}
+               </p>
+            )}
+            {!count && (
+               <p className="animate-pulse text-center text-sm text-muted-foreground">
+                  {t("pagination.Loading")}
+               </p>
+            )}
+
+            <Select value={sortOrder} onValueChange={(value) => setSortOrder(value as SortOrder)}>
+               <SelectTrigger
+                  className="ml-auto max-w-32"
+                  icon={<ArrowUpDownIcon className="h-4 w-4 opacity-50" />}
+               >
+                  <SelectValue asChild>
+                     <p>{t(`sorting.${sortOrder}`)}</p>
+                  </SelectValue>
+               </SelectTrigger>
+               <SelectContent>
+                  <SelectItem value="newest-first">{t("sorting.newest-first")}</SelectItem>
+                  <SelectItem value="oldest-first">{t("sorting.oldest-first")}</SelectItem>
+               </SelectContent>
+            </Select>
+         </div>
+
+         <ScrollArea className="relative min-h-64 pr-3">
+            <div
+               className="pointer-events-none sticky top-0 h-5 w-full bg-gradient-to-b from-background via-background to-transparent"
+               aria-hidden="true"
+            ></div>
+            <ul className="flex min-h-20 w-full flex-col gap-1">
+               {isFetching && requests.length === 0 && (
+                  <>
+                     <Skeleton className="h-[106px] w-full min-w-10" />
+                     <Skeleton className="h-[106px] w-full min-w-10" />
+                     <Skeleton className="h-[106px] w-full min-w-10" />
+                     <Skeleton className="h-[106px] w-full min-w-10" />
+                     <Skeleton className="h-[106px] w-full min-w-10" />
+                  </>
+               )}
+               {requests.map((sqr, index) => (
+                  <QuotationRequestListItem
+                     key={sqr.id}
+                     quotationRequest={sqr.quotationRequest}
+                     ref={index === requests.length - 1 ? ref : null}
+                  />
+               ))}
+            </ul>
+         </ScrollArea>
 
          {isFetchingNextPage && (
-            <p className="animate-pulse py-4 text-center text-sm">{t("pagination.Loading more")}</p>
+            <p className="animate-pulse py-4 text-center text-sm">{t("pagination.Loading")}</p>
          )}
       </div>
    );
