@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
 import { useQuotationRequestData } from "../(hooks)/use-quotation-request-data";
+import { RejectQuotationRequestDialog } from "./reject-quotation-request-dialog";
 
 export default function QuotationRequestDetails({
    quotationRequest: qr,
@@ -54,9 +55,7 @@ export default function QuotationRequestDetails({
                   {t("quotation-request.Make offer")}
                </Link>
             </Button>
-            <Button className="w-full" variant="outline" size="lg">
-               {t("actions.Reject")}
-            </Button>
+            <RejectQuotationRequestDialog quotationRequestId={qr.id} className="w-full" />
          </div>
       </div>
    );

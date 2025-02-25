@@ -167,7 +167,9 @@
     "Last updated": "Päivitetty",
     "Make an Offer": "Tee tarjous",
     "Additional information": "Lisätiedot",
-    "There are no pending quotation requests": "Sinulle ei ole tullut uusia tarjouspyyntöjä."
+    "There are no pending quotation requests": "Sinulle ei ole tullut uusia tarjouspyyntöjä.",
+    "Reject Quotation Request": "Hylkää tarjouspyyntö",
+    "reject-request-description": "Hylätyt tarjouspyynnöt siirretään hylätyt-välilehdelle. Hylätyt pyynnöt on mahdollista palauttaa aktiiviset tarjouspyynnöt -välilehdelle. Hylätyt pyynnöt poistetaan automaattisesti 30 päivän kuluttua.."
   },
   "offer": {
     "Price": "Hinta",

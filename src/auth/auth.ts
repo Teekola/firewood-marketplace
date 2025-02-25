@@ -33,3 +33,17 @@ export const authWithSeller = async () => {
    return { ...session, seller };
 };
 export type SessionWithSeller = Awaited<ReturnType<typeof authWithBuyer>>;
+
+export const getAuthorizedSeller = async () => {
+   const session = await authWithSeller();
+
+   if (!session) {
+      throw new Error("Unauthorized.");
+   }
+
+   if (!session.seller) {
+      throw new Error("The user is not a seller.");
+   }
+
+   return { ...session, seller: session.seller };
+};

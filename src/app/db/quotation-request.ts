@@ -107,15 +107,17 @@ export const createQuotationRequest = async ({
    });
 };
 
+export interface UpdateSellerQuotationRequestStatusArgs {
+   status: SellerQuotationRequestStatus;
+   quotationRequestId: string;
+   sellerId: string;
+}
+
 export const updateSellerQuotationRequestStatus = async ({
    status,
    quotationRequestId,
    sellerId,
-}: {
-   status: SellerQuotationRequestStatus;
-   quotationRequestId: string;
-   sellerId: string;
-}) => {
+}: UpdateSellerQuotationRequestStatusArgs) => {
    const result = await prisma.sellerQuotationRequest.update({
       where: {
          quotationRequestId_sellerId: {

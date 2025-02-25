@@ -11,7 +11,7 @@ import {
    getPendingQuotationRequestsBySellerId,
    updateSellerQuotationRequestStatus,
 } from "@/app/db/quotation-request";
-import { authWithSeller } from "@/auth/auth";
+import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
 
 // TODO: need to implement pagination
 export async function getPendingQuotationRequestsForSeller() {
@@ -22,20 +22,21 @@ export async function getPendingQuotationRequestsForSeller() {
    return await getPendingQuotationRequestsBySellerId({ sellerId: session.seller.id });
 }
 
+export async function rejectQuotationRequest(quotationRequestId: string) {
+   const { seller } = await getAuthorizedSeller();
+   return await updateSellerQuotationRequestStatus({
+      sellerId: seller.id,
+      quotationRequestId,
+      status: SellerQuotationRequestStatus.REJECTED,
+   });
+}
 export async function createOffer(data: Omit<CreateOfferArgs, "sellerId">) {
-   const session = await authWithSeller();
-   if (!session) {
-      throw new Error("Unauthorized.");
-   }
-
-   if (!session.seller) {
-      throw new Error("The user is not a seller.");
-   }
+   const { seller } = await getAuthorizedSeller();
 
    const [offer] = await Promise.all([
-      createOfferDB({ ...data, sellerId: session.seller.id }),
+      createOfferDB({ ...data, sellerId: seller.id }),
       updateSellerQuotationRequestStatus({
-         sellerId: session.seller.id,
+         sellerId: seller.id,
          quotationRequestId: data.quotationRequestId,
          status: SellerQuotationRequestStatus.OFFER_SENT,
       }),

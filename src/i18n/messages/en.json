@@ -167,7 +167,9 @@
     "Last updated": "Last updated",
     "Make an Offer": "Make an Offer",
     "Additional information": "Additional information",
-    "There are no pending quotation requests": "There are no pending quotation requests."
+    "There are no pending quotation requests": "There are no pending quotation requests.",
+    "Reject Quotation Request": "Reject Quotation Request",
+    "reject-request-description": "Rejected requests will be moved under the section of rejected quotation requests. They can be returned to active quotation requests, but will be automatically removed in 30 days."
   },
   "offer": {
     "Price": "Price",
