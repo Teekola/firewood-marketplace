@@ -59,19 +59,39 @@ export const getPendingQuotationRequestsCountBySellerId = async ({
    return count;
 };
 
-export const getRejectedQuotationRequestsBySellerId = async ({
+export const getRejectedQuotationRequestsBySellerIdPaginated = async ({
+   sellerId,
+   cursor,
+   limit,
+   sort = "newest-first",
+}: {
+   sellerId: string;
+   cursor: string | null;
+   limit: number;
+   sort?: SortOrder;
+}) => {
+   const quotationRequests = await prisma.sellerQuotationRequest.findMany({
+      where: { sellerId, status: SellerQuotationRequestStatus.REJECTED },
+      include: {
+         quotationRequest: true,
+      },
+      take: limit + 1, // take 1 extra to check if there is more data and use as cursor
+      ...(cursor && { cursor: { id: cursor }, skip: 1 }),
+      orderBy: { id: sort === "newest-first" ? "desc" : "asc" },
+   });
+
+   return quotationRequests;
+};
+
+export const getRejectedQuotationRequestCountBySellerId = async ({
    sellerId,
 }: {
    sellerId: string;
 }) => {
-   const quotationRequests = await prisma.sellerQuotationRequest.findMany({
+   const count = await prisma.sellerQuotationRequest.count({
       where: { sellerId, status: SellerQuotationRequestStatus.REJECTED },
-      select: {
-         quotationRequest: true,
-      },
    });
-
-   return quotationRequests;
+   return count;
 };
 
 export type QuotationRequest = Awaited<

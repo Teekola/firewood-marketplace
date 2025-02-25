@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowUpDownIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useInView } from "react-intersection-observer";
@@ -18,26 +18,65 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortOrder } from "@/lib/utils/types";
 
-import { getPendingQuotationRequestsForSeller } from "../actions";
-import { sellerQuotationRequestsQueryKey } from "../constants";
-import { QuotationRequestListItem } from "./quotation-request-list-item";
+import { getRejectedQuotationRequestsForSeller, restoreQuotationRequest } from "../../actions";
+import { sellerRejectedQuotationRequestsQueryKey } from "../../constants";
+import { RejectedQuotationRequestListItem } from "./rejected-quotation-request-list-item";
 
-export function QuotationRequestsList() {
+export function RejectedQuotationRequestsList() {
    const t = useTranslations();
    const limit = 10; // Number of items per page
    const { ref, inView } = useInView();
    const [sortOrder, setSortOrder] = useState<SortOrder>("newest-first");
+   const queryClient = useQueryClient();
 
    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
       useInfiniteQuery({
-         queryKey: [...sellerQuotationRequestsQueryKey, { sort: sortOrder, limit }],
+         queryKey: [...sellerRejectedQuotationRequestsQueryKey, { sort: sortOrder, limit }],
          queryFn: ({ pageParam }: { pageParam: string | null }) =>
-            getPendingQuotationRequestsForSeller({ cursor: pageParam, limit, sort: sortOrder }),
+            getRejectedQuotationRequestsForSeller({ cursor: pageParam, limit, sort: sortOrder }),
          getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
          initialPageParam: null,
          refetchInterval: 30 * 1000,
          staleTime: 15 * 1000,
       });
+
+   async function restoreItem(quotationRequestId: string) {
+      const previousData = queryClient.getQueryData([
+         ...sellerRejectedQuotationRequestsQueryKey,
+         { sort: sortOrder, limit },
+      ]);
+      try {
+         // Optimistic update (TODO: Add types for the any)
+         queryClient.setQueryData(
+            [...sellerRejectedQuotationRequestsQueryKey, { sort: sortOrder, limit }],
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (oldData: any) => {
+               if (!oldData) return oldData;
+               return {
+                  ...oldData,
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  pages: oldData.pages.map((page: any) => ({
+                     ...page,
+                     count: page.count - 1,
+                     requests: page.requests.filter(
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        (req: any) => req.quotationRequest.id !== quotationRequestId
+                     ),
+                  })),
+               };
+            }
+         );
+
+         await restoreQuotationRequest(quotationRequestId);
+      } catch (error) {
+         console.error(error);
+
+         queryClient.setQueryData(
+            [...sellerRejectedQuotationRequestsQueryKey, { sort: sortOrder, limit }],
+            previousData
+         );
+      }
+   }
 
    // Fetch next page when the last item is in view
    useEffect(() => {
@@ -58,7 +97,7 @@ export function QuotationRequestsList() {
          <div className="flex items-center gap-2">
             {count === 0 && !isFetching && (
                <p className="text-sm text-muted-foreground">
-                  {t("quotation-request.There are no pending quotation requests")}
+                  {t("quotation-request.There are no rejected quotation requests")}
                </p>
             )}
             {count !== undefined && count > 0 && (
@@ -104,8 +143,9 @@ export function QuotationRequestsList() {
                   </>
                )}
                {requests.map((sqr, index) => (
-                  <QuotationRequestListItem
+                  <RejectedQuotationRequestListItem
                      key={sqr.id}
+                     restoreItem={restoreItem}
                      quotationRequest={sqr.quotationRequest}
                      ref={index === requests.length - 1 ? ref : null}
                   />
