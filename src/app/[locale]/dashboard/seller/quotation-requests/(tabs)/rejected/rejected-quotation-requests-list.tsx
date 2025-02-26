@@ -19,7 +19,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SortOrder } from "@/lib/utils/types";
 
 import { getRejectedQuotationRequestsForSeller, restoreQuotationRequest } from "../../actions";
-import { sellerRejectedQuotationRequestsQueryKey } from "../../constants";
+import {
+   sellerQuotationRequestsQueryKey,
+   sellerRejectedQuotationRequestsQueryKey,
+} from "../../constants";
 import { RejectedQuotationRequestListItem } from "./rejected-quotation-request-list-item";
 
 export function RejectedQuotationRequestsList() {
@@ -45,6 +48,7 @@ export function RejectedQuotationRequestsList() {
          ...sellerRejectedQuotationRequestsQueryKey,
          { sort: sortOrder, limit },
       ]);
+      queryClient.invalidateQueries({ queryKey: [...sellerQuotationRequestsQueryKey] });
       try {
          // Optimistic update (TODO: Add types for the any)
          queryClient.setQueryData(
