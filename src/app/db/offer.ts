@@ -51,7 +51,7 @@ export const createOffer = async ({
 
 export const getActiveOffersBySellerId = async ({ sellerId }: { sellerId: string }) => {
    const offers = await prisma.offer.findMany({
-      where: { sellerId, acceptedAt: null, rejectedAt: null },
+      where: { sellerId, acceptedAt: null },
       select: offerDTOFields,
    });
    return offers;
