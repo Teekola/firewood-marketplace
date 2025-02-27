@@ -29,10 +29,10 @@ export const QuotationRequestListItem = forwardRef<
             <div className="flex flex-col gap-2">
                <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
                   <CardTitle className="text-left font-bold hover:underline">
-                     <span className="relative pr-3">
+                     <span className="relative">
                         {amount} {amountUnit}
-                        <span className="absolute -translate-y-1/4 text-xs">{"3"}</span>
-                     </span>
+                        <sup className="text-xs">{"3"}</sup>
+                     </span>{" "}
                      {quotationRequest.woodDryness === WoodDryness.ANY
                         ? t("request-offers.dry or green")
                         : t(`request-offers.${quotationRequest.woodDryness.toLowerCase()}`)}{" "}

@@ -2,11 +2,7 @@
 
 import { SellerQuotationRequestStatus } from "@prisma/client";
 
-import {
-   type CreateOfferArgs,
-   createOffer as createOfferDB,
-   getActiveOffersBySellerId,
-} from "@/app/db/offer";
+import { type CreateOfferArgs, createOffer as createOfferDB } from "@/app/db/offer";
 import {
    getPendingQuotationRequestsBySellerIdPaginated,
    getPendingQuotationRequestsCountBySellerId,
@@ -109,12 +105,4 @@ export async function createOffer(data: Omit<CreateOfferArgs, "sellerId">) {
    ]);
 
    return offer;
-}
-
-export async function getActiveOffersForSeller() {
-   const session = await authWithSeller();
-   if (!session || !session.seller) {
-      return [];
-   }
-   return getActiveOffersBySellerId({ sellerId: session.seller.id });
 }

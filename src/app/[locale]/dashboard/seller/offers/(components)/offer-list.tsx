@@ -18,11 +18,11 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortOrder } from "@/lib/utils/types";
 
-import { getPendingQuotationRequestsForSeller } from "../actions";
-import { sellerQuotationRequestsQueryKey } from "../constants";
-import { QuotationRequestListItem } from "./quotation-request-list-item";
+import { getActiveOffersForSeller } from "../actions";
+import { sellerOffersQueryKey } from "../constants";
+import { OfferListItem } from "./offer-list-item";
 
-export function QuotationRequestsList() {
+export function OfferList() {
    const t = useTranslations();
    const limit = 10; // Number of items per page
    const { ref, inView } = useInView();
@@ -30,9 +30,9 @@ export function QuotationRequestsList() {
 
    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
       useInfiniteQuery({
-         queryKey: [...sellerQuotationRequestsQueryKey, { sort: sortOrder, limit }],
+         queryKey: [...sellerOffersQueryKey, { sort: sortOrder, limit }],
          queryFn: ({ pageParam }: { pageParam: string | null }) =>
-            getPendingQuotationRequestsForSeller({ cursor: pageParam, limit, sort: sortOrder }),
+            getActiveOffersForSeller({ cursor: pageParam, limit, sort: sortOrder }),
          getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
          initialPageParam: null,
          refetchInterval: 30 * 1000,
@@ -50,20 +50,20 @@ export function QuotationRequestsList() {
       return <p>{error.message}</p>;
    }
 
-   const requests = data?.pages.flatMap((page) => page.requests) || [];
+   const offers = data?.pages.flatMap((page) => page.offers) || [];
    const count = data?.pages[0].count;
 
    return (
-      <div className="flex h-full flex-col gap-1 overflow-hidden">
+      <div className="flex h-full w-full flex-col gap-1 overflow-hidden">
          <div className="flex items-center gap-2">
             {count === 0 && !isFetching && (
                <p className="text-sm text-muted-foreground">
-                  {t("quotation-request.There are no pending quotation requests")}
+                  {t("offer.There are no active offers")}
                </p>
             )}
             {count !== undefined && count > 0 && (
                <p className="text-sm text-muted-foreground">
-                  {t("pagination.displayed-results", { displayed: requests.length, total: count })}{" "}
+                  {t("pagination.displayed-results", { displayed: offers.length, total: count })}{" "}
                </p>
             )}
             {isFetching && (
@@ -87,14 +87,13 @@ export function QuotationRequestsList() {
                </SelectContent>
             </Select>
          </div>
-
          <ScrollArea className="relative min-h-64 pr-3">
             <div
                className="pointer-events-none sticky top-0 h-5 w-full bg-gradient-to-b from-background via-background to-transparent"
                aria-hidden="true"
             ></div>
             <ul className="flex min-h-20 w-full flex-col gap-1">
-               {isFetching && requests.length === 0 && (
+               {isFetching && offers.length === 0 && (
                   <>
                      <Skeleton className="h-[106px] w-full min-w-10" />
                      <Skeleton className="h-[106px] w-full min-w-10" />
@@ -103,11 +102,11 @@ export function QuotationRequestsList() {
                      <Skeleton className="h-[106px] w-full min-w-10" />
                   </>
                )}
-               {requests.map((sqr, index) => (
-                  <QuotationRequestListItem
-                     key={sqr.id}
-                     quotationRequest={sqr.quotationRequest}
-                     ref={index === requests.length - 1 ? ref : null}
+               {offers.map((offer, index) => (
+                  <OfferListItem
+                     key={offer.id}
+                     offer={offer}
+                     ref={index === offers.length - 1 ? ref : null}
                   />
                ))}
             </ul>

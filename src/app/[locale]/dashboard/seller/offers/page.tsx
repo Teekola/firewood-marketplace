@@ -1,12 +1,28 @@
-import { getActiveOffersForSeller } from "../quotation-requests/actions";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import { getTranslations } from "next-intl/server";
+
+import { OfferList } from "./(components)/offer-list";
+import { getActiveOffersForSeller } from "./actions";
+import { sellerOffersQueryKey } from "./constants";
 
 export default async function SellerQuotationRequestsPage() {
-   const offers = await getActiveOffersForSeller();
+   const queryClient = new QueryClient();
+   const limit = 10;
+   await queryClient.prefetchInfiniteQuery({
+      queryKey: [...sellerOffersQueryKey, { sort: "newest-first", limit }],
+      queryFn: ({ pageParam = null }) => getActiveOffersForSeller({ cursor: pageParam, limit }),
+      initialPageParam: null,
+   });
+   const t = await getTranslations();
    return (
-      <div className="w-full">
-         {offers.map((offer) => (
-            <p key={offer.id}>{offer.price}</p>
-         ))}
+      <div
+         className="w-full"
+         style={{ height: "calc(100% - 32px)" }} // TODO: Might need modifications based on layout changes
+      >
+         <h1 className="h3">{t("offers.Sent Offers")}</h1>
+         <HydrationBoundary state={dehydrate(queryClient)}>
+            <OfferList />
+         </HydrationBoundary>
       </div>
    );
 }

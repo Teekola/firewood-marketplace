@@ -13,6 +13,7 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
+import { CurrencyConfigs, currencyConfigs as baseCurrencyConfigs } from "@/i18n/currencies";
 import { cn } from "@/lib/utils";
 
 import { MakeOfferFormData } from "./make-offer-form";
@@ -22,15 +23,15 @@ export function CurrencyField() {
    const t = useTranslations("");
    const currency = watch("currency");
    const price = watch("price");
-   const currencyConfigs = {
-      EUR: { label: "Euro (€)", symbol: "€", decimalSeparator: ",", symbolPosition: "after" },
-      USD: {
-         label: `${t("currencies.US Dollar")} ($)`,
-         symbol: "$",
-         decimalSeparator: ".",
-         symbolPosition: "before",
-      },
-   } as const;
+
+   const currencyConfigs = Object.entries(baseCurrencyConfigs).reduce((acc, [key, config]) => {
+      acc[key as keyof CurrencyConfigs] = {
+         ...config,
+         label: `${t(`currencies.label-${key}`)} (${config.symbol})`,
+      };
+      return acc;
+   }, {} as CurrencyConfigs);
+
    const { symbol, decimalSeparator, symbolPosition } = currencyConfigs[currency];
 
    const formatPrice = (value: string) => {

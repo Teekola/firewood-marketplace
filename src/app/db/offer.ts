@@ -1,10 +1,12 @@
 import { Currency, Prisma } from "@prisma/client";
 
+import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
 
 const offerDTOFields = Prisma.validator<Prisma.OfferSelect>()({
    id: true,
    quotationRequestId: true,
+   quotationRequest: true,
    sellerId: true,
    price: true,
    currency: true,
@@ -15,7 +17,9 @@ const offerDTOFields = Prisma.validator<Prisma.OfferSelect>()({
    rejectedAt: true,
 });
 
-export type OfferDTO = Prisma.OfferGetPayload<{ select: typeof offerDTOFields }>;
+export type OfferDTO = Prisma.OfferGetPayload<{
+   select: typeof offerDTOFields;
+}>;
 
 export interface CreateOfferArgs {
    quotationRequestId: string;
@@ -49,10 +53,30 @@ export const createOffer = async ({
    return offer;
 };
 
-export const getActiveOffersBySellerId = async ({ sellerId }: { sellerId: string }) => {
+export const getActiveOffersBySellerIdPaginated = async ({
+   sellerId,
+   cursor,
+   limit,
+   sort = "newest-first",
+}: {
+   sellerId: string;
+   cursor: string | null;
+   limit: number;
+   sort?: SortOrder;
+}) => {
    const offers = await prisma.offer.findMany({
       where: { sellerId, acceptedAt: null },
       select: offerDTOFields,
+      take: limit + 1, // take 1 extra to check if there is more data and use as cursor
+      ...(cursor && { cursor: { id: cursor }, skip: 1 }),
+      orderBy: { id: sort === "newest-first" ? "desc" : "asc" },
    });
    return offers;
+};
+
+export const getActiveOffersCountBySellerId = async ({ sellerId }: { sellerId: string }) => {
+   const count = await prisma.offer.count({
+      where: { sellerId, acceptedAt: null },
+   });
+   return count;
 };
