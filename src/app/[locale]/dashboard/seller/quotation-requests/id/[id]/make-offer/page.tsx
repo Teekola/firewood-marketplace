@@ -35,6 +35,10 @@ export default async function MakeOfferPage({
             </div>
 
             <MakeOfferForm
+               cancelHref={{
+                  pathname: "/dashboard/seller/quotation-requests/id/[id]",
+                  params: { id: quotationRequest.id },
+               }}
                quotationRequestId={quotationRequest.id}
                countryCode={auth.seller.location.countryCode}
                isHomeDelivery={quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY}
