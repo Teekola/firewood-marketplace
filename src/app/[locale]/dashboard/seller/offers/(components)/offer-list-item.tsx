@@ -39,6 +39,11 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
 
+      // TODO: Ensure that when updating the viewing status, the updatedAt value is not actually changed
+      // So need to update the updatedAt value to match the value stored in the database before the update
+      const buyerHasSeen = offer.buyerLastSeenAt && offer.buyerLastSeenAt >= offer.updatedAt;
+      const isRejected = offer.rejectedAt && offer.rejectedAt >= offer.updatedAt;
+
       const isHomeDelivery = quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
       const linkPathname: Pathname = "/dashboard/seller/offers/id/[id]";
       return (
@@ -46,7 +51,7 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
             <Card
                className={cn(
                   "flex flex-col justify-between gap-4 p-4 xs:flex-row",
-                  offer.rejectedAt && "border-destructive/50 bg-destructive/5"
+                  isRejected && "border-destructive/50 bg-destructive/5"
                )}
             >
                <div>
@@ -82,17 +87,16 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                </div>
                <div className="relative flex flex-col justify-center">
                   <div className="absolute -top-2 right-0 flex items-center gap-2 text-xs">
-                     {/** TODO: Display if the offer was seen or not */}
-                     {!offer.rejectedAt && <p>{t("offer.Not seen")}</p>}
-                     {offer.acceptedAt && <p>{t("offer.Seen")}</p>}
-                     {offer.rejectedAt && <p className="text-destructive">{t("offer.Rejected")}</p>}
-                     {offer.rejectedAt && <CircleAlertIcon className="stroke-destructive" />}
+                     {!buyerHasSeen && !isRejected && <p>{t("offer.Not seen")}</p>}
+                     {buyerHasSeen && !isRejected && <p>{t("offer.Seen")}</p>}
+                     {isRejected && <p className="text-destructive">{t("offer.Rejected")}</p>}
+                     {isRejected && <CircleAlertIcon className="stroke-destructive" />}
                   </div>
                   <Button
                      asChild
                      variant="outline"
                      className={cn(
-                        offer.rejectedAt &&
+                        isRejected &&
                            "border-destructive/50 text-destructive hover:text-destructive/90"
                      )}
                   >

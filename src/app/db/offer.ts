@@ -13,6 +13,8 @@ const offerDTOFields = Prisma.validator<Prisma.OfferSelect>()({
    earliestAvailability: true,
    createdAt: true,
    updatedAt: true,
+   buyerLastSeenAt: true,
+   sellerLastSeenAt: true,
    acceptedAt: true,
    rejectedAt: true,
 });

@@ -176,6 +176,8 @@ model Offer {
    price                String
    currency             Currency
    earliestAvailability DateTime         @map("earliest_availability")
+   buyerLastSeenAt      DateTime?        @map("buyer_last_seen_at")
+   sellerLastSeenAt     DateTime?        @map("seller_last_seen_at")
    acceptedAt           DateTime?        @map("accepted_at")
    rejectedAt           DateTime?        @map("rejected_at")
    createdAt            DateTime         @default(now()) @map("created_at")
