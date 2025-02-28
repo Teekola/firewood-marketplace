@@ -72,6 +72,7 @@ function mockUseTranslationsForLocale(locale: TestLocale) {
             rich: (key: string) => key,
             markup: (key: string) => key,
             raw: (key: string) => key,
+            has: () => true,
          }
       );
    });
