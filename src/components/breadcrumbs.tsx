@@ -88,9 +88,9 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
    const t = useTranslations("actions");
    const breadCrumbs = useBreadcrumbs();
 
-   const maxItemsToDisplay = isDesktop
-      ? maxItemsToDisplayByDevice.desktop
-      : maxItemsToDisplayByDevice.mobile;
+   const maxItemsToDisplay = !isDesktop
+      ? maxItemsToDisplayByDevice.mobile
+      : maxItemsToDisplayByDevice.desktop;
 
    const endingBreadcrumbs = breadCrumbs.slice(
       breadCrumbs.length > maxItemsToDisplay ? -maxItemsToDisplay + 1 : 1
