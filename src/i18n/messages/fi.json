@@ -98,7 +98,8 @@
       "Reject": "Hylkää",
       "Submit": "Lähetä",
       "Restore": "Palauta",
-      "View": "Näytä"
+      "View": "Näytä",
+      "Edit": "Muokkaa"
    },
    "metadata": {
       "page-titles": {
@@ -131,6 +132,7 @@
       "/dashboard/seller/quotation-requests/rejected": "/Oma Paneeli/Myyjän paneeli/Tarjouspyynnöt/Hylätyt",
       "/dashboard/seller/offers": "/Oma Paneeli/Myyjän paneeli/Lähetetyt tarjoukset",
       "/dashboard/seller/offers/id": "/Oma Paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous",
+      "/dashboard/seller/offers/id/edit": "/Oma Paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous/Muokkaa",
       "/dashboard/buyer": "/Oma Paneeli/Ostaja"
    },
    "dashboard": {
@@ -188,10 +190,12 @@
       "Pending": "Odottaa",
       "Not seen": "Ei nähty",
       "Seen": "Nähty",
-      "Offer details": "Tarjouksen tiedot"
+      "Offer details": "Tarjouksen tiedot",
+      "Edit Offer": "Muokkaa tarjousta"
    },
    "currencies": {
-      "US Dollar": "Yhdysvaltain dollari"
+      "label-USD": "Yhdysvaltain dollari",
+      "label-EUR": "Euro"
    },
    "pagination": {
       "Loading": "Ladataan...",

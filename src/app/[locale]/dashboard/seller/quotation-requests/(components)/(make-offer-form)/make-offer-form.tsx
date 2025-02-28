@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { countryCodeToCurrency } from "@/i18n/currencies";
-import { Link, useRouter } from "@/i18n/routing";
+import { Link, Pathname, useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
@@ -45,12 +45,16 @@ interface MakeOfferFormProps extends ComponentProps<"form"> {
    countryCode: string;
    isHomeDelivery: boolean;
    quotationRequestId: string;
+   defaultValues?: Partial<MakeOfferFormData>;
+   cancelHref: { pathname: Pathname; params: { id: string } };
 }
 
 export function MakeOfferForm({
    quotationRequestId,
    countryCode,
    isHomeDelivery,
+   defaultValues: propDefaultValues,
+   cancelHref,
    ...props
 }: MakeOfferFormProps) {
    const t = useTranslations();
@@ -59,7 +63,7 @@ export function MakeOfferForm({
    const router = useRouter();
    const [isSubmitting, setIsSubmitting] = useState(false);
 
-   const defaultValues: DefaultValues<MakeOfferFormData> = {
+   const defaultValues: DefaultValues<MakeOfferFormData> = propDefaultValues ?? {
       price: "",
       currency: (countryCodeToCurrency[countryCode] ?? Currency.EUR) as Currency,
       earliestAvailability: new Date(),
@@ -168,14 +172,7 @@ export function MakeOfferForm({
                )}
                {isSubmitting && <ButtonLoading size="lg" className="w-full" />}
                <Button asChild size="lg" variant="outline" type="button" className="w-full">
-                  <Link
-                     href={{
-                        pathname: `/dashboard/seller/quotation-requests/id/[id]`,
-                        params: { id: quotationRequestId },
-                     }}
-                  >
-                     {t("actions.Cancel")}
-                  </Link>
+                  <Link href={cancelHref}>{t("actions.Cancel")}</Link>
                </Button>
             </div>
             <FormRootError />

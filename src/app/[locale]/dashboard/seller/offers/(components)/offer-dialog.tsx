@@ -6,8 +6,11 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
-import { usePathname, useRouter } from "@/i18n/routing";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
+
+import { ShortQuotationRequestDetails } from "../../quotation-requests/(components)/short-quotation-request-details";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers";
 const DIALOG_ROUTE = "/dashboard/seller/offers/id/[id]";
@@ -43,6 +46,18 @@ export default function OfferDialog({
                </DialogTitle>
                <DialogDescription className="sr-only">{t("offer.Offer details")}</DialogDescription>
             </DialogHeader>
+            <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
+
+            <Button asChild>
+               <Link
+                  href={{
+                     pathname: "/dashboard/seller/offers/id/[id]/edit",
+                     params: { id: offer.id },
+                  }}
+               >
+                  {t("actions.Edit")}
+               </Link>
+            </Button>
          </DialogContent>
       </Dialog>
    );

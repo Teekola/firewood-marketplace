@@ -98,7 +98,8 @@
       "Reject": "Reject",
       "Submit": "Submit",
       "Restore": "Restore",
-      "View": "View"
+      "View": "View",
+      "Edit": "Edit"
    },
    "metadata": {
       "page-titles": {
@@ -131,6 +132,7 @@
       "/dashboard/seller/quotation-requests/rejected": "/Dashboard/Seller Dashboard/Quotation Requests/Rejected",
       "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
       "/dashboard/seller/offers/id": "/Dashboard/Seller Dashboard/Sent Offers/Offer",
+      "/dashboard/seller/offers/id/edit": "/Dashboard/Seller Dashboard/Sent Offers/Offer/Edit",
       "/dashboard/buyer": "/Dashboard/Buyer"
    },
    "dashboard": {
@@ -189,10 +191,12 @@
       "Pending": "Pending",
       "Not seen": "Not seen",
       "Seen": "Seen",
-      "Offer details": "Offer Details"
+      "Offer details": "Offer Details",
+      "Edit Offer": "Edit Offer"
    },
    "currencies": {
-      "US Dollar": "US Dollar"
+      "label-USD": "US Dollar",
+      "label-EUR": "Euro"
    },
    "pagination": {
       "Loading": "Loading...",

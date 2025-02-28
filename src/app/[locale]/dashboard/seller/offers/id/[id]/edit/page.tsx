@@ -1,14 +1,13 @@
-import { getQuotationRequest } from "@/app/db/quotation-request";
+import { getOfferById } from "@/app/db/offer";
 import { authWithSeller } from "@/auth/auth";
 
-import MakeOfferDialog from "../../../../make-offer-dialog";
+import OfferEditDialog from "../../../(components)/offer-edit-dialog";
 
-export default async function QuotationRequestPage({
+export default async function OfferEditPage({
    params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
    const { id } = await params;
-   const quotationRequest = await getQuotationRequest({ id });
-   const auth = await authWithSeller();
+   const [offer, auth] = await Promise.all([getOfferById(id), authWithSeller()]);
 
    if (!auth) return null;
 
@@ -17,12 +16,7 @@ export default async function QuotationRequestPage({
       // TODO: Might need to build a centralized approach and also take into account the paywall that will be added
       return null;
    }
-
    return (
-      <MakeOfferDialog
-         isOpen={true}
-         quotationRequest={quotationRequest}
-         countryCode={auth.seller.location.countryCode}
-      />
+      <OfferEditDialog isOpen={true} offer={offer} countryCode={auth.seller.location.countryCode} />
    );
 }

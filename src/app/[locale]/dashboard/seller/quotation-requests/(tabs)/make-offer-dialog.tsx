@@ -20,10 +20,12 @@ export default function MakeOfferDialog({
    isOpen,
    quotationRequest,
    countryCode,
+   autoFocus,
 }: Readonly<{
    isOpen: boolean;
    quotationRequest: QuotationRequest | null;
    countryCode: string;
+   autoFocus?: boolean;
 }>) {
    const router = useRouter();
    const t = useTranslations();
@@ -43,7 +45,10 @@ export default function MakeOfferDialog({
 
    return (
       <Dialog open={open} onOpenChange={handleClose}>
-         <DialogContent disableCloseOnOverlayClick>
+         <DialogContent
+            disableCloseOnOverlayClick
+            {...(!autoFocus && { onOpenAutoFocus: (e) => e.preventDefault() })}
+         >
             <DialogHeader>
                <DialogTitle className="text-left text-2xl font-bold">
                   {t("quotation-request.Make an Offer")}
@@ -55,6 +60,10 @@ export default function MakeOfferDialog({
                   <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
                </div>
                <MakeOfferForm
+                  cancelHref={{
+                     pathname: DIALOG_PREVIOUS_ROUTE,
+                     params: { id: quotationRequest.id },
+                  }}
                   quotationRequestId={quotationRequest.id}
                   countryCode={countryCode}
                   isHomeDelivery={quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY}
