@@ -80,7 +80,7 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                   <div className="absolute -top-2 right-0 flex items-center gap-2 text-xs">
                      {/** TODO: Display if the offer was seen or not */}
                      {!offer.rejectedAt && <p>{t("offer.Not seen")}</p>}
-                     {offer.acceptedAt && <p>{t("offer.Viewed")}</p>}
+                     {offer.acceptedAt && <p>{t("offer.Seen")}</p>}
                      {offer.rejectedAt && <p className="text-destructive">{t("offer.Rejected")}</p>}
                      {offer.rejectedAt && <CircleAlertIcon className="stroke-destructive" />}
                   </div>
