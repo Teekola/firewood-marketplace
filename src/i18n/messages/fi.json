@@ -130,6 +130,7 @@
       "/dashboard/seller/quotation-requests/id/make-offer": "/Oma Paneeli/Myyjän paneeli/Tarjouspyynnöt/Pyyntö/Tee tarjous",
       "/dashboard/seller/quotation-requests/rejected": "/Oma Paneeli/Myyjän paneeli/Tarjouspyynnöt/Hylätyt",
       "/dashboard/seller/offers": "/Oma Paneeli/Myyjän paneeli/Lähetetyt tarjoukset",
+      "/dashboard/seller/offers/id": "/Oma Paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous",
       "/dashboard/buyer": "/Oma Paneeli/Ostaja"
    },
    "dashboard": {
@@ -186,7 +187,8 @@
       "Rejected": "Hylätty",
       "Pending": "Odottaa",
       "Not seen": "Ei nähty",
-      "Seen": "Nähty"
+      "Seen": "Nähty",
+      "Offer details": "Tarjouksen tiedot"
    },
    "currencies": {
       "US Dollar": "Yhdysvaltain dollari"

@@ -80,3 +80,8 @@ export const getActiveOffersCountBySellerId = async ({ sellerId }: { sellerId: s
    });
    return count;
 };
+
+export const getOfferById = async (id: string) => {
+   const offer = await prisma.offer.findUnique({ where: { id }, select: offerDTOFields });
+   return offer;
+};

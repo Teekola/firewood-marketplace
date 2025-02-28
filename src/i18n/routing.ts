@@ -54,6 +54,10 @@ export const routing = defineRouting({
          en: "/seller/offers",
          fi: "/myyja/tarjoukset",
       },
+      "/dashboard/seller/offers/id/[id]": {
+         en: "/seller/offers/id/[id]",
+         fi: "/myyja/tarjoukset/id/[id]",
+      },
       "/dashboard/buyer": {
          en: "/buyer-dashboard",
          fi: "/ostajan-paneeli",

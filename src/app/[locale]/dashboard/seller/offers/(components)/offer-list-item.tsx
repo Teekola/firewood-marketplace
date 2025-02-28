@@ -8,6 +8,7 @@ import { OfferDTO } from "@/app/db/offer";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { currencyConfigs } from "@/i18n/currencies";
+import { Link, Pathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import { useQuotationRequestData } from "../../quotation-requests/(hooks)/use-quotation-request-data";
@@ -39,6 +40,7 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
       });
 
       const isHomeDelivery = quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
+      const linkPathname: Pathname = "/dashboard/seller/offers/id/[id]";
       return (
          <li {...props} ref={ref} className={cn("w-full", props.className)}>
             <Card
@@ -48,9 +50,11 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                )}
             >
                <div>
-                  <CardTitle className="mb-2 text-xl font-bold">
-                     {offer.price} {currencyConfigs[offer.currency].symbol}
-                  </CardTitle>
+                  <Link href={{ pathname: linkPathname, params: { id: offer.id } }}>
+                     <CardTitle className="mb-2 text-xl font-bold hover:underline">
+                        {offer.price} {currencyConfigs[offer.currency].symbol}
+                     </CardTitle>
+                  </Link>
                   <p className="text-sm">
                      <span className="relative">
                         {amount} {amountUnit}
@@ -85,13 +89,16 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                      {offer.rejectedAt && <CircleAlertIcon className="stroke-destructive" />}
                   </div>
                   <Button
+                     asChild
                      variant="outline"
                      className={cn(
                         offer.rejectedAt &&
                            "border-destructive/50 text-destructive hover:text-destructive/90"
                      )}
                   >
-                     {t("actions.View")}
+                     <Link href={{ pathname: linkPathname, params: { id: offer.id } }}>
+                        {t("actions.View")}
+                     </Link>
                   </Button>
                </div>
             </Card>
