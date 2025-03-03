@@ -16,10 +16,10 @@ import {
 import { CurrencyConfigs, currencyConfigs as baseCurrencyConfigs } from "@/i18n/currencies";
 import { cn } from "@/lib/utils";
 
-import { MakeOfferFormData } from "./make-offer-form";
+import { OfferFormData } from "./offer-form";
 
 export function CurrencyField() {
-   const { control, setValue, watch } = useFormContext<MakeOfferFormData>();
+   const { control, setValue, watch } = useFormContext<OfferFormData>();
    const t = useTranslations("");
    const currency = watch("currency");
    const price = watch("price");

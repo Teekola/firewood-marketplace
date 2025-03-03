@@ -87,3 +87,12 @@ export const getOfferById = async (id: string) => {
    const offer = await prisma.offer.findUnique({ where: { id }, select: offerDTOFields });
    return offer;
 };
+
+export interface UpdateOfferArgs {
+   id: string;
+   data: Prisma.OfferUpdateInput;
+}
+
+export const updateOffer = async ({ id, data }: UpdateOfferArgs) => {
+   await prisma.offer.update({ where: { id }, data });
+};

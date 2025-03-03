@@ -5,6 +5,7 @@ import { CircleAlertIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
+import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { currencyConfigs } from "@/i18n/currencies";
@@ -26,13 +27,6 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
 
       const format = useFormatter();
       const earliestAvailability = format.dateTime(offer.earliestAvailability, {
-         year: "numeric",
-         month: "numeric",
-         day: "numeric",
-         timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      });
-
-      const updatedAt = format.dateTime(offer.updatedAt, {
          year: "numeric",
          month: "numeric",
          day: "numeric",
@@ -82,7 +76,7 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                      </p>
                   )}
                   <p className="mt-2 text-xs text-muted-foreground">
-                     {t("quotation-request.Last updated")} {updatedAt}
+                     {t("quotation-request.Last updated")} <RelativeTime date={offer.updatedAt} />
                   </p>
                </div>
                <div className="relative flex flex-col justify-center">

@@ -25,74 +25,67 @@ import {
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { countryCodeToCurrency } from "@/i18n/currencies";
-import { Link, Pathname, useRouter } from "@/i18n/routing";
+import { Link, Pathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
 
-import { createOffer } from "../../actions";
 import { CurrencyField } from "./currency-field";
 
-export const makeOfferFormSchema = z.object({
+export const offerFormSchema = z.object({
    price: z.string().min(1, "Please, enter the price"),
    currency: z.nativeEnum(Currency),
    earliestAvailability: z.date(),
 });
 
-export type MakeOfferFormData = z.infer<typeof makeOfferFormSchema>;
+export type OfferFormData = z.infer<typeof offerFormSchema>;
 
-interface MakeOfferFormProps extends ComponentProps<"form"> {
+interface OfferFormProps extends ComponentProps<"form"> {
    countryCode: string;
    isHomeDelivery: boolean;
-   quotationRequestId: string;
-   defaultValues?: Partial<MakeOfferFormData>;
+
+   defaultValues?: Partial<OfferFormData>;
    cancelHref: { pathname: Pathname; params: { id: string } };
+   handleSubmit: (data: OfferFormData) => Promise<void>;
 }
 
-export function MakeOfferForm({
-   quotationRequestId,
+export function OfferForm({
    countryCode,
    isHomeDelivery,
    defaultValues: propDefaultValues,
    cancelHref,
+   handleSubmit,
    ...props
-}: MakeOfferFormProps) {
+}: OfferFormProps) {
    const t = useTranslations();
    const format = useFormatter();
    const locale = useLocale();
-   const router = useRouter();
    const [isSubmitting, setIsSubmitting] = useState(false);
 
-   const defaultValues: DefaultValues<MakeOfferFormData> = propDefaultValues ?? {
+   const defaultValues: DefaultValues<OfferFormData> = propDefaultValues ?? {
       price: "",
       currency: (countryCodeToCurrency[countryCode] ?? Currency.EUR) as Currency,
       earliestAvailability: new Date(),
    };
 
-   const form = useForm<MakeOfferFormData>({
-      resolver: zodResolver(makeOfferFormSchema),
+   const form = useForm<OfferFormData>({
+      resolver: zodResolver(offerFormSchema),
       defaultValues,
    });
 
    const canProceed = form.formState.isValid && form.formState.isDirty;
 
-   async function onSubmit(data: MakeOfferFormData) {
+   async function onSubmit(data: OfferFormData) {
       if (!canProceed) return;
-      console.log(data);
       setIsSubmitting(true);
 
       try {
+         await handleSubmit(data);
          form.reset(data);
-         const offer = await createOffer({ quotationRequestId, ...data });
-         console.log(offer);
-         // TODO: Display toast message stating that the offer was made and provide link to "see offer"
-         router.push(`/dashboard/seller/quotation-requests`);
-         // TODO: make the not viewed offer indicator
       } catch (error) {
          setIsSubmitting(false);
          const errorData = parseError(error);
-         form.reset(defaultValues);
-         form.setError("root", { type: "upsertSellerProfileError", message: errorData.message });
+         form.setError("root", { type: "offerFormError", message: errorData.message });
       }
    }
 

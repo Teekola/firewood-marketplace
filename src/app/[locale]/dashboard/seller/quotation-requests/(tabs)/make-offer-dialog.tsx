@@ -10,8 +10,9 @@ import { QuotationRequest } from "@/app/db/quotation-request";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { usePathname, useRouter } from "@/i18n/routing";
 
-import { MakeOfferForm } from "../(components)/(make-offer-form)/make-offer-form";
+import { OfferForm, OfferFormData } from "../(components)/(make-offer-form)/offer-form";
 import { ShortQuotationRequestDetails } from "../(components)/short-quotation-request-details";
+import { createOffer } from "../actions";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
 const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]/make-offer";
@@ -43,6 +44,11 @@ export default function MakeOfferDialog({
       router.push({ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: quotationRequest.id } });
    };
 
+   const handleSubmit = async (data: OfferFormData) => {
+      await createOffer({ quotationRequestId: quotationRequest.id, ...data });
+      router.push("/dashboard/seller/quotation-requests");
+   };
+
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent
@@ -59,14 +65,14 @@ export default function MakeOfferDialog({
                <div className="border-b pb-4">
                   <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
                </div>
-               <MakeOfferForm
+               <OfferForm
                   cancelHref={{
                      pathname: DIALOG_PREVIOUS_ROUTE,
                      params: { id: quotationRequest.id },
                   }}
-                  quotationRequestId={quotationRequest.id}
                   countryCode={countryCode}
                   isHomeDelivery={quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY}
+                  handleSubmit={handleSubmit}
                />
             </DialogHeader>
          </DialogContent>

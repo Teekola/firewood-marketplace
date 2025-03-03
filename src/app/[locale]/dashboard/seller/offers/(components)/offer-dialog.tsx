@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 
+import { DeliveryMethod } from "@prisma/client";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
+import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { currencyConfigs } from "@/i18n/currencies";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 
 import { ShortQuotationRequestDetails } from "../../quotation-requests/(components)/short-quotation-request-details";
@@ -26,6 +29,7 @@ export default function OfferDialog({
    const t = useTranslations();
    const [open, setOpen] = useState(isOpen);
    const pathname = usePathname();
+   const format = useFormatter();
 
    function handleClose() {
       router.push(DIALOG_PREVIOUS_ROUTE);
@@ -37,6 +41,8 @@ export default function OfferDialog({
    }, [pathname]);
 
    if (!offer) return null;
+   const isHomeDelivery = offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
+   const currency = currencyConfigs[offer.currency];
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent>
@@ -48,16 +54,50 @@ export default function OfferDialog({
             </DialogHeader>
             <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
 
-            <Button asChild>
-               <Link
-                  href={{
-                     pathname: "/dashboard/seller/offers/id/[id]/edit",
-                     params: { id: offer.id },
-                  }}
-               >
-                  {t("actions.Edit")}
-               </Link>
-            </Button>
+            <div className="-mt-2 flex flex-col gap-2 text-sm">
+               <div>
+                  <p className="font-semibold">{t("offer.Price")}</p>
+                  <p>
+                     {currency.symbolPosition === "before" && currency.symbol}
+                     {offer.price} {currency.symbolPosition === "after" && currency.symbol}
+                  </p>
+               </div>
+               <div>
+                  <p className="font-semibold">
+                     {isHomeDelivery
+                        ? t("offer.Earliest delivery date")
+                        : t("offer.Earliest pickup date")}
+                  </p>
+
+                  <p>
+                     {format.dateTime(offer.earliestAvailability, {
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric",
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                     })}
+                  </p>
+               </div>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+               {t("quotation-request.Last updated")} <RelativeTime date={offer.updatedAt} />
+            </p>
+
+            <div className="mt-8 flex flex-col justify-between gap-2 sm:flex-row">
+               <Button asChild className="order-2 w-full sm:order-1" variant="outline">
+                  <Link href="/dashboard/seller/offers">{t("actions.Close")}</Link>
+               </Button>
+               <Button asChild className="order-1 w-full sm:order-2">
+                  <Link
+                     href={{
+                        pathname: "/dashboard/seller/offers/id/[id]/edit",
+                        params: { id: offer.id },
+                     }}
+                  >
+                     {t("actions.Edit")}
+                  </Link>
+               </Button>
+            </div>
          </DialogContent>
       </Dialog>
    );

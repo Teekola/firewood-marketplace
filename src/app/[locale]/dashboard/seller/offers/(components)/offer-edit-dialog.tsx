@@ -10,8 +10,12 @@ import { OfferDTO } from "@/app/db/offer";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { usePathname, useRouter } from "@/i18n/routing";
 
-import { MakeOfferForm } from "../../quotation-requests/(components)/(make-offer-form)/make-offer-form";
+import {
+   OfferForm,
+   OfferFormData,
+} from "../../quotation-requests/(components)/(make-offer-form)/offer-form";
 import { ShortQuotationRequestDetails } from "../../quotation-requests/(components)/short-quotation-request-details";
+import { editOffer } from "../actions";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers/id/[id]";
 const DIALOG_ROUTE = "/dashboard/seller/offers/id/[id]/edit";
@@ -41,6 +45,11 @@ export default function OfferEditDialog({
       router.push({ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } });
    };
 
+   const handleSubmit = async (data: OfferFormData) => {
+      await editOffer({ id: offer.id, data });
+      router.push({ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } });
+   };
+
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent
@@ -55,9 +64,8 @@ export default function OfferEditDialog({
             </DialogHeader>
             <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
 
-            <MakeOfferForm
+            <OfferForm
                countryCode={countryCode}
-               quotationRequestId={offer.quotationRequestId}
                defaultValues={{
                   price: offer.price,
                   currency: offer.currency,
@@ -67,6 +75,7 @@ export default function OfferEditDialog({
                isHomeDelivery={
                   offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY
                }
+               handleSubmit={handleSubmit}
             />
          </DialogContent>
       </Dialog>

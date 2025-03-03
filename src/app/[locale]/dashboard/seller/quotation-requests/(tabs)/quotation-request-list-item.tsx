@@ -6,6 +6,7 @@ import { DeliveryMethod, WoodDryness } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
+import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Link, Pathname } from "@/i18n/routing";
@@ -48,7 +49,10 @@ export const QuotationRequestListItem = forwardRef<
                      `, ${quotationRequest.city}`}
                </p>
 
-               <p className="text-sm text-muted-foreground">{updatedAt}</p>
+               <p className="text-sm text-muted-foreground">
+                  {" "}
+                  {t("quotation-request.Last updated")} <RelativeTime date={new Date(updatedAt)} />
+               </p>
             </div>
             <Button asChild variant="outline" className="my-auto">
                <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>

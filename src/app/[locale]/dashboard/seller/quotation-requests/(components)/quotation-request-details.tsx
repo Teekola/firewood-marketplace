@@ -6,6 +6,7 @@ import { WoodDryness } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
+import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
@@ -41,7 +42,7 @@ export default function QuotationRequestDetails({
          )}
 
          <p className="mt-2 text-sm text-muted-foreground">
-            {t("quotation-request.Last updated")} {updatedAt}
+            {t("quotation-request.Last updated")} <RelativeTime date={updatedAt} />
          </p>
 
          <div className="mt-4 flex max-w-lg flex-col gap-2 sm:flex-row-reverse">
