@@ -43,7 +43,10 @@ export default function OfferEditDialog({
 
    return (
       <Dialog open={open} onOpenChange={handleClose}>
-         <DialogContent disableCloseOnOverlayClick>
+         <DialogContent
+            disableCloseOnOverlayClick
+            onOpenAutoFocus={(e) => e.preventDefault() /** Prevent autofocusing price field */}
+         >
             <DialogHeader>
                <DialogTitle className="text-left text-2xl font-bold">
                   {t("offer.Edit Offer")}
