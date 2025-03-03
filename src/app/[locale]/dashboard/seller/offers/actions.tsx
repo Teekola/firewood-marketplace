@@ -1,12 +1,16 @@
 "use server";
 
+import { SellerQuotationRequestStatus } from "@prisma/client";
+
 import {
    UpdateOfferArgs,
+   deleteOfferById,
    getActiveOffersBySellerIdPaginated,
    getActiveOffersCountBySellerId,
    updateOffer,
 } from "@/app/db/offer";
-import { authWithSeller } from "@/auth/auth";
+import { updateSellerQuotationRequestStatus } from "@/app/db/quotation-request";
+import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getActiveOffersForSeller({
@@ -52,4 +56,21 @@ export async function editOffer({ id, data }: UpdateOfferArgs) {
          updatedAt: updateDate,
       },
    });
+}
+
+export async function deleteOffer({
+   offerId,
+   quotationRequestId,
+}: {
+   offerId: string;
+   quotationRequestId: string;
+}) {
+   const { seller } = await getAuthorizedSeller();
+
+   await updateSellerQuotationRequestStatus({
+      quotationRequestId,
+      status: SellerQuotationRequestStatus.PENDING,
+      sellerId: seller.id,
+   });
+   await deleteOfferById(offerId);
 }

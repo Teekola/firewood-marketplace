@@ -96,3 +96,7 @@ export interface UpdateOfferArgs {
 export const updateOffer = async ({ id, data }: UpdateOfferArgs) => {
    await prisma.offer.update({ where: { id }, data });
 };
+
+export const deleteOfferById = async (id: string) => {
+   await prisma.offer.delete({ where: { id } });
+};

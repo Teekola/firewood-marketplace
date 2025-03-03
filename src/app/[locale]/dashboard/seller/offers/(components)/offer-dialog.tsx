@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { DeliveryMethod } from "@prisma/client";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { EditIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
@@ -14,6 +15,7 @@ import { currencyConfigs } from "@/i18n/currencies";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 
 import { ShortQuotationRequestDetails } from "../../quotation-requests/(components)/short-quotation-request-details";
+import { DeleteOfferDialog } from "./delete-offer-dialog";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers";
 const DIALOG_ROUTE = "/dashboard/seller/offers/id/[id]";
@@ -45,7 +47,7 @@ export default function OfferDialog({
    const currency = currencyConfigs[offer.currency];
    return (
       <Dialog open={open} onOpenChange={handleClose}>
-         <DialogContent>
+         <DialogContent onOpenAutoFocus={(e) => e.preventDefault()}>
             <DialogHeader>
                <DialogTitle className="text-left text-2xl font-bold">
                   {t("offer.Offer details")}
@@ -84,19 +86,28 @@ export default function OfferDialog({
             </p>
 
             <div className="mt-8 flex flex-col justify-between gap-2 sm:flex-row">
-               <Button asChild className="order-2 w-full sm:order-1" variant="outline">
+               <Button asChild className="order-2 w-full sm:order-1" variant="outline" size="lg">
                   <Link href="/dashboard/seller/offers">{t("actions.Close")}</Link>
                </Button>
-               <Button asChild className="order-1 w-full sm:order-2">
-                  <Link
-                     href={{
-                        pathname: "/dashboard/seller/offers/id/[id]/edit",
-                        params: { id: offer.id },
-                     }}
-                  >
-                     {t("actions.Edit")}
-                  </Link>
-               </Button>
+
+               <div className="order-1 flex gap-2 sm:order-2">
+                  <Button asChild className="w-full" size="lg">
+                     <Link
+                        href={{
+                           pathname: "/dashboard/seller/offers/id/[id]/edit",
+                           params: { id: offer.id },
+                        }}
+                     >
+                        <EditIcon className="mr-2 h-4 w-4 stroke-primary-foreground" />
+                        {t("actions.Edit")}
+                     </Link>
+                  </Button>
+                  <DeleteOfferDialog
+                     offerId={offer.id}
+                     quotationRequestId={offer.quotationRequestId}
+                     className="order-3"
+                  />
+               </div>
             </div>
          </DialogContent>
       </Dialog>

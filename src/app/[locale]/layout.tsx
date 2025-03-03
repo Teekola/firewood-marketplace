@@ -5,6 +5,7 @@ import { getMessages } from "next-intl/server";
 
 import { UserStoreProvider } from "@/components/auth/user-store-provider";
 import { ThemeProvider } from "@/components/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { nunitoSans } from "@/fonts/index";
 import { Locale } from "@/i18n/routing";
 import { ReactQueryProvider } from "@/lib/react-query";
@@ -39,7 +40,9 @@ export default async function RootLayout({
                   disableTransitionOnChange
                >
                   <UserStoreProvider user={user}>
-                     <ReactQueryProvider>{children}</ReactQueryProvider>
+                     <ReactQueryProvider>
+                        <TooltipProvider>{children}</TooltipProvider>
+                     </ReactQueryProvider>
                   </UserStoreProvider>
                </ThemeProvider>
             </NextIntlClientProvider>
