@@ -196,3 +196,15 @@ export const updateSellerQuotationRequestViewedAt = async ({
       },
    });
 };
+
+export const getNumberOfUnseenQuotationRequests = async ({ sellerId }: { sellerId: string }) => {
+   const result = await prisma.$queryRaw<{ count: number }[]>`
+      SELECT COUNT(*) AS count
+      FROM "SellerQuotationRequest" sqr
+      JOIN "QuotationRequest" qr ON sqr.quotation_request_id = qr.id
+      WHERE sqr.seller_id = ${sellerId}
+      AND (sqr.last_viewed_at IS NULL OR sqr.last_viewed_at < qr.updated_at)
+   `;
+
+   return Number(result[0]?.count || 0);
+};

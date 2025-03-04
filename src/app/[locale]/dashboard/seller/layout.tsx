@@ -2,9 +2,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BackButtonLink } from "@/components/back-button-link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Locale, Pathname, routing } from "@/i18n/routing";
+import { Locale, routing } from "@/i18n/routing";
 
-import { SidebarNav } from "../(components)/sidebar-nav";
+import { QuotationRequestSidebarNavIndicator } from "../(components)/quotation-request-sidebar-nav-indicator";
+import { SidebarNav, SidebarNavProps } from "../(components)/sidebar-nav";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
@@ -12,7 +13,8 @@ export function generateStaticParams() {
 
 export async function getSidebarNavItems() {
    const t = await getTranslations("dashboard");
-   const sidebarNavItems: { title: string; href: Pathname | Pathname[] }[] = [
+
+   const sidebarNavItems: SidebarNavProps["items"] = [
       {
          title: t("Overview"),
          href: ["/dashboard/seller", "/dashboard/seller/dashboard"],
@@ -28,6 +30,7 @@ export async function getSidebarNavItems() {
       {
          title: t("Quotation Requests"),
          href: "/dashboard/seller/quotation-requests",
+         indicator: <QuotationRequestSidebarNavIndicator />,
       },
       {
          title: t("Sent Offers"),

@@ -4,6 +4,7 @@ import { SellerQuotationRequestStatus } from "@prisma/client";
 
 import { type CreateOfferArgs, createOffer as createOfferDB } from "@/app/db/offer";
 import {
+   getNumberOfUnseenQuotationRequests,
    getPendingQuotationRequestsBySellerIdPaginated,
    getPendingQuotationRequestsCountBySellerId,
    getRejectedQuotationRequestCountBySellerId,
@@ -111,4 +112,9 @@ export async function createOffer(data: Omit<CreateOfferArgs, "sellerId">) {
 export async function updateViewedAt(quotationRequestId: string) {
    const { seller } = await getAuthorizedSeller();
    await updateSellerQuotationRequestViewedAt({ quotationRequestId, sellerId: seller.id });
+}
+
+export async function getUnseenQuotationRequestsCount() {
+   const { seller } = await getAuthorizedSeller();
+   return await getNumberOfUnseenQuotationRequests({ sellerId: seller.id });
 }

@@ -4,10 +4,11 @@ import { buttonVariants } from "@/components/ui/button";
 import { Link, Pathname, StaticPathname, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
+export interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
    items: {
       href: Pathname | Pathname[];
       title: string;
+      indicator?: React.ReactNode;
    }[];
 }
 
@@ -33,10 +34,10 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
                   isPathnameWithinHref(pathname, item.href)
                      ? "border border-input md:border-none md:bg-muted md:hover:bg-muted"
                      : "h-16 border border-input shadow-sm hover:bg-accent hover:text-accent-foreground md:h-auto md:border-none md:shadow-none md:hover:bg-transparent md:hover:underline",
-                  "justify-start md:w-48 lg:w-64"
+                  "relative justify-start md:w-48 lg:w-64"
                )}
             >
-               {item.title}
+               {item.title} {item.indicator}
             </Link>
          ))}
       </nav>
