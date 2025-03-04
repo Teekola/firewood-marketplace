@@ -6,6 +6,7 @@ import { DeliveryMethod, WoodDryness } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
+import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 
@@ -43,7 +44,9 @@ export const RejectedQuotationRequestListItem = forwardRef<
                      `, ${quotationRequest.city}`}
                </p>
 
-               <p className="text-sm text-muted-foreground">{updatedAt}</p>
+               <p className="text-sm text-muted-foreground">
+                  <RelativeTime date={updatedAt} />
+               </p>
             </div>
             <Button
                variant="outline"
