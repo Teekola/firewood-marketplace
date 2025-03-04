@@ -160,7 +160,7 @@ model SellerQuotationRequest {
    quotationRequestId String                       @map("quotation_request_id")
    seller             Seller                       @relation(fields: [sellerId], references: [id], onDelete: Cascade)
    sellerId           String                       @map("seller_id")
-   hasViewed          Boolean                      @default(false) @map("has_viewed")
+   lastViewedAt       DateTime?                    @map("last_viewed_at")
    status             SellerQuotationRequestStatus @default(PENDING)
 
    @@unique([quotationRequestId, sellerId])
