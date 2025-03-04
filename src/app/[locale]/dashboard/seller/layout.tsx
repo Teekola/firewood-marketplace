@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Locale, routing } from "@/i18n/routing";
 
 import { QuotationRequestSidebarNavIndicator } from "../(components)/quotation-request-sidebar-nav-indicator";
+import { SentOffersSidebarNavIndicator } from "../(components)/sent-offers-sidebar-nav-indicator";
 import { SidebarNav, SidebarNavProps } from "../(components)/sidebar-nav";
 
 export function generateStaticParams() {
@@ -35,6 +36,7 @@ export async function getSidebarNavItems() {
       {
          title: t("Sent Offers"),
          href: "/dashboard/seller/offers",
+         indicator: <SentOffersSidebarNavIndicator />,
       },
    ];
    return sidebarNavItems;

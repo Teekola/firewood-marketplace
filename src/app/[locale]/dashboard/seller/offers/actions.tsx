@@ -7,6 +7,7 @@ import {
    deleteOfferById,
    getActiveOffersBySellerIdPaginated,
    getActiveOffersCountBySellerId,
+   getSentOffersNotificationCountBySellerId,
    updateOffer,
 } from "@/app/db/offer";
 import { updateSellerQuotationRequestStatus } from "@/app/db/quotation-request";
@@ -73,4 +74,9 @@ export async function deleteOffer({
       sellerId: seller.id,
    });
    await deleteOfferById(offerId);
+}
+
+export async function getSentOffersNotificationCount() {
+   const { seller } = await getAuthorizedSeller();
+   return await getSentOffersNotificationCountBySellerId(seller.id);
 }

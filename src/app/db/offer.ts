@@ -100,3 +100,9 @@ export const updateOffer = async ({ id, data }: UpdateOfferArgs) => {
 export const deleteOfferById = async (id: string) => {
    await prisma.offer.delete({ where: { id } });
 };
+
+export const getSentOffersNotificationCountBySellerId = async (sellerId: string) => {
+   return await prisma.offer.count({
+      where: { sellerId, NOT: { rejectedAt: null } },
+   });
+};
