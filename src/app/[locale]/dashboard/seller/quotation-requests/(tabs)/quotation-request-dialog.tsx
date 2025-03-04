@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/compon
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import QuotationRequestDetails from "../(components)/quotation-request-details";
+import { useUpdateQuotationRequestViewedAt } from "../(hooks)/use-update-quotation-request-viewed-at";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests";
 const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
@@ -34,6 +35,8 @@ export default function QuotationRequestDialog({
       if (pathname === DIALOG_ROUTE) setOpen(true);
       if (pathname !== DIALOG_ROUTE) setOpen(false);
    }, [pathname]);
+
+   useUpdateQuotationRequestViewedAt({ quotationRequestId: quotationRequest?.id });
 
    if (!quotationRequest) return null;
    return (

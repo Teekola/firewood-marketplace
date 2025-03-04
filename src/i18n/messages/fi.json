@@ -176,7 +176,8 @@
     "There are no pending quotation requests": "Sinulle ei ole tullut uusia tarjouspyyntöjä.",
     "Reject Quotation Request": "Hylkää tarjouspyyntö",
     "reject-request-description": "Hylätyt tarjouspyynnöt siirretään hylätyt-välilehdelle. Hylätyt pyynnöt on mahdollista palauttaa aktiiviset tarjouspyynnöt -välilehdelle. Hylätyt pyynnöt poistetaan automaattisesti 30 päivän kuluttua..",
-    "There are no rejected quotation requests": "Sinulla ei ole hylättyjä tarjouspyyntöjä."
+    "There are no rejected quotation requests": "Sinulla ei ole hylättyjä tarjouspyyntöjä.",
+    "New": "Uusi"
   },
   "offer": {
     "Price": "Hinta",

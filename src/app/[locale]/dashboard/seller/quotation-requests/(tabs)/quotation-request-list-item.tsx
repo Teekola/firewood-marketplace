@@ -15,8 +15,8 @@ import { useQuotationRequestData } from "../(hooks)/use-quotation-request-data";
 
 export const QuotationRequestListItem = forwardRef<
    HTMLLIElement,
-   Readonly<{ quotationRequest: QuotationRequest }>
->(({ quotationRequest }, ref) => {
+   Readonly<{ quotationRequest: QuotationRequest; isNew?: boolean }>
+>(({ quotationRequest, isNew }, ref) => {
    const t = useTranslations();
 
    const { updatedAt, amount, amountUnit, lengthUnit, maxLength } =
@@ -26,7 +26,7 @@ export const QuotationRequestListItem = forwardRef<
 
    return (
       <li ref={ref}>
-         <Card className="flex flex-col justify-between gap-4 p-4 xs:flex-row">
+         <Card className="relative flex flex-col justify-between gap-4 p-4 xs:flex-row">
             <div className="flex flex-col gap-2">
                <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
                   <CardTitle className="text-left font-bold hover:underline">
@@ -50,15 +50,21 @@ export const QuotationRequestListItem = forwardRef<
                </p>
 
                <p className="text-sm text-muted-foreground">
-                  {" "}
                   {t("quotation-request.Last updated")} <RelativeTime date={new Date(updatedAt)} />
                </p>
             </div>
-            <Button asChild variant="outline" className="my-auto">
-               <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
-                  {t("View")}
-               </Link>
-            </Button>
+            <div className="flex flex-col items-end">
+               {isNew && (
+                  <p className="absolute right-4 top-1 w-fit rounded-full bg-destructive px-2 py-1 text-xs font-bold text-destructive-foreground">
+                     {t("quotation-request.New")}
+                  </p>
+               )}
+               <Button asChild variant="outline" className="my-auto">
+                  <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
+                     {t("View")}
+                  </Link>
+               </Button>
+            </div>
          </Card>
       </li>
    );

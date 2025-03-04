@@ -9,6 +9,7 @@ import {
    getRejectedQuotationRequestCountBySellerId,
    getRejectedQuotationRequestsBySellerIdPaginated,
    updateSellerQuotationRequestStatus,
+   updateSellerQuotationRequestViewedAt,
 } from "@/app/db/quotation-request";
 import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
 import { SortOrder } from "@/lib/utils/types";
@@ -105,4 +106,9 @@ export async function createOffer(data: Omit<CreateOfferArgs, "sellerId">) {
    ]);
 
    return offer;
+}
+
+export async function updateViewedAt(quotationRequestId: string) {
+   const { seller } = await getAuthorizedSeller();
+   await updateSellerQuotationRequestViewedAt({ quotationRequestId, sellerId: seller.id });
 }
