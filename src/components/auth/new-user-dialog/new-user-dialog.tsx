@@ -27,7 +27,7 @@ export async function NewUserDialog({ ...props }: Readonly<SignInDialogProps>) {
 
    return (
       <Dialog {...props} open={!session.user.isRegistered}>
-         <DialogContent hideCloseButton>
+         <DialogContent hideCloseButton onOpenAutoFocus={(e) => e.preventDefault()}>
             <DialogHeader>
                <DialogTitle className="text-2xl">{t("Welcome to Polttopuutori")}</DialogTitle>
             </DialogHeader>
