@@ -67,7 +67,7 @@ export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationF
                      <FormItem className="w-full">
                         <FormLabel>{t("auth.Email")}</FormLabel>
                         <FormControl>
-                           <Input {...field} />
+                           <Input {...field} inputMode="email" />
                         </FormControl>
                         <FormMessage />
                      </FormItem>
