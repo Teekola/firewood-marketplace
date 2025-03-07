@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
@@ -9,6 +9,7 @@ import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { ButtonLoading } from "@/components/ui/button-loading";
 import {
    Form,
    FormControl,
@@ -34,6 +35,7 @@ type EmailPasswordRegistrationFormProps = ComponentProps<"form">;
 
 export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationFormProps) {
    const t = useTranslations();
+   const [isSubmitting, setIsSubmitting] = useState(false);
 
    const defaultValues: DefaultValues<SellerProfileFormData> = {
       username: "",
@@ -49,6 +51,7 @@ export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationF
 
    async function onSubmit(data: SellerProfileFormData) {
       if (!canProceed) return;
+      setIsSubmitting(true);
       signIn("email-password", data);
    }
 
@@ -89,9 +92,12 @@ export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationF
                />
             </div>
 
-            <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 w-full">
-               {t("auth.Sign In")}
-            </Button>
+            {isSubmitting && <ButtonLoading size="lg" className="mt-4 w-full" />}
+            {!isSubmitting && (
+               <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 w-full">
+                  {t("auth.Sign In")}
+               </Button>
+            )}
 
             <FormRootError />
          </form>
