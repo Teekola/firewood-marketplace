@@ -1,6 +1,7 @@
 import type { DefaultSession, NextAuthConfig } from "next-auth";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { JWT } from "next-auth/jwt";
+import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 
 import { env as clientEnv } from "@/env/client";
@@ -48,6 +49,8 @@ export const pages = {
    signIn: "/auth/sign-in",
 } satisfies AuthPages;
 export const registerPage = "/auth/register";
+const registerWithEmailPage = "/auth/register/email";
+const signInWithEmailPage = "/auth/sign-in/email";
 
 // example of all routes within /dashboard: "/dashboard/.*"
 const protectedRoutes = ["/dashboard", "/dashboard/.*"];
@@ -71,10 +74,19 @@ function getLocalizedPages(routes: string[]) {
    });
    return pathnames;
 }
-export const authPages = [pages.signIn, registerPage, ...getLocalizedPages([registerPage])];
+export const authPages = [
+   pages.signIn,
+   signInWithEmailPage,
+   registerPage,
+   registerWithEmailPage,
+   ...getLocalizedPages([registerPage, registerWithEmailPage, signInWithEmailPage]),
+];
 export const protectedPages = getLocalizedPages(protectedRoutes);
 export const CALLBACK_URL_KEY = "callbackUrl";
 export const DEFAULT_ROUTE = "/";
+
+const http = env.NODE_ENV === "development" ? "http" : "https";
+const baseUrl = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/`;
 
 export const authOptions = {
    providers: [
@@ -83,14 +95,30 @@ export const authOptions = {
          clientSecret: env.AUTH_GOOGLE_SECRET,
          allowDangerousEmailAccountLinking: true,
       }),
+      Credentials({
+         id: "email-password",
+         credentials: {
+            username: { type: "text" },
+            password: { type: "password" },
+         },
+         async authorize(credentials) {
+            const response = await fetch(`${baseUrl}/authorize-user-with-email-and-password`, {
+               method: "POST",
+               body: JSON.stringify(credentials),
+               headers: {
+                  "X-Api-Key": env.INTERNAL_API_SECRET,
+               },
+            });
+            return await response.json();
+         },
+      }),
    ],
    pages,
    callbacks: {
       async jwt({ token, user, trigger, session }) {
          if (trigger === "signUp") {
-            const http = env.NODE_ENV === "development" ? "http" : "https";
-            const url = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth/register-user?id=${user.id}`;
-            await fetch(url);
+            const url = `${baseUrl}/register-user?id=${user.id}`;
+            await fetch(url, { headers: { "X-Api-Key": env.INTERNAL_API_SECRET } });
          }
 
          // Updates the token. The update data is provided in the session

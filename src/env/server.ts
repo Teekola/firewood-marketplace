@@ -6,6 +6,8 @@ export const env = createEnv({
       AUTH_SECRET: z.string().min(1),
       AUTH_GOOGLE_ID: z.string().min(1),
       AUTH_GOOGLE_SECRET: z.string().min(1),
+      AUTH_PASSWORD_PEPPER: z.string().min(1),
+      INTERNAL_API_SECRET: z.string().min(1),
       POSTGRES_PRISMA_URL: z.string().url(),
       POSTGRES_URL_NON_POOLING: z.string().url(),
       ENV: z.enum(["development", "production", "test", "staging", "preview"]),

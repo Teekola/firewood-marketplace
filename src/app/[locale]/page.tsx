@@ -1,6 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { NewUserDialog } from "@/components/auth/new-user-dialog";
 import { Topbar } from "@/components/topbar";
 import { Link, Locale, routing } from "@/i18n/routing";
 import { Button } from "@/ui/button";
@@ -22,7 +21,6 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
                <Link href="/request-offers/firewood">{t("Request Offers")}</Link>
             </Button>
          </main>
-         <NewUserDialog />
       </>
    );
 }

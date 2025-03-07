@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
+import { NewUserDialog } from "@/components/auth/new-user-dialog";
 import { UserStoreProvider } from "@/components/auth/user-store-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -41,7 +42,13 @@ export default async function RootLayout({
                >
                   <UserStoreProvider user={user}>
                      <ReactQueryProvider>
-                        <TooltipProvider>{children}</TooltipProvider>
+                        <TooltipProvider>
+                           <>
+                              {/**TODO: Add terms and services dialog with a check on terms acceptance date to ensure acceptance of always the latest terms and privacy policy */}
+                              <NewUserDialog user={user} />
+                              {children}
+                           </>
+                        </TooltipProvider>
                      </ReactQueryProvider>
                   </UserStoreProvider>
                </ThemeProvider>

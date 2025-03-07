@@ -1,8 +1,10 @@
+"use client";
+
 import { ComponentProps } from "react";
 
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
-import { auth } from "@/auth/auth";
+import { UserDTO } from "@/app/db/user";
 import {
    Dialog,
    DialogContent,
@@ -13,28 +15,31 @@ import {
 
 import { NewUserForm } from "./new-user-form";
 
-type SignInDialogProps = ComponentProps<typeof Dialog>;
+interface SignInDialogProps extends ComponentProps<typeof Dialog> {
+   user: UserDTO | null;
+}
 
-export async function NewUserDialog({ ...props }: Readonly<SignInDialogProps>) {
-   const session = await auth();
-   const t = await getTranslations("new-user");
+export function NewUserDialog({ user, ...props }: Readonly<SignInDialogProps>) {
+   const t = useTranslations();
 
-   if (!session) return null;
+   if (!user) return null;
 
-   if (session.user.isRegistered) {
+   if (user.isRegistered) {
       return null;
    }
 
    return (
-      <Dialog {...props} open={!session.user.isRegistered}>
+      <Dialog {...props} open={!user.isRegistered}>
          <DialogContent hideCloseButton onOpenAutoFocus={(e) => e.preventDefault()}>
             <DialogHeader>
-               <DialogTitle className="text-2xl">{t("Welcome to Polttopuutori")}</DialogTitle>
+               <DialogTitle className="text-2xl">
+                  {t("new-user.Welcome to Polttopuutori")}
+               </DialogTitle>
             </DialogHeader>
             <DialogDescription className="sr-only">
-               {t("Please select what you intend to use the platform for")}
+               {t("new-user.Please select what you intend to use the platform for")}
             </DialogDescription>
-            <NewUserForm userId={session.user.id} />
+            <NewUserForm userId={user.id} />
          </DialogContent>
       </Dialog>
    );

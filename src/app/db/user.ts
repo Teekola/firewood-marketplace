@@ -11,6 +11,7 @@ const userDTOFields = Prisma.validator<Prisma.UserSelect>()({
    email: true,
    image: true,
    preferredUnitSystem: true,
+   isRegistered: true,
 });
 
 export type UserDTO = Prisma.UserGetPayload<{ select: typeof userDTOFields }>;
@@ -22,6 +23,7 @@ function createUserDTO(user: UserDTO) {
       email: user.email,
       image: user.image,
       preferredUnitSystem: user.preferredUnitSystem,
+      isRegistered: user.isRegistered,
    };
 }
 
@@ -68,4 +70,28 @@ export const getUser = async () => {
    const userId = session.user.id;
    const user = await getUserById(userId);
    return user;
+};
+
+export const getUserByUsername = async (username: string) => {
+   const user = await prisma.user.findFirst({
+      where: { OR: [{ username }, { email: username }] },
+   });
+   return user;
+};
+
+export const createUserAndAcceptTerms = async ({
+   username,
+   hashedPassword,
+}: {
+   username: string;
+   hashedPassword: string;
+}) => {
+   return await prisma.user.create({
+      data: {
+         username,
+         email: username,
+         password: hashedPassword,
+         termsAcceptedAt: new Date(),
+      },
+   });
 };

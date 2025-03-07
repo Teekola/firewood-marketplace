@@ -43,8 +43,8 @@ export function BackButtonLink({ label, href, ...props }: Readonly<BackButtonLin
    return (
       <Button
          {...props}
-         asChild
          variant="outline"
+         asChild
          type="button"
          className={cn("group inline-flex items-center justify-between gap-2", props.className)}
       >

@@ -1,219 +1,241 @@
 {
-  "auth": {
-    "Sign in with Google": "Sign in with Google",
-    "Sign In": "Sign In",
-    "Sign Out": "Sign Out",
-    "Register with Google": "Register with Google",
-    "New user": "New user",
-    "Register here": "Register here",
-    "Already have an account": "Already have an account",
-    "to fill in the details": "to fill in the details.",
-    "Register": "Register"
-  },
-  "settings": {
-    "preferences": {
-      "Toggle theme": "Toggle theme",
-      "Light": "Light",
-      "Dark": "Dark",
-      "System": "System",
-      "Select language": "Select language"
-    }
-  },
-  "request-offers": {
-    "Request Offers": "Request Offers",
-    "Firewood": "Firewood",
-    "Delivery": "Delivery",
-    "Contact": "Contact",
-    "Submit": "Submit",
-    "Abandon Request": "Abandon Request",
-    "abandon-request-description": "This action cannot be undone. The inputted data will be lost.",
-    "Wood type": "Wood type",
-    "mixed": "mixed",
-    "birch": "birch",
-    "pine": "pine",
-    "Dryness": "Dryness",
-    "any": "any",
-    "dry": "dry",
-    "green": "green",
-    "Amount": "Amount",
-    "Max length": "max length",
-    "Optional": "Optional",
-    "Continue": "Continue",
-    "pickup": "pickup",
-    "PICKUP": "pickup",
-    "home delivery": "home delivery",
-    "homeDelivery": "home delivery",
-    "home_delivery": "home delivery",
-    "HOME_DELIVERY": "home delivery",
-    "Country": "Country",
-    "Select country": "Select country",
-    "Search country": "Search country...",
-    "No country found": "No country found.",
-    "Postal code": "Postal code",
-    "Invalid postal code": "Invalid postal code",
-    "Address": "Address",
-    "Phone": "Phone",
-    "Full name": "Full name",
-    "Full name placeholder": "First Last",
-    "Email": "Email",
-    "Type your email": "Type your email",
-    "Type your phone number": "Type your phone number",
-    "You may use any format": "You may use any format",
-    "Additional information Optional": "Additional information (Optional)",
-    "Type special wishes or other useful information": "Type special wishes or other useful information",
-    "dry or green": "dry or green",
-    "Delivery type": "Delivery type",
-    "Maximum length": "Maximum length",
-    "characters": "characters",
-    "Buy as a company": "Buy as a company",
-    "Company name": "Company name",
-    "Insert company name": "Insert company name",
-    "Back": "Back",
-    "Sign in to submit": "Sign in to submit",
-    "Register to submit": "Register to submit"
-  },
-  "countries": {
-    "Finland": "Finland",
-    "United States": "United States"
-  },
-  "form-messages": {
-    "Insert a valid number": "Insert a valid number",
-    "Invalid postal code": "Invalid postal code",
-    "Address is required for home delivery": "Address is required for home delivery",
-    "Name is required": "Name is required",
-    "The email is invalid": "The email is invalid",
-    "Email is required": "Email is required",
-    "The phone number is invalid": "The phone number is invalid",
-    "Insert company name": "Insert company name",
-    "Please select at least one option": "Please, select at least one option",
-    "An error occurred": "An error occurred."
-  },
-  "actions": {
-    "Cancel": "Cancel",
-    "Abandon": "Abandon",
-    "Close": "Close",
-    "More": "More",
-    "Navigate to": "Navigate to",
-    "Select a page to navigate to": "Select a page to navigate to",
-    "Reject": "Reject",
-    "Submit": "Submit",
-    "Restore": "Restore",
-    "View": "View",
-    "Edit": "Edit",
-    "Delete": "Delete"
-  },
-  "metadata": {
-    "page-titles": {
-      "request-offers-firewood": "Request Offers For Firewood - Select Firewood Options",
-      "request-offers-delivery": "Request Offers For Firewood - Select Delivery Options",
-      "request-offers-contact": "Request Offers For Firewood - Select Contact Options",
-      "request-offers-submit": "Request Offers For Firewood - Review and Submit"
-    }
-  },
-  "new-user": {
-    "Continue": "Continue",
-    "Welcome to Polttopuutori": "Welcome to Polttopuutori",
-    "I intend to use the platform for": "I intend to use the platform for",
-    "For selling": "Selling",
-    "For buying": "Buying",
-    "Please select what you intend to use the platform for": "Please, select what you intend to use the platform for"
-  },
-  "breadcrumbs": {
-    "/": "/Home",
-    "/auth/sign-in": "/Sign In",
-    "/auth/register": "/Register",
-    "/dashboard": "/Dashboard",
-    "/dashboard/seller": "/Dashboard/Seller Dashboard",
-    "/dashboard/seller/dashboard": "/Dashboard/Seller Dashboard/Overview",
-    "/dashboard/seller/profile": "/Dashboard/Seller Dashboard/Profile",
-    "/dashboard/seller/location": "/Dashboard/Seller Dashboard/Location",
-    "/dashboard/seller/quotation-requests": "/Dashboard/Seller Dashboard/Quotation Requests",
-    "/dashboard/seller/quotation-requests/id": "/Dashboard/Seller Dashboard/Quotation Requests/Request",
-    "/dashboard/seller/quotation-requests/id/make-offer": "/Dashboard/Seller Dashboard/Quotation Requests/Request/Make Offer",
-    "/dashboard/seller/quotation-requests/rejected": "/Dashboard/Seller Dashboard/Quotation Requests/Rejected",
-    "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
-    "/dashboard/seller/offers/id": "/Dashboard/Seller Dashboard/Sent Offers/Offer",
-    "/dashboard/seller/offers/id/edit": "/Dashboard/Seller Dashboard/Sent Offers/Offer/Edit",
-    "/dashboard/buyer": "/Dashboard/Buyer"
-  },
-  "dashboard": {
-    "Seller Dashboard": "Seller Dashboard",
-    "Overview": "Overview",
-    "Profile": "Profile",
-    "Location": "Location",
-    "Quotation Requests": "Quotation Requests",
-    "Seller Location": "Seller Location",
-    "Define location settings These affect the offers you receive": "Define location settings. These affect the offers you receive.",
-    "Seller Profile": "Seller Profile",
-    "Define contact information that potential buyers receive upon accepting an offer": "Define contact information that potential buyers receive upon accepting an offer.",
-    "Dashboard": "Dashboard",
-    "Buyer Dashboard": "Buyer Dashboard",
-    "User Settings": "User Settings",
-    "Become a Seller": "Become a Seller",
-    "actions": {
+   "auth": {
+      "Sign in with Google": "Sign in with Google",
+      "Sign In": "Sign In",
+      "Sign Out": "Sign Out",
+      "Register with Google": "Register with Google",
+      "New user": "New user",
+      "Register here": "Register here",
+      "Already have an account": "Already have an account",
+      "to fill in the details": "to fill in the details.",
+      "Register": "Register",
+      "or": "or",
+      "register with email": "register with email",
+      "Email": "Email",
+      "Password": "Password",
+      "password-description": "Password needs to be at least 8 characters long.",
+      "Sign up": "Sign up",
+      "sign in with email": "sign in with email"
+   },
+   "settings": {
+      "preferences": {
+         "Toggle theme": "Toggle theme",
+         "Light": "Light",
+         "Dark": "Dark",
+         "System": "System",
+         "Select language": "Select language"
+      }
+   },
+   "request-offers": {
+      "Request Offers": "Request Offers",
+      "Firewood": "Firewood",
+      "Delivery": "Delivery",
+      "Contact": "Contact",
+      "Submit": "Submit",
+      "Abandon Request": "Abandon Request",
+      "abandon-request-description": "This action cannot be undone. The inputted data will be lost.",
+      "Wood type": "Wood type",
+      "mixed": "mixed",
+      "birch": "birch",
+      "pine": "pine",
+      "Dryness": "Dryness",
+      "any": "any",
+      "dry": "dry",
+      "green": "green",
+      "Amount": "Amount",
+      "Max length": "max length",
+      "Optional": "Optional",
+      "Continue": "Continue",
+      "pickup": "pickup",
+      "PICKUP": "pickup",
+      "home delivery": "home delivery",
+      "homeDelivery": "home delivery",
+      "home_delivery": "home delivery",
+      "HOME_DELIVERY": "home delivery",
+      "Country": "Country",
+      "Select country": "Select country",
+      "Search country": "Search country...",
+      "No country found": "No country found.",
+      "Postal code": "Postal code",
+      "Invalid postal code": "Invalid postal code",
+      "Address": "Address",
+      "Phone": "Phone",
+      "Full name": "Full name",
+      "Full name placeholder": "First Last",
+      "Email": "Email",
+      "Type your email": "Type your email",
+      "Type your phone number": "Type your phone number",
+      "You may use any format": "You may use any format",
+      "Additional information Optional": "Additional information (Optional)",
+      "Type special wishes or other useful information": "Type special wishes or other useful information",
+      "dry or green": "dry or green",
+      "Delivery type": "Delivery type",
+      "Maximum length": "Maximum length",
+      "characters": "characters",
+      "Buy as a company": "Buy as a company",
+      "Company name": "Company name",
+      "Insert company name": "Insert company name",
       "Back": "Back",
-      "Save": "Save"
-    },
-    "Max distance": "Max distance",
-    "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Set the rough maximum distance for quotation requests. The larger the distance the more quotation requests you will receive. We recommend setting this rather too high than too low. The location is determined based on postal codes so this is not very accurate.",
-    "profile": {
-      "Seller name": "Seller name",
-      "Seller name instruction": "Seller's name or company name",
-      "Email": "Email"
-    },
-    "Sent Offers": "Sent Offers",
-    "Rejected": "Rejected",
-    "Active": "Active",
-    "Quotation request details": "Quotation Request Details",
-    "Additional information": "Additional Information"
-  },
-  "View": "View",
-  "quotation-request": {
-    "Make offer": "Make offer",
-    "Last updated": "Last updated",
-    "Make an Offer": "Make an Offer",
-    "Additional information": "Additional information",
-    "There are no pending quotation requests": "There are no pending quotation requests.",
-    "Reject Quotation Request": "Reject Quotation Request",
-    "reject-request-description": "Rejected requests will be moved under the section of rejected quotation requests. They can be returned to active quotation requests, but will be automatically removed in 30 days.",
-    "There are no rejected quotation requests": "There are no rejected quotation requests.",
-    "New": "New"
-  },
-  "offer": {
-    "Price": "Price",
-    "Fill in the form to make an offer": "Fill in the form to make an offer.",
-    "US Dollar": "US Dollar",
-    "Select the earliest availability of the firewood to be delivered": "Select the earliest date for the firewood to be delivered.",
-    "Select the earliest availability of the firewood to be picked up": "Select the earliest pickup date for the firewood.",
-    "Earliest delivery date": "Earliest delivery date",
-    "Earliest pickup date": "Earliest pickup date",
-    "Pick a date": "Pick a date",
-    "There are no active offers": "There are no active offers.",
-    "Rejected": "Rejected",
-    "Pending": "Pending",
-    "Not seen": "Not seen",
-    "Seen": "Seen",
-    "Offer details": "Offer Details",
-    "Edit Offer": "Edit Offer",
-    "Delete Offer": "Delete Offer",
-    "delete-offer-description": "By deleting the offer, it will be instantly removed from the customer. This action can not be reverted. Are you sure you want to delete the offer?"
-  },
-  "currencies": {
-    "label-USD": "US Dollar",
-    "label-EUR": "Euro"
-  },
-  "pagination": {
-    "Loading": "Loading...",
-    "displayed-results": "Displaying {displayed} / {total}"
-  },
-  "sorting": {
-    "newest-first": "Newest first",
-    "oldest-first": "Oldest first"
-  },
-  "instructions": {
-    "Please wait": "Please wait"
-  },
-  "offers": {
-    "Sent Offers": "Sent Offers"
-  }
+      "Sign in to submit": "Sign in to submit",
+      "Register to submit": "Register to submit"
+   },
+   "countries": {
+      "Finland": "Finland",
+      "United States": "United States"
+   },
+   "form-messages": {
+      "Insert a valid number": "Insert a valid number",
+      "Invalid postal code": "Invalid postal code",
+      "Address is required for home delivery": "Address is required for home delivery",
+      "Name is required": "Name is required",
+      "The email is invalid": "The email is invalid",
+      "Email is required": "Email is required",
+      "The phone number is invalid": "The phone number is invalid",
+      "Insert company name": "Insert company name",
+      "Please select at least one option": "Please, select at least one option",
+      "An error occurred": "An error occurred.",
+      "Password needs to be at least 8 characters long": "Password needs to be at least 8 characters long.",
+      "The password is too short": "The password is too short.",
+      "You must agree to our terms and conditions to register": "You must agree to our terms and conditions to register.",
+      "Email is already taken": "Email is already taken."
+   },
+   "actions": {
+      "Cancel": "Cancel",
+      "Abandon": "Abandon",
+      "Close": "Close",
+      "More": "More",
+      "Navigate to": "Navigate to",
+      "Select a page to navigate to": "Select a page to navigate to",
+      "Reject": "Reject",
+      "Submit": "Submit",
+      "Restore": "Restore",
+      "View": "View",
+      "Edit": "Edit",
+      "Delete": "Delete",
+      "Back": "Back"
+   },
+   "metadata": {
+      "page-titles": {
+         "request-offers-firewood": "Request Offers For Firewood - Select Firewood Options",
+         "request-offers-delivery": "Request Offers For Firewood - Select Delivery Options",
+         "request-offers-contact": "Request Offers For Firewood - Select Contact Options",
+         "request-offers-submit": "Request Offers For Firewood - Review and Submit"
+      }
+   },
+   "new-user": {
+      "Continue": "Continue",
+      "Welcome to Polttopuutori": "Welcome to Polttopuutori",
+      "I intend to use the platform for": "I intend to use the platform for",
+      "For selling": "Selling",
+      "For buying": "Buying",
+      "Please select what you intend to use the platform for": "Please, select what you intend to use the platform for"
+   },
+   "breadcrumbs": {
+      "/": "/Home",
+      "/auth/sign-in": "/Sign In",
+      "/auth/register": "/Register",
+      "/dashboard": "/Dashboard",
+      "/dashboard/seller": "/Dashboard/Seller Dashboard",
+      "/dashboard/seller/dashboard": "/Dashboard/Seller Dashboard/Overview",
+      "/dashboard/seller/profile": "/Dashboard/Seller Dashboard/Profile",
+      "/dashboard/seller/location": "/Dashboard/Seller Dashboard/Location",
+      "/dashboard/seller/quotation-requests": "/Dashboard/Seller Dashboard/Quotation Requests",
+      "/dashboard/seller/quotation-requests/id": "/Dashboard/Seller Dashboard/Quotation Requests/Request",
+      "/dashboard/seller/quotation-requests/id/make-offer": "/Dashboard/Seller Dashboard/Quotation Requests/Request/Make Offer",
+      "/dashboard/seller/quotation-requests/rejected": "/Dashboard/Seller Dashboard/Quotation Requests/Rejected",
+      "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
+      "/dashboard/seller/offers/id": "/Dashboard/Seller Dashboard/Sent Offers/Offer",
+      "/dashboard/seller/offers/id/edit": "/Dashboard/Seller Dashboard/Sent Offers/Offer/Edit",
+      "/dashboard/buyer": "/Dashboard/Buyer"
+   },
+   "dashboard": {
+      "Seller Dashboard": "Seller Dashboard",
+      "Overview": "Overview",
+      "Profile": "Profile",
+      "Location": "Location",
+      "Quotation Requests": "Quotation Requests",
+      "Seller Location": "Seller Location",
+      "Define location settings These affect the offers you receive": "Define location settings. These affect the offers you receive.",
+      "Seller Profile": "Seller Profile",
+      "Define contact information that potential buyers receive upon accepting an offer": "Define contact information that potential buyers receive upon accepting an offer.",
+      "Dashboard": "Dashboard",
+      "Buyer Dashboard": "Buyer Dashboard",
+      "User Settings": "User Settings",
+      "Become a Seller": "Become a Seller",
+      "actions": {
+         "Back": "Back",
+         "Save": "Save"
+      },
+      "Max distance": "Max distance",
+      "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Set the rough maximum distance for quotation requests. The larger the distance the more quotation requests you will receive. We recommend setting this rather too high than too low. The location is determined based on postal codes so this is not very accurate.",
+      "profile": {
+         "Seller name": "Seller name",
+         "Seller name instruction": "Seller's name or company name",
+         "Email": "Email"
+      },
+      "Sent Offers": "Sent Offers",
+      "Rejected": "Rejected",
+      "Active": "Active",
+      "Quotation request details": "Quotation Request Details",
+      "Additional information": "Additional Information"
+   },
+   "View": "View",
+   "quotation-request": {
+      "Make offer": "Make offer",
+      "Last updated": "Last updated",
+      "Make an Offer": "Make an Offer",
+      "Additional information": "Additional information",
+      "There are no pending quotation requests": "There are no pending quotation requests.",
+      "Reject Quotation Request": "Reject Quotation Request",
+      "reject-request-description": "Rejected requests will be moved under the section of rejected quotation requests. They can be returned to active quotation requests, but will be automatically removed in 30 days.",
+      "There are no rejected quotation requests": "There are no rejected quotation requests.",
+      "New": "New"
+   },
+   "offer": {
+      "Price": "Price",
+      "Fill in the form to make an offer": "Fill in the form to make an offer.",
+      "US Dollar": "US Dollar",
+      "Select the earliest availability of the firewood to be delivered": "Select the earliest date for the firewood to be delivered.",
+      "Select the earliest availability of the firewood to be picked up": "Select the earliest pickup date for the firewood.",
+      "Earliest delivery date": "Earliest delivery date",
+      "Earliest pickup date": "Earliest pickup date",
+      "Pick a date": "Pick a date",
+      "There are no active offers": "There are no active offers.",
+      "Rejected": "Rejected",
+      "Pending": "Pending",
+      "Not seen": "Not seen",
+      "Seen": "Seen",
+      "Offer details": "Offer Details",
+      "Edit Offer": "Edit Offer",
+      "Delete Offer": "Delete Offer",
+      "delete-offer-description": "By deleting the offer, it will be instantly removed from the customer. This action can not be reverted. Are you sure you want to delete the offer?"
+   },
+   "currencies": {
+      "label-USD": "US Dollar",
+      "label-EUR": "Euro"
+   },
+   "pagination": {
+      "Loading": "Loading...",
+      "displayed-results": "Displaying {displayed} / {total}"
+   },
+   "sorting": {
+      "newest-first": "Newest first",
+      "oldest-first": "Oldest first"
+   },
+   "instructions": {
+      "Please wait": "Please wait"
+   },
+   "offers": {
+      "Sent Offers": "Sent Offers"
+   },
+   "ui": {
+      "Hide password": "Hide password",
+      "Show password": "Show password"
+   },
+   "terms": {
+      "By registering I conrifm that I accept": "By registering, I confirm that I accept",
+      "Terms and Conditions": "Polttopuutori's Terms and Conditions",
+      "and that I have read": "and that I have read",
+      "Privacy Policy": "Privacy Policy"
+   }
 }

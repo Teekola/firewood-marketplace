@@ -1,6 +1,6 @@
 import { ErrorBase } from "./errorBase";
 
-type AuthErrorName = "SESSION_ERROR";
+type AuthErrorName = "SESSION_ERROR" | "AUTH_ERROR";
 type DatabaseErrorName = "DATABASE_ERROR";
 type UnknownErrorName = "UNHANDLED_ERROR";
 

@@ -10,9 +10,17 @@ export const routing = defineRouting({
    pathnames: {
       "/": "/",
       "/auth/sign-in": "/auth/sign-in", // This can not be localized
+      "/auth/sign-in/email": {
+         en: "/sign-in-with-email",
+         fi: "/kirjaudu-sahkopostiosoitteella",
+      },
       "/auth/register": {
          en: "/register",
          fi: "/rekisteroidy",
+      },
+      "/auth/register/email": {
+         en: "/register-with-email",
+         fi: "/rekisteroidy-sahkopostiosoitteella",
       },
       "/dashboard": {
          en: "/dashboard",
