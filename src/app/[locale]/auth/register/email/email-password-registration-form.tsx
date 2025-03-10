@@ -67,14 +67,17 @@ export function EmailPasswordRegistrationForm({ ...props }: EmailPasswordRegistr
          form.reset(data);
          const result = await registerWithEmailAndPassword(data);
          if ("error" in result) {
-            throw new AuthError({ message: result.error as string, code: 400, name: "AUTH_ERROR" });
+            throw new AuthError({
+               message: result.error as string,
+               code: "400",
+               name: "AUTH_ERROR",
+            });
          }
          // TODO: Implement more secure verification flow for email!
          await signIn("email-password", data);
       } catch (error) {
          setIsSubmitting(false);
          const errorData = parseError(error);
-         console.log(errorData);
          form.setError("root", {
             type: "registerUserWithEmailAndPasswordError",
             message: errorData.message,

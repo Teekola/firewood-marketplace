@@ -10,11 +10,18 @@ export function generateStaticParams() {
 
 export default async function SignInPage({
    params,
-}: Readonly<{ params: Promise<{ locale: Locale }> }>) {
-   const { locale } = await params;
+   searchParams,
+}: Readonly<{
+   params: Promise<{ locale: Locale }>;
+   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}>) {
+   const [{ locale }, t, search] = await Promise.all([
+      params,
+      getTranslations("auth"),
+      searchParams,
+   ]);
    setRequestLocale(locale);
 
-   const t = await getTranslations("auth");
    return (
       <div className="flex h-screen flex-col items-center justify-center gap-4 bg-secondary">
          <div className="flex w-full max-w-screen-xs flex-col items-center gap-5 rounded bg-card px-5 py-20 shadow">
@@ -24,7 +31,10 @@ export default async function SignInPage({
             <p className="mt-5 text-sm">
                {t("New user")}
                {"? "}
-               <Link href="/auth/register" className="cursor-pointer underline">
+               <Link
+                  href={{ pathname: "/auth/register", query: search }}
+                  className="cursor-pointer underline"
+               >
                   {t("Register here")}
                </Link>
             </p>

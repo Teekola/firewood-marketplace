@@ -1,3 +1,5 @@
+import * as z from "zod";
+
 import { ErrorBase } from "./errorBase";
 
 type AuthErrorName = "SESSION_ERROR" | "AUTH_ERROR";
@@ -14,6 +16,10 @@ export function parseError(error: unknown): ErrorBase<string> {
    return {
       name: "UNHANDLED_ERROR",
       message: "An error occurred",
-      code: 500,
+      code: "500",
    };
 }
+
+export const errorSchema = z.object({
+   message: z.string(),
+});

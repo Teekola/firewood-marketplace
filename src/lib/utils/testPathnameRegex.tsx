@@ -8,8 +8,16 @@ export function testPathnameRegex({
    pathName: string;
 }): boolean {
    if (paths.length < 1) return false;
-   return RegExp(
-      `^(/(${routing.locales.join("|")}))?(${paths.flatMap((p) => (p === "/" ? ["", "/"] : p)).join("|")})/?$`,
-      "i"
-   ).test(pathName);
+
+   // Replace dynamic segments like [id] with .+ to match any value
+   const regexPaths = paths.map(
+      (p) => p.replace(/\[.*?\]/g, ".+") // Match dynamic segments with .+
+   );
+
+   // Build the full regular expression, including locale support
+   const regexPattern = `^(/(${routing.locales.join("|")}))?(${regexPaths
+      .flatMap((p) => (p === "/" ? ["", "/"] : p))
+      .join("|")})/?$`;
+
+   return new RegExp(regexPattern, "i").test(pathName);
 }

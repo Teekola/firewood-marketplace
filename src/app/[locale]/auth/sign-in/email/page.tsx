@@ -12,8 +12,12 @@ export function generateStaticParams() {
 
 export default async function RegisterWithEmailPage({
    params,
-}: Readonly<{ params: Promise<{ locale: Locale }> }>) {
-   const { locale } = await params;
+   searchParams,
+}: Readonly<{
+   params: Promise<{ locale: Locale }>;
+   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}>) {
+   const [{ locale }, search] = await Promise.all([params, searchParams]);
    setRequestLocale(locale);
 
    const t = await getTranslations();
@@ -30,7 +34,10 @@ export default async function RegisterWithEmailPage({
                <p className="text-right text-sm">
                   {t("auth.New user")}
                   {"? "}
-                  <Link href="/auth/register" className="cursor-pointer underline">
+                  <Link
+                     href={{ pathname: "/auth/register", query: search }}
+                     className="cursor-pointer underline"
+                  >
                      {t("auth.Register here")}
                   </Link>
                </p>

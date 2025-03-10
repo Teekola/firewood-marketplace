@@ -2,6 +2,8 @@
 
 import { ComponentProps, useState } from "react";
 
+import { useSearchParams } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -22,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
+import { getValidHref, useRouter } from "@/i18n/routing";
 import "@/lib/utils/unit-conversions";
 
 export const emailPasswordRegistrationFormSchema = z.object({
@@ -36,6 +39,8 @@ type EmailPasswordRegistrationFormProps = ComponentProps<"form">;
 export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationFormProps) {
    const t = useTranslations();
    const [isSubmitting, setIsSubmitting] = useState(false);
+   const router = useRouter();
+   const searchParams = useSearchParams();
 
    const defaultValues: DefaultValues<SellerProfileFormData> = {
       username: "",
@@ -52,7 +57,25 @@ export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationF
    async function onSubmit(data: SellerProfileFormData) {
       if (!canProceed) return;
       setIsSubmitting(true);
-      signIn("email-password", data);
+
+      const result = await signIn("email-password", {
+         username: data.username,
+         password: data.password,
+         redirect: false,
+      });
+
+      if (result?.error) {
+         const errorMessage = result.code ?? "";
+         form.setError("root", { message: errorMessage });
+         setIsSubmitting(false);
+         return;
+      }
+
+      const searchCallbackUrl = searchParams.get("callbackUrl");
+      console.log(searchCallbackUrl);
+      const callbackHref = getValidHref(searchCallbackUrl) ?? "/";
+      console.log(getValidHref(searchCallbackUrl));
+      router.push(callbackHref);
    }
 
    return (
@@ -94,7 +117,7 @@ export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationF
 
             {isSubmitting && <ButtonLoading size="lg" className="mt-4 w-full" />}
             {!isSubmitting && (
-               <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 w-full">
+               <Button type="submit" size="lg" disabled={!canProceed} className="mt-4 w-full">
                   {t("auth.Sign In")}
                </Button>
             )}

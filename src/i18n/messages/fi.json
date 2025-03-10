@@ -97,7 +97,10 @@
       "Password needs to be at least 8 characters long": "Salasanassa tulee olla vähintään 8 merkkiä.",
       "The password is too short": "Salasana on liian lyhyt.",
       "You must agree to our terms and conditions to register": "Sinun täytyy hyväksyä käyttöehdot.",
-      "Username is already taken": "Sähköpostiosoite on varattu."
+      "Username is already taken": "Sähköpostiosoite on varattu.",
+      "Invalid credentials": "Virheelliset kirjautumistiedot.",
+      "Invalid username or password": "Virheellinen sähköpostiosoite tai salasana.",
+      "Your account uses a different login method": "Tilisi käyttää toista kirjautumistapaa."
    },
    "actions": {
       "Cancel": "Peruuta",

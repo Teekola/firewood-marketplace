@@ -97,7 +97,10 @@
       "Password needs to be at least 8 characters long": "Password needs to be at least 8 characters long.",
       "The password is too short": "The password is too short.",
       "You must agree to our terms and conditions to register": "You must agree to our terms and conditions to register.",
-      "Email is already taken": "Email is already taken."
+      "Email is already taken": "Email is already taken.",
+      "Invalid credentials": "Invalid credentials.",
+      "Invalid username or password": "Invalid email or password.",
+      "Your account uses a different login method": "Your account uses a different login method."
    },
    "actions": {
       "Cancel": "Cancel",

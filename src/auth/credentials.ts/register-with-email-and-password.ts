@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import * as z from "zod";
 
 import { createUserAndAcceptTerms, getUserByUsername } from "@/app/db/user";
+import { AuthError } from "@/lib/utils/errors";
 
 import { PASSWORD_PEPPER, credentialsSchema } from "./utils";
 
@@ -16,7 +17,7 @@ export async function registerUserWithEmailAndPassword(data: {
       .extend({ preferredUnitSystem: z.nativeEnum(UnitSystem) })
       .safeParse(data);
    if (!parsedData.success) {
-      throw new Error(parsedData.error.errors.map((e) => e.message).join(", "));
+      throw new AuthError({ name: "AUTH_ERROR", message: "Invalid credentials", code: "400" });
    }
 
    const { username, password } = parsedData.data;
@@ -24,7 +25,11 @@ export async function registerUserWithEmailAndPassword(data: {
    // Check if user already exists
    const existingUser = await getUserByUsername(username);
    if (existingUser) {
-      throw new Error("Username is already taken");
+      throw new AuthError({
+         name: "AUTH_ERROR",
+         message: "Username is already taken",
+         code: "4012",
+      });
    }
 
    // Hash password with salt and pepper

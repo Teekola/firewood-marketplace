@@ -22,11 +22,11 @@ function handleDatabaseErrors(error: unknown) {
       throw new DatabaseError({
          name: "DATABASE_ERROR",
          message: error.message,
-         code: Number(error.code),
+         code: error.code,
       });
    } else {
       const errorMessage = error instanceof Error ? error.message : "Unknown error occurred.";
-      throw new UnknownError({ name: "UNHANDLED_ERROR", message: errorMessage, code: 500 });
+      throw new UnknownError({ name: "UNHANDLED_ERROR", message: errorMessage, code: "500" });
    }
 }
 
@@ -42,14 +42,14 @@ export async function upsertSellerLocation({
    const session = await authWithSeller();
 
    if (!session || !session.seller) {
-      throw new AuthError({ name: "SESSION_ERROR", message: "There is no session.", code: 400 });
+      throw new AuthError({ name: "SESSION_ERROR", message: "There is no session.", code: "400" });
    }
 
    if (!session.seller) {
       throw new AuthError({
          name: "SESSION_ERROR",
          message: "The user does not have seller.",
-         code: 400,
+         code: "400",
       });
    }
 

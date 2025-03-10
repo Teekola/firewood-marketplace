@@ -1,4 +1,4 @@
-import type { DefaultSession, NextAuthConfig } from "next-auth";
+import { CredentialsSignin, type DefaultSession, type NextAuthConfig } from "next-auth";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { JWT } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
@@ -7,6 +7,7 @@ import Google from "next-auth/providers/google";
 import { env as clientEnv } from "@/env/client";
 import { env } from "@/env/server";
 import { routing } from "@/i18n/routing";
+import { errorSchema } from "@/lib/utils/errors";
 
 // DO NOT IMPORT PRISMA IN THIS FILE, OR IN MIDDLEWARE, OTHERWISE VERCEL DEPLOYMENT FAILS
 const UnitSystem = {
@@ -68,12 +69,20 @@ function getLocalizedPages(routes: string[]) {
       const regex = regexifyPath(route);
       return Object.keys(routing.pathnames)
          .filter((path) => regex.test(path))
-         .flatMap((matchedPath) =>
-            Object.values(routing.pathnames[matchedPath as keyof typeof routing.pathnames])
-         );
+         .flatMap((matchedPath) => {
+            // Convert dynamic paths to match any value (e.g., replace [id] with .+)
+            const regexPath = matchedPath.replace(/\[.*?\]/g, ".+");
+            return Object.values(routing.pathnames[matchedPath as keyof typeof routing.pathnames])
+               .map((localizedPath) => {
+                  // Convert localized paths similarly if they have dynamic segments
+                  return localizedPath.replace(/\[.*?\]/g, ".+");
+               })
+               .concat(regexPath);
+         });
    });
    return pathnames;
 }
+
 export const authPages = [
    pages.signIn,
    signInWithEmailPage,
@@ -109,7 +118,18 @@ export const authOptions = {
                   "X-Api-Key": env.INTERNAL_API_SECRET,
                },
             });
-            return await response.json();
+            const result = await response.json();
+
+            // Parse the result with error schema. If it has message key, it is considered a success
+            // By throwing CredentialsSignin error with customized code, we can display error in the client
+            const parsedResult = errorSchema.safeParse(result);
+            if (parsedResult.success) {
+               const error = new CredentialsSignin();
+               error.code = parsedResult.data.message;
+               throw error;
+            }
+
+            return result;
          },
       }),
    ],

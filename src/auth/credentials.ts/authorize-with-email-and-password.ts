@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 
 import { getUserByUsername } from "@/app/db/user";
+import { AuthError } from "@/lib/utils/errors";
 
 import { PASSWORD_PEPPER, credentialsSchema } from "./utils";
 
@@ -8,7 +9,7 @@ export async function authorizeUserWithEmailAndPassword(credentials: unknown) {
    // Validate input
    const parsedCredentials = credentialsSchema.safeParse(credentials);
    if (!parsedCredentials.success) {
-      throw new Error(parsedCredentials.error.errors.map((e) => e.message).join(", "));
+      throw new AuthError({ name: "AUTH_ERROR", message: "Invalid credentials", code: "400" });
    }
 
    const { username, password } = parsedCredentials.data;
@@ -17,14 +18,30 @@ export async function authorizeUserWithEmailAndPassword(credentials: unknown) {
    // NOTE: THIS NEEDS TO BE FROM AN API ROUTE, CANNOT USE PRISMA DIRECTLY
    const user = await getUserByUsername(username);
 
-   if (!user || !user.password) {
-      throw new Error("Invalid username or password");
+   if (!user) {
+      throw new AuthError({
+         name: "AUTH_ERROR",
+         message: "Invalid username or password",
+         code: "4010",
+      });
+   }
+
+   if (!user.password) {
+      throw new AuthError({
+         name: "AUTH_ERROR",
+         message: "Your account uses a different login method",
+         code: "4011",
+      });
    }
 
    // Compare hashed password with the provided password (including pepper)
    const isValid = await bcrypt.compare(password + PASSWORD_PEPPER, user.password);
    if (!isValid) {
-      throw new Error("Invalid username or password");
+      throw new AuthError({
+         name: "AUTH_ERROR",
+         message: "Invalid username or password",
+         code: "4010",
+      });
    }
 
    // Return user session data
