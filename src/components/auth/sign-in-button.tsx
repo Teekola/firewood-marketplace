@@ -1,16 +1,23 @@
+"use client";
+
 import { ComponentProps } from "react";
 
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 import { Button } from "@/ui/button";
 
-export async function SignInButton({ ...props }: Readonly<ComponentProps<typeof Button>>) {
-   const t = await getTranslations();
+export function SignInButton({ ...props }: Readonly<ComponentProps<typeof Button>>) {
+   const t = useTranslations();
+   const pathname = usePathname();
 
    return (
       <Button {...props} asChild>
-         {<Link href="/auth/sign-in">{t("auth.Sign In")}</Link>}
+         {
+            <Link href={{ pathname: "/auth/sign-in", query: { callbackUrl: pathname } }}>
+               {t("auth.Sign In")}
+            </Link>
+         }
       </Button>
    );
 }
