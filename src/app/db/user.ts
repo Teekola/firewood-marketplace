@@ -1,6 +1,6 @@
 import "server-only";
 
-import { Prisma } from "@prisma/client";
+import { Prisma, UnitSystem } from "@prisma/client";
 
 import { auth } from "@/auth/auth";
 import { prisma } from "@/prisma";
@@ -82,9 +82,11 @@ export const getUserByUsername = async (username: string) => {
 export const createUserAndAcceptTerms = async ({
    username,
    hashedPassword,
+   preferredUnitSystem,
 }: {
    username: string;
    hashedPassword: string;
+   preferredUnitSystem: UnitSystem;
 }) => {
    return await prisma.user.create({
       data: {
@@ -92,6 +94,7 @@ export const createUserAndAcceptTerms = async ({
          email: username,
          password: hashedPassword,
          termsAcceptedAt: new Date(),
+         preferredUnitSystem,
       },
    });
 };

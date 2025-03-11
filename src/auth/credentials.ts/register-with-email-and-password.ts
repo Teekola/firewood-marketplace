@@ -20,7 +20,7 @@ export async function registerUserWithEmailAndPassword(data: {
       throw new AuthError({ name: "AUTH_ERROR", message: "Invalid credentials", code: "400" });
    }
 
-   const { username, password } = parsedData.data;
+   const { username, password, preferredUnitSystem } = parsedData.data;
 
    // Check if user already exists
    const existingUser = await getUserByUsername(username);
@@ -40,6 +40,7 @@ export async function registerUserWithEmailAndPassword(data: {
    const newUser = await createUserAndAcceptTerms({
       username,
       hashedPassword,
+      preferredUnitSystem,
    });
 
    return newUser;
