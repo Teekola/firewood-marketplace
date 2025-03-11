@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 
-import { Topbar } from "@/components/topbar";
+import { WebsiteTopbar } from "@/components/topbar/website-topbar";
 import { Locale, routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
@@ -19,7 +19,7 @@ export default async function DashboardLayout({
 
    return (
       <>
-         <Topbar />
+         <WebsiteTopbar />
          <div
             className="mx-auto h-full w-full max-w-screen-xl p-3"
             style={{ height: "calc(100% - 220px)" }} // TODO: Might need modifications, needed for quotation request list

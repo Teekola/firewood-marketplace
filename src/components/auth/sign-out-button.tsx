@@ -12,7 +12,7 @@ type SignOutButtonProps = ComponentProps<typeof Button>;
 export function SignOutButton({ ...props }: SignOutButtonProps) {
    const t = useTranslations("auth");
    return (
-      <Button {...props} onClick={() => signOut()}>
+      <Button {...props} onClick={() => signOut({ redirectTo: "/" })}>
          {t("Sign Out")}
       </Button>
    );

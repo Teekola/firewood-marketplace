@@ -1,5 +1,7 @@
 "use client";
 
+import { ComponentProps } from "react";
+
 import { useParams } from "next/navigation";
 
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
@@ -23,7 +25,9 @@ import {
    useRouter,
 } from "@/i18n/routing";
 
-export function LanguageDropdown() {
+export function LanguageDropdown({
+   ...props
+}: Readonly<ComponentProps<typeof DropdownMenuTrigger>>) {
    const router = useRouter();
    const pathname = usePathname();
    const params = useParams();
@@ -41,7 +45,7 @@ export function LanguageDropdown() {
 
    return (
       <DropdownMenu>
-         <DropdownMenuTrigger asChild>
+         <DropdownMenuTrigger {...props} asChild>
             <Button variant="outline" size="icon">
                <Languages className="h-5 w-5" />
                <span className="sr-only">{t("Select language")}</span>
