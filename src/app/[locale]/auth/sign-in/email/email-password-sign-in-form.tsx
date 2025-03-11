@@ -73,8 +73,8 @@ export function EmailPasswordSignInForm({ ...props }: EmailPasswordRegistrationF
 
       const searchCallbackUrl = searchParams.get("callbackUrl");
       const callbackHref = getValidHref(searchCallbackUrl) ?? "/";
-      router.refresh();
       router.push(callbackHref);
+      location.reload();
    }
 
    return (
