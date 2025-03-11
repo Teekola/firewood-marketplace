@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useGeolocationData } from "@/components/auth/user-store-provider";
 import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -48,6 +49,8 @@ export function EmailPasswordRegistrationForm({ ...props }: EmailPasswordRegistr
    const t = useTranslations();
    const [isSubmitting, setIsSubmitting] = useState(false);
 
+   const { preferredUnitSystem } = useGeolocationData();
+
    const defaultValues: DefaultValues<SellerProfileFormData> = {
       username: "",
       password: "",
@@ -65,7 +68,7 @@ export function EmailPasswordRegistrationForm({ ...props }: EmailPasswordRegistr
       setIsSubmitting(true);
       try {
          form.reset(data);
-         const result = await registerWithEmailAndPassword(data);
+         const result = await registerWithEmailAndPassword({ ...data, preferredUnitSystem });
          if ("error" in result) {
             throw new AuthError({
                message: result.error as string,

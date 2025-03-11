@@ -1,5 +1,7 @@
 "use server";
 
+import { UnitSystem } from "@prisma/client";
+
 import { env as clientEnv } from "@/env/client";
 import { env } from "@/env/server";
 
@@ -9,13 +11,15 @@ const baseUrl = `${http}://${clientEnv.NEXT_PUBLIC_VERCEL_URL}/api/auth`;
 export async function registerWithEmailAndPassword({
    username,
    password,
+   preferredUnitSystem,
 }: {
    username: string;
    password: string;
+   preferredUnitSystem: UnitSystem;
 }) {
    const result = await fetch(`${baseUrl}/register-user-with-email-and-password`, {
       method: "POST",
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, preferredUnitSystem }),
       headers: { "Content-Type": "application/json", "X-Api-Key": env.INTERNAL_API_SECRET },
    });
    return await result.json();
