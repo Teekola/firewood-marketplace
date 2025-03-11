@@ -95,6 +95,9 @@ export const createUserAndAcceptTerms = async ({
          password: hashedPassword,
          termsAcceptedAt: new Date(),
          preferredUnitSystem,
+         buyer: {
+            create: {},
+         },
       },
    });
 };
