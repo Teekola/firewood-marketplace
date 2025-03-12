@@ -24,7 +24,7 @@ export default async function DashboardPage() {
                <DashboardLink href="/dashboard/seller">{t("Seller Dashboard")}</DashboardLink>
             )}
 
-            <DashboardLink href="/dashboard">{t("Buyer Dashboard")}</DashboardLink>
+            <DashboardLink href="/dashboard/buyer">{t("Buyer Dashboard")}</DashboardLink>
             <DashboardLink href="/dashboard">{t("User Settings")}</DashboardLink>
          </div>
       </>

@@ -29,6 +29,11 @@ enum SellerQuotationRequestStatus {
    REJECTED
 }
 
+enum QuotationRequestStatus {
+   PENDING
+   FULFILLED
+}
+
 enum WoodType {
    MIXED
    BIRCH
@@ -134,6 +139,7 @@ model QuotationRequest {
    id                     String                   @id @default(cuid())
    buyer                  Buyer                    @relation(fields: [buyerId], references: [id], onDelete: Cascade)
    buyerId                String                   @map("buyer_id")
+   status                 QuotationRequestStatus
    createdAt              DateTime                 @default(now()) @map("created_at")
    updatedAt              DateTime                 @updatedAt @map("updated_at")
    woodType               WoodType                 @map("wood_type")

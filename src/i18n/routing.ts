@@ -75,6 +75,18 @@ export const routing = defineRouting({
          en: "/buyer-dashboard",
          fi: "/ostajan-paneeli",
       },
+      "/dashboard/buyer/dashboard": {
+         en: "/buyer/dashboard",
+         fi: "/ostaja/paneeli",
+      },
+      "/dashboard/buyer/quotation-requests": {
+         en: "/buyer/dashboard/quotation-requests",
+         fi: "/ostaja/paneeli/tarjouspyynnot",
+      },
+      "/dashboard/buyer/quotation-requests/id/[id]": {
+         en: "/buyer/dashboard/quotation-requests/id/[id]",
+         fi: "/ostaja/paneeli/tarjouspyynnot/id/[id]",
+      },
       "/request-offers": {
          en: "/request-offers",
          fi: "/tee-tarjouspyynto",

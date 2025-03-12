@@ -1,5 +1,6 @@
 import {
    DeliveryMethod,
+   QuotationRequestStatus,
    SellerQuotationRequestStatus,
    WoodDryness,
    WoodType,
@@ -48,6 +49,32 @@ export const getPendingQuotationRequestsBySellerIdPaginated = async ({
    return quotationRequests;
 };
 
+export const getPendingQuotationRequestsByBuyerIdPaginated = async ({
+   buyerId,
+   cursor,
+   limit,
+   sort = "newest-first",
+}: {
+   buyerId: string;
+   cursor: string | null;
+   limit: number;
+   sort?: SortOrder;
+}) => {
+   const quotationRequests = await prisma.quotationRequest.findMany({
+      where: { buyerId, status: QuotationRequestStatus.PENDING },
+      take: limit + 1, // take 1 extra to check if there is more data and use as cursor
+      ...(cursor && { cursor: { id: cursor }, skip: 1 }),
+      orderBy: { id: sort === "newest-first" ? "desc" : "asc" },
+      include: {
+         _count: {
+            select: { offers: true },
+         },
+      },
+   });
+
+   return quotationRequests;
+};
+
 export const getPendingQuotationRequestsCountBySellerId = async ({
    sellerId,
 }: {
@@ -55,6 +82,17 @@ export const getPendingQuotationRequestsCountBySellerId = async ({
 }) => {
    const count = await prisma.sellerQuotationRequest.count({
       where: { sellerId, status: SellerQuotationRequestStatus.PENDING },
+   });
+   return count;
+};
+
+export const getPendingQuotationRequestsCountByBuyerId = async ({
+   buyerId,
+}: {
+   buyerId: string;
+}) => {
+   const count = await prisma.quotationRequest.count({
+      where: { buyerId, status: QuotationRequestStatus.PENDING },
    });
    return count;
 };
@@ -98,6 +136,10 @@ export type QuotationRequest = Awaited<
    ReturnType<typeof getPendingQuotationRequestsBySellerIdPaginated>
 >[number]["quotationRequest"];
 
+export type BuyerQuotationRequest = Awaited<
+   ReturnType<typeof getPendingQuotationRequestsByBuyerIdPaginated>
+>[number];
+
 export const getQuotationRequest = async ({ id }: { id: string }) => {
    return await prisma.quotationRequest.findUnique({ where: { id } });
 };
@@ -125,6 +167,7 @@ export const createQuotationRequest = async ({
                data: sellerIds.map((sellerId) => ({ sellerId })),
             },
          },
+         status: QuotationRequestStatus.PENDING,
          woodType: toEnum[firewoodData.woodType],
          woodDryness: toEnum[firewoodData.dryness],
          ...(firewoodData.maxLength && { woodMaxLengthCm: Number(firewoodData.maxLength) }),

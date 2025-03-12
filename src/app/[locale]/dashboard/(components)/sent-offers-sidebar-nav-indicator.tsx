@@ -4,20 +4,20 @@ import { ComponentProps } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
+import { getSentOffersNotificationCount } from "../seller/offers/actions";
 import { sellerSentOffersNotificationsQueryKey } from "../seller/offers/constants";
-import { getUnseenQuotationRequestsCount } from "../seller/quotation-requests/actions";
 import { SidebarNavIndicator } from "./sidebar-nav-indicator";
 
 type SentOffersSidebarNavIndicator = ComponentProps<"div">;
 
 export function SentOffersSidebarNavIndicator({ ...props }: SentOffersSidebarNavIndicator) {
-   const { data: unseenQuotationRequestsCount } = useQuery({
+   const { data: sentOffersNotificationCount } = useQuery({
       queryKey: sellerSentOffersNotificationsQueryKey,
-      queryFn: getUnseenQuotationRequestsCount,
+      queryFn: getSentOffersNotificationCount,
    });
 
-   if (unseenQuotationRequestsCount === undefined || unseenQuotationRequestsCount < 1) {
+   if (sentOffersNotificationCount === undefined || sentOffersNotificationCount < 1) {
       return null;
    }
-   return <SidebarNavIndicator {...props} number={unseenQuotationRequestsCount} />;
+   return <SidebarNavIndicator {...props} number={sentOffersNotificationCount} />;
 }
