@@ -4,42 +4,11 @@ import { BackButtonLink } from "@/components/back-button-link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Locale, routing } from "@/i18n/routing";
 
-import { QuotationRequestSidebarNavIndicator } from "../(components)/quotation-request-sidebar-nav-indicator";
-import { SentOffersSidebarNavIndicator } from "../(components)/sent-offers-sidebar-nav-indicator";
-import { SidebarNav, SidebarNavProps } from "../(components)/sidebar-nav";
+import { SidebarNav } from "../(components)/sidebar-nav";
+import { getSidebarNavItems } from "./get-sidebar-nav-items";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
-}
-
-export async function getSidebarNavItems() {
-   const t = await getTranslations("dashboard");
-
-   const sidebarNavItems: SidebarNavProps["items"] = [
-      {
-         title: t("Overview"),
-         href: ["/dashboard/seller", "/dashboard/seller/dashboard"],
-      },
-      {
-         title: t("Profile"),
-         href: "/dashboard/seller/profile",
-      },
-      {
-         title: t("Location"),
-         href: "/dashboard/seller/location",
-      },
-      {
-         title: t("Quotation Requests"),
-         href: "/dashboard/seller/quotation-requests",
-         indicator: <QuotationRequestSidebarNavIndicator />,
-      },
-      {
-         title: t("Sent Offers"),
-         href: "/dashboard/seller/offers",
-         indicator: <SentOffersSidebarNavIndicator />,
-      },
-   ];
-   return sidebarNavItems;
 }
 
 export default async function SellerDashboardLayout({

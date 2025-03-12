@@ -1,6 +1,5 @@
 import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
-import { parse } from "url";
 
 export const routing = defineRouting({
    locales: ["fi", "en"], // A list of all locales that are supported
@@ -139,38 +138,39 @@ export const getValidHref = (url: string | null) => {
    if (!url) return null;
 
    try {
-      // Parse the given URL
-      const parsedUrl = parse(url, true);
-      const callbackPath = parsedUrl.pathname;
+      // Extract the pathname from the URL
+      const callbackPath = new URL(url, "http://localhost").pathname;
 
       if (!callbackPath) return null;
 
       // Get all static paths (localized and non-localized)
-      const allPaths = Object.entries(routing.pathnames).flatMap(([key, value]) => {
-         if (typeof value === "string") {
-            // If it's a simple static path, add it to the list
-            return [key];
-         } else {
-            // If it's an object with localization, add localized paths
-            return Object.values(value);
-         }
-      });
+      const allPaths = Object.entries(routing.pathnames)
+         .flatMap(([key, value]) => {
+            if (typeof value === "string") {
+               // If it's a simple static path, add it to the list
+               return [key];
+            } else {
+               // If it's an object with localization, add localized paths
+               return Object.values(value);
+            }
+         })
+         .concat(Object.keys(routing.pathnames));
 
-      const staticPaths = allPaths.filter((path) => !path.includes("/id/[id]"));
+      const staticPaths = allPaths.filter((path) => !path.includes("/id"));
 
       // Check if the callbackPath matches any of the static paths
       if (staticPaths.includes(callbackPath)) {
          return callbackPath as StaticPathname;
       }
 
-      // Handle dynamic pathnames, supporting paths that contain /id[id]
+      // Handle dynamic pathnames, supporting paths that contain /id/[id]
       const urlParts = callbackPath.split("/id/");
       const [id, ending] = urlParts[1].split("/");
       const dynamicPathname = urlParts[0] + "/id/[id]" + (ending ? "/" + ending : "");
 
       if (allPaths.includes(dynamicPathname)) {
          return {
-            pathname: dynamicPathname as Pathname,
+            pathname: dynamicPathname as Exclude<Pathname, StaticPathname>,
             params: { id },
          };
       }

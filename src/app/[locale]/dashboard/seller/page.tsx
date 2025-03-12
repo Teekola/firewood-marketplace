@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { SellerDashboard } from "../(components)/seller-dashboard";
 import { SidebarNav } from "../(components)/sidebar-nav";
-import { getSidebarNavItems } from "./layout";
+import { getSidebarNavItems } from "./get-sidebar-nav-items";
 
 export default async function SellerRootPage() {
    const sidebarNavItems = await getSidebarNavItems();

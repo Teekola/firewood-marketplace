@@ -4,29 +4,14 @@ import { BackButtonLink } from "@/components/back-button-link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Locale, routing } from "@/i18n/routing";
 
-import { SidebarNav, SidebarNavProps } from "../(components)/sidebar-nav";
+import { SidebarNav } from "../(components)/sidebar-nav";
+import { getSidebarNavItems } from "./get-sidebar-nav-items";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function getSidebarNavItems() {
-   const t = await getTranslations("dashboard");
-
-   const sidebarNavItems: SidebarNavProps["items"] = [
-      {
-         title: t("Overview"),
-         href: ["/dashboard/buyer", "/dashboard/buyer/dashboard"],
-      },
-      {
-         title: t("Quotation Requests"),
-         href: "/dashboard/buyer/quotation-requests",
-      },
-   ];
-   return sidebarNavItems;
-}
-
-export default async function SellerDashboardLayout({
+export default async function BuyerDashboardLayout({
    children,
    params,
 }: Readonly<{
