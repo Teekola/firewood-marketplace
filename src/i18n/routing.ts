@@ -133,6 +133,7 @@ export type StaticPathname = Exclude<
    keyof typeof routing.pathnames,
    `${string}[${string}]${string}`
 >;
+export type DynamicPathname = Exclude<Pathname, StaticPathname>;
 
 export const getValidHref = (url: string | null) => {
    if (!url) return null;

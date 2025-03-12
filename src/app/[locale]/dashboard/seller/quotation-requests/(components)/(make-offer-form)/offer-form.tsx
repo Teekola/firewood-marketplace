@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { countryCodeToCurrency } from "@/i18n/currencies";
-import { Link, Pathname } from "@/i18n/routing";
+import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
@@ -45,7 +45,7 @@ interface OfferFormProps extends ComponentProps<"form"> {
    isHomeDelivery: boolean;
 
    defaultValues?: Partial<OfferFormData>;
-   cancelHref: { pathname: Pathname; params: { id: string } };
+   cancelHref: { pathname: Exclude<Pathname, StaticPathname>; params: { id: string } };
    handleSubmit: (data: OfferFormData) => Promise<void>;
 }
 

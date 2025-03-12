@@ -33,7 +33,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Link, Pathname, StaticPathname, usePathname } from "@/i18n/routing";
+import { DynamicPathname, Link, StaticPathname, usePathname } from "@/i18n/routing";
 
 const maxItemsToDisplayByDevice = {
    mobile: 3,
@@ -48,7 +48,7 @@ function useBreadcrumbs() {
 
    const t = useTranslations("breadcrumbs");
    const breadCrumbs: {
-      href?: StaticPathname | { pathname: Pathname; params: { id: string } };
+      href?: StaticPathname | { pathname: DynamicPathname; params: { id: string } };
       label: string;
    }[] = [];
 
@@ -62,7 +62,7 @@ function useBreadcrumbs() {
       hrefParts.splice(hrefParts.indexOf("id"), 2, "id/[id]");
 
       parts.forEach((part, i) => {
-         const path = ("/" + hrefParts.slice(0, i + 1).join("/")) as Pathname;
+         const path = ("/" + hrefParts.slice(0, i + 1).join("/")) as DynamicPathname;
          breadCrumbs.push({
             ...(path !== pathname && {
                href: { pathname: path, params: { id: params.id as string } },
