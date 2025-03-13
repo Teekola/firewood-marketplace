@@ -150,6 +150,7 @@
       "/dashboard/seller/offers/id": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous",
       "/dashboard/seller/offers/id/edit": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous/Muokkaa",
       "/dashboard/buyer": "/Oma paneeli/Ostajan paneeli",
+      "/dashboard/buyer/dashboard": "/Oma paneeli/Ostajan paneeli/Yleiskatsaus",
       "/dashboard/buyer/quotation-requests": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt",
       "/dashboard/buyer/quotation-requests/id": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö"
    },

@@ -150,6 +150,7 @@
       "/dashboard/seller/offers/id": "/Dashboard/Seller Dashboard/Sent Offers/Offer",
       "/dashboard/seller/offers/id/edit": "/Dashboard/Seller Dashboard/Sent Offers/Offer/Edit",
       "/dashboard/buyer": "/Dashboard/Buyer Dashboard",
+      "/dashboard/buyer/dashboard": "/Dashboard/Buyer Dashboard/Overview",
       "/dashboard/buyer/quotation-requests": "/Dashboard/Buyer Dashboard/Quotation Requests",
       "/dashboard/buyer/quotation-requests/id": "/Dashboard/Buyer Dashboard/Quotation Requests/Request"
    },
