@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/compon
 import { currencyConfigs } from "@/i18n/currencies";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 
-import { ShortQuotationRequestDetails } from "../../quotation-requests/(components)/short-quotation-request-details";
+import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
 import { DeleteOfferDialog } from "./delete-offer-dialog";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers";

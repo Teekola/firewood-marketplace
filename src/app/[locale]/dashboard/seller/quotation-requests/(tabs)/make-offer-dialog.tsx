@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/compon
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { OfferForm, OfferFormData } from "../(components)/(make-offer-form)/offer-form";
-import { ShortQuotationRequestDetails } from "../(components)/short-quotation-request-details";
+import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
 import { createOffer } from "../actions";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";

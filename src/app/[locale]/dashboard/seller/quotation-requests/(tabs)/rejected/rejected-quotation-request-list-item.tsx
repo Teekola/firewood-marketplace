@@ -10,7 +10,7 @@ import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 
-import { useQuotationRequestData } from "../../(hooks)/use-quotation-request-data";
+import { useQuotationRequestData } from "../../../../../../../components/quotation-request/use-quotation-request-data";
 
 export const RejectedQuotationRequestListItem = forwardRef<
    HTMLLIElement,

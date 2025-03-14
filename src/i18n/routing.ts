@@ -82,9 +82,25 @@ export const routing = defineRouting({
          en: "/buyer/dashboard/quotation-requests",
          fi: "/ostaja/paneeli/tarjouspyynnot",
       },
+      "/dashboard/buyer/quotation-requests/fulfilled": {
+         en: "/buyer/dashboard/quotation-requests/fulfilled",
+         fi: "/ostaja/paneeli/tarjouspyynnot/toteutuneet",
+      },
       "/dashboard/buyer/quotation-requests/id/[id]": {
          en: "/buyer/dashboard/quotation-requests/id/[id]",
          fi: "/ostaja/paneeli/tarjouspyynnot/id/[id]",
+      },
+      "/dashboard/buyer/quotation-requests/id/[id]/rejected-offers": {
+         en: "/buyer/dashboard/quotation-requests/id/[id]/rejected-offers",
+         fi: "/ostaja/paneeli/tarjouspyynnot/id/[id]/hylatyt-tarjoukset",
+      },
+      "/dashboard/buyer/quotation-requests/id/[id]/id/[offerId]": {
+         en: "/buyer/dashboard/quotation-requests/id/[id]/id/[offerId]",
+         fi: "/ostaja/paneeli/tarjouspyynnot/id/[id]/id/[offerId]",
+      },
+      "/dashboard/buyer/quotation-requests/id/[id]/id/[offerId]/rejected": {
+         en: "/buyer/dashboard/quotation-requests/id/[id]/id/[offerId]/rejected",
+         fi: "/ostaja/paneeli/tarjouspyynnot/id/[id]/id/[offerId]/hylatty",
       },
       "/request-offers": {
          en: "/request-offers",
@@ -167,7 +183,18 @@ export const getValidHref = (url: string | null) => {
       // Handle dynamic pathnames, supporting paths that contain /id/[id]
       const urlParts = callbackPath.split("/id/");
       const [id, ending] = urlParts[1].split("/");
-      const dynamicPathname = urlParts[0] + "/id/[id]" + (ending ? "/" + ending : "");
+      let dynamicPathname = urlParts[0] + "/id/[id]" + (ending ? "/" + ending : "");
+
+      if (urlParts.length > 3) {
+         const [offerId, ending] = urlParts[3].split("/");
+         dynamicPathname += "/id/[offerId]" + (ending ? "/" + ending : "");
+         if (allPaths.includes(dynamicPathname)) {
+            return {
+               pathname: dynamicPathname as Exclude<Pathname, StaticPathname>,
+               params: { id, offerId },
+            };
+         }
+      }
 
       if (allPaths.includes(dynamicPathname)) {
          return {

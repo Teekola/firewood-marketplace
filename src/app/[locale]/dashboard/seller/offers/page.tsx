@@ -15,10 +15,7 @@ export default async function SellerQuotationRequestsPage() {
    });
    const t = await getTranslations();
    return (
-      <div
-         className="w-full"
-         style={{ height: "calc(100% - 32px)" }} // TODO: Might need modifications based on layout changes
-      >
+      <div className="w-full">
          <h1 className="h3">{t("offers.Sent Offers")}</h1>
          <HydrationBoundary state={dehydrate(queryClient)}>
             <OfferList />

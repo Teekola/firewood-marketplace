@@ -12,7 +12,7 @@ import { currencyConfigs } from "@/i18n/currencies";
 import { Link, Pathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-import { useQuotationRequestData } from "../../quotation-requests/(hooks)/use-quotation-request-data";
+import { useQuotationRequestData } from "../../../../../../components/quotation-request/use-quotation-request-data";
 
 interface OfferListItemProps extends ComponentProps<"li"> {
    offer: OfferDTO;

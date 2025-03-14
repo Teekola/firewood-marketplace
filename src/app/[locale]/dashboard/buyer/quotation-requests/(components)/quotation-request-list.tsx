@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { QuotationRequestStatus } from "@prisma/client";
 import { ArrowUpDownIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useInView } from "react-intersection-observer";
 
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
    Select,
@@ -17,28 +16,28 @@ import {
    SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Link } from "@/i18n/routing";
 import { SortOrder } from "@/lib/utils/types";
 
 import { QuotationRequestListItem } from "../(components)/quotation-request-list-item";
-import { getPendingQuotationRequestsForBuyer } from "../actions";
-import { buyerQuotationRequestsQueryKey } from "../constants";
+import { useQuotationRequestListData } from "../(hooks)/use-quotation-request-list-data";
 
-const limit = 10; // Number of items per page
-export function QuotationRequestList() {
+export function QuotationRequestList({
+   status,
+   emptyState,
+}: Readonly<{ status: QuotationRequestStatus; emptyState: React.ReactNode }>) {
    const t = useTranslations();
    const { ref, inView } = useInView();
-   const [sortOrder, setSortOrder] = useState<SortOrder>("newest-first");
-   const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-      useInfiniteQuery({
-         queryKey: [...buyerQuotationRequestsQueryKey, { sort: sortOrder, limit }],
-         queryFn: ({ pageParam }: { pageParam: string | null }) =>
-            getPendingQuotationRequestsForBuyer({ cursor: pageParam, limit, sort: sortOrder }),
-         getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
-         initialPageParam: null,
-         refetchInterval: 30 * 1000,
-         staleTime: 15 * 1000,
-      });
+
+   const {
+      data,
+      error,
+      fetchNextPage,
+      hasNextPage,
+      isFetchingNextPage,
+      isFetching,
+      sortOrder,
+      setSortOrder,
+   } = useQuotationRequestListData({ status });
 
    // Fetch next page when the last item is in view
    useEffect(() => {
@@ -88,18 +87,7 @@ export function QuotationRequestList() {
                className="pointer-events-none sticky top-0 h-5 w-full bg-gradient-to-b from-background via-background to-transparent"
                aria-hidden="true"
             ></div>
-            {count === 0 && !isFetching && (
-               <div className="flex flex-col items-center gap-4">
-                  <p className="text-sm text-muted-foreground">
-                     {t("buyer.No pending quotation requests")}
-                  </p>
-                  <Button asChild>
-                     <Link href="/request-offers/firewood">
-                        {t("request-offers.Request Offers")}
-                     </Link>
-                  </Button>
-               </div>
-            )}
+            {count === 0 && !isFetching && emptyState}
             <ul className="flex min-h-20 w-full flex-col gap-1">
                {isFetching && requests.length === 0 && (
                   <>

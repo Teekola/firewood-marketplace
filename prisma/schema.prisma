@@ -122,13 +122,13 @@ model SellerLocation {
    maxDistanceKm Int                                   @default(50) @map("max_distance_km")
    createdAt     DateTime                              @default(now()) @map("created_at")
    updatedAt     DateTime                              @updatedAt @map("updated_at")
-   seller        Seller                                @relation(fields: [sellerId], references: [id])
+   seller        Seller                                @relation(fields: [sellerId], references: [id], onDelete: Cascade)
    sellerId      String                                @unique @map("seller_id")
 }
 
 model SellerProfile {
    id       String  @id @default(cuid())
-   seller   Seller  @relation(fields: [sellerId], references: [id])
+   seller   Seller  @relation(fields: [sellerId], references: [id], onDelete: Cascade)
    sellerId String  @unique @map("seller_id")
    name     String?
    email    String?
@@ -178,7 +178,7 @@ model SellerQuotationRequest {
 
 model Offer {
    id                   String           @id @default(cuid())
-   quotationRequest     QuotationRequest @relation(fields: [quotationRequestId], references: [id])
+   quotationRequest     QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
    quotationRequestId   String           @map("quotation_request_id")
    seller               Seller           @relation(fields: [sellerId], references: [id])
    sellerId             String           @map("seller_id")
@@ -190,7 +190,7 @@ model Offer {
    acceptedAt           DateTime?        @map("accepted_at")
    rejectedAt           DateTime?        @map("rejected_at")
    createdAt            DateTime         @default(now()) @map("created_at")
-   updatedAt            DateTime         @updatedAt @map("updated_at")
+   updatedAt            DateTime         @map("updated_at")
 
    @@index(sellerId)
 }

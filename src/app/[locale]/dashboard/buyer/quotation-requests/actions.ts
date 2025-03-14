@@ -1,20 +1,24 @@
 "use server";
 
+import { QuotationRequestStatus } from "@prisma/client";
+
 import {
-   getPendingQuotationRequestsByBuyerIdPaginated,
-   getPendingQuotationRequestsCountByBuyerId,
+   getQuotationRequestsByBuyerIdAndStatusPaginated,
+   getQuotationRequestsCountByBuyerIdAndStatus,
 } from "@/app/db/quotation-request";
 import { authWithBuyer } from "@/auth/auth";
 import { SortOrder } from "@/lib/utils/types";
 
-export async function getPendingQuotationRequestsForBuyer({
+export async function getQuotationRequestsForBuyer({
    cursor,
    limit = 10,
    sort = "newest-first",
+   status,
 }: {
    cursor: string | null;
    limit?: number;
    sort?: SortOrder;
+   status: QuotationRequestStatus;
 }) {
    const session = await authWithBuyer();
    if (!session || !session.buyer) {
@@ -22,13 +26,14 @@ export async function getPendingQuotationRequestsForBuyer({
    }
 
    const [results, count] = await Promise.all([
-      getPendingQuotationRequestsByBuyerIdPaginated({
+      getQuotationRequestsByBuyerIdAndStatusPaginated({
          buyerId: session.buyer.id,
          cursor,
          limit,
          sort,
+         status,
       }),
-      getPendingQuotationRequestsCountByBuyerId({ buyerId: session.buyer.id }),
+      getQuotationRequestsCountByBuyerIdAndStatus({ buyerId: session.buyer.id, status }),
    ]);
 
    const hasMore = results.length > limit;

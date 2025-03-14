@@ -13,6 +13,7 @@ import { ContactData } from "../[locale]/request-offers/(stepper)/contact/contac
 import { DeliveryData } from "../[locale]/request-offers/(stepper)/delivery/delivery-form";
 import { FirewoodData } from "../[locale]/request-offers/(stepper)/firewood/firewood-form";
 import { SubmitData } from "../[locale]/request-offers/(stepper)/submit/submit-form";
+import { offerDTOFields } from "./offer";
 
 const toEnum = {
    mixed: WoodType.MIXED,
@@ -49,7 +50,8 @@ export const getPendingQuotationRequestsBySellerIdPaginated = async ({
    return quotationRequests;
 };
 
-export const getPendingQuotationRequestsByBuyerIdPaginated = async ({
+export const getQuotationRequestsByBuyerIdAndStatusPaginated = async ({
+   status,
    buyerId,
    cursor,
    limit,
@@ -58,10 +60,11 @@ export const getPendingQuotationRequestsByBuyerIdPaginated = async ({
    buyerId: string;
    cursor: string | null;
    limit: number;
+   status: QuotationRequestStatus;
    sort?: SortOrder;
 }) => {
    const quotationRequests = await prisma.quotationRequest.findMany({
-      where: { buyerId, status: QuotationRequestStatus.PENDING },
+      where: { buyerId, status },
       take: limit + 1, // take 1 extra to check if there is more data and use as cursor
       ...(cursor && { cursor: { id: cursor }, skip: 1 }),
       orderBy: { id: sort === "newest-first" ? "desc" : "asc" },
@@ -86,13 +89,15 @@ export const getPendingQuotationRequestsCountBySellerId = async ({
    return count;
 };
 
-export const getPendingQuotationRequestsCountByBuyerId = async ({
+export const getQuotationRequestsCountByBuyerIdAndStatus = async ({
    buyerId,
+   status,
 }: {
    buyerId: string;
+   status: QuotationRequestStatus;
 }) => {
    const count = await prisma.quotationRequest.count({
-      where: { buyerId, status: QuotationRequestStatus.PENDING },
+      where: { buyerId, status },
    });
    return count;
 };
@@ -137,12 +142,31 @@ export type QuotationRequest = Awaited<
 >[number]["quotationRequest"];
 
 export type BuyerQuotationRequest = Awaited<
-   ReturnType<typeof getPendingQuotationRequestsByBuyerIdPaginated>
+   ReturnType<typeof getQuotationRequestsByBuyerIdAndStatusPaginated>
 >[number];
 
 export const getQuotationRequest = async ({ id }: { id: string }) => {
    return await prisma.quotationRequest.findUnique({ where: { id } });
 };
+
+export const getQuotationRequestWithAcceptedOffer = async ({ id }: { id: string }) => {
+   const quotationRequest = await prisma.quotationRequest.findUnique({
+      where: { id },
+      include: {
+         offers: {
+            select: offerDTOFields,
+         },
+      },
+   });
+
+   const acceptedOffer =
+      quotationRequest?.offers.find((offer) => offer.acceptedAt !== null) ?? null;
+
+   return { quotationRequest, acceptedOffer };
+};
+export type QuotationRequestWithAcceptedOfferId = Awaited<
+   ReturnType<typeof getQuotationRequestWithAcceptedOffer>
+>;
 
 export const createQuotationRequest = async ({
    buyerId,
@@ -250,4 +274,8 @@ export const getNumberOfUnseenQuotationRequests = async ({ sellerId }: { sellerI
    `;
 
    return Number(result[0]?.count || 0);
+};
+
+export const deleteQuotationRequestById = async (id: string) => {
+   await prisma.quotationRequest.delete({ where: { id } });
 };

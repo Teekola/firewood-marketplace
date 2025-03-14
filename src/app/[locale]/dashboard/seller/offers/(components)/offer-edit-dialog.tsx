@@ -10,11 +10,11 @@ import { OfferDTO } from "@/app/db/offer";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { usePathname, useRouter } from "@/i18n/routing";
 
+import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
 import {
    OfferForm,
    OfferFormData,
 } from "../../quotation-requests/(components)/(make-offer-form)/offer-form";
-import { ShortQuotationRequestDetails } from "../../quotation-requests/(components)/short-quotation-request-details";
 import { editOffer } from "../actions";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers/id/[id]";

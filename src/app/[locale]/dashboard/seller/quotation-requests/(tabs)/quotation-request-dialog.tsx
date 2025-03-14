@@ -6,11 +6,14 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { usePathname, useRouter } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 
-import QuotationRequestDetails from "../(components)/quotation-request-details";
+import { RejectQuotationRequestDialog } from "../(components)/reject-quotation-request-dialog";
 import { useUpdateQuotationRequestViewedAt } from "../(hooks)/use-update-quotation-request-viewed-at";
+import QuotationRequestDetails from "../../../../../../components/quotation-request/quotation-request-details";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests";
 const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
@@ -23,7 +26,7 @@ export default function QuotationRequestDialog({
    quotationRequest: QuotationRequest | null;
 }>) {
    const router = useRouter();
-   const t = useTranslations("dashboard");
+   const t = useTranslations();
    const [open, setOpen] = useState(isOpen);
    const pathname = usePathname();
 
@@ -44,13 +47,29 @@ export default function QuotationRequestDialog({
          <DialogContent>
             <DialogHeader>
                <DialogTitle className="text-left text-2xl font-bold">
-                  {t("Quotation request details")}
+                  {t("dashboard.Quotation request details")}
                </DialogTitle>
                <DialogDescription className="sr-only">
-                  {t("Quotation request details")}
+                  {t("dashboard.Quotation request details")}
                </DialogDescription>
             </DialogHeader>
             <QuotationRequestDetails quotationRequest={quotationRequest} />
+            <div className="mt-4 flex max-w-lg flex-col gap-2 sm:flex-row-reverse">
+               <Button asChild className="w-full" size="lg">
+                  <Link
+                     href={{
+                        pathname: "/dashboard/seller/quotation-requests/id/[id]/make-offer",
+                        params: { id: quotationRequest.id },
+                     }}
+                  >
+                     {t("quotation-request.Make offer")}
+                  </Link>
+               </Button>
+               <RejectQuotationRequestDialog
+                  quotationRequestId={quotationRequest.id}
+                  className="w-full"
+               />
+            </div>
          </DialogContent>
       </Dialog>
    );

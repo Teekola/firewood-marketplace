@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
 
-import { FirewoodDetails } from "./quotation-request-details";
+import { FirewoodDetails } from "./firewood-details";
 
 export function ShortQuotationRequestDetails({
    quotationRequest,

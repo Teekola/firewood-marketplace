@@ -20,12 +20,7 @@ export default async function DashboardLayout({
    return (
       <>
          <WebsiteTopbar />
-         <div
-            className="mx-auto h-full w-full max-w-screen-xl p-3"
-            style={{ height: "calc(100% - 220px)" }} // TODO: Might need modifications, needed for quotation request list
-         >
-            {children}
-         </div>
+         <div className="mx-auto h-full w-full max-w-screen-xl p-3">{children}</div>
       </>
    );
 }

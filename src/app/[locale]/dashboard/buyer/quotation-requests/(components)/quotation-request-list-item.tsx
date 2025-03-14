@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Link, Pathname } from "@/i18n/routing";
 
-import { useQuotationRequestData } from "../../../seller/quotation-requests/(hooks)/use-quotation-request-data";
+import { useQuotationRequestData } from "../../../../../../components/quotation-request/use-quotation-request-data";
 
 interface QuotationRequestListItemProps extends ComponentProps<"li"> {
    quotationRequest: BuyerQuotationRequest;
