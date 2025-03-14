@@ -48,7 +48,9 @@ function useBreadcrumbs() {
 
    const t = useTranslations("breadcrumbs");
    const breadCrumbs: {
-      href?: StaticPathname | { pathname: DynamicPathname; params: { id: string } };
+      href?:
+         | StaticPathname
+         | { pathname: DynamicPathname; params: { id: string; offerId: string } };
       label: string;
    }[] = [];
 
@@ -61,11 +63,18 @@ function useBreadcrumbs() {
    if (hrefParts.includes("id")) {
       hrefParts.splice(hrefParts.indexOf("id"), 2, "id/[id]");
 
+      if (hrefParts.includes("id")) {
+         hrefParts.splice(hrefParts.indexOf("id"), 2, "id/[offerId]");
+      }
+
       parts.forEach((part, i) => {
          const path = ("/" + hrefParts.slice(0, i + 1).join("/")) as DynamicPathname;
          breadCrumbs.push({
             ...(path !== pathname && {
-               href: { pathname: path, params: { id: params.id as string } },
+               href: {
+                  pathname: path,
+                  params: { id: params.id as string, offerId: params.offerId as string },
+               },
             }),
             label: part,
          });
@@ -84,11 +93,11 @@ function useBreadcrumbs() {
 type BreadcrumbsProps = React.ComponentProps<typeof Breadcrumb>;
 export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
    const [open, setOpen] = React.useState(false);
-   const isDesktop = useMediaQuery("(min-width: 768px)");
+   const isMobile = useMediaQuery("(max-width: 768px)");
    const t = useTranslations("actions");
    const breadCrumbs = useBreadcrumbs();
 
-   const maxItemsToDisplay = !isDesktop
+   const maxItemsToDisplay = isMobile
       ? maxItemsToDisplayByDevice.mobile
       : maxItemsToDisplayByDevice.desktop;
 
@@ -108,7 +117,7 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
             {breadCrumbs.length > maxItemsToDisplay ? (
                <>
                   <BreadcrumbItem>
-                     {isDesktop && (
+                     {!isMobile && (
                         <DropdownMenu open={open} onOpenChange={setOpen}>
                            <DropdownMenuTrigger
                               className="flex items-center gap-1"
@@ -127,7 +136,7 @@ export function Breadcrumbs({ ...props }: BreadcrumbsProps) {
                            </DropdownMenuContent>
                         </DropdownMenu>
                      )}
-                     {!isDesktop && (
+                     {isMobile && (
                         <Drawer open={open} onOpenChange={setOpen}>
                            <DrawerTrigger aria-label="Toggle Menu">
                               <BreadcrumbEllipsis className="h-4 w-4" />
