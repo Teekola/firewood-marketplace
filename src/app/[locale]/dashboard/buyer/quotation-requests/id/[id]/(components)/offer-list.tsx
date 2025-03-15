@@ -20,10 +20,10 @@ export function OfferList({
    ListItem = OfferListItem,
    emptyText,
 }: {
-   emptyText: string;
-   queryKey: string[];
-   queryFn: typeof getPendingOffersForBuyerByQuotationRequestId;
-   ListItem: typeof OfferListItem;
+   emptyText?: string;
+   queryKey?: string[];
+   queryFn?: typeof getPendingOffersForBuyerByQuotationRequestId;
+   ListItem?: typeof OfferListItem;
 }) {
    const t = useTranslations();
    const { ref, inView } = useInView();

@@ -2,14 +2,23 @@
 
 import { useParams } from "next/navigation";
 
-import { DynamicPathname, Link, StaticPathname, usePathname } from "@/i18n/routing";
+import {
+   DynamicPathname,
+   Link,
+   SingleDynamicPathname,
+   StaticPathname,
+   usePathname,
+} from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export function TabLink({
    href,
    label,
 }: Readonly<{
-   href: StaticPathname | { pathname: DynamicPathname; params: { id: string } };
+   href:
+      | StaticPathname
+      | { pathname: SingleDynamicPathname; params: { id: string } }
+      | { pathname: DynamicPathname; params: { id: string; offerId: string } };
    label: string;
 }>) {
    const pathname = usePathname();

@@ -150,6 +150,10 @@ export type StaticPathname = Exclude<
    `${string}[${string}]${string}`
 >;
 export type DynamicPathname = Exclude<Pathname, StaticPathname>;
+export type SingleDynamicPathname = Exclude<
+   DynamicPathname,
+   `${string}[${string}]${string}[${string}]${string}`
+>;
 
 export const getValidHref = (url: string | null) => {
    if (!url) return null;
@@ -190,7 +194,7 @@ export const getValidHref = (url: string | null) => {
          dynamicPathname += "/id/[offerId]" + (ending ? "/" + ending : "");
          if (allPaths.includes(dynamicPathname)) {
             return {
-               pathname: dynamicPathname as Exclude<Pathname, StaticPathname>,
+               pathname: dynamicPathname as DynamicPathname,
                params: { id, offerId },
             };
          }
@@ -198,7 +202,7 @@ export const getValidHref = (url: string | null) => {
 
       if (allPaths.includes(dynamicPathname)) {
          return {
-            pathname: dynamicPathname as Exclude<Pathname, StaticPathname>,
+            pathname: dynamicPathname as SingleDynamicPathname,
             params: { id },
          };
       }
