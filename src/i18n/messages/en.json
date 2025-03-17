@@ -117,7 +117,8 @@
     "Delete": "Delete",
     "Back": "Back",
     "Reject Offer": "Reject Offer",
-    "Accept offer": "Accept offer"
+    "Accept offer": "Accept offer",
+    "Save": "Save"
   },
   "metadata": {
     "page-titles": {
@@ -284,5 +285,14 @@
   },
   "quotation-requests": {
     "No fulfilled requests": "You don't have fulfilled quotation requests yet."
+  },
+  "seller-location": {
+    "Address": "Address",
+    "Pickup address": "Pickup address",
+    "pickup-address-description": "Enter pickup address to receive quotation requests from customers who do not need delivery."
+  },
+  "form-labels": {
+    "Optional": "(Optional)",
+    "Pickup address": "Pickup address"
   }
 }

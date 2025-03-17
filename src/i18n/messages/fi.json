@@ -117,7 +117,8 @@
     "Delete": "Poista",
     "Back": "Takaisin",
     "Reject Offer": "Hylkää tarjous",
-    "Accept offer": "Hyväksy tarjous"
+    "Accept offer": "Hyväksy tarjous",
+    "Save": "Tallenna"
   },
   "metadata": {
     "page-titles": {
@@ -284,5 +285,13 @@
   },
   "quotation-requests": {
     "No fulfilled requests": "Sinulla ei vielä ole toteutuneita tarjouspyyntöjä."
+  },
+  "seller-location": {
+    "Pickup address": "Nouto-osoite",
+    "pickup-address-description": "Syöttämällä nouto-osoitteen saat tarjouspyyntöjä asiakkailta, jotka noutavat polttopuunsa itse."
+  },
+  "form-labels": {
+    "Optional": "(Valinnainen)",
+    "Pickup address": "Nouto-osoite"
   }
 }

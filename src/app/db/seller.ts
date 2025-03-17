@@ -14,6 +14,7 @@ type SellerResult = {
    countryName: string | null;
    postalCode: string | null;
    city: string | null;
+   address: string | null;
    longitude: number | null;
    latitude: number | null;
    maxDistanceKm: number | null;
@@ -36,6 +37,7 @@ export const getSellerByUserId = async (userId: string) => {
             l.country_name AS "countryName",
             l.postal_code AS "postalCode",
             l.city AS "city",
+            l.address AS "address",
             ST_X(l.coordinates::geometry) AS "longitude", 
             ST_Y(l.coordinates::geometry) AS "latitude",
             l.max_distance_km AS "maxDistanceKm",
@@ -72,6 +74,7 @@ export const getSellerByUserId = async (userId: string) => {
            countryName: locationData.countryName!,
            postalCode: locationData.postalCode!,
            city: locationData.city!,
+           address: locationData.address,
            coordinates: {
               latitude: locationData.latitude!,
               longitude: locationData.longitude!,

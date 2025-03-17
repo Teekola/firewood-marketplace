@@ -17,6 +17,7 @@ export type SellerLocation = {
    maxDistanceKm: number;
    createdAt: Date;
    updatedAt: Date;
+   address: string | null;
 };
 
 type UpdateRaw = {
@@ -31,6 +32,7 @@ type UpdateRaw = {
    max_distance_km: number;
    created_at: string;
    updated_at: string;
+   address: string | null;
 }[];
 
 export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
@@ -46,6 +48,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                latitude: number;
                longitude: number;
                maxDistanceKm: number;
+               address: string | null;
             }) {
                const id = createId(); // This is necessary because prisma could not automatically generate the cuid
                const point = `POINT(${data.longitude} ${data.latitude})`;
@@ -54,9 +57,9 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                   { id: string; created_at: string; updated_at: string }[]
                >`
                   INSERT INTO "SellerLocation"
-                     (id, seller_id, country_code, country_name, postal_code, city, coordinates, max_distance_km, created_at, updated_at)
+                     (id, seller_id, country_code, country_name, postal_code, city, address, coordinates, max_distance_km, created_at, updated_at)
                   VALUES
-                     (${id}, ${data.sellerId}, ${data.countryCode}, ${data.countryName}, ${data.postalCode}, ${data.city}, ST_GeomFromText(${point}, 4326), ${data.maxDistanceKm}, now(), now())
+                     (${id}, ${data.sellerId}, ${data.countryCode}, ${data.countryName}, ${data.postalCode}, ${data.city}, ${data.address}, ST_GeomFromText(${point}, 4326), ${data.maxDistanceKm}, now(), now())
                   RETURNING id, created_at, updated_at`;
 
                // TODO: Improve error handling
@@ -71,6 +74,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                   countryName: data.countryName,
                   postalCode: data.postalCode,
                   city: data.city,
+                  address: data.address,
                   coordinates: {
                      latitude: data.latitude,
                      longitude: data.longitude,
@@ -91,6 +95,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                   countryName: string;
                   postalCode: string;
                   city: string;
+                  address: string | null;
                   latitude: number;
                   longitude: number;
                   maxDistanceKm: number;
@@ -104,6 +109,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                const longitude = data.longitude;
                const point = `POINT(${longitude} ${latitude})`;
                const maxDistanceKm = data.maxDistanceKm;
+               const address = data.address;
 
                const result = await prisma.$queryRaw<UpdateRaw>`
                   UPDATE "SellerLocation"
@@ -112,11 +118,12 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                      country_name = ${countryName},
                      postal_code = ${postalCode},
                      city = ${city},
+                     "address" = ${address},
                      coordinates = ST_GeomFromText(${point}, 4326),
                      max_distance_km = ${maxDistanceKm},
                      updated_at = now()
                   WHERE seller_id = ${sellerId}
-                  RETURNING id, seller_id, country_code, country_name, postal_code, city, ST_X(coordinates::geometry) AS longitude, ST_Y(coordinates::geometry) AS latitude, max_distance_km, created_at, updated_at
+                  RETURNING id, seller_id, country_code, country_name, postal_code, city, "address", ST_X(coordinates::geometry) AS longitude, ST_Y(coordinates::geometry) AS latitude, max_distance_km, created_at, updated_at
                `;
 
                console.log({ result });
@@ -132,6 +139,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                   countryName: result[0].country_name,
                   postalCode: result[0].postal_code,
                   city: result[0].city,
+                  address: result[0].address,
                   coordinates: {
                      latitude: result[0].latitude,
                      longitude: result[0].longitude,

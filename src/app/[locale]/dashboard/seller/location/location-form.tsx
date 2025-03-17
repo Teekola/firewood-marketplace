@@ -15,7 +15,17 @@ import {
 import { PostalCodeField } from "@/app/[locale]/request-offers/(stepper)/delivery/postal-code-field";
 import { useGeolocationData, useUser } from "@/components/auth/user-store-provider";
 import { Button } from "@/components/ui/button";
-import { Form, FormRootError } from "@/components/ui/form";
+import {
+   Form,
+   FormControl,
+   FormDescription,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+   FormRootError,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
 import { kilometersToMiles, milesToKilometers } from "@/lib/utils/unit-conversions";
@@ -29,6 +39,7 @@ export const sellerLocationFormSchema = z.object({
    countryName: z.string(),
    postalCode: z.string().min(5, { message: "Invalid postal code" }),
    city: z.string(),
+   address: z.string(),
    latitude: z.number(),
    longitude: z.number(),
    maxDistance: z.string(),
@@ -44,7 +55,7 @@ const DEFAULT_MAX_DISTANCE = 50;
 
 export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationFormProps) {
    const geolocationData = useGeolocationData();
-   const t = useTranslations("dashboard");
+   const t = useTranslations();
 
    const user = useUser();
 
@@ -65,6 +76,7 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
       countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
       postalCode: sellerLocation?.postalCode ?? "",
       city: sellerLocation?.city ?? "",
+      address: sellerLocation?.address ?? "",
       latitude: sellerLocation?.coordinates.latitude ?? 0,
       longitude: sellerLocation?.coordinates.longitude ?? 0,
       maxDistance,
@@ -103,6 +115,24 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
          >
             <CountryField />
             <PostalCodeField />
+            <FormField
+               control={form.control}
+               name="address"
+               render={({ field }) => (
+                  <FormItem className="w-full">
+                     <FormLabel>
+                        {t("form-labels.Pickup address")} {t("form-labels.Optional")}
+                     </FormLabel>
+                     <FormControl>
+                        <Input {...field} />
+                     </FormControl>
+                     <FormDescription>
+                        {t("seller-location.pickup-address-description")}
+                     </FormDescription>
+                     <FormMessage />
+                  </FormItem>
+               )}
+            />
             <MaxDistanceSelectField<SellerLocationFormData> name="maxDistance" />
 
             <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 sm:w-fit">

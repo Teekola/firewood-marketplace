@@ -56,6 +56,7 @@ export type SellerLocationArgs = {
    latitude: number;
    longitude: number;
    maxDistanceKm: number;
+   address: string;
 };
 
 export const createSellerLocation = async ({
@@ -64,6 +65,7 @@ export const createSellerLocation = async ({
    countryName,
    postalCode,
    city,
+   address,
    latitude,
    longitude,
    maxDistanceKm,
@@ -74,6 +76,7 @@ export const createSellerLocation = async ({
       countryName,
       postalCode,
       city,
+      address: address === "" ? null : address,
       latitude,
       longitude,
       maxDistanceKm,
@@ -87,6 +90,7 @@ export const updateSellerLocation = async ({
    countryName,
    postalCode,
    city,
+   address,
    latitude,
    longitude,
    maxDistanceKm,
@@ -96,6 +100,7 @@ export const updateSellerLocation = async ({
       countryName,
       postalCode,
       city,
+      address: address === "" ? null : address,
       latitude,
       longitude,
       maxDistanceKm,
