@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/app/db/quotation-request";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { OfferForm, OfferFormData } from "../(components)/(make-offer-form)/offer-form";
@@ -52,6 +53,7 @@ export default function MakeOfferDialog({
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent
+            className="pl-4 pr-0"
             disableCloseOnOverlayClick
             {...(!autoFocus && { onOpenAutoFocus: (e) => e.preventDefault() })}
          >
@@ -62,19 +64,26 @@ export default function MakeOfferDialog({
                <DialogDescription className="sr-only">
                   {t("offer.Fill in the form to make an offer")}
                </DialogDescription>
-               <div className="border-b pb-4">
-                  <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
-               </div>
-               <OfferForm
-                  cancelHref={{
-                     pathname: DIALOG_PREVIOUS_ROUTE,
-                     params: { id: quotationRequest.id },
-                  }}
-                  countryCode={countryCode}
-                  isHomeDelivery={quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY}
-                  handleSubmit={handleSubmit}
-               />
             </DialogHeader>
+
+            <ScrollArea className="h-full max-h-[80vh]">
+               <div className="p-1 pr-4">
+                  <div className="mb-4 border-b pb-4">
+                     <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
+                  </div>
+                  <OfferForm
+                     cancelHref={{
+                        pathname: DIALOG_PREVIOUS_ROUTE,
+                        params: { id: quotationRequest.id },
+                     }}
+                     countryCode={countryCode}
+                     isHomeDelivery={
+                        quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY
+                     }
+                     handleSubmit={handleSubmit}
+                  />
+               </div>
+            </ScrollArea>
          </DialogContent>
       </Dialog>
    );

@@ -40,6 +40,11 @@ export interface CreateOfferArgs {
    price: string;
    currency: Currency;
    earliestAvailability: Date;
+   pickupCountryCode?: string;
+   pickupCountryName?: string;
+   pickupPostalCode?: string;
+   pickupCity?: string;
+   pickupAddress?: string;
 }
 
 export const createOffer = async ({
@@ -48,6 +53,11 @@ export const createOffer = async ({
    price,
    currency,
    earliestAvailability,
+   pickupCountryCode,
+   pickupCountryName,
+   pickupPostalCode,
+   pickupCity,
+   pickupAddress,
 }: CreateOfferArgs) => {
    const offer = await prisma.offer.create({
       data: {
@@ -60,6 +70,11 @@ export const createOffer = async ({
          price,
          currency,
          earliestAvailability,
+         pickupCountryCode,
+         pickupCountryName,
+         pickupPostalCode,
+         pickupCity,
+         pickupAddress,
          updatedAt: new Date(),
       },
       select: offerDTOFields,

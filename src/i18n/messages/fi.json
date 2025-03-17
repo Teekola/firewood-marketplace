@@ -230,7 +230,10 @@
     "Accepted Offer": "Hyväksytty tarjous",
     "Reject Offer": "Hylkää tarjous",
     "reject-offer-description": "Hylätyt tarjoukset siirtyvät hylätyt-välilehdelle. Voit myöhemmin hyväksyä myös hylätyn tarjouksen. Myyjä saa tiedon, että olet hylännyt tarjouksen, ja voi päivittää tarjoustaan. Haluatko varmasti hylätä tarjouksen?",
-    "No rejected offers": "Sinulla ei ole hylättyjä tarjouksia."
+    "No rejected offers": "Sinulla ei ole hylättyjä tarjouksia.",
+    "pickupAddress": "Noutopaikan osoite",
+    "Pickup location": "Noutopaikan tiedot",
+    "Address": "Osoite"
   },
   "currencies": {
     "label-USD": "Yhdysvaltain dollari",

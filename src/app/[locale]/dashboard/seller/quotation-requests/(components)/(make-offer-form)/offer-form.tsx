@@ -8,11 +8,12 @@ import { fi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
-import { z } from "zod";
+import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { Calendar } from "@/components/ui/calendar";
+import { CountryField, countries } from "@/components/ui/country-field";
 import {
    Form,
    FormControl,
@@ -23,7 +24,9 @@ import {
    FormMessage,
    FormRootError,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { PostalCodeField } from "@/components/ui/postal-code-field";
 import { countryCodeToCurrency } from "@/i18n/currencies";
 import { Link, SingleDynamicPathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -32,18 +35,33 @@ import "@/lib/utils/unit-conversions";
 
 import { CurrencyField } from "./currency-field";
 
-export const offerFormSchema = z.object({
-   price: z.string().min(1, "Please, enter the price"),
-   currency: z.nativeEnum(Currency),
-   earliestAvailability: z.date(),
-});
+export const offerFormSchema = (isHomeDelivery: boolean) =>
+   z.object({
+      price: z.string().min(1, "Please, enter the price"),
+      currency: z.nativeEnum(Currency),
+      earliestAvailability: z.date(),
+      pickupCountryCode: !isHomeDelivery
+         ? z.string().min(1, "Please enter the country code")
+         : z.string().optional(),
+      pickupCountryName: !isHomeDelivery
+         ? z.string().min(1, "Please enter the country name")
+         : z.string().optional(),
+      pickupPostalCode: !isHomeDelivery
+         ? z.string().min(1, "Please enter the postal code")
+         : z.string().optional(),
+      pickupCity: !isHomeDelivery
+         ? z.string().min(1, "Please enter the city")
+         : z.string().optional(),
+      pickupAddress: !isHomeDelivery
+         ? z.string().min(1, "Please enter the address")
+         : z.string().optional(),
+   });
 
-export type OfferFormData = z.infer<typeof offerFormSchema>;
+export type OfferFormData = z.infer<ReturnType<typeof offerFormSchema>>;
 
 interface OfferFormProps extends ComponentProps<"form"> {
    countryCode: string;
    isHomeDelivery: boolean;
-
    defaultValues?: Partial<OfferFormData>;
    cancelHref: { pathname: SingleDynamicPathname; params: { id: string } };
    handleSubmit: (data: OfferFormData) => Promise<void>;
@@ -62,14 +80,22 @@ export function OfferForm({
    const locale = useLocale();
    const [isSubmitting, setIsSubmitting] = useState(false);
 
-   const defaultValues: DefaultValues<OfferFormData> = propDefaultValues ?? {
+   const schema = offerFormSchema(isHomeDelivery);
+
+   // TODO: Get default pickup location values from SellerLocation!
+   const defaultValues: DefaultValues<z.infer<typeof schema>> = propDefaultValues ?? {
       price: "",
       currency: (countryCodeToCurrency[countryCode] ?? Currency.EUR) as Currency,
       earliestAvailability: new Date(),
+      pickupCountryCode: countries[0].code,
+      pickupCountryName: countries[0].label,
+      pickupAddress: "",
+      pickupPostalCode: "",
+      pickupCity: "",
    };
 
-   const form = useForm<OfferFormData>({
-      resolver: zodResolver(offerFormSchema),
+   const form = useForm<z.infer<typeof schema>>({
+      resolver: zodResolver(schema),
       defaultValues,
    });
 
@@ -94,7 +120,7 @@ export function OfferForm({
          <form
             {...props}
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mt-4 flex h-full max-w-lg flex-1 flex-col gap-4 text-left"
+            className="flex h-full max-w-lg flex-1 flex-col gap-4 text-left"
          >
             <CurrencyField />
 
@@ -157,18 +183,58 @@ export function OfferForm({
                )}
             />
 
-            <div className="mt-4 flex flex-col gap-2 sm:flex-row-reverse">
-               {!isSubmitting && (
-                  <Button type="submit" size="lg" data-disabled={!canProceed} className="w-full">
-                     {t("actions.Submit")}
+            {!isHomeDelivery && (
+               <div className="flex flex-col gap-4">
+                  <h3 className="h4 mt-4 border-t pt-4">{t("offer.Pickup location")}</h3>
+                  <CountryField
+                     name="pickupCountryCode"
+                     countryNameField="pickupCountryName"
+                     onCountrySelect={({ label }) => {
+                        form.setValue("pickupCountryName", label, { shouldDirty: true });
+                        form.setValue("pickupPostalCode", "", { shouldDirty: true });
+                        form.setValue("pickupCity", "", { shouldDirty: true });
+                     }}
+                  />
+                  <PostalCodeField
+                     name="pickupPostalCode"
+                     cityField="pickupCity"
+                     countryField="pickupCountryCode"
+                  />
+                  <FormField
+                     control={form.control}
+                     name="pickupAddress"
+                     render={({ field }) => (
+                        <FormItem className="w-full">
+                           <FormLabel>{t("offer.Address")}</FormLabel>
+                           <FormControl>
+                              <Input {...field} />
+                           </FormControl>
+                           <FormMessage />
+                        </FormItem>
+                     )}
+                  />
+               </div>
+            )}
+
+            <div className="sticky bottom-0 mt-4">
+               <div
+                  className="pointer-events-none h-8 w-full bg-gradient-to-b from-transparent via-background to-background"
+                  aria-hidden="true"
+               ></div>
+               <div className="flex flex-col gap-2 bg-background sm:flex-row-reverse">
+                  {!isSubmitting && (
+                     <Button type="submit" size="lg" data-disabled={!canProceed} className="w-full">
+                        {t("actions.Submit")}
+                     </Button>
+                  )}
+                  {isSubmitting && <ButtonLoading size="lg" className="w-full" />}
+                  <Button asChild size="lg" variant="outline" type="button" className="w-full">
+                     <Link href={cancelHref}>{t("actions.Cancel")}</Link>
                   </Button>
-               )}
-               {isSubmitting && <ButtonLoading size="lg" className="w-full" />}
-               <Button asChild size="lg" variant="outline" type="button" className="w-full">
-                  <Link href={cancelHref}>{t("actions.Cancel")}</Link>
-               </Button>
+               </div>
+
+               <FormRootError />
             </div>
-            <FormRootError />
          </form>
       </Form>
    );

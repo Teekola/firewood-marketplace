@@ -185,6 +185,11 @@ model Offer {
    price                String
    currency             Currency
    earliestAvailability DateTime         @map("earliest_availability")
+   pickupCountryCode    String?          @map("pickup_country_code")
+   pickupCountryName    String?          @map("pickup_country")
+   pickupPostalCode     String?          @map("pickup_postal_code")
+   pickupCity           String?          @map("pickup_city")
+   pickupAddress        String?          @map("pickup_address")
    buyerLastSeenAt      DateTime?        @map("buyer_last_seen_at")
    sellerLastSeenAt     DateTime?        @map("seller_last_seen_at")
    acceptedAt           DateTime?        @map("accepted_at")

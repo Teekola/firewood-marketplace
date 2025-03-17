@@ -19,9 +19,6 @@ export function DeliveryDetails({
    const isHomeDelivery = qr.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
    const shouldDisplayAddress = isHomeDelivery || (!isHomeDelivery && displayPickupAddress);
 
-   // TODO: STORE SELLER'S ADDRESS IN THE QUOTATION REQUEST WHEN CREATING IF DELIVERY METHOD IS PICKUP
-   // TODO: MIGHT NEED TO STORE THEM IN THE QR INTO THEIR OWN FIELDS (pickupPostalCode, pickupCountry, pickupCity, pickupAddress)
-   // TODO: NEED TO ALSO DISPLAY THE SELLER'S POSTALCODE AND CITY WHEN PICKUP!
    // TODO: ENSURE THAT THE ADDRESS IS DISPLAYED CORRECTLY AFTER THE CHANGE IN ALL PLACES!
    return (
       <>

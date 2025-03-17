@@ -230,7 +230,10 @@
     "Accepted Offer": "Accepted Offer",
     "Reject Offer": "Reject Offer",
     "reject-offer-description": "Rejected offers are moved to the rejected tab. You may choose to accept a rejected offer later. The seller will now that you have rejected their offer and they can edit their offer. Are you sure that you want to reject the offer?",
-    "No rejected offers": "You don't have any rejected offers."
+    "No rejected offers": "You don't have any rejected offers.",
+    "pickupAddress": "Pickup address",
+    "Pickup location": "Pickup Location",
+    "Address": "Address"
   },
   "currencies": {
     "label-USD": "US Dollar",

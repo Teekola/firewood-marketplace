@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
@@ -62,21 +63,25 @@ export default function OfferEditDialog({
                </DialogTitle>
                <DialogDescription className="sr-only">{t("offer.Edit Offer")}</DialogDescription>
             </DialogHeader>
-            <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
+            <ScrollArea className="h-full max-h-[80vh]">
+               <div className="p-1 pr-4">
+                  <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
 
-            <OfferForm
-               countryCode={countryCode}
-               defaultValues={{
-                  price: offer.price,
-                  currency: offer.currency,
-                  earliestAvailability: offer.earliestAvailability,
-               }}
-               cancelHref={{ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } }}
-               isHomeDelivery={
-                  offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY
-               }
-               handleSubmit={handleSubmit}
-            />
+                  <OfferForm
+                     countryCode={countryCode}
+                     defaultValues={{
+                        price: offer.price,
+                        currency: offer.currency,
+                        earliestAvailability: offer.earliestAvailability,
+                     }}
+                     cancelHref={{ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } }}
+                     isHomeDelivery={
+                        offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY
+                     }
+                     handleSubmit={handleSubmit}
+                  />
+               </div>
+            </ScrollArea>
          </DialogContent>
       </Dialog>
    );
