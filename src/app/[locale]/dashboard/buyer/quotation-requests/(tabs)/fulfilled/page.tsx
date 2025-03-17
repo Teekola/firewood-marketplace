@@ -6,7 +6,6 @@ import { QuotationRequestList } from "../../(components)/quotation-request-list"
 import { getQuotationRequestsForBuyer } from "../../actions";
 import { buyerQuotationRequestsQueryKey } from "../../constants";
 
-// TODO: MODIFY THIS TO USE THE FULFILLED COMPONENTS AND QUERY
 const limit = 10;
 const status = QuotationRequestStatus.FULFILLED;
 export default async function BuyerFulfilledQuotationRequestsPage() {
