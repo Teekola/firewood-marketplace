@@ -3,15 +3,9 @@ import { NextResponse } from "next/server";
 import NextAuth from "next-auth";
 import createMiddleware from "next-intl/middleware";
 
-import {
-   CALLBACK_URL_KEY,
-   DEFAULT_ROUTE,
-   authOptions,
-   authPages,
-   pages,
-   protectedPages,
-} from "@/auth/auth-options";
+import { DEFAULT_ROUTE, authOptions, authPages, pages, protectedPages } from "@/auth/auth-options";
 
+import { CALLBACK_URL_KEY } from "./auth/constants";
 import { routing } from "./i18n/routing";
 import { testPathnameRegex } from "./lib/utils";
 

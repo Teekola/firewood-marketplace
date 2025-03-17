@@ -91,7 +91,6 @@ export const authPages = [
    ...getLocalizedPages([registerPage, registerWithEmailPage, signInWithEmailPage]),
 ];
 export const protectedPages = getLocalizedPages(protectedRoutes);
-export const CALLBACK_URL_KEY = "callbackUrl";
 export const DEFAULT_ROUTE = "/";
 
 const http = env.NODE_ENV === "development" ? "http" : "https";

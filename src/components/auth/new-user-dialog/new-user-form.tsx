@@ -60,13 +60,7 @@ export function NewUserForm({ userId }: Readonly<{ userId: string }>) {
    async function onSubmit(data: NewUserFormData) {
       const result = await registerUser({ userId, isSeller: data.isSeller });
       console.log("Registered user", result.id);
-
-      if (data.isSeller) {
-         router.push("/dashboard/seller");
-         return;
-      }
-
-      router.push("/dashboard/buyer");
+      router.refresh();
    }
 
    return (

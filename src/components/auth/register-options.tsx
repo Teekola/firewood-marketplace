@@ -4,13 +4,17 @@ import { useSearchParams } from "next/navigation";
 
 import { useTranslations } from "next-intl";
 
-import { Link } from "@/i18n/routing";
+import { CALLBACK_URL_KEY } from "@/auth/constants";
+import { Link, usePathname } from "@/i18n/routing";
 
 import { GoogleRegisterButton } from "./google-register-button";
 
 export function RegisterOptions() {
    const t = useTranslations();
    const searchParams = useSearchParams();
+   const pathname = usePathname();
+   const newSearchParams = new URLSearchParams(searchParams);
+   newSearchParams.append(CALLBACK_URL_KEY, pathname);
    return (
       <div className="flex flex-col gap-4 text-center">
          <div>
@@ -22,7 +26,7 @@ export function RegisterOptions() {
             <Link
                href={{
                   pathname: "/auth/register/email",
-                  query: searchParams.toString(),
+                  query: newSearchParams.toString(),
                }}
                className="underline"
             >
