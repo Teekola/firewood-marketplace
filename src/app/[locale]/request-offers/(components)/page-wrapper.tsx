@@ -23,9 +23,5 @@ export function PageWrapper({ children }: PropsWithChildren) {
          </div>
       );
 
-   return (
-      <>
-         <div className="h-full max-h-[700px] xs:max-h-[600px]">{children}</div>
-      </>
-   );
+   return <div className="flex h-full max-h-[700px] flex-col xs:max-h-[600px]">{children}</div>;
 }

@@ -26,7 +26,7 @@ export default async function RequestOffersLayout({
             <RequestOffersTopbar />
             <div className="mx-auto h-full w-full max-w-lg p-3">{children}</div>
          </RequestOffersStoreProvider>
-         <Footer className="mt-16" />
+         <Footer />
       </div>
    );
 }
