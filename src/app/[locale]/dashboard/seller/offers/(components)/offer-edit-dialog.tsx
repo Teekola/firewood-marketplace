@@ -65,7 +65,9 @@ export default function OfferEditDialog({
             </DialogHeader>
             <ScrollArea className="h-full max-h-[80vh]">
                <div className="p-1 pr-4">
-                  <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
+                  <div className="mb-4 border-b pb-4">
+                     <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
+                  </div>
 
                   <OfferForm
                      countryCode={countryCode}
@@ -73,6 +75,11 @@ export default function OfferEditDialog({
                         price: offer.price,
                         currency: offer.currency,
                         earliestAvailability: offer.earliestAvailability,
+                        pickupAddress: offer.pickupAddress ?? "",
+                        pickupCity: offer.pickupCity ?? "",
+                        pickupPostalCode: offer.pickupPostalCode ?? "",
+                        pickupCountryCode: offer.pickupCountryCode ?? "",
+                        pickupCountryName: offer.pickupCountryName ?? "",
                      }}
                      cancelHref={{ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } }}
                      isHomeDelivery={

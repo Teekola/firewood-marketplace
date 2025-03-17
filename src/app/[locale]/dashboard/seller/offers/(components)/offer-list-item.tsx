@@ -8,6 +8,7 @@ import { OfferDTO } from "@/app/db/offer";
 import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
+import { useGetTranslatedCountryName } from "@/components/ui/country-field";
 import { currencyConfigs } from "@/i18n/currencies";
 import { Link, Pathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -21,9 +22,12 @@ interface OfferListItemProps extends ComponentProps<"li"> {
 export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemProps>>(
    ({ offer, ...props }, ref) => {
       const t = useTranslations();
+      const getTranslatedCountryName = useGetTranslatedCountryName();
       const quotationRequest = offer.quotationRequest;
       const { amount, amountUnit, lengthUnit, maxLength } =
          useQuotationRequestData(quotationRequest);
+
+      console.log(offer.pickupCountryName);
 
       const format = useFormatter();
       const earliestAvailability = format.dateTime(offer.earliestAvailability, {
@@ -63,16 +67,19 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                      {t(`request-offers.${quotationRequest.woodType.toLowerCase()}`)}
                      {maxLength && `, ${maxLength} ${lengthUnit}`}
                   </p>
-                  {isHomeDelivery && (
-                     <p className="text-sm">
-                        {t("offer.Earliest delivery date")} {earliestAvailability}
-                     </p>
-                  )}
-                  {!isHomeDelivery && (
-                     <p className="text-sm">
-                        {t("offer.Earliest pickup date")} {earliestAvailability}
-                     </p>
-                  )}
+
+                  <p className="text-sm capitalize">
+                     {isHomeDelivery
+                        ? `${t("request-offers.home delivery")} ${quotationRequest.city}, ${getTranslatedCountryName(quotationRequest.countryName)}`
+                        : `${t("request-offers.pickup")} ${offer.pickupCity}, ${getTranslatedCountryName(offer.pickupCountryName)}`}
+                  </p>
+                  <p className="text-sm">
+                     {isHomeDelivery
+                        ? t("offer.Earliest delivery date")
+                        : t("offer.Earliest pickup date")}{" "}
+                     {earliestAvailability}
+                  </p>
+
                   <p className="mt-2 text-xs text-muted-foreground">
                      {t("quotation-request.Last updated")} <RelativeTime date={offer.updatedAt} />
                   </p>

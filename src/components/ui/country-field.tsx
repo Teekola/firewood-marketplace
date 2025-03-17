@@ -32,6 +32,20 @@ interface CountryFieldProps extends React.HTMLAttributes<HTMLDivElement> {
    onCountrySelect?: (selected: { code: string; label: string }) => void;
 }
 
+export function useGetTranslatedCountryName() {
+   const t = useTranslations();
+
+   function getTranslatedCountryName(countryName?: string | null) {
+      if (!countryName) return "";
+      return (
+         t(`countries.${countries.find((country) => country.label === countryName)?.label}`) ??
+         countryName
+      );
+   }
+
+   return getTranslatedCountryName;
+}
+
 export function CountryField({
    name,
    countryNameField,

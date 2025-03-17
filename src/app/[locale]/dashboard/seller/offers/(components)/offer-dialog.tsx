@@ -2,19 +2,17 @@
 
 import { useEffect, useState } from "react";
 
-import { DeliveryMethod } from "@prisma/client";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { EditIcon } from "lucide-react";
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
+import { OfferDetails } from "@/components/offer/offer-details";
 import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
-import { currencyConfigs } from "@/i18n/currencies";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 
-import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
 import { DeleteOfferDialog } from "./delete-offer-dialog";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers";
@@ -31,7 +29,6 @@ export default function OfferDialog({
    const t = useTranslations();
    const [open, setOpen] = useState(isOpen);
    const pathname = usePathname();
-   const format = useFormatter();
 
    function handleClose() {
       router.push(DIALOG_PREVIOUS_ROUTE);
@@ -43,8 +40,7 @@ export default function OfferDialog({
    }, [pathname]);
 
    if (!offer) return null;
-   const isHomeDelivery = offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
-   const currency = currencyConfigs[offer.currency];
+
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent onOpenAutoFocus={(e) => e.preventDefault()}>
@@ -54,33 +50,9 @@ export default function OfferDialog({
                </DialogTitle>
                <DialogDescription className="sr-only">{t("offer.Offer details")}</DialogDescription>
             </DialogHeader>
-            <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
 
-            <div className="-mt-2 flex flex-col gap-2 text-sm">
-               <div>
-                  <p className="font-semibold">{t("offer.Price")}</p>
-                  <p>
-                     {currency.symbolPosition === "before" && currency.symbol}
-                     {offer.price} {currency.symbolPosition === "after" && currency.symbol}
-                  </p>
-               </div>
-               <div>
-                  <p className="font-semibold">
-                     {isHomeDelivery
-                        ? t("offer.Earliest delivery date")
-                        : t("offer.Earliest pickup date")}
-                  </p>
+            <OfferDetails offer={offer} showAddress />
 
-                  <p>
-                     {format.dateTime(offer.earliestAvailability, {
-                        year: "numeric",
-                        month: "numeric",
-                        day: "numeric",
-                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                     })}
-                  </p>
-               </div>
-            </div>
             <p className="mt-2 text-xs text-muted-foreground">
                {t("quotation-request.Last updated")} <RelativeTime date={offer.updatedAt} />
             </p>

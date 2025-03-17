@@ -28,7 +28,7 @@ export async function AcceptedOffer({ offer }: Readonly<AcceptedOfferProps>) {
             <CardDescription className="sr-only">{t("offer.Accepted Offer")}</CardDescription>
          </CardHeader>
          <CardContent className="text-sm">
-            <OfferDetails offer={offer} isAccepted />
+            <OfferDetails offer={offer} showSellerDetails showAddress />
          </CardContent>
          <CardFooter>
             <RejectOfferDialog
