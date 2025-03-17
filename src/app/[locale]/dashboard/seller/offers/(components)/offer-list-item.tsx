@@ -33,8 +33,6 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
 
-      // TODO: Ensure that when updating the viewing status, the updatedAt value is not actually changed
-      // So need to update the updatedAt value to match the value stored in the database before the update
       const buyerHasSeen = offer.buyerLastSeenAt && offer.buyerLastSeenAt >= offer.updatedAt;
       const isRejected = offer.rejectedAt && offer.rejectedAt >= offer.updatedAt;
 
