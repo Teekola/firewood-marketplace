@@ -12,7 +12,7 @@ export default async function QuotationRequestPage({
 
    if (!auth) return null;
 
-   if (!auth.seller?.location?.countryCode) {
+   if (!auth.seller?.location) {
       // TODO: Display instructions to go fill in the country code before being able to do this
       // TODO: Might need to build a centralized approach and also take into account the paywall that will be added
       return null;
@@ -22,7 +22,7 @@ export default async function QuotationRequestPage({
       <MakeOfferDialog
          isOpen={true}
          quotationRequest={quotationRequest}
-         countryCode={auth.seller.location.countryCode}
+         sellerLocation={auth.seller.location}
       />
    );
 }

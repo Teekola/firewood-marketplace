@@ -12,6 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { OfferForm, OfferFormData } from "../(components)/(make-offer-form)/offer-form";
+import { SellerLocation } from "../../../../../../../prisma/prismaClientExtensions";
 import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
 import { createOffer } from "../actions";
 
@@ -21,12 +22,12 @@ const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]/make-offer";
 export default function MakeOfferDialog({
    isOpen,
    quotationRequest,
-   countryCode,
+   sellerLocation,
    autoFocus,
 }: Readonly<{
    isOpen: boolean;
    quotationRequest: QuotationRequest | null;
-   countryCode: string;
+   sellerLocation: SellerLocation;
    autoFocus?: boolean;
 }>) {
    const router = useRouter();
@@ -72,11 +73,17 @@ export default function MakeOfferDialog({
                      <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
                   </div>
                   <OfferForm
+                     defaultValues={{
+                        pickupCountryCode: sellerLocation.countryCode,
+                        pickupCountryName: sellerLocation.countryName,
+                        pickupPostalCode: sellerLocation.postalCode,
+                        pickupAddress: sellerLocation.address ?? "",
+                     }}
                      cancelHref={{
                         pathname: DIALOG_PREVIOUS_ROUTE,
                         params: { id: quotationRequest.id },
                      }}
-                     countryCode={countryCode}
+                     countryCode={sellerLocation.countryCode}
                      isHomeDelivery={
                         quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY
                      }

@@ -7,11 +7,14 @@ interface RelativeTimeProps {
    updateIntervalMs?: number;
 }
 export function RelativeTime({ date, updateIntervalMs = 1000 * 10 }: RelativeTimeProps) {
-   const now = useNow({
+   let now = useNow({
       updateInterval: updateIntervalMs,
    });
    const format = useFormatter();
 
+   if (now < new Date()) {
+      now = new Date();
+   }
    if (now.getTime() - date.getTime() < 60000) {
       return <>{format.relativeTime(date, { now, unit: "minutes" })}</>;
    }

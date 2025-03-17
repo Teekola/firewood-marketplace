@@ -82,8 +82,7 @@ export function OfferForm({
 
    const schema = offerFormSchema(isHomeDelivery);
 
-   // TODO: Get default pickup location values from SellerLocation!
-   const defaultValues: DefaultValues<z.infer<typeof schema>> = propDefaultValues ?? {
+   const defaultValues: DefaultValues<z.infer<typeof schema>> = {
       price: "",
       currency: (countryCodeToCurrency[countryCode] ?? Currency.EUR) as Currency,
       earliestAvailability: new Date(),
@@ -92,6 +91,7 @@ export function OfferForm({
       pickupAddress: "",
       pickupPostalCode: "",
       pickupCity: "",
+      ...propDefaultValues,
    };
 
    const form = useForm<z.infer<typeof schema>>({
