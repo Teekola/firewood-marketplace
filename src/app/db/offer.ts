@@ -1,4 +1,4 @@
-import { Currency, Prisma, QuotationRequestStatus } from "@prisma/client";
+import { Currency, DeliveryMethod, Prisma, QuotationRequestStatus } from "@prisma/client";
 
 import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
@@ -11,6 +11,7 @@ export const offerDTOFields = Prisma.validator<Prisma.OfferSelect>()({
    price: true,
    currency: true,
    earliestAvailability: true,
+   deliveryMethods: true,
    pickupCountryCode: true,
    pickupCountryName: true,
    pickupAddress: true,
@@ -45,6 +46,7 @@ export interface CreateOfferArgs {
    price: string;
    currency: Currency;
    earliestAvailability: Date;
+   deliveryMethods: DeliveryMethod[];
    pickupCountryCode?: string;
    pickupCountryName?: string;
    pickupPostalCode?: string;
@@ -58,6 +60,7 @@ export const createOffer = async ({
    price,
    currency,
    earliestAvailability,
+   deliveryMethods,
    pickupCountryCode,
    pickupCountryName,
    pickupPostalCode,
@@ -73,6 +76,7 @@ export const createOffer = async ({
             connect: { id: sellerId },
          },
          price,
+         deliveryMethods,
          currency,
          earliestAvailability,
          pickupCountryCode,

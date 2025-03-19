@@ -41,7 +41,6 @@ enum WoodType {
 }
 
 enum WoodDryness {
-   ANY
    DRY
    GREEN
 }
@@ -143,11 +142,11 @@ model QuotationRequest {
    status                 QuotationRequestStatus
    createdAt              DateTime                 @default(now()) @map("created_at")
    updatedAt              DateTime                 @updatedAt @map("updated_at")
-   woodType               WoodType                 @map("wood_type")
-   woodDryness            WoodDryness              @map("wood_dryness")
+   woodTypes              WoodType[]               @map("wood_type")
+   woodDryness            WoodDryness[]            @map("wood_dryness")
    woodAmountCubicMeters  Int                      @map("wood_amount_cubic_meters")
    woodMaxLengthCm        Int?                     @map("wood_max_length_cm")
-   deliveryMethod         DeliveryMethod           @map("delivery_method")
+   deliveryMethods        DeliveryMethod[]         @map("delivery_method")
    countryCode            String                   @map("country_code")
    countryName            String                   @map("country_name")
    postalCode             String                   @map("postal_code")
@@ -186,6 +185,7 @@ model Offer {
    price                String
    currency             Currency
    earliestAvailability DateTime         @map("earliest_availability")
+   deliveryMethods      DeliveryMethod[] @map("delivery_methods")
    pickupCountryCode    String?          @map("pickup_country_code")
    pickupCountryName    String?          @map("pickup_country")
    pickupPostalCode     String?          @map("pickup_postal_code")

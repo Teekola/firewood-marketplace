@@ -46,6 +46,7 @@ export function OfferDetails({
          </PreviewSection>
          <PreviewSection title={t("request-offers.Delivery")}>
             <DeliveryDetails
+               deliveryMethods={offer.deliveryMethods}
                quotationRequest={offer.quotationRequest}
                earliestAvailability={offer.earliestAvailability}
                displayPickupAddress={showAddress}

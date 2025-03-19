@@ -24,7 +24,7 @@ export default function QuotationRequestDetails({
          </PreviewSection>
 
          <PreviewSection title={t("request-offers.Delivery")}>
-            <DeliveryDetails quotationRequest={qr} />
+            <DeliveryDetails quotationRequest={qr} deliveryMethods={qr.deliveryMethods} />
          </PreviewSection>
 
          {qr.additionalInformation && (

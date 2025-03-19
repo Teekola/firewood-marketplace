@@ -3,6 +3,7 @@
 import { ChangeEvent, FocusEvent } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { WoodDryness, WoodType } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
@@ -18,7 +19,6 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
-import { RadioGroup } from "@/components/ui/radio-group";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 import {
    imperialWoodAmountUnit,
@@ -28,7 +28,6 @@ import {
 } from "@/i18n/units";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
-import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";
 import { StickyFooter } from "../../(components)/sticky-footer";
 import { stepToPath } from "../../(components)/use-step-manager";
 import {
@@ -36,22 +35,28 @@ import {
    useLastUnlockedStep,
    useSetFirewoodData,
 } from "../../(store)/request-offers-store-provider";
+import { CheckboxGroupItemCard } from "../../../../../components/ui/checkbox-group-item-card";
 
 export const firewoodFormSchema = z.object({
-   woodType: z.enum(["mixed", "birch", "pine"], { required_error: "Please, select a wood type" }),
-   dryness: z.enum(["any", "dry", "green"], { required_error: "Please, select a dryness level" }),
+   woodTypes: z.array(z.nativeEnum(WoodType)).nonempty("Please, select a wood type"),
+   dryness: z
+      .array(z.nativeEnum(WoodDryness))
+      .nonempty({ message: "Please, select a dryness level" }),
    amount: z.string().min(1, { message: "Insert a valid number" }),
    maxLength: z.string().default(""),
 });
 export type FirewoodData = z.infer<typeof firewoodFormSchema>;
+
+const woodTypes = Object.keys(WoodType) as WoodType[];
+const woodDrynesses = Object.keys(WoodDryness) as WoodDryness[];
 
 export function FirewoodForm() {
    const firewoodData = useFirewoodData();
    const lastUnlockedStep = useLastUnlockedStep();
 
    const defaultValues: DefaultValues<FirewoodData> = firewoodData ?? {
-      woodType: "mixed",
-      dryness: "any",
+      woodTypes: [],
+      dryness: [],
       amount: "",
       maxLength: "",
    };
@@ -63,7 +68,7 @@ export function FirewoodForm() {
 
    const canProceed = form.formState.isValid;
 
-   const t = useTranslations("request-offers");
+   const t = useTranslations();
    const router = useRouter();
 
    const setFirewoodData = useSetFirewoodData();
@@ -84,19 +89,27 @@ export function FirewoodForm() {
             <div className="space-y-4">
                <FormField
                   control={form.control}
-                  name="woodType"
+                  name="woodTypes"
                   render={({ field }) => (
                      <FormItem className="space-y-1">
-                        <FormLabel>{t("Wood type")}</FormLabel>
-                        <RadioGroup
-                           onValueChange={field.onChange}
-                           value={field.value}
-                           className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
-                        >
-                           <RadioGroupItemCard value="mixed" label={t("mixed")} />
-                           <RadioGroupItemCard value="birch" label={t("birch")} />
-                           <RadioGroupItemCard value="pine" label={t("pine")} />
-                        </RadioGroup>
+                        <FormLabel>{t("request-offers.Wood type")}</FormLabel>
+                        <div className="grid grid-cols-3 gap-2">
+                           {woodTypes.map((woodType) => (
+                              <CheckboxGroupItemCard
+                                 key={woodType}
+                                 label={t(`wood-types.${woodType}`)}
+                                 checked={field.value.includes(woodType)}
+                                 onChange={() =>
+                                    field.onChange(
+                                       field.value.includes(woodType)
+                                          ? field.value.filter((v) => v !== woodType) // Remove if it was checked
+                                          : [...field.value, woodType] // Add if it was not checked
+                                    )
+                                 }
+                              />
+                           ))}
+                        </div>
+
                         <FormMessage />
                      </FormItem>
                   )}
@@ -107,16 +120,24 @@ export function FirewoodForm() {
                   name="dryness"
                   render={({ field }) => (
                      <FormItem className="space-y-1">
-                        <FormLabel>{t("Dryness")}</FormLabel>
-                        <RadioGroup
-                           onValueChange={field.onChange}
-                           value={field.value}
-                           className="grid grid-cols-3 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
-                        >
-                           <RadioGroupItemCard value="any" label={t("any")} />
-                           <RadioGroupItemCard value="dry" label={t("dry")} />
-                           <RadioGroupItemCard value="green" label={t("green")} />
-                        </RadioGroup>
+                        <FormLabel>{t("request-offers.Dryness")}</FormLabel>
+                        <div className="grid grid-cols-2 gap-2">
+                           {woodDrynesses.map((woodDryness) => (
+                              <CheckboxGroupItemCard
+                                 key={woodDryness}
+                                 label={t(`wood-drynesses.${woodDryness}`)}
+                                 checked={field.value.includes(woodDryness)}
+                                 onChange={() =>
+                                    field.onChange(
+                                       field.value.includes(woodDryness)
+                                          ? field.value.filter((v) => v !== woodDryness) // Remove if it was checked
+                                          : [...field.value, woodDryness] // Add if it was not checked
+                                    )
+                                 }
+                              />
+                           ))}
+                        </div>
+
                         <FormMessage />
                      </FormItem>
                   )}
@@ -130,7 +151,7 @@ export function FirewoodForm() {
 
             <StickyFooter>
                <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-                  {t("Continue")}
+                  {t("actions.Continue")}
                </Button>
             </StickyFooter>
          </form>

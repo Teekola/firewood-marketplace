@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { DeliveryMethod } from "@prisma/client";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
@@ -76,6 +75,7 @@ export default function MakeOfferDialog({
                      defaultValues={{
                         pickupCountryCode: sellerLocation.countryCode,
                         pickupCountryName: sellerLocation.countryName,
+                        pickupCity: sellerLocation.city,
                         pickupPostalCode: sellerLocation.postalCode,
                         pickupAddress: sellerLocation.address ?? "",
                      }}
@@ -84,9 +84,7 @@ export default function MakeOfferDialog({
                         params: { id: quotationRequest.id },
                      }}
                      countryCode={sellerLocation.countryCode}
-                     isHomeDelivery={
-                        quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY
-                     }
+                     quotationRequestDeliveryMethods={quotationRequest.deliveryMethods}
                      handleSubmit={handleSubmit}
                   />
                </div>

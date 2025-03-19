@@ -29,7 +29,8 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
 
-      const isHomeDelivery = offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
+      const hasHomeDelivery = offer.deliveryMethods.includes(DeliveryMethod.HOME_DELIVERY);
+      const hasPickup = offer.deliveryMethods.includes(DeliveryMethod.PICKUP);
       const linkPathname: Pathname = "/dashboard/buyer/quotation-requests/id/[id]/id/[offerId]";
       return (
          <li {...props} ref={ref} className={cn("w-full", props.className)}>
@@ -47,12 +48,13 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                   </Link>
 
                   <p className="text-sm capitalize">
-                     {isHomeDelivery
-                        ? t("request-offers.home_delivery")
-                        : `${t("request-offers.pickup")} ${offer.pickupPostalCode} ${offer.pickupCity}, ${getTranslatedCountryName(offer.pickupCountryName)}`}
+                     {hasHomeDelivery && t("request-offers.home_delivery")}
+
+                     {hasPickup &&
+                        `${t("request-offers.pickup")} ${offer.pickupPostalCode} ${offer.pickupCity}, ${getTranslatedCountryName(offer.pickupCountryName)}`}
                   </p>
                   <p className="text-sm">
-                     {isHomeDelivery
+                     {hasHomeDelivery
                         ? t("offer.Earliest delivery date")
                         : t("offer.Earliest pickup date")}{" "}
                      {earliestAvailability}

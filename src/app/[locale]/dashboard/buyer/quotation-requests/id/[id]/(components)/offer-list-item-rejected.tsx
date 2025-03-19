@@ -29,7 +29,9 @@ export const OfferListItemRejected = forwardRef<HTMLLIElement, Readonly<OfferLis
          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
 
-      const isHomeDelivery = offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
+      const hasHomeDelivery = offer.quotationRequest.deliveryMethods.includes(
+         DeliveryMethod.HOME_DELIVERY
+      );
       const linkPathname: Pathname =
          "/dashboard/buyer/quotation-requests/id/[id]/id/[offerId]/rejected";
       return (
@@ -46,12 +48,12 @@ export const OfferListItemRejected = forwardRef<HTMLLIElement, Readonly<OfferLis
                         {offer.price} {currencyConfigs[offer.currency].symbol}
                      </CardTitle>
                   </Link>
-                  {isHomeDelivery && (
+                  {hasHomeDelivery && (
                      <p className="text-sm">
                         {t("offer.Earliest delivery date")} {earliestAvailability}
                      </p>
                   )}
-                  {!isHomeDelivery && (
+                  {!hasHomeDelivery && (
                      <p className="text-sm">
                         {t("offer.Earliest pickup date")} {earliestAvailability}
                      </p>

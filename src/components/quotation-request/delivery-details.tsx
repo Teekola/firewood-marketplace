@@ -8,6 +8,7 @@ import { useGetTranslatedCountryName } from "../ui/country-field";
 
 export function DeliveryDetails({
    quotationRequest: qr,
+   deliveryMethods,
    earliestAvailability,
    displayPickupAddress,
    pickupCountryName,
@@ -16,6 +17,7 @@ export function DeliveryDetails({
    pickupAddress,
 }: Readonly<{
    quotationRequest: QuotationRequest;
+   deliveryMethods: DeliveryMethod[];
    earliestAvailability?: Date;
    displayPickupAddress?: boolean;
    pickupCountryName?: string | null;
@@ -26,38 +28,48 @@ export function DeliveryDetails({
    const t = useTranslations();
    const getTranslatedCountryName = useGetTranslatedCountryName();
 
-   const isHomeDelivery = qr.deliveryMethod === DeliveryMethod.HOME_DELIVERY;
+   const hasHomeDelivery = deliveryMethods.includes(DeliveryMethod.HOME_DELIVERY);
+   const hasPickup = deliveryMethods.includes(DeliveryMethod.PICKUP);
 
    return (
       <>
-         <p className="capitalize">{t(`request-offers.${qr.deliveryMethod}`)}</p>
-         {isHomeDelivery ? (
-            <p>
-               {qr.postalCode} <span className="capitalize">{qr.city?.toLowerCase()}</span>
-               {", "}
-               {getTranslatedCountryName(qr.countryName)}
-            </p>
-         ) : (
-            <p>
-               {displayPickupAddress && (
-                  <span>
-                     {pickupAddress}
-                     {", "}
-                  </span>
-               )}
-               {pickupPostalCode && pickupCity && pickupCountryName && (
-                  <span>
-                     {pickupPostalCode} {pickupCity}
-                     {", "}
-                     {getTranslatedCountryName(pickupCountryName)}{" "}
-                  </span>
-               )}
-            </p>
+         {hasPickup && (
+            <div>
+               <p>{t("delivery-methods.PICKUP")}</p>
+
+               <p>
+                  {displayPickupAddress && (
+                     <span>
+                        {pickupAddress}
+                        {", "}
+                     </span>
+                  )}
+                  {pickupPostalCode && pickupCity && pickupCountryName && (
+                     <span>
+                        {pickupPostalCode} {pickupCity}
+                        {", "}
+                        {getTranslatedCountryName(pickupCountryName)}{" "}
+                     </span>
+                  )}
+               </p>
+            </div>
+         )}
+         {hasPickup && hasHomeDelivery && <p>{t("conjunctions.or")}</p>}
+         {hasHomeDelivery && (
+            <div>
+               <p>{t("delivery-methods.HOME_DELIVERY")}</p>
+               <p>
+                  {qr.address} {qr.postalCode}{" "}
+                  <span className="capitalize">{qr.city?.toLowerCase()}</span>
+                  {", "}
+                  {getTranslatedCountryName(qr.countryName)}
+               </p>
+            </div>
          )}
 
          {earliestAvailability && (
             <p>
-               {isHomeDelivery
+               {hasHomeDelivery
                   ? t("offer.Earliest delivery date")
                   : t("offer.Earliest pickup date")}{" "}
                <Date date={earliestAvailability} />

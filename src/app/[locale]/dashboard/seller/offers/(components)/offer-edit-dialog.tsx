@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { DeliveryMethod } from "@prisma/client";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
@@ -82,9 +81,7 @@ export default function OfferEditDialog({
                         pickupCountryName: offer.pickupCountryName ?? "",
                      }}
                      cancelHref={{ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } }}
-                     isHomeDelivery={
-                        offer.quotationRequest.deliveryMethod === DeliveryMethod.HOME_DELIVERY
-                     }
+                     quotationRequestDeliveryMethods={offer.quotationRequest.deliveryMethods}
                      handleSubmit={handleSubmit}
                   />
                </div>

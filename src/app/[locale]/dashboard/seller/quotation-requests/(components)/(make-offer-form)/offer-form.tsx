@@ -3,7 +3,7 @@
 import { ComponentProps, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Currency } from "@prisma/client";
+import { Currency, DeliveryMethod } from "@prisma/client";
 import { fi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
@@ -13,6 +13,7 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { Calendar } from "@/components/ui/calendar";
+import { CheckboxGroupItemCard } from "@/components/ui/checkbox-group-item-card";
 import { CountryField, countries } from "@/components/ui/country-field";
 import {
    Form,
@@ -35,33 +36,45 @@ import "@/lib/utils/unit-conversions";
 
 import { CurrencyField } from "./currency-field";
 
-export const offerFormSchema = (isHomeDelivery: boolean) =>
-   z.object({
+export const offerFormSchema = z
+   .object({
       price: z.string().min(1, "Please, enter the price"),
       currency: z.nativeEnum(Currency),
       earliestAvailability: z.date(),
-      pickupCountryCode: !isHomeDelivery
-         ? z.string().min(1, "Please enter the country code")
-         : z.string().optional(),
-      pickupCountryName: !isHomeDelivery
-         ? z.string().min(1, "Please enter the country name")
-         : z.string().optional(),
-      pickupPostalCode: !isHomeDelivery
-         ? z.string().min(1, "Please enter the postal code")
-         : z.string().optional(),
-      pickupCity: !isHomeDelivery
-         ? z.string().min(1, "Please enter the city")
-         : z.string().optional(),
-      pickupAddress: !isHomeDelivery
-         ? z.string().min(1, "Please enter the address")
-         : z.string().optional(),
-   });
+      deliveryMethods: z
+         .array(z.nativeEnum(DeliveryMethod))
+         .nonempty({ message: "Select at least one delivery method" }),
+      pickupCountryCode: z.string().optional(),
+      pickupCountryName: z.string().optional(),
+      pickupPostalCode: z.string().optional(),
+      pickupCity: z.string().optional(),
+      pickupAddress: z.string().optional(),
+   })
+   .refine(
+      (values) => {
+         if (!values.deliveryMethods.includes(DeliveryMethod.PICKUP)) {
+            return true;
+         }
 
-export type OfferFormData = z.infer<ReturnType<typeof offerFormSchema>>;
+         if (
+            !values.pickupCountryCode ||
+            !values.pickupCountryName ||
+            !values.pickupPostalCode ||
+            !values.pickupCity ||
+            !values.pickupAddress
+         ) {
+            return false;
+         }
+         return true;
+      },
+      { message: "Enter pickup details", path: ["root"] }
+   );
+
+export type OfferFormData = z.infer<typeof offerFormSchema>;
 
 interface OfferFormProps extends ComponentProps<"form"> {
    countryCode: string;
-   isHomeDelivery: boolean;
+   quotationRequestDeliveryMethods: DeliveryMethod[];
    defaultValues?: Partial<OfferFormData>;
    cancelHref: { pathname: SingleDynamicPathname; params: { id: string } };
    handleSubmit: (data: OfferFormData) => Promise<void>;
@@ -69,7 +82,7 @@ interface OfferFormProps extends ComponentProps<"form"> {
 
 export function OfferForm({
    countryCode,
-   isHomeDelivery,
+   quotationRequestDeliveryMethods,
    defaultValues: propDefaultValues,
    cancelHref,
    handleSubmit,
@@ -80,11 +93,18 @@ export function OfferForm({
    const locale = useLocale();
    const [isSubmitting, setIsSubmitting] = useState(false);
 
-   const schema = offerFormSchema(isHomeDelivery);
+   const hasHomeDelivery = quotationRequestDeliveryMethods.includes(DeliveryMethod.HOME_DELIVERY);
+   const hasPickup = quotationRequestDeliveryMethods.includes(DeliveryMethod.PICKUP);
 
-   const defaultValues: DefaultValues<z.infer<typeof schema>> = {
+   const defaultValues: DefaultValues<z.infer<typeof offerFormSchema>> = {
       price: "",
       currency: (countryCodeToCurrency[countryCode] ?? Currency.EUR) as Currency,
+      deliveryMethods:
+         hasHomeDelivery && hasPickup
+            ? []
+            : hasHomeDelivery
+              ? [DeliveryMethod.HOME_DELIVERY]
+              : [DeliveryMethod.PICKUP],
       earliestAvailability: new Date(),
       pickupCountryCode: countries[0].code,
       pickupCountryName: countries[0].label,
@@ -94,12 +114,13 @@ export function OfferForm({
       ...propDefaultValues,
    };
 
-   const form = useForm<z.infer<typeof schema>>({
-      resolver: zodResolver(schema),
+   const form = useForm<z.infer<typeof offerFormSchema>>({
+      resolver: zodResolver(offerFormSchema),
       defaultValues,
    });
 
-   const canProceed = form.formState.isValid && form.formState.isDirty;
+   const canProceed = form.formState.isValid;
+   const deliveryMethods = form.watch("deliveryMethods");
 
    async function onSubmit(data: OfferFormData) {
       if (!canProceed) return;
@@ -124,15 +145,46 @@ export function OfferForm({
          >
             <CurrencyField />
 
+            {quotationRequestDeliveryMethods.length > 1 && (
+               <FormField
+                  control={form.control}
+                  name="deliveryMethods"
+                  render={({ field }) => (
+                     <FormItem className="space-y-1">
+                        <FormLabel>{t("request-offers.Delivery type")}</FormLabel>
+                        <div className="grid grid-cols-2 gap-2">
+                           {quotationRequestDeliveryMethods.map((deliveryMethod) => (
+                              <CheckboxGroupItemCard
+                                 key={deliveryMethod}
+                                 label={t(`delivery-methods.${deliveryMethod}`)}
+                                 checked={field.value.includes(deliveryMethod)}
+                                 onChange={() =>
+                                    field.onChange(
+                                       field.value.includes(deliveryMethod)
+                                          ? field.value.filter((v) => v !== deliveryMethod) // Remove if it was checked
+                                          : [...field.value, deliveryMethod] // Add if it was not checked
+                                    )
+                                 }
+                              />
+                           ))}
+                        </div>
+
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
+            )}
             <FormField
                control={form.control}
                name="earliestAvailability"
                render={({ field }) => (
                   <FormItem className="flex flex-col">
                      <FormLabel>
-                        {isHomeDelivery
-                           ? t("offer.Earliest delivery date")
-                           : t("offer.Earliest pickup date")}
+                        {!deliveryMethods.includes(DeliveryMethod.HOME_DELIVERY) &&
+                        hasPickup &&
+                        deliveryMethods.includes(DeliveryMethod.PICKUP)
+                           ? t("offer.Earliest pickup date")
+                           : t("offer.Earliest delivery date")}
                      </FormLabel>
                      <Popover modal={true}>
                         <PopoverTrigger asChild>
@@ -170,7 +222,7 @@ export function OfferForm({
                         </PopoverContent>
                      </Popover>
                      <FormDescription>
-                        {isHomeDelivery
+                        {hasHomeDelivery
                            ? t(
                                 "offer.Select the earliest availability of the firewood to be delivered"
                              )
@@ -183,7 +235,7 @@ export function OfferForm({
                )}
             />
 
-            {!isHomeDelivery && (
+            {hasPickup && deliveryMethods.includes(DeliveryMethod.PICKUP) && (
                <div className="flex flex-col gap-4">
                   <h3 className="h4 mt-4 border-t pt-4">{t("offer.Pickup location")}</h3>
                   <CountryField

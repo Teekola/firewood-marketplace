@@ -2,11 +2,13 @@
 
 import { ComponentProps } from "react";
 
-import { UnitSystem } from "@prisma/client";
+import { DeliveryMethod, UnitSystem } from "@prisma/client";
 import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { useUser } from "@/components/auth/user-store-provider";
+import { FirewoodParagraph } from "@/components/quotation-request/firewood-details";
+import { useGetTranslatedCountryName } from "@/components/ui/country-field";
 import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 import {
    imperialWoodAmountUnit,
@@ -26,7 +28,8 @@ export function Preview({ ...props }: Readonly<ComponentProps<"div">>) {
    const firewoodData = useFirewoodData();
    const deliveryData = useDeliveryData();
    const contactData = useContactData();
-   const t = useTranslations("request-offers");
+   const t = useTranslations();
+   const getTranslatedCountryName = useGetTranslatedCountryName();
 
    const isImperial = useUser().preferredUnitSystem === UnitSystem.IMPERIAL;
    const amountUnit = isImperial ? imperialWoodAmountUnit : metricWoodAmountUnit;
@@ -38,34 +41,39 @@ export function Preview({ ...props }: Readonly<ComponentProps<"div">>) {
          className={cn("flex flex-col gap-4 text-sm", props.className && props.className)}
       >
          <section>
-            <PreviewTitle title={t("Firewood")} href="/request-offers/firewood" />
-            {firewoodData && (
-               <p className="mt-1">
-                  <span className="relative pr-3">
-                     {firewoodData.amount} {amountUnit}
-                     <span className="-translate-y-1/5 absolute text-xs">{"3"}</span>
-                  </span>
-                  {firewoodData.dryness === "any" ? t("dry or green") : t(firewoodData.dryness)}{" "}
-                  {t(firewoodData.woodType)}
-                  {firewoodData.maxLength && `, ${firewoodData.maxLength} ${lengthUnit}`}
-               </p>
+            <PreviewTitle title={t("request-offers.Firewood")} href="/request-offers/firewood" />
+            {firewoodData?.woodTypes && firewoodData.dryness && (
+               <FirewoodParagraph
+                  woodTypes={firewoodData.woodTypes}
+                  woodDrynesses={firewoodData.dryness}
+                  amount={firewoodData.amount ?? 0}
+                  amountUnit={amountUnit}
+                  lengthUnit={lengthUnit}
+                  maxLength={firewoodData.maxLength}
+               />
             )}
          </section>
          <section className="flex flex-col gap-1">
-            <PreviewTitle title={t("Delivery")} href="/request-offers/delivery" />
+            <PreviewTitle title={t("request-offers.Delivery")} href="/request-offers/delivery" />
             {deliveryData && (
                <>
-                  <p className="capitalize">{t(deliveryData.deliveryMethod)}</p>
+                  <p className="text-sm capitalize">
+                     {deliveryData.deliveryMethods
+                        ?.sort((a) => (a === DeliveryMethod.HOME_DELIVERY ? 1 : -1))
+                        ?.map((method) => t(`delivery-methods.${method}`))
+                        ?.join(", ")}
+                  </p>
                   <p>
                      {deliveryData.address} {deliveryData.postalCode}{" "}
-                     <span className="capitalize">{deliveryData.city?.toLowerCase()}</span>{" "}
-                     {deliveryData.countryName}
+                     <span className="capitalize">{deliveryData.city?.toLowerCase()}</span>
+                     {", "}
+                     {getTranslatedCountryName(deliveryData.countryName)}
                   </p>
                </>
             )}
          </section>
          <section className="flex flex-col gap-1">
-            <PreviewTitle title={t("Contact")} href="/request-offers/contact" />
+            <PreviewTitle title={t("request-offers.Contact")} href="/request-offers/contact" />
             {contactData && (
                <>
                   <p>{contactData.name}</p>

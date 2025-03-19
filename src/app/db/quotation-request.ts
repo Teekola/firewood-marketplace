@@ -1,10 +1,4 @@
-import {
-   DeliveryMethod,
-   QuotationRequestStatus,
-   SellerQuotationRequestStatus,
-   WoodDryness,
-   WoodType,
-} from "@prisma/client";
+import { QuotationRequestStatus, SellerQuotationRequestStatus } from "@prisma/client";
 
 import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
@@ -14,17 +8,6 @@ import { DeliveryData } from "../[locale]/request-offers/(stepper)/delivery/deli
 import { FirewoodData } from "../[locale]/request-offers/(stepper)/firewood/firewood-form";
 import { SubmitData } from "../[locale]/request-offers/(stepper)/submit/submit-form";
 import { offerDTOFields } from "./offer";
-
-const toEnum = {
-   mixed: WoodType.MIXED,
-   birch: WoodType.BIRCH,
-   pine: WoodType.PINE,
-   any: WoodDryness.ANY,
-   dry: WoodDryness.DRY,
-   green: WoodDryness.GREEN,
-   homeDelivery: DeliveryMethod.HOME_DELIVERY,
-   pickup: DeliveryMethod.PICKUP,
-} as const;
 
 export const getPendingQuotationRequestsBySellerIdPaginated = async ({
    sellerId,
@@ -137,9 +120,7 @@ export const getRejectedQuotationRequestCountBySellerId = async ({
    return count;
 };
 
-export type QuotationRequest = Awaited<
-   ReturnType<typeof getPendingQuotationRequestsBySellerIdPaginated>
->[number]["quotationRequest"];
+export type QuotationRequest = NonNullable<Awaited<ReturnType<typeof getQuotationRequest>>>;
 
 export type BuyerQuotationRequest = Awaited<
    ReturnType<typeof getQuotationRequestsByBuyerIdAndStatusPaginated>
@@ -192,11 +173,11 @@ export const createQuotationRequest = async ({
             },
          },
          status: QuotationRequestStatus.PENDING,
-         woodType: toEnum[firewoodData.woodType],
-         woodDryness: toEnum[firewoodData.dryness],
+         woodTypes: firewoodData.woodTypes,
+         woodDryness: firewoodData.dryness,
          ...(firewoodData.maxLength && { woodMaxLengthCm: Number(firewoodData.maxLength) }),
          woodAmountCubicMeters: Number(firewoodData.amount),
-         deliveryMethod: toEnum[deliveryData.deliveryMethod],
+         deliveryMethods: deliveryData.deliveryMethods,
          countryCode: deliveryData.countryCode,
          countryName: deliveryData.countryName,
          postalCode: deliveryData.postalCode,

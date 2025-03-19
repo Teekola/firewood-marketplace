@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DeliveryMethod } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,6 +12,7 @@ import { SessionWithBuyer } from "@/auth/auth";
 import { useGeolocationData } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Button } from "@/components/ui/button";
+import { CheckboxGroupItemCard } from "@/components/ui/checkbox-group-item-card";
 import {
    Form,
    FormControl,
@@ -20,11 +22,9 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RadioGroup } from "@/components/ui/radio-group";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
-import { RadioGroupItemCard } from "../../(components)/radio-group-item-card";
 import { StickyFooter } from "../../(components)/sticky-footer";
 import { stepToPath } from "../../(components)/use-step-manager";
 import {
@@ -37,9 +37,9 @@ import { PostalCodeField } from "./postal-code-field";
 
 export const deliveryFormSchema = z
    .object({
-      deliveryMethod: z.enum(["homeDelivery", "pickup"], {
-         required_error: "Please, select a delivery method",
-      }),
+      deliveryMethods: z
+         .array(z.nativeEnum(DeliveryMethod))
+         .nonempty({ message: "Select at least one delivery method" }),
       countryCode: z.enum(["FI", "US"]),
       countryName: z.string(),
       postalCode: z.string().min(5, { message: "Invalid postal code" }),
@@ -50,7 +50,7 @@ export const deliveryFormSchema = z
    })
    .refine(
       (data) => {
-         if (data.deliveryMethod === "homeDelivery" && !data.address) {
+         if (data.deliveryMethods.includes(DeliveryMethod.HOME_DELIVERY) && !data.address) {
             return false;
          }
          return true;
@@ -62,11 +62,13 @@ export const deliveryFormSchema = z
    );
 export type DeliveryData = z.infer<typeof deliveryFormSchema>;
 
+const deliveryMethodOptions = Object.keys(DeliveryMethod) as DeliveryMethod[];
+
 export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }>) {
    const deliveryData = useDeliveryData();
    const lastUnlockedStep = useLastUnlockedStep();
    const geolocationData = useGeolocationData();
-   const t = useTranslations("request-offers");
+   const t = useTranslations();
    const router = useRouter();
    const setDeliveryData = useSetDeliveryData();
 
@@ -77,7 +79,7 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
    const validCountryCode = countries.find((country) => country.code === countryCode);
 
    const defaultValues: DefaultValues<DeliveryData> = deliveryData ?? {
-      deliveryMethod: "homeDelivery",
+      deliveryMethods: [],
       countryCode: validCountryCode ? validCountryCode.code : DEFAULT_COUNTRY.code,
       countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
       postalCode: session?.buyer?.postalCode ?? "",
@@ -92,7 +94,7 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
       defaultValues,
    });
 
-   const deliveryMethod = form.watch("deliveryMethod");
+   const deliveryMethods = form.watch("deliveryMethods");
 
    const canProceed = form.formState.isValid;
 
@@ -150,18 +152,27 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
             <div className="space-y-4">
                <FormField
                   control={form.control}
-                  name="deliveryMethod"
+                  name="deliveryMethods"
                   render={({ field }) => (
                      <FormItem className="mb-8 space-y-1">
-                        <FormLabel>{t("Delivery type")}</FormLabel>
-                        <RadioGroup
-                           onValueChange={field.onChange}
-                           value={field.value}
-                           className="grid grid-cols-2 gap-4 focus-within:[&:has(:focus-visible)]:ring-2 focus-within:[&:has(:focus-visible)]:ring-ring focus-within:[&:has(:focus-visible)]:ring-offset-4"
-                        >
-                           <RadioGroupItemCard value="homeDelivery" label={t("home delivery")} />
-                           <RadioGroupItemCard value="pickup" label={t("pickup")} />
-                        </RadioGroup>
+                        <FormLabel>{t("request-offers.Delivery type")}</FormLabel>
+                        <div className="grid grid-cols-2 gap-2">
+                           {deliveryMethodOptions.map((deliveryMethod) => (
+                              <CheckboxGroupItemCard
+                                 key={deliveryMethod}
+                                 label={t(`delivery-methods.${deliveryMethod}`)}
+                                 checked={field.value.includes(deliveryMethod)}
+                                 onChange={() =>
+                                    field.onChange(
+                                       field.value.includes(deliveryMethod)
+                                          ? field.value.filter((v) => v !== deliveryMethod) // Remove if it was checked
+                                          : [...field.value, deliveryMethod] // Add if it was not checked
+                                    )
+                                 }
+                              />
+                           ))}
+                        </div>
+
                         <FormMessage />
                      </FormItem>
                   )}
@@ -170,13 +181,13 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
                <CountryField />
                <PostalCodeField />
 
-               {deliveryMethod === "homeDelivery" && (
+               {deliveryMethods.includes(DeliveryMethod.HOME_DELIVERY) && (
                   <FormField
                      control={form.control}
                      name="address"
                      render={({ field }) => (
                         <FormItem className="w-full">
-                           <FormLabel>{t("Address")}</FormLabel>
+                           <FormLabel>{t("request-offers.Address")}</FormLabel>
                            <FormControl>
                               <Input {...field} />
                            </FormControl>
@@ -188,9 +199,13 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
             </div>
 
             <StickyFooter>
-               <BackButtonLink href="/request-offers/firewood" label={t("Back")} size="lg" />
+               <BackButtonLink
+                  href="/request-offers/firewood"
+                  label={t("actions.Back")}
+                  size="lg"
+               />
                <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-                  {t("Continue")}
+                  {t("actions.Continue")}
                </Button>
             </StickyFooter>
          </form>
