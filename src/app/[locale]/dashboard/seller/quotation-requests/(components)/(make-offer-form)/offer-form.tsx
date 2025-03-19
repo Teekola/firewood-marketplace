@@ -121,8 +121,9 @@ export function OfferForm({
       resolver: zodResolver(offerFormSchema),
       defaultValues,
    });
+   const { isDirty, isValid } = form.formState;
+   const canProceed = isValid && isDirty;
 
-   const canProceed = form.formState.isValid && form.formState.isDirty;
    const deliveryMethods = form.watch("deliveryMethods");
 
    async function onSubmit(data: OfferFormData) {
