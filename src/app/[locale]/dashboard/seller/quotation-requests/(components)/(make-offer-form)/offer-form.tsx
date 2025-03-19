@@ -72,10 +72,13 @@ export const offerFormSchema = z
 
 export type OfferFormData = z.infer<typeof offerFormSchema>;
 
+interface OfferFormDefaultValues extends Omit<Partial<OfferFormData>, "deliveryMethods"> {
+   deliveryMethods?: DeliveryMethod[];
+}
 interface OfferFormProps extends ComponentProps<"form"> {
    countryCode: string;
    quotationRequestDeliveryMethods: DeliveryMethod[];
-   defaultValues?: Partial<OfferFormData>;
+   defaultValues?: OfferFormDefaultValues;
    cancelHref: { pathname: SingleDynamicPathname; params: { id: string } };
    handleSubmit: (data: OfferFormData) => Promise<void>;
 }
@@ -119,7 +122,7 @@ export function OfferForm({
       defaultValues,
    });
 
-   const canProceed = form.formState.isValid;
+   const canProceed = form.formState.isValid && form.formState.isDirty;
    const deliveryMethods = form.watch("deliveryMethods");
 
    async function onSubmit(data: OfferFormData) {

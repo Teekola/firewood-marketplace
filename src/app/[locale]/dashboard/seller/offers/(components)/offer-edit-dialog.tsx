@@ -74,6 +74,7 @@ export default function OfferEditDialog({
                         price: offer.price,
                         currency: offer.currency,
                         earliestAvailability: offer.earliestAvailability,
+                        deliveryMethods: offer.deliveryMethods,
                         pickupAddress: offer.pickupAddress ?? "",
                         pickupCity: offer.pickupCity ?? "",
                         pickupPostalCode: offer.pickupPostalCode ?? "",
