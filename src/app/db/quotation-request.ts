@@ -260,3 +260,24 @@ export const getNumberOfUnseenQuotationRequests = async ({ sellerId }: { sellerI
 export const deleteQuotationRequestById = async (id: string) => {
    await prisma.quotationRequest.delete({ where: { id } });
 };
+
+export const addAllSuitableQuotationRequestsForSeller = async ({
+   sellerId,
+}: {
+   sellerId: string;
+}) => {
+   const quotationRequests = await prisma.quotationRequest.findMany({
+      where: { status: QuotationRequestStatus.PENDING, offers: { none: { sellerId } } },
+      select: { id: true },
+   });
+
+   const [created] = await prisma.$transaction([
+      prisma.sellerQuotationRequest.createMany({
+         data: quotationRequests.map((qr) => ({ sellerId, quotationRequestId: qr.id })),
+         skipDuplicates: true,
+      }),
+      prisma.seller.update({ where: { id: sellerId }, data: { isActive: true } }),
+   ]);
+
+   return created.count;
+};

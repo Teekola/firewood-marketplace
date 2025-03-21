@@ -1,6 +1,6 @@
 "use server";
 
-import { SellerQuotationRequestStatus } from "@prisma/client";
+import { Prisma, SellerQuotationRequestStatus } from "@prisma/client";
 
 import {
    UpdateOfferArgs,
@@ -68,11 +68,19 @@ export async function deleteOffer({
 }) {
    const { seller } = await getAuthorizedSeller();
 
-   await updateSellerQuotationRequestStatus({
-      quotationRequestId,
-      status: SellerQuotationRequestStatus.PENDING,
-      sellerId: seller.id,
-   });
+   try {
+      await updateSellerQuotationRequestStatus({
+         quotationRequestId,
+         status: SellerQuotationRequestStatus.PENDING,
+         sellerId: seller.id,
+      });
+   } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
+         console.log("The seller quotation request has been deleted.");
+      } else {
+         console.error(error);
+      }
+   }
    await deleteOfferById(offerId);
 }
 

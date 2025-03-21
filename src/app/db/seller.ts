@@ -9,6 +9,7 @@ type SellerResult = {
    sellerId: string;
    plan: string;
    numberOfSentOffers: number;
+   isActive: boolean | null;
    locationId: string | null;
    countryCode: string | null;
    countryName: string | null;
@@ -32,6 +33,7 @@ export const getSellerByUserId = async (userId: string) => {
             s.id AS "sellerId",
             s.plan AS "plan",
             s.number_of_sent_offers AS "numberOfSentOffers",
+            s.is_active AS "isActive",
             l.id AS "locationId",
             l.country_code AS "countryCode",
             l.country_name AS "countryName",
@@ -63,6 +65,7 @@ export const getSellerByUserId = async (userId: string) => {
       sellerName,
       sellerEmail,
       sellerPhone,
+      isActive,
       ...locationData
    } = result[0];
 
@@ -97,6 +100,7 @@ export const getSellerByUserId = async (userId: string) => {
       id: sellerId,
       plan,
       numberOfSentOffers,
+      isActive,
       userId,
       location,
       profile,
@@ -116,4 +120,11 @@ export const getSeller = async () => {
 
    const seller = await getSellerByUserId(userId);
    return seller;
+};
+
+export const deactivateSellerById = async (id: string) => {
+   await prisma.$transaction([
+      prisma.sellerQuotationRequest.deleteMany({ where: { sellerId: id } }),
+      prisma.seller.update({ where: { id }, data: { isActive: false } }),
+   ]);
 };

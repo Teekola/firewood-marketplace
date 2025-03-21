@@ -9,7 +9,7 @@ type SellerRaw = {
 }[];
 
 /**
- * Finds all sellers that have maxDistanceKm lower than the distance in km
+ * Finds all sellers that have maxDistanceKm lower than the distance in km and isActive set to true
  * @returns Array of Sellers
  */
 export const findSellersWithinDistance = async ({
@@ -30,6 +30,7 @@ export const findSellersWithinDistance = async ({
          "SellerLocation" l
          ON s.id = l.seller_id
       WHERE
+         s.is_active = true AND
          ST_DistanceSphere(l.coordinates::geometry, ST_MakePoint(${longitude}, ${latitude})) <= (l.max_distance_km * 1000);
    `;
 

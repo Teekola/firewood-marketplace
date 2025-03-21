@@ -3,6 +3,7 @@
 import { ComponentProps } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,6 +26,7 @@ import { Nullable } from "@/lib/utils/types";
 import "@/lib/utils/unit-conversions";
 
 import { upsertSellerProfile } from "./actions";
+import { sellerProfileQueryKey } from "./constants";
 
 export const sellerProfileFormSchema = z.object({
    name: z.string().min(1, "Name is required"),
@@ -40,6 +42,7 @@ interface SellerProfileFormProps extends ComponentProps<"form"> {
 
 export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileFormProps) {
    const t = useTranslations("dashboard");
+   const queryClient = useQueryClient();
 
    const defaultValues: DefaultValues<SellerProfileFormData> = {
       name: sellerProfile?.name ?? "",
@@ -59,6 +62,7 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
       try {
          form.reset(data);
          await upsertSellerProfile(data);
+         queryClient.invalidateQueries({ queryKey: sellerProfileQueryKey });
       } catch (error) {
          const errorData = parseError(error);
          form.reset(defaultValues);

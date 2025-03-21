@@ -37,8 +37,12 @@ export const QuotationRequestListItem = forwardRef<
                />
 
                <p className="text-sm text-muted-foreground">
-                  {t("quotation-request.Last updated")}{" "}
-                  <RelativeTime date={new Date(quotationRequest.updatedAt)} />
+                  {quotationRequest.updatedAt
+                     ? t("quotation-request.Last updated")
+                     : t("quotation-request.Created")}{" "}
+                  <RelativeTime
+                     date={new Date(quotationRequest.updatedAt ?? quotationRequest.createdAt)}
+                  />
                </p>
             </div>
             <div className="flex flex-col items-end">

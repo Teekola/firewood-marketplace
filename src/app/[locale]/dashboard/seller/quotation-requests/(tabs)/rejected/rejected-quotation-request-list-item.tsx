@@ -33,7 +33,9 @@ export const RejectedQuotationRequestListItem = forwardRef<
                />
 
                <p className="text-sm text-muted-foreground">
-                  <RelativeTime date={new Date(quotationRequest.updatedAt)} />
+                  <RelativeTime
+                     date={new Date(quotationRequest.updatedAt ?? quotationRequest.createdAt)}
+                  />
                </p>
             </div>
             <Button

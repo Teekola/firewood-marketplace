@@ -101,10 +101,6 @@ export function QuotationRequestList({
                {requests.map((qr, index) => (
                   <QuotationRequestListItem
                      key={qr.id}
-                     // isNew={
-                     //    !qr.lastViewedAt ||
-                     //    (qr.lastViewedAt && qr.lastViewedAt < qr.quotationRequest.updatedAt)
-                     // }
                      quotationRequest={qr}
                      ref={index === requests.length - 1 ? ref : null}
                   />

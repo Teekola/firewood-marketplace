@@ -8,14 +8,11 @@ import { FirewoodDetails } from "@/components/quotation-request/firewood-details
 import { RelativeTime } from "@/components/relative-time";
 
 import { DeliveryDetails } from "./delivery-details";
-import { useQuotationRequestData } from "./use-quotation-request-data";
 
 export default function QuotationRequestDetails({
    quotationRequest: qr,
 }: Readonly<{ quotationRequest: QuotationRequest }>) {
    const t = useTranslations();
-
-   const { updatedAt } = useQuotationRequestData(qr);
 
    return (
       <div className="flex flex-col gap-3">
@@ -34,7 +31,8 @@ export default function QuotationRequestDetails({
          )}
 
          <p className="mt-2 text-sm text-muted-foreground">
-            {t("quotation-request.Last updated")} <RelativeTime date={updatedAt} />
+            {t("quotation-request.Last updated")}{" "}
+            <RelativeTime date={new Date(qr.updatedAt ?? qr.createdAt)} />
          </p>
       </div>
    );

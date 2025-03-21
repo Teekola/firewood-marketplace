@@ -1,10 +1,13 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { authWithSeller } from "@/auth/auth";
 import { BackButtonLink } from "@/components/back-button-link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Locale, routing } from "@/i18n/routing";
 
 import { SidebarNav } from "../(components)/sidebar-nav";
+import { ActivateSellerDialog } from "./(components)/activate-seller-dialog";
+import { DeactivateSellerDialog } from "./(components)/deactivate-seller-dialog";
 import { getSidebarNavItems } from "./get-sidebar-nav-items";
 
 export function generateStaticParams() {
@@ -18,19 +21,24 @@ export default async function SellerDashboardLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const { locale } = await params;
+   const [{ locale }, t, sidebarNavItems, seller] = await Promise.all([
+      params,
+      getTranslations(),
+      getSidebarNavItems(),
+      authWithSeller(),
+   ]);
    setRequestLocale(locale);
 
-   const t = await getTranslations("dashboard");
-
-   const sidebarNavItems = await getSidebarNavItems();
+   if (!seller) return null;
 
    return (
       <>
          <Breadcrumbs className="mb-4" />
          <BackButtonLink label={t("actions.Back")} className="mb-4" />
-         <header className="mb-4 hidden border-b pb-4 md:block">
-            <h2 className="text-2xl font-bold leading-tight">{t("Seller Dashboard")}</h2>
+         <header className="mb-4 hidden flex-wrap justify-between gap-2 border-b pb-4 md:flex">
+            <h2 className="text-2xl font-bold leading-tight">{t("dashboard.Seller Dashboard")}</h2>
+
+            {!seller.seller?.isActive ? <ActivateSellerDialog /> : <DeactivateSellerDialog />}
          </header>
          <div className="flex h-full gap-12">
             <aside className="hidden w-64 md:block 2xl:-mx-4">

@@ -108,7 +108,9 @@ export function QuotationRequestsList() {
                      key={sqr.id}
                      isNew={
                         !sqr.lastViewedAt ||
-                        (sqr.lastViewedAt && sqr.lastViewedAt < sqr.quotationRequest.updatedAt)
+                        (sqr.lastViewedAt &&
+                           sqr.lastViewedAt <
+                              (sqr.quotationRequest.updatedAt ?? sqr.quotationRequest.createdAt))
                      }
                      quotationRequest={sqr.quotationRequest}
                      ref={index === requests.length - 1 ? ref : null}

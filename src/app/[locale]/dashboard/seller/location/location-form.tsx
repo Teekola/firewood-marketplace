@@ -3,6 +3,7 @@
 import { ComponentProps } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,6 +33,7 @@ import { kilometersToMiles, milesToKilometers } from "@/lib/utils/unit-conversio
 
 import { SellerLocation } from "../../../../../../prisma/prismaClientExtensions";
 import { upsertSellerLocation } from "./actions";
+import { sellerLocationQueryKey } from "./constants";
 import { MaxDistanceSelectField } from "./maxDistanceSelectField";
 
 export const sellerLocationFormSchema = z.object({
@@ -56,6 +58,7 @@ const DEFAULT_MAX_DISTANCE = 50;
 export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationFormProps) {
    const geolocationData = useGeolocationData();
    const t = useTranslations();
+   const queryClient = useQueryClient();
 
    const user = useUser();
 
@@ -99,6 +102,7 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
       try {
          form.reset(data);
          await upsertSellerLocation(normalizedData);
+         queryClient.invalidateQueries({ queryKey: sellerLocationQueryKey });
       } catch (error) {
          const errorData = parseError(error);
          form.reset(defaultValues);
