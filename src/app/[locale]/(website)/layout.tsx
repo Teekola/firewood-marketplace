@@ -1,5 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 
+import { getUser } from "@/app/db/user";
+import { NewUserDialog } from "@/components/auth/new-user-dialog";
 import { Footer } from "@/components/footer";
 import { WebsiteTopbar } from "@/components/topbar/website-topbar";
 import { Locale, routing } from "@/i18n/routing";
@@ -15,7 +17,8 @@ export default async function WebsiteLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const { locale } = await params;
+   const [{ locale }, user] = await Promise.all([params, getUser()]);
+
    setRequestLocale(locale);
 
    return (
@@ -23,6 +26,7 @@ export default async function WebsiteLayout({
          <WebsiteTopbar />
          {children}
          <Footer />
+         <NewUserDialog user={user} />
       </div>
    );
 }
