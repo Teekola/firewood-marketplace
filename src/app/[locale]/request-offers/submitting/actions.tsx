@@ -29,6 +29,7 @@ export async function submitQuotationRequest({
    }
 
    const sellersPromise = findSellersWithinDistance({
+      deliveryMethods: deliveryData.deliveryMethods,
       longitude: deliveryData.longitude,
       latitude: deliveryData.latitude,
    });
