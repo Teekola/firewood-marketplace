@@ -7,6 +7,8 @@ import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Button } from "@/components/ui/button";
 import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 
+import { BecomeSellerDialog } from "./(components)/become-seller-dialog";
+
 export default async function DashboardPage() {
    const session = await authWithSeller();
    const t = await getTranslations("dashboard");
@@ -16,7 +18,7 @@ export default async function DashboardPage() {
    return (
       <>
          <div className="mb-4 flex justify-end gap-2">
-            {!isSeller && <Button className="ml-auto"> {t("Become a Seller")}</Button>}
+            {!isSeller && <BecomeSellerDialog />}
             <SignOutButton variant="outline" />
          </div>
          <div className="flex w-full flex-col gap-2 md:grid md:grid-cols-3 lg:grid-cols-5">

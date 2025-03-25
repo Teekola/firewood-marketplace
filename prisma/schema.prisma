@@ -137,27 +137,28 @@ model SellerProfile {
 }
 
 model QuotationRequest {
-   id                     String                   @id @default(cuid())
-   buyer                  Buyer                    @relation(fields: [buyerId], references: [id], onDelete: Cascade)
-   buyerId                String                   @map("buyer_id")
+   id                     String                                @id @default(cuid())
+   buyer                  Buyer                                 @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+   buyerId                String                                @map("buyer_id")
    status                 QuotationRequestStatus
-   createdAt              DateTime                 @default(now()) @map("created_at")
-   updatedAt              DateTime?                @map("updated_at")
-   woodTypes              WoodType[]               @map("wood_type")
-   woodDryness            WoodDryness[]            @map("wood_dryness")
-   woodAmountCubicMeters  Int                      @map("wood_amount_cubic_meters")
-   woodMaxLengthCm        Int?                     @map("wood_max_length_cm")
-   deliveryMethods        DeliveryMethod[]         @map("delivery_method")
-   countryCode            String                   @map("country_code")
-   countryName            String                   @map("country_name")
-   postalCode             String                   @map("postal_code")
+   createdAt              DateTime                              @default(now()) @map("created_at")
+   updatedAt              DateTime?                             @map("updated_at")
+   woodTypes              WoodType[]                            @map("wood_type")
+   woodDryness            WoodDryness[]                         @map("wood_dryness")
+   woodAmountCubicMeters  Int                                   @map("wood_amount_cubic_meters")
+   woodMaxLengthCm        Int?                                  @map("wood_max_length_cm")
+   deliveryMethods        DeliveryMethod[]                      @map("delivery_methods")
+   countryCode            String                                @map("country_code")
+   countryName            String                                @map("country_name")
+   postalCode             String                                @map("postal_code")
    city                   String
    address                String?
-   buyerName              String                   @map("buyer_name")
-   buyerEmail             String                   @map("buyer_email")
-   buyerPhone             String                   @map("buyer_phone")
-   buyerCompanyName       String?                  @map("buyer_company_name")
-   additionalInformation  String?                  @map("additional_information")
+   coordinates            Unsupported("geography(Point, 4326)")
+   buyerName              String                                @map("buyer_name")
+   buyerEmail             String                                @map("buyer_email")
+   buyerPhone             String                                @map("buyer_phone")
+   buyerCompanyName       String?                               @map("buyer_company_name")
+   additionalInformation  String?                               @map("additional_information")
    sellerQuotationRequest SellerQuotationRequest[]
    offers                 Offer[]
 

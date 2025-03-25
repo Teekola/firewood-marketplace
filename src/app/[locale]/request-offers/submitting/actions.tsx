@@ -78,11 +78,11 @@ export async function submitQuotationRequest({
    ]);
 
    // TODO: Remove debug, add observability logging
-   console.log("ACTIONS: created quotation request:", quotationRequest);
-   console.log("ACTIONS: number of sellers:", quotationRequest._count.sellerQuotationRequest);
+   console.log("ACTIONS: created quotation request:", quotationRequest.id);
+   console.log("ACTIONS: number of sellers:", quotationRequest.sellerQuotationRequestCount);
    console.log("ACTIONS: updated buyer:", updatedBuyer);
 
    // TODO: Send emails to the sellers
 
-   return { numberOfSellers: quotationRequest._count.sellerQuotationRequest };
+   return { numberOfSellers: quotationRequest.sellerQuotationRequestCount };
 }

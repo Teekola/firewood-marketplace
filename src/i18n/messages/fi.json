@@ -207,7 +207,8 @@
     "Rejected": "Hylätyt",
     "Active": "Aktiiviset",
     "Quotation request details": "Tarjouspyynnön tiedot",
-    "Additional information": "Lisätiedot"
+    "Additional information": "Lisätiedot",
+    "become-a-seller-description": "Painamalla Ryhdy myyjäksi -painiketta saat heti pääsyn Myyjän hallintapaneeliin. Alat heti saamaan tarjouspyyntöjä, kun olet täyttänyt pakolliset profiili- ja sijaintitiedot sekä aktivoinut tilin."
   },
   "View": "Näytä",
   "quotation-request": {

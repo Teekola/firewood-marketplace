@@ -54,8 +54,6 @@ export const findSellersWithinDistance = async ({
          AND ST_DistanceSphere(l.coordinates::geometry, ST_MakePoint(${safeLongitude}, ${safeLatitude})) <= (l.max_distance_km * 1000);
    `;
 
-   console.log("Final Query:", query.sql); // Debugging: Print the full SQL
-
    // Use Prisma's $queryRaw to execute safely
    const result = await prisma.$queryRaw<SellerRaw>(query);
    // Transform to custom Seller type

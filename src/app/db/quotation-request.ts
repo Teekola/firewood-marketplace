@@ -1,4 +1,10 @@
-import { QuotationRequestStatus, SellerQuotationRequestStatus } from "@prisma/client";
+import { createId } from "@paralleldrive/cuid2";
+import {
+   DeliveryMethod,
+   Prisma,
+   QuotationRequestStatus,
+   SellerQuotationRequestStatus,
+} from "@prisma/client";
 
 import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
@@ -164,40 +170,53 @@ export const createQuotationRequest = async ({
    contactData: ContactData;
    submitData: SubmitData;
 }) => {
-   return await prisma.quotationRequest.create({
-      data: {
-         buyerId,
-         sellerQuotationRequest: {
-            createMany: {
-               data: sellerIds.map((sellerId) => ({ sellerId })),
-            },
-         },
-         status: QuotationRequestStatus.PENDING,
-         woodTypes: firewoodData.woodTypes,
-         woodDryness: firewoodData.dryness,
-         ...(firewoodData.maxLength && { woodMaxLengthCm: Number(firewoodData.maxLength) }),
-         woodAmountCubicMeters: Number(firewoodData.amount),
-         deliveryMethods: deliveryData.deliveryMethods,
-         countryCode: deliveryData.countryCode,
-         countryName: deliveryData.countryName,
-         postalCode: deliveryData.postalCode,
-         city: deliveryData.city,
-         ...(deliveryData.address && { address: deliveryData.address }),
-         buyerName: contactData.name,
-         buyerEmail: contactData.email,
-         buyerPhone: contactData.phone,
-         ...(contactData.isCompany && { buyerCompanyName: contactData.companyName }),
-         ...(submitData.additionalInformation && {
-            additionalInformation: submitData.additionalInformation,
-         }),
-      },
-      select: {
-         id: true,
-         _count: {
-            select: { sellerQuotationRequest: true },
-         },
-      },
+   const point = `POINT(${deliveryData.longitude} ${deliveryData.latitude})`;
+
+   // Wrap everything in a transaction
+   const result = await prisma.$transaction(async (prisma) => {
+      // Step 1: Insert into QuotationRequest
+      const maxLength = firewoodData.maxLength ? Number(firewoodData.maxLength) : null;
+      const companyName = contactData.isCompany ? contactData.companyName || null : null;
+      const additionalInformation = submitData.additionalInformation || null;
+      const address = deliveryData.address || null;
+      const [quotationResult] = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
+            INSERT INTO "QuotationRequest" (
+            "id", "buyer_id", "status", "created_at", "wood_type", "wood_dryness",
+            "wood_amount_cubic_meters", "wood_max_length_cm", "delivery_methods",
+            "country_code", "country_name", "postal_code", "city", "address",
+            "coordinates", "buyer_name", "buyer_email", "buyer_phone", 
+            "buyer_company_name", "additional_information"
+            ) VALUES (
+            ${createId()}, ${buyerId}, ${QuotationRequestStatus.PENDING}, NOW(),
+            ARRAY[${Prisma.join(firewoodData.woodTypes)}]::"WoodType"[], Array[${Prisma.join(firewoodData.dryness)}]::"WoodDryness"[], 
+            ${Number(firewoodData.amount)}, ${maxLength},
+            ARRAY[${Prisma.join(deliveryData.deliveryMethods)}]::"DeliveryMethod"[], ${deliveryData.countryCode}, ${deliveryData.countryName},
+            ${deliveryData.postalCode}, ${deliveryData.city}, ${address},
+            ST_GeomFromText(${point}, 4326),
+            ${contactData.name}, ${contactData.email}, ${contactData.phone}, 
+            ${companyName}, ${additionalInformation}
+            ) RETURNING id;
+         `);
+
+      const quotationRequestId = quotationResult?.id;
+
+      if (!quotationRequestId) {
+         throw new Error("Failed to insert QuotationRequest.");
+      }
+
+      // Step 2: Insert into SellerQuotationRequest using the QuotationRequest ID
+      await prisma.sellerQuotationRequest.createMany({
+         data: sellerIds.map((sellerId) => ({ sellerId, quotationRequestId })),
+      });
+
+      return {
+         id: quotationRequestId,
+         sellerQuotationRequestCount: sellerIds.length,
+      };
    });
+
+   console.log(result); // result contains both the QuotationRequest ID and sellerQuotationRequestCount
+   return result;
 };
 
 export interface UpdateSellerQuotationRequestStatusArgs {
@@ -261,16 +280,68 @@ export const deleteQuotationRequestById = async (id: string) => {
    await prisma.quotationRequest.delete({ where: { id } });
 };
 
+// export const addAllSuitableQuotationRequestsForSeller = async ({
+//    sellerId,
+// }: {
+//    sellerId: string;
+// }) => {
+//    const quotationRequests = await prisma.quotationRequest.findMany({
+//       where: { status: QuotationRequestStatus.PENDING, offers: { none: { sellerId } } },
+//       select: { id: true },
+//    });
+
+//    const [created] = await prisma.$transaction([
+//       prisma.sellerQuotationRequest.createMany({
+//          data: quotationRequests.map((qr) => ({ sellerId, quotationRequestId: qr.id })),
+//          skipDuplicates: true,
+//       }),
+//       prisma.seller.update({ where: { id: sellerId }, data: { isActive: true } }),
+//    ]);
+
+//    return created.count;
+// };
+
+// TODO: Modify quotation request database interactions so that creation and everything works correctly with coordinates being set when creating!,
+// TODO: migrate reset and db push database and test that everything works!
 export const addAllSuitableQuotationRequestsForSeller = async ({
    sellerId,
 }: {
    sellerId: string;
 }) => {
-   const quotationRequests = await prisma.quotationRequest.findMany({
-      where: { status: QuotationRequestStatus.PENDING, offers: { none: { sellerId } } },
-      select: { id: true },
-   });
+   // Fetch seller's location and max distance using raw SQL
+   const sellerLocation = await prisma.$queryRaw<
+      { coordinates: unknown; maxDistanceKm: number; address: string | null }[]
+   >(Prisma.sql`
+      SELECT l.coordinates, l.max_distance_km, l.address
+      FROM "SellerLocation" l
+      WHERE l.seller_id = ${sellerId};
+   `);
 
+   if (!sellerLocation.length) {
+      throw new Error("Seller location not found");
+   }
+
+   const { coordinates, maxDistanceKm, address } = sellerLocation[0];
+
+   // Determine allowed delivery methods based on address presence
+   const allowedDeliveryMethods = address
+      ? [DeliveryMethod.PICKUP, DeliveryMethod.HOME_DELIVERY]
+      : [DeliveryMethod.HOME_DELIVERY];
+
+   // Fetch all suitable quotation requests within distance and matching delivery methods
+   const quotationRequests = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
+      SELECT qr.id
+      FROM "QuotationRequest" qr
+      WHERE qr.status = ${QuotationRequestStatus.PENDING}
+      AND NOT EXISTS (
+         SELECT 1 FROM "SellerQuotationRequest" sqr
+         WHERE sqr.seller_id = ${sellerId} AND sqr.quotation_request_id = qr.id
+      )
+      AND qr.delivery_methods && ARRAY[${Prisma.join(allowedDeliveryMethods)}]::"DeliveryMethod"[]
+      AND ST_DistanceSphere(qr.coordinates::geometry, ${coordinates}::geometry) <= (${maxDistanceKm} * 1000);
+   `);
+
+   // Insert matching quotation requests
    const [created] = await prisma.$transaction([
       prisma.sellerQuotationRequest.createMany({
          data: quotationRequests.map((qr) => ({ sellerId, quotationRequestId: qr.id })),
