@@ -7,8 +7,8 @@ import { AlertCircleIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import { getSellerLocation } from "../seller/location/actions";
-import { sellerLocationQueryKey } from "../seller/location/constants";
+import { getSellerLocation } from "../location/actions";
+import { sellerLocationQueryKey } from "../location/constants";
 
 type SellerLocationSidebarNavIndicatorProps = ComponentProps<typeof AlertCircleIcon>;
 

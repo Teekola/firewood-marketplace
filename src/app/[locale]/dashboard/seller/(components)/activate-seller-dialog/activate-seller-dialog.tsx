@@ -21,8 +21,6 @@ import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { Link, useRouter } from "@/i18n/routing";
 
-import { isValidSellerLocation } from "../../../(components)/seller-location-sidebar-nav-indicator";
-import { isValidSellerProfile } from "../../../(components)/seller-profile-sidebar-nav-indicator";
 import { getSellerLocation } from "../../location/actions";
 import { sellerLocationQueryKey } from "../../location/constants";
 import { getSellerProfile } from "../../profile/actions";
@@ -31,6 +29,8 @@ import {
    sellerQuotationRequestsQueryKey,
    sellerUnseenQuotationRequestsQueryKey,
 } from "../../quotation-requests/constants";
+import { isValidSellerLocation } from "../seller-location-sidebar-nav-indicator";
+import { isValidSellerProfile } from "../seller-profile-sidebar-nav-indicator";
 import { activateSeller } from "./actions";
 
 type ActivateSellerDialogProps = ComponentProps<typeof AlertDialogTrigger>;

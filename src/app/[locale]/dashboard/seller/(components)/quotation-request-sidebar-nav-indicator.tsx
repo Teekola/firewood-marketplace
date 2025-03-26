@@ -4,9 +4,9 @@ import { ComponentProps } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { getUnseenQuotationRequestsCount } from "../seller/quotation-requests/actions";
-import { sellerUnseenQuotationRequestsQueryKey } from "../seller/quotation-requests/constants";
-import { SidebarNavIndicator } from "./sidebar-nav-indicator";
+import { SidebarNavIndicator } from "../../(components)/sidebar-nav-indicator";
+import { getUnseenQuotationRequestsCount } from "../quotation-requests/actions";
+import { sellerUnseenQuotationRequestsQueryKey } from "../quotation-requests/constants";
 
 type QuotationRequestSidebarNavIndicatorProps = ComponentProps<"div">;
 
