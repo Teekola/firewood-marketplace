@@ -70,6 +70,14 @@ export const routing = defineRouting({
          en: "/seller/offers/id/[id]/edit",
          fi: "/myyja/tarjoukset/id/[id]/muokkaa",
       },
+      "/dashboard/seller/offers/accepted": {
+         en: "/seller/offers/accepted",
+         fi: "/myyja/tarjoukset/hyvaksytyt",
+      },
+      "/dashboard/seller/offers/lost": {
+         en: "/seller/offers/lost",
+         fi: "/myyja/tarjoukset/havityt",
+      },
       "/dashboard/buyer": {
          en: "/buyer-dashboard",
          fi: "/ostajan-paneeli",

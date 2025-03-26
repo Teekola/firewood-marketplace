@@ -170,6 +170,8 @@
     "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
     "/dashboard/seller/offers/id": "/Dashboard/Seller Dashboard/Sent Offers/Offer",
     "/dashboard/seller/offers/id/edit": "/Dashboard/Seller Dashboard/Sent Offers/Offer/Edit",
+    "/dashboard/seller/offers/accepted": "/Dashboard/Seller Dashboard/Sent Offers/Accepted",
+    "/dashboard/seller/offers/lost": "/Dashboard/Seller Dashboard/Sent Offers/Lost",
     "/dashboard/buyer": "/Dashboard/Buyer Dashboard",
     "/dashboard/buyer/dashboard": "/Dashboard/Buyer Dashboard/Overview",
     "/dashboard/buyer/quotation-requests": "/Dashboard/Buyer Dashboard/Quotation Requests",
@@ -209,7 +211,9 @@
     "Active": "Active",
     "Quotation request details": "Quotation Request Details",
     "Additional information": "Additional Information",
-    "become-a-seller-description": "By clicking on the Become a Seller button, you will gain access to the Seller Dashboard. You may instantly start receiving quotation requests after filling in the required profile and location information and activating the account."
+    "become-a-seller-description": "By clicking on the Become a Seller button, you will gain access to the Seller Dashboard. You may instantly start receiving quotation requests after filling in the required profile and location information and activating the account.",
+    "Accepted": "Accepted",
+    "Lost": "Lost"
   },
   "View": "View",
   "quotation-request": {
@@ -254,7 +258,9 @@
     "No rejected offers": "You don't have any rejected offers.",
     "pickupAddress": "Pickup address",
     "Pickup location": "Pickup Location",
-    "Address": "Address"
+    "Address": "Address",
+    "There are no accepted offers": "There are no accepted offers",
+    "There are no lost offers": "There are no lost offers"
   },
   "currencies": {
     "label-USD": "US Dollar",

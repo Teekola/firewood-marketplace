@@ -121,6 +121,62 @@ export const getActiveOffersCountBySellerId = async ({ sellerId }: { sellerId: s
    return count;
 };
 
+export const getAcceptedOffersBySellerIdPaginated = async ({
+   sellerId,
+   cursor,
+   limit,
+   sort = "newest-first",
+}: {
+   sellerId: string;
+   cursor: string | null;
+   limit: number;
+   sort?: SortOrder;
+}) => {
+   const offers = await prisma.offer.findMany({
+      where: { sellerId, NOT: { acceptedAt: null } },
+      select: offerDTOFields,
+      take: limit + 1, // take 1 extra to check if there is more data and use as cursor
+      ...(cursor && { cursor: { id: cursor }, skip: 1 }),
+      orderBy: { id: sort === "newest-first" ? "desc" : "asc" },
+   });
+   return offers;
+};
+
+export const getAcceptedOffersCountBySellerId = async ({ sellerId }: { sellerId: string }) => {
+   const count = await prisma.offer.count({
+      where: { sellerId, NOT: { acceptedAt: null } },
+   });
+   return count;
+};
+
+export const getLostOffersBySellerIdPaginated = async ({
+   sellerId,
+   cursor,
+   limit,
+   sort = "newest-first",
+}: {
+   sellerId: string;
+   cursor: string | null;
+   limit: number;
+   sort?: SortOrder;
+}) => {
+   const offers = await prisma.offer.findMany({
+      where: { sellerId, acceptedAt: null, isActive: false },
+      select: offerDTOFields,
+      take: limit + 1, // take 1 extra to check if there is more data and use as cursor
+      ...(cursor && { cursor: { id: cursor }, skip: 1 }),
+      orderBy: { id: sort === "newest-first" ? "desc" : "asc" },
+   });
+   return offers;
+};
+
+export const getLostOffersCountBySellerId = async ({ sellerId }: { sellerId: string }) => {
+   const count = await prisma.offer.count({
+      where: { sellerId, acceptedAt: null, isActive: false },
+   });
+   return count;
+};
+
 export const getPendingOffersForBuyerByQuotationRequestIdPaginated = async ({
    id,
    cursor,
