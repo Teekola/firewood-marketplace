@@ -279,22 +279,6 @@ export const addAllSuitableQuotationRequestsForSeller = async ({
 }: {
    sellerId: string;
 }) => {
-   // Fetch seller's location and max distance using raw SQL
-   // const sellerLocation = await prisma.$queryRaw<
-   //    { coordinates: string; maxDistanceKm: number; address: string | null }[]
-   // >(Prisma.sql`
-   //    SELECT l.coordinates, l.max_distance_km, l.address
-   //    FROM "SellerLocation" l
-   //    WHERE l.seller_id = ${sellerId};
-   // `);
-
-   // const { coordinates, maxDistanceKm, address } = sellerLocation[0];
-
-   // // Determine allowed delivery methods based on address presence
-   // const allowedDeliveryMethods = address
-   //    ? [DeliveryMethod.PICKUP, DeliveryMethod.HOME_DELIVERY]
-   //    : [DeliveryMethod.HOME_DELIVERY];
-
    // Fetch all suitable quotation requests within distance and matching delivery methods
    const quotationRequests = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
       SELECT qr.id
@@ -314,8 +298,6 @@ export const addAllSuitableQuotationRequestsForSeller = async ({
       ]::"DeliveryMethod"[] 
       AND ST_Distance(qr.coordinates::geography, sl.coordinates::geography) <= (sl.max_distance_km * 1000);
    `);
-
-   console.log(quotationRequests);
 
    // Insert matching quotation requests
    const [created] = await prisma.$transaction([
