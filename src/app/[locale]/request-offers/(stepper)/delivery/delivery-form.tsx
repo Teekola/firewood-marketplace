@@ -155,7 +155,10 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
                   name="deliveryMethods"
                   render={({ field }) => (
                      <FormItem className="mb-8 space-y-1">
-                        <FormLabel>{t("request-offers.Delivery type")}</FormLabel>
+                        <FormLabel>
+                           {t("request-offers.Delivery type")}{" "}
+                           <span>{`(${t("request-offers.Select at least one")})`}</span>
+                        </FormLabel>
                         <div className="grid grid-cols-2 gap-2">
                            {deliveryMethodOptions.map((deliveryMethod) => (
                               <CheckboxGroupItemCard
