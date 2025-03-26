@@ -7,7 +7,7 @@ interface SidebarNavIndicatorProps extends ComponentProps<"div"> {
    icon?: React.ReactNode;
 }
 
-export function SidebarNavIndicator({ number, ...props }: SidebarNavIndicatorProps) {
+export function SidebarNavIndicator({ number, icon, ...props }: SidebarNavIndicatorProps) {
    return (
       <div
          {...props}
@@ -17,6 +17,7 @@ export function SidebarNavIndicator({ number, ...props }: SidebarNavIndicatorPro
          )}
       >
          {number ? number : ""}
+         {icon && icon}
       </div>
    );
 }

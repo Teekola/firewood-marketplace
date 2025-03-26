@@ -3,6 +3,7 @@ import { ComponentProps, forwardRef } from "react";
 import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
 
+import { SidebarNavIndicator } from "@/app/[locale]/dashboard/(components)/sidebar-nav-indicator";
 import { OfferDTO } from "@/app/db/offer";
 import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
@@ -73,7 +74,13 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                            params: { id: offer.quotationRequestId, offerId: offer.id },
                         }}
                      >
-                        {t("actions.View")}
+                        {t("actions.View")}{" "}
+                        {(!offer.buyerLastSeenAt || offer.buyerLastSeenAt < offer.updatedAt) && (
+                           <SidebarNavIndicator
+                              number={1}
+                              className="static ml-2 h-3 w-3 text-destructive"
+                           />
+                        )}
                      </Link>
                   </Button>
                </div>

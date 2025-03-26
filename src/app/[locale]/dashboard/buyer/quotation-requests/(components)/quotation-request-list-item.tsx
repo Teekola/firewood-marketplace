@@ -10,6 +10,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Link, Pathname } from "@/i18n/routing";
 
 import { QuotationRequestTitle } from "../../../(components)/quotation-request-title";
+import { SidebarNavIndicator } from "../../../(components)/sidebar-nav-indicator";
 
 interface QuotationRequestListItemProps extends ComponentProps<"li"> {
    quotationRequest: BuyerQuotationRequest;
@@ -33,6 +34,10 @@ export const QuotationRequestListItem = forwardRef<
                      as={CardTitle}
                   />
                </Link>
+
+               {quotationRequest.unseenOffersCount > 0 && (
+                  <div className="absolute right-0 top-1"></div>
+               )}
 
                <ShortDeliveryDetails
                   deliveryMethods={quotationRequest.deliveryMethods}
@@ -59,6 +64,15 @@ export const QuotationRequestListItem = forwardRef<
                <Button asChild variant="outline" className="my-auto">
                   <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
                      {t("View")}
+                     {quotationRequest.unseenOffersCount > 0 && (
+                        <>
+                           {" "}
+                           <SidebarNavIndicator
+                              number={quotationRequest.unseenOffersCount}
+                              className="static ml-2"
+                           />
+                        </>
+                     )}
                   </Link>
                </Button>
             </div>

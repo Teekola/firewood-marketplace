@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { SidebarNavProps } from "../(components)/sidebar-nav";
+import { QuotationRequestSidebarNavIndicator } from "./(components)/quotation-request-sidebar-nav-indicator.tsx";
 
 export async function getSidebarNavItems() {
    const t = await getTranslations("dashboard");
@@ -13,6 +14,7 @@ export async function getSidebarNavItems() {
       {
          title: t("Quotation Requests"),
          href: "/dashboard/buyer/quotation-requests",
+         indicator: <QuotationRequestSidebarNavIndicator />,
       },
    ];
    return sidebarNavItems;

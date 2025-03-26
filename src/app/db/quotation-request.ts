@@ -56,11 +56,31 @@ export const getQuotationRequestsByBuyerIdAndStatusPaginated = async ({
          _count: {
             select: { offers: true },
          },
+         offers: {
+            select: {
+               id: true,
+               buyerLastSeenAt: true,
+               updatedAt: true,
+            },
+         },
       },
    });
-   console.log(quotationRequests);
 
-   return quotationRequests;
+   // Calculate unseen offers count manually
+   const result = await Promise.all(
+      quotationRequests.map(async (qr) => {
+         const unseenOffersCount = qr.offers.filter(
+            (offer) => !offer.buyerLastSeenAt || offer.buyerLastSeenAt < offer.updatedAt
+         ).length;
+
+         return {
+            ...qr,
+            unseenOffersCount,
+         };
+      })
+   );
+
+   return result;
 };
 
 export const getPendingQuotationRequestsCountBySellerId = async ({

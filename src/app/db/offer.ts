@@ -341,3 +341,38 @@ export const acceptOfferById = async ({
       }),
    ]);
 };
+
+export const getUnseenOffersCountByBuyerId = async (buyerId: string) => {
+   const offersCount = await prisma.offer.count({
+      where: {
+         quotationRequest: { buyerId },
+         OR: [
+            { buyerLastSeenAt: null },
+            { buyerLastSeenAt: { lt: prisma.offer.fields.updatedAt } },
+         ],
+      },
+   });
+
+   return offersCount;
+};
+
+// export const getUnseenOffersCountByBuyerIdAndQuotationRequestId = async ({
+//    buyerId,
+//    quotationRequestId,
+// }: {
+//    buyerId: string;
+//    quotationRequestId: string;
+// }) => {
+//    const offersCount = await prisma.offer.count({
+//       where: {
+//          quotationRequestId,
+//          quotationRequest: { buyerId },
+//          OR: [
+//             { buyerLastSeenAt: null },
+//             { buyerLastSeenAt: { lt: prisma.offer.fields.updatedAt } },
+//          ],
+//       },
+//    });
+
+//    return offersCount;
+// };
