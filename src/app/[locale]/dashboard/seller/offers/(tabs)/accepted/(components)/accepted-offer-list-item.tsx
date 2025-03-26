@@ -56,6 +56,12 @@ export const AcceptedOfferListItem = forwardRef<
                   displayPickupAddress
                />
 
+               {offer.quotationRequest.additionalInformation && (
+                  <p className="text-sm">{offer.quotationRequest.additionalInformation}</p>
+               )}
+
+               {/**TODO: ADD BUYER INFORMATION */}
+
                <p className="text-sm">
                   {hasHomeDelivery
                      ? t("offer.Earliest delivery date")
