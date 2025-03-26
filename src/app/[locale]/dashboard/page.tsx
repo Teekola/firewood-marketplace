@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 
 import { BecomeSellerDialog } from "./(components)/become-seller-dialog";
+import { QuotationRequestSidebarNavIndicator } from "./buyer/(components)/quotation-request-sidebar-nav-indicator.tsx";
 
 export default async function DashboardPage() {
    const session = await authWithSeller();
@@ -26,7 +27,10 @@ export default async function DashboardPage() {
                <DashboardLink href="/dashboard/seller">{t("Seller Dashboard")}</DashboardLink>
             )}
 
-            <DashboardLink href="/dashboard/buyer">{t("Buyer Dashboard")}</DashboardLink>
+            <DashboardLink href="/dashboard/buyer">
+               {t("Buyer Dashboard")}
+               <QuotationRequestSidebarNavIndicator className="static ml-2" />
+            </DashboardLink>
             <DashboardLink href="/dashboard">{t("User Settings")}</DashboardLink>
          </div>
       </>
