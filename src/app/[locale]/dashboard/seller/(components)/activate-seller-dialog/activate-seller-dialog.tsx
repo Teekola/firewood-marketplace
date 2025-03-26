@@ -55,13 +55,18 @@ export function ActivateSellerDialog({ ...props }: ActivateSellerDialogProps) {
 
    async function handleActivateSeller() {
       setIsLoading(true);
-      const activatedCount = await activateSeller();
+      try {
+         const activatedCount = await activateSeller();
 
-      // TODO: Add toast
-      console.log(activatedCount);
-      queryClient.invalidateQueries({ queryKey: sellerUnseenQuotationRequestsQueryKey });
-      queryClient.invalidateQueries({ queryKey: sellerQuotationRequestsQueryKey });
-      router.refresh();
+         // TODO: Add toast
+         console.log(activatedCount);
+         queryClient.invalidateQueries({ queryKey: sellerUnseenQuotationRequestsQueryKey });
+         queryClient.invalidateQueries({ queryKey: sellerQuotationRequestsQueryKey });
+         router.refresh();
+      } catch (error) {
+         console.error(error);
+         setIsLoading(false);
+      }
    }
 
    return (

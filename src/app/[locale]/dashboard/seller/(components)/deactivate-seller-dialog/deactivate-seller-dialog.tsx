@@ -50,7 +50,7 @@ export function DeactivateSellerDialog({ ...props }: DeactivateSellerDialogProps
    return (
       <AlertDialog>
          <AlertDialogTrigger {...props} asChild>
-            <Button>{t("actions.Stop receiving requests")}</Button>
+            <Button variant="outline">{t("actions.Stop receiving requests")}</Button>
          </AlertDialogTrigger>
 
          <AlertDialogContent>

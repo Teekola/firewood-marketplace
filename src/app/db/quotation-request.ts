@@ -1,10 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
-import {
-   DeliveryMethod,
-   Prisma,
-   QuotationRequestStatus,
-   SellerQuotationRequestStatus,
-} from "@prisma/client";
+import { Prisma, QuotationRequestStatus, SellerQuotationRequestStatus } from "@prisma/client";
 
 import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
@@ -279,66 +274,48 @@ export const deleteQuotationRequestById = async (id: string) => {
    await prisma.quotationRequest.delete({ where: { id } });
 };
 
-// export const addAllSuitableQuotationRequestsForSeller = async ({
-//    sellerId,
-// }: {
-//    sellerId: string;
-// }) => {
-//    const quotationRequests = await prisma.quotationRequest.findMany({
-//       where: { status: QuotationRequestStatus.PENDING, offers: { none: { sellerId } } },
-//       select: { id: true },
-//    });
-
-//    const [created] = await prisma.$transaction([
-//       prisma.sellerQuotationRequest.createMany({
-//          data: quotationRequests.map((qr) => ({ sellerId, quotationRequestId: qr.id })),
-//          skipDuplicates: true,
-//       }),
-//       prisma.seller.update({ where: { id: sellerId }, data: { isActive: true } }),
-//    ]);
-
-//    return created.count;
-// };
-
-// TODO: Modify quotation request database interactions so that creation and everything works correctly with coordinates being set when creating!,
-// TODO: migrate reset and db push database and test that everything works!
 export const addAllSuitableQuotationRequestsForSeller = async ({
    sellerId,
 }: {
    sellerId: string;
 }) => {
    // Fetch seller's location and max distance using raw SQL
-   const sellerLocation = await prisma.$queryRaw<
-      { coordinates: unknown; maxDistanceKm: number; address: string | null }[]
-   >(Prisma.sql`
-      SELECT l.coordinates, l.max_distance_km, l.address
-      FROM "SellerLocation" l
-      WHERE l.seller_id = ${sellerId};
-   `);
+   // const sellerLocation = await prisma.$queryRaw<
+   //    { coordinates: string; maxDistanceKm: number; address: string | null }[]
+   // >(Prisma.sql`
+   //    SELECT l.coordinates, l.max_distance_km, l.address
+   //    FROM "SellerLocation" l
+   //    WHERE l.seller_id = ${sellerId};
+   // `);
 
-   if (!sellerLocation.length) {
-      throw new Error("Seller location not found");
-   }
+   // const { coordinates, maxDistanceKm, address } = sellerLocation[0];
 
-   const { coordinates, maxDistanceKm, address } = sellerLocation[0];
-
-   // Determine allowed delivery methods based on address presence
-   const allowedDeliveryMethods = address
-      ? [DeliveryMethod.PICKUP, DeliveryMethod.HOME_DELIVERY]
-      : [DeliveryMethod.HOME_DELIVERY];
+   // // Determine allowed delivery methods based on address presence
+   // const allowedDeliveryMethods = address
+   //    ? [DeliveryMethod.PICKUP, DeliveryMethod.HOME_DELIVERY]
+   //    : [DeliveryMethod.HOME_DELIVERY];
 
    // Fetch all suitable quotation requests within distance and matching delivery methods
    const quotationRequests = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
       SELECT qr.id
       FROM "QuotationRequest" qr
+      JOIN "SellerLocation" sl ON sl.seller_id = ${sellerId}
       WHERE qr.status = ${QuotationRequestStatus.PENDING}
       AND NOT EXISTS (
          SELECT 1 FROM "SellerQuotationRequest" sqr
          WHERE sqr.seller_id = ${sellerId} AND sqr.quotation_request_id = qr.id
       )
-      AND qr.delivery_methods && ARRAY[${Prisma.join(allowedDeliveryMethods)}]::"DeliveryMethod"[]
-      AND ST_DistanceSphere(qr.coordinates::geometry, ${coordinates}::geometry) <= (${maxDistanceKm} * 1000);
+      AND qr.delivery_methods && ARRAY[
+         CASE 
+            WHEN sl.address IS NOT NULL THEN 'PICKUP'
+            ELSE NULL 
+         END,
+         'HOME_DELIVERY'
+      ]::"DeliveryMethod"[] 
+      AND ST_Distance(qr.coordinates::geography, sl.coordinates::geography) <= (sl.max_distance_km * 1000);
    `);
+
+   console.log(quotationRequests);
 
    // Insert matching quotation requests
    const [created] = await prisma.$transaction([

@@ -6,8 +6,6 @@ import { prisma } from "@/prisma";
 
 type SellerRaw = {
    seller_id: string;
-   st_x: number;
-   st_y: number;
 }[];
 
 /**
@@ -40,9 +38,7 @@ export const findSellersWithinDistance = async ({
    // Construct the SQL query **as a full string**
    const query = Prisma.sql`
       SELECT
-         s.id AS seller_id,
-         ST_X(l.coordinates::geometry) AS st_x,
-         ST_Y(l.coordinates::geometry) AS st_y
+         s.id AS seller_id
       FROM
          "Seller" s
       JOIN
@@ -51,7 +47,7 @@ export const findSellersWithinDistance = async ({
       WHERE
          s.is_active = true
          ${Prisma.raw(includeAddressCondition)}
-         AND ST_DistanceSphere(l.coordinates::geometry, ST_MakePoint(${safeLongitude}, ${safeLatitude})) <= (l.max_distance_km * 1000);
+         AND ST_Distance(l.coordinates::geography, ST_SetSRID(ST_MakePoint(${safeLongitude}, ${safeLatitude}), 4326)::geography) <= (l.max_distance_km * 1000);
    `;
 
    // Use Prisma's $queryRaw to execute safely
@@ -60,10 +56,6 @@ export const findSellersWithinDistance = async ({
    const sellers = result.map((data) => {
       return {
          id: data.seller_id,
-         coordinates: {
-            longitude: data.st_x,
-            latitude: data.st_y,
-         },
       };
    });
 
