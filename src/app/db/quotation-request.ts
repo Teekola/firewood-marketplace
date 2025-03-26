@@ -198,7 +198,7 @@ export const createQuotationRequest = async ({
             ) RETURNING id;
          `);
 
-      const quotationRequestId = quotationResult?.id;
+      const quotationRequestId = quotationResult.id;
 
       if (!quotationRequestId) {
          throw new Error("Failed to insert QuotationRequest.");
@@ -215,7 +215,6 @@ export const createQuotationRequest = async ({
       };
    });
 
-   console.log(result); // result contains both the QuotationRequest ID and sellerQuotationRequestCount
    return result;
 };
 
