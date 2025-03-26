@@ -1,8 +1,8 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
-import { OfferList } from "../(components)/offer-list";
-import { getActiveOffersForSeller } from "../actions";
-import { sellerOffersQueryKey } from "../constants";
+import { OfferList } from "./(components)/offer-list";
+import { getActiveOffersForSeller } from "./actions";
+import { sellerOffersQueryKey } from "./constants";
 
 export default async function SellerActiveOffersPage() {
    const queryClient = new QueryClient();

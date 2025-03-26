@@ -4,8 +4,8 @@ import { ComponentProps } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { getSentOffersNotificationCount } from "../seller/offers/actions";
-import { sellerSentOffersNotificationsQueryKey } from "../seller/offers/constants";
+import { getSentOffersNotificationCount } from "../seller/offers/(tabs)/(active)/actions";
+import { sellerSentOffersNotificationsQueryKey } from "../seller/offers/(tabs)/(active)/constants";
 import { SidebarNavIndicator } from "./sidebar-nav-indicator";
 
 type SentOffersSidebarNavIndicator = ComponentProps<"div">;

@@ -13,12 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 
-import { DeleteOfferDialog } from "./delete-offer-dialog";
+import { DeleteOfferDialog } from "./delete-offer-dialog/delete-offer-dialog";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers";
 const DIALOG_ROUTE = "/dashboard/seller/offers/id/[id]";
 
-export default function OfferDialog({
+export function OfferDialog({
    isOpen,
    offer,
 }: Readonly<{

@@ -54,7 +54,7 @@ export function LostOffersList() {
    const count = data?.pages[0].count;
 
    return (
-      <div className="mb-6 flex h-full w-full flex-col gap-1 overflow-hidden">
+      <div className="mb-6 flex h-full w-full flex-col gap-1 sm:max-h-[calc(100vh-180px)]">
          <div className="flex items-center gap-2">
             {count === 0 && !isFetching && (
                <p className="text-sm text-muted-foreground">

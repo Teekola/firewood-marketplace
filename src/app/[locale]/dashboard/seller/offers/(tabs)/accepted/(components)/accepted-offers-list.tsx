@@ -54,7 +54,7 @@ export function AcceptedOffersList() {
    const count = data?.pages[0].count;
 
    return (
-      <div className="mb-6 flex h-full w-full flex-col gap-1 overflow-hidden">
+      <div className="mb-6 flex h-full w-full flex-col gap-1 sm:max-h-[calc(100vh-180px)]">
          <div className="flex items-center gap-2">
             {count === 0 && !isFetching && (
                <p className="text-sm text-muted-foreground">
@@ -87,6 +87,7 @@ export function AcceptedOffersList() {
                </SelectContent>
             </Select>
          </div>
+
          <ScrollArea className="relative min-h-64 pr-3">
             <div
                className="pointer-events-none sticky top-0 h-5 w-full bg-gradient-to-b from-background via-background to-transparent"
@@ -110,6 +111,10 @@ export function AcceptedOffersList() {
                   />
                ))}
             </ul>
+            <div
+               className="pointer-events-none sticky bottom-0 h-8 w-full bg-gradient-to-t from-background to-transparent"
+               aria-hidden="true"
+            ></div>
          </ScrollArea>
 
          {isFetchingNextPage && (

@@ -21,7 +21,7 @@ import { ButtonLoading } from "@/components/ui/button-loading";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useRouter } from "@/i18n/routing";
 
-import { deleteOffer } from "../actions";
+import { deleteOffer } from "./actions";
 
 interface DeleteOfferDialogProps extends ComponentProps<typeof AlertDialogTrigger> {
    offerId: string;

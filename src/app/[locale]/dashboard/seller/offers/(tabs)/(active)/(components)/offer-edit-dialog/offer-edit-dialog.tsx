@@ -10,17 +10,17 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/compon
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { usePathname, useRouter } from "@/i18n/routing";
 
-import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
+import { ShortQuotationRequestDetails } from "../../../../../../../../../components/quotation-request/short-quotation-request-details";
 import {
    OfferForm,
    OfferFormData,
-} from "../../quotation-requests/(components)/(make-offer-form)/offer-form";
-import { editOffer } from "../actions";
+} from "../../../../../quotation-requests/(components)/(make-offer-form)/offer-form";
+import { editOffer } from "../../actions";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers/id/[id]";
 const DIALOG_ROUTE = "/dashboard/seller/offers/id/[id]/edit";
 
-export default function OfferEditDialog({
+export function OfferEditDialog({
    isOpen,
    offer,
    countryCode,
