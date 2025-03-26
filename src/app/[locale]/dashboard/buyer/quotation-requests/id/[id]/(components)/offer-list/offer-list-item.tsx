@@ -48,10 +48,11 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                   </Link>
 
                   <p className="text-sm capitalize">
-                     {hasHomeDelivery && t("request-offers.home_delivery")}
+                     {hasHomeDelivery &&
+                        t("delivery-methods.HOME_DELIVERY") + (hasPickup ? ", " : "")}
 
                      {hasPickup &&
-                        `${t("request-offers.pickup")} ${offer.pickupPostalCode} ${offer.pickupCity}, ${getTranslatedCountryName(offer.pickupCountryName)}`}
+                        `${t("delivery-methods.PICKUP")} ${offer.pickupPostalCode} ${offer.pickupCity}, ${getTranslatedCountryName(offer.pickupCountryName)}`}
                   </p>
                   <p className="text-sm">
                      {hasHomeDelivery

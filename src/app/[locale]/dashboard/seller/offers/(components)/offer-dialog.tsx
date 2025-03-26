@@ -63,17 +63,19 @@ export default function OfferDialog({
                </Button>
 
                <div className="order-1 flex gap-2 sm:order-2">
-                  <Button asChild className="w-full" size="lg">
-                     <Link
-                        href={{
-                           pathname: "/dashboard/seller/offers/id/[id]/edit",
-                           params: { id: offer.id },
-                        }}
-                     >
-                        <EditIcon className="mr-2 h-4 w-4 stroke-primary-foreground" />
-                        {t("actions.Edit")}
-                     </Link>
-                  </Button>
+                  {offer.isActive && (
+                     <Button asChild className="w-full" size="lg">
+                        <Link
+                           href={{
+                              pathname: "/dashboard/seller/offers/id/[id]/edit",
+                              params: { id: offer.id },
+                           }}
+                        >
+                           <EditIcon className="mr-2 h-4 w-4 stroke-primary-foreground" />
+                           {t("actions.Edit")}
+                        </Link>
+                     </Button>
+                  )}
                   <DeleteOfferDialog
                      offerId={offer.id}
                      quotationRequestId={offer.quotationRequestId}

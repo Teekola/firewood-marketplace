@@ -33,6 +33,7 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
       });
 
       const buyerHasSeen = offer.buyerLastSeenAt && offer.buyerLastSeenAt >= offer.updatedAt;
+
       const isRejected = offer.rejectedAt && offer.rejectedAt >= offer.updatedAt;
 
       const hasHomeDelivery = quotationRequest.deliveryMethods.includes(
@@ -79,13 +80,16 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                      {!buyerHasSeen && !isRejected && <p>{t("offer.Not seen")}</p>}
                      {buyerHasSeen && !isRejected && <p>{t("offer.Seen")}</p>}
                      {isRejected && <p className="text-destructive">{t("offer.Rejected")}</p>}
-                     {isRejected && <CircleAlertIcon className="stroke-destructive" />}
+                     {isRejected && offer.isActive && (
+                        <CircleAlertIcon className="stroke-destructive" />
+                     )}
                   </div>
                   <Button
                      asChild
                      variant="outline"
                      className={cn(
                         isRejected &&
+                           offer.isActive &&
                            "border-destructive/50 text-destructive hover:text-destructive/90"
                      )}
                   >

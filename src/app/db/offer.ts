@@ -23,6 +23,7 @@ export const offerDTOFields = Prisma.validator<Prisma.OfferSelect>()({
    sellerLastSeenAt: true,
    acceptedAt: true,
    rejectedAt: true,
+   isActive: true,
    seller: {
       select: {
          profile: {
@@ -85,6 +86,7 @@ export const createOffer = async ({
          pickupCity,
          pickupAddress,
          updatedAt: new Date(),
+         isActive: true,
       },
       select: offerDTOFields,
    });
@@ -103,7 +105,7 @@ export const getActiveOffersBySellerIdPaginated = async ({
    sort?: SortOrder;
 }) => {
    const offers = await prisma.offer.findMany({
-      where: { sellerId, acceptedAt: null },
+      where: { sellerId, isActive: true },
       select: offerDTOFields,
       take: limit + 1, // take 1 extra to check if there is more data and use as cursor
       ...(cursor && { cursor: { id: cursor }, skip: 1 }),
@@ -114,7 +116,7 @@ export const getActiveOffersBySellerIdPaginated = async ({
 
 export const getActiveOffersCountBySellerId = async ({ sellerId }: { sellerId: string }) => {
    const count = await prisma.offer.count({
-      where: { sellerId, acceptedAt: null },
+      where: { sellerId, isActive: true },
    });
    return count;
 };
@@ -131,7 +133,7 @@ export const getPendingOffersForBuyerByQuotationRequestIdPaginated = async ({
    sort?: SortOrder;
 }) => {
    const offers = await prisma.offer.findMany({
-      where: { quotationRequestId: id, acceptedAt: null, rejectedAt: null },
+      where: { quotationRequestId: id, acceptedAt: null, rejectedAt: null, isActive: true },
       select: offerDTOFields,
       take: limit + 1, // take 1 extra to check if there is more data and use as cursor
       ...(cursor && { cursor: { id: cursor }, skip: 1 }),
@@ -163,7 +165,7 @@ export const getRejectedOffersForBuyerByQuotationRequestIdPaginated = async ({
 
 export const getPendingOffersCountForBuyerByQuotationRequestId = async ({ id }: { id: string }) => {
    const count = await prisma.offer.count({
-      where: { quotationRequestId: id, acceptedAt: null, rejectedAt: null },
+      where: { quotationRequestId: id, acceptedAt: null, rejectedAt: null, isActive: true },
    });
    return count;
 };
@@ -230,6 +232,10 @@ export const rejectOfferById = async ({
                  where: { id: quotationRequestId },
                  data: { status: QuotationRequestStatus.PENDING },
               }),
+              prisma.offer.updateMany({
+                 where: { quotationRequestId },
+                 data: { isActive: true },
+              }),
            ]
          : []),
    ]);
@@ -250,9 +256,6 @@ export const updateOfferViewedAt = async ({
    });
 };
 
-// TODO: Handle the case where quotation request is Fulfilled and provide sellers with appropriate information
-// If their offer was not selected, they will be shown the price details etc. of the offer that was accepted
-// The offer and quotation request are moved from pending states
 export const acceptOfferById = async ({
    offerId,
    quotationRequestId,
@@ -267,6 +270,7 @@ export const acceptOfferById = async ({
          data: {
             rejectedAt: null,
             acceptedAt: date,
+            isActive: false,
          },
       }),
       prisma.quotationRequest.update({
@@ -274,6 +278,10 @@ export const acceptOfferById = async ({
          data: {
             status: QuotationRequestStatus.FULFILLED,
          },
+      }),
+      prisma.offer.updateMany({
+         where: { quotationRequestId, NOT: { id: offerId } },
+         data: { isActive: false },
       }),
    ]);
 };

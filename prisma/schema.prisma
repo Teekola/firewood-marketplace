@@ -137,30 +137,30 @@ model SellerProfile {
 }
 
 model QuotationRequest {
-   id                     String                                @id @default(cuid())
-   buyer                  Buyer                                 @relation(fields: [buyerId], references: [id], onDelete: Cascade)
-   buyerId                String                                @map("buyer_id")
-   status                 QuotationRequestStatus
-   createdAt              DateTime                              @default(now()) @map("created_at")
-   updatedAt              DateTime?                             @map("updated_at")
-   woodTypes              WoodType[]                            @map("wood_type")
-   woodDryness            WoodDryness[]                         @map("wood_dryness")
-   woodAmountCubicMeters  Int                                   @map("wood_amount_cubic_meters")
-   woodMaxLengthCm        Int?                                  @map("wood_max_length_cm")
-   deliveryMethods        DeliveryMethod[]                      @map("delivery_methods")
-   countryCode            String                                @map("country_code")
-   countryName            String                                @map("country_name")
-   postalCode             String                                @map("postal_code")
-   city                   String
-   address                String?
-   coordinates            Unsupported("geography(Point, 4326)")
-   buyerName              String                                @map("buyer_name")
-   buyerEmail             String                                @map("buyer_email")
-   buyerPhone             String                                @map("buyer_phone")
-   buyerCompanyName       String?                               @map("buyer_company_name")
-   additionalInformation  String?                               @map("additional_information")
-   sellerQuotationRequest SellerQuotationRequest[]
-   offers                 Offer[]
+   id                      String                                @id @default(cuid())
+   buyer                   Buyer                                 @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+   buyerId                 String                                @map("buyer_id")
+   status                  QuotationRequestStatus
+   createdAt               DateTime                              @default(now()) @map("created_at")
+   updatedAt               DateTime?                             @map("updated_at")
+   woodTypes               WoodType[]                            @map("wood_type")
+   woodDryness             WoodDryness[]                         @map("wood_dryness")
+   woodAmountCubicMeters   Int                                   @map("wood_amount_cubic_meters")
+   woodMaxLengthCm         Int?                                  @map("wood_max_length_cm")
+   deliveryMethods         DeliveryMethod[]                      @map("delivery_methods")
+   countryCode             String                                @map("country_code")
+   countryName             String                                @map("country_name")
+   postalCode              String                                @map("postal_code")
+   city                    String
+   address                 String?
+   coordinates             Unsupported("geography(Point, 4326)")
+   buyerName               String                                @map("buyer_name")
+   buyerEmail              String                                @map("buyer_email")
+   buyerPhone              String                                @map("buyer_phone")
+   buyerCompanyName        String?                               @map("buyer_company_name")
+   additionalInformation   String?                               @map("additional_information")
+   sellerQuotationRequests SellerQuotationRequest[]
+   offers                  Offer[]
 
    @@index(buyerId)
 }
@@ -197,6 +197,7 @@ model Offer {
    sellerLastSeenAt     DateTime?        @map("seller_last_seen_at")
    acceptedAt           DateTime?        @map("accepted_at")
    rejectedAt           DateTime?        @map("rejected_at")
+   isActive             Boolean          @map("is_active")
    createdAt            DateTime         @default(now()) @map("created_at")
    updatedAt            DateTime         @map("updated_at")
 
