@@ -34,6 +34,7 @@ export const LostOfferListItem = forwardRef<HTMLLIElement, Readonly<LostOfferLis
       );
 
       // TODO: Make this contain all required and appropriate information formatted in a nice way!
+      // TODO: Include information about the offer that was selected, the price
 
       return (
          <li {...props} ref={ref} className={cn("w-full", props.className)}>

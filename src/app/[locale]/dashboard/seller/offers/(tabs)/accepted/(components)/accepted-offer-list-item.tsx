@@ -4,6 +4,7 @@ import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
+import { PreviewSection } from "@/components/preview-section";
 import { DeliveryDetails } from "@/components/quotation-request/delivery-details";
 import { FirewoodDetails } from "@/components/quotation-request/firewood-details";
 import { RelativeTime } from "@/components/relative-time";
@@ -39,35 +40,49 @@ export const AcceptedOfferListItem = forwardRef<
    return (
       <li {...props} ref={ref} className={cn("w-full", props.className)}>
          <Card className={cn("flex flex-col justify-between gap-4 p-4 xs:flex-row")}>
-            <div className="text-sm">
+            <div className="flex flex-col gap-2 text-sm">
                <CardTitle className="mb-2 text-xl font-bold hover:underline">
                   {offer.price} {currencyConfigs[offer.currency].symbol}
                </CardTitle>
 
-               <FirewoodDetails quotationRequest={quotationRequest} />
+               <PreviewSection title={t("request-offers.Contact")}>
+                  <p>{offer.quotationRequest.buyerName}</p>
+                  <p>{offer.quotationRequest.buyerEmail}</p>
+                  <p>{offer.quotationRequest.buyerPhone}</p>
+                  {offer.quotationRequest.buyerCompanyName && (
+                     <p>{offer.quotationRequest.buyerCompanyName}</p>
+                  )}
+               </PreviewSection>
 
-               <DeliveryDetails
-                  deliveryMethods={offer.deliveryMethods}
-                  quotationRequest={offer.quotationRequest}
-                  pickupAddress={offer.pickupAddress}
-                  pickupCity={offer.pickupCity}
-                  pickupCountryName={offer.pickupCountryName}
-                  pickupPostalCode={offer.pickupPostalCode}
-                  displayPickupAddress
-               />
+               <PreviewSection title={t("request-offers.Firewood")}>
+                  <FirewoodDetails quotationRequest={quotationRequest} />
+               </PreviewSection>
+
+               <PreviewSection title={t("request-offers.Delivery")}>
+                  <DeliveryDetails
+                     deliveryMethods={offer.deliveryMethods}
+                     quotationRequest={offer.quotationRequest}
+                     pickupAddress={offer.pickupAddress}
+                     pickupCity={offer.pickupCity}
+                     pickupCountryName={offer.pickupCountryName}
+                     pickupPostalCode={offer.pickupPostalCode}
+                     displayPickupAddress
+                  />
+                  <p className="text-sm">
+                     {hasHomeDelivery
+                        ? t("offer.Earliest delivery date")
+                        : t("offer.Earliest pickup date")}{" "}
+                     {earliestAvailability}
+                  </p>
+               </PreviewSection>
 
                {offer.quotationRequest.additionalInformation && (
-                  <p className="text-sm">{offer.quotationRequest.additionalInformation}</p>
+                  <PreviewSection title={t("request-offers.Additional information")}>
+                     <p className="text-sm">{offer.quotationRequest.additionalInformation}</p>
+                  </PreviewSection>
                )}
 
                {/**TODO: ADD BUYER INFORMATION */}
-
-               <p className="text-sm">
-                  {hasHomeDelivery
-                     ? t("offer.Earliest delivery date")
-                     : t("offer.Earliest pickup date")}{" "}
-                  {earliestAvailability}
-               </p>
 
                <p className="mt-2 text-xs text-muted-foreground">
                   {t("offer.Accepted at")} <RelativeTime date={offer.acceptedAt!} />
