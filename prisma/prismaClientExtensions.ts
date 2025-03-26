@@ -1,5 +1,5 @@
-import { createId } from "@paralleldrive/cuid2";
 import { PrismaClient } from "@prisma/client";
+import cuid from "cuid";
 
 type Coordinates = {
    latitude: number;
@@ -50,7 +50,7 @@ export function extendPrismaClientWithSellerLocation(prisma: PrismaClient) {
                maxDistanceKm: number;
                address: string | null;
             }) {
-               const id = createId(); // This is necessary because prisma could not automatically generate the cuid
+               const id = cuid(); // This is necessary because prisma could not automatically generate the cuid
                const point = `POINT(${data.longitude} ${data.latitude})`;
 
                const result = await prisma.$queryRaw<

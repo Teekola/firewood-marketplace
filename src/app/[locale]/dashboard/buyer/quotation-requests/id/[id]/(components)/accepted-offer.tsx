@@ -13,7 +13,7 @@ import {
    CardTitle,
 } from "@/components/ui/card";
 
-import { RejectOfferDialog } from "./reject-offer-dialog";
+import { RejectOfferDialog } from "./offer-dialog/reject-offer-dialog";
 
 interface AcceptedOfferProps extends ComponentProps<typeof Card> {
    offer: OfferDTO;

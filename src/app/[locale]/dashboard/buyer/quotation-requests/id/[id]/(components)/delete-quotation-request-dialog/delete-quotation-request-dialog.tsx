@@ -21,7 +21,7 @@ import { ButtonLoading } from "@/components/ui/button-loading";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useRouter } from "@/i18n/routing";
 
-import { deleteQuotationRequest } from "../actions";
+import { deleteQuotationRequest } from "./actions";
 
 interface DeleteQuotationRequestDialogProps extends ComponentProps<typeof AlertDialogTrigger> {
    quotationRequestId: string;

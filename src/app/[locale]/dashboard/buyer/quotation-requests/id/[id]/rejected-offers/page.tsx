@@ -1,8 +1,8 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-import { OfferList } from "../(components)/offer-list";
-import { OfferListItemRejected } from "../(components)/offer-list-item-rejected";
+import { OfferList } from "../(components)/offer-list/offer-list";
+import { OfferListItemRejected } from "../(components)/offer-list/offer-list-item-rejected";
 import { getRejectedOffersForBuyerByQuotationRequestId } from "../actions";
 import { buyerRejectedOffersQueryKey } from "../constants";
 

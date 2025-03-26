@@ -8,8 +8,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { SortOrder } from "@/lib/utils/types";
 
-import { getPendingOffersForBuyerByQuotationRequestId } from "../actions";
-import { buyerOffersQueryKey } from "../constants";
+import { getPendingOffersForBuyerByQuotationRequestId } from "../../actions";
+import { buyerOffersQueryKey } from "../../constants";
 
 const limit = 10; // Number of items per page
 export function useOfferListData({

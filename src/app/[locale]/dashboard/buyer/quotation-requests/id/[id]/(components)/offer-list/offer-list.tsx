@@ -8,11 +8,11 @@ import { useInView } from "react-intersection-observer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { useOfferListData } from "../(hooks)/use-offer-list-data";
-import { getPendingOffersForBuyerByQuotationRequestId } from "../actions";
-import { buyerOffersQueryKey } from "../constants";
+import { getPendingOffersForBuyerByQuotationRequestId } from "../../actions";
+import { buyerOffersQueryKey } from "../../constants";
 import { OfferListItem } from "./offer-list-item";
 import { SortButton } from "./sort-button";
+import { useOfferListData } from "./use-offer-list-data";
 
 export function OfferList({
    queryKey = buyerOffersQueryKey,

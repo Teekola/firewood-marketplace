@@ -1,5 +1,5 @@
-import { createId } from "@paralleldrive/cuid2";
 import { Prisma, QuotationRequestStatus, SellerQuotationRequestStatus } from "@prisma/client";
+import cuid from "cuid";
 
 import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
@@ -58,6 +58,7 @@ export const getQuotationRequestsByBuyerIdAndStatusPaginated = async ({
          },
       },
    });
+   console.log(quotationRequests);
 
    return quotationRequests;
 };
@@ -182,7 +183,7 @@ export const createQuotationRequest = async ({
             "coordinates", "buyer_name", "buyer_email", "buyer_phone", 
             "buyer_company_name", "additional_information"
             ) VALUES (
-            ${createId()}, ${buyerId}, ${QuotationRequestStatus.PENDING}, NOW(),
+            ${cuid()}, ${buyerId}, ${QuotationRequestStatus.PENDING}, NOW(),
             ARRAY[${Prisma.join(firewoodData.woodTypes)}]::"WoodType"[], Array[${Prisma.join(firewoodData.dryness)}]::"WoodDryness"[], 
             ${Number(firewoodData.amount)}, ${maxLength},
             ARRAY[${Prisma.join(deliveryData.deliveryMethods)}]::"DeliveryMethod"[], ${deliveryData.countryCode}, ${deliveryData.countryName},

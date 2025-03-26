@@ -235,6 +235,21 @@ export const rejectOfferById = async ({
    ]);
 };
 
+export const updateOfferViewedAt = async ({
+   offerId,
+   type,
+}: {
+   offerId: string;
+   type: "buyerLastSeenAt" | "sellerLastSeenAt";
+}) => {
+   await prisma.offer.update({
+      where: { id: offerId },
+      data: {
+         [type]: new Date(),
+      },
+   });
+};
+
 // TODO: Handle the case where quotation request is Fulfilled and provide sellers with appropriate information
 // If their offer was not selected, they will be shown the price details etc. of the offer that was accepted
 // The offer and quotation request are moved from pending states

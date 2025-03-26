@@ -19,7 +19,7 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { useRouter } from "@/i18n/routing";
 
-import { rejectOffer } from "../actions";
+import { rejectOffer } from "./actions";
 
 interface RejectOfferDialogProps extends ComponentProps<typeof AlertDialogTrigger> {
    offerId: string;

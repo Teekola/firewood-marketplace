@@ -1,6 +1,6 @@
 import { getOfferById } from "@/app/db/offer";
 
-import OfferDialogRejected from "../../../../(components)/offer-dialog-rejected";
+import { OfferDialogRejected } from "../../../../(components)/offer-dialog-rejected";
 
 export default async function OfferRejectedPage({
    params,

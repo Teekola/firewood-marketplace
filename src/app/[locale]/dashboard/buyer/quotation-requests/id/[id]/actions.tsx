@@ -1,14 +1,11 @@
 "use server";
 
 import {
-   acceptOfferById,
    getPendingOffersCountForBuyerByQuotationRequestId,
    getPendingOffersForBuyerByQuotationRequestIdPaginated,
    getRejectedOffersCountForBuyerByQuotationRequestId,
    getRejectedOffersForBuyerByQuotationRequestIdPaginated,
-   rejectOfferById,
 } from "@/app/db/offer";
-import { deleteQuotationRequestById } from "@/app/db/quotation-request";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getPendingOffersForBuyerByQuotationRequestId({
@@ -65,30 +62,4 @@ export async function getRejectedOffersForBuyerByQuotationRequestId({
    const nextCursor = hasMore ? offers[offers.length - 1].id : null;
 
    return { offers, nextCursor, count };
-}
-
-export async function deleteQuotationRequest(quotationRequestId: string) {
-   await deleteQuotationRequestById(quotationRequestId);
-}
-
-export async function rejectOffer({
-   offerId,
-   quotationRequestId,
-   isAcceptedOffer,
-}: {
-   offerId: string;
-   quotationRequestId: string;
-   isAcceptedOffer: boolean;
-}) {
-   await rejectOfferById({ offerId, quotationRequestId, isAcceptedOffer });
-}
-
-export async function acceptOffer({
-   offerId,
-   quotationRequestId,
-}: {
-   offerId: string;
-   quotationRequestId: string;
-}) {
-   await acceptOfferById({ offerId, quotationRequestId });
 }

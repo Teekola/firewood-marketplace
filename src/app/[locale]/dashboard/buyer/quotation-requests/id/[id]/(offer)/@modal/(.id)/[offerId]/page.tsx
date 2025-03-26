@@ -1,6 +1,6 @@
 import { getOfferById } from "@/app/db/offer";
 
-import OfferDialog from "../../../../(components)/offer-dialog";
+import { OfferDialog } from "../../../../(components)/offer-dialog";
 
 export default async function OfferPage({
    params,

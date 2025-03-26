@@ -15,8 +15,8 @@ import {
 import { Locale } from "@/i18n/routing";
 
 import { AcceptedOffer } from "./(components)/accepted-offer";
-import { DeleteQuotationRequestDialog } from "./(components)/delete-quotation-request-dialog";
-import { OfferListTitle } from "./(components)/offer-list-title";
+import { DeleteQuotationRequestDialog } from "./(components)/delete-quotation-request-dialog/delete-quotation-request-dialog";
+import { OfferListTitle } from "./(components)/offer-list/offer-list-title";
 
 export default async function BuyerQuotationRequestLayout({
    children,
