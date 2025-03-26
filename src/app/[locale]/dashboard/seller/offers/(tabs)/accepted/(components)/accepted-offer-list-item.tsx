@@ -4,8 +4,8 @@ import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/app/db/offer";
+import { DeliveryDetails } from "@/components/quotation-request/delivery-details";
 import { FirewoodDetails } from "@/components/quotation-request/firewood-details";
-import { ShortDeliveryDetails } from "@/components/quotation-request/short-delivery-details";
 import { RelativeTime } from "@/components/relative-time";
 import { Card, CardTitle } from "@/components/ui/card";
 import { currencyConfigs } from "@/i18n/currencies";
@@ -46,10 +46,14 @@ export const AcceptedOfferListItem = forwardRef<
 
                <FirewoodDetails quotationRequest={quotationRequest} />
 
-               <ShortDeliveryDetails
+               <DeliveryDetails
                   deliveryMethods={offer.deliveryMethods}
+                  quotationRequest={offer.quotationRequest}
+                  pickupAddress={offer.pickupAddress}
                   pickupCity={offer.pickupCity}
-                  deliveryCity={quotationRequest.city}
+                  pickupCountryName={offer.pickupCountryName}
+                  pickupPostalCode={offer.pickupPostalCode}
+                  displayPickupAddress
                />
 
                <p className="text-sm">
@@ -60,7 +64,7 @@ export const AcceptedOfferListItem = forwardRef<
                </p>
 
                <p className="mt-2 text-xs text-muted-foreground">
-                  {t("quotation-request.Last updated")} <RelativeTime date={offer.updatedAt} />
+                  {t("offer.Accepted at")} <RelativeTime date={offer.acceptedAt!} />
                </p>
             </div>
          </Card>

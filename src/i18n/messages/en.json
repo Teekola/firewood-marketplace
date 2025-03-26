@@ -260,7 +260,8 @@
     "Pickup location": "Pickup Location",
     "Address": "Address",
     "There are no accepted offers": "There are no accepted offers",
-    "There are no lost offers": "There are no lost offers"
+    "There are no lost offers": "There are no lost offers",
+    "Accepted at": "Accepted at"
   },
   "currencies": {
     "label-USD": "US Dollar",
