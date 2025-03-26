@@ -11,10 +11,14 @@ export function PageWrapper({ children }: PropsWithChildren) {
 
    if (!isStepVerified)
       return (
-         <div className="flex h-full min-h-[700px] flex-col space-y-4 xs:min-h-[640px]">
+         <div className="flex h-full max-h-[740px] min-h-[700px] flex-col space-y-4 xs:min-h-[640px]">
             {/**TODO: Make perfect skeleton */}
          </div>
       );
 
-   return <div className="flex h-full min-h-[700px] flex-col xs:min-h-[640px]">{children}</div>;
+   return (
+      <div className="flex h-full max-h-[740px] min-h-[700px] flex-col xs:min-h-[640px]">
+         {children}
+      </div>
+   );
 }

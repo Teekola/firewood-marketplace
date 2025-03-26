@@ -90,7 +90,8 @@
     "Insert company name": "Kirjoita yrityksen nimi",
     "Back": "Takaisin",
     "Sign in to submit": "Kirjaudu sisään lähettääksesi",
-    "Register to submit": "Rekisteröidy lähettääksesi"
+    "Register to submit": "Rekisteröidy lähettääksesi",
+    "Select at least one": "Valitse ainakin yksi"
   },
   "countries": {
     "Finland": "Suomi",

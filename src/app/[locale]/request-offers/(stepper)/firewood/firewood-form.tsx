@@ -92,7 +92,10 @@ export function FirewoodForm() {
                   name="woodTypes"
                   render={({ field }) => (
                      <FormItem className="space-y-1">
-                        <FormLabel>{t("request-offers.Wood type")}</FormLabel>
+                        <FormLabel>
+                           {t("request-offers.Wood type")}{" "}
+                           {`(${t("request-offers.Select at least one")})`}
+                        </FormLabel>
                         <div className="grid grid-cols-3 gap-2">
                            {woodTypes.map((woodType) => (
                               <CheckboxGroupItemCard
@@ -120,7 +123,10 @@ export function FirewoodForm() {
                   name="dryness"
                   render={({ field }) => (
                      <FormItem className="space-y-1">
-                        <FormLabel>{t("request-offers.Dryness")}</FormLabel>
+                        <FormLabel>
+                           {t("request-offers.Dryness")}{" "}
+                           {`(${t("request-offers.Select at least one")})`}
+                        </FormLabel>
                         <div className="grid grid-cols-2 gap-2">
                            {woodDrynesses.map((woodDryness) => (
                               <CheckboxGroupItemCard

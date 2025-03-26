@@ -77,31 +77,33 @@ export function SubmitForm({ ...props }: Readonly<ComponentProps<"form">>) {
                   props.className && props.className
                )}
             >
-               <Preview className="mb-6" />
-               <FormField
-                  name="additionalInformation"
-                  control={form.control}
-                  render={({ field }) => (
-                     <FormItem className="w-full">
-                        <FormLabel>{t("Additional information Optional")}</FormLabel>
-                        <FormControl>
-                           <AutosizeTextarea
-                              {...field}
-                              placeholder={t("Type special wishes or other useful information")}
-                              maxLength={450}
-                              minHeight={80}
-                              maxHeight={90}
-                           />
-                        </FormControl>
-                        <FormDescription>
-                           {t("Maximum length")} {ADDITIONAL_INFORMATION_MAX_LENGTH}{" "}
-                           {t("characters")}
-                        </FormDescription>
+               <div className="flex flex-col gap-6">
+                  <Preview />
+                  <FormField
+                     name="additionalInformation"
+                     control={form.control}
+                     render={({ field }) => (
+                        <FormItem className="w-full">
+                           <FormLabel>{t("Additional information Optional")}</FormLabel>
+                           <FormControl>
+                              <AutosizeTextarea
+                                 {...field}
+                                 placeholder={t("Type special wishes or other useful information")}
+                                 maxLength={450}
+                                 minHeight={80}
+                                 maxHeight={90}
+                              />
+                           </FormControl>
+                           <FormDescription>
+                              {t("Maximum length")} {ADDITIONAL_INFORMATION_MAX_LENGTH}{" "}
+                              {t("characters")}
+                           </FormDescription>
 
-                        <FormMessage />
-                     </FormItem>
-                  )}
-               />
+                           <FormMessage />
+                        </FormItem>
+                     )}
+                  />
+               </div>
 
                <StickyFooter>
                   <BackButtonLink size="lg" href="/request-offers/contact" label={t("Back")} />
