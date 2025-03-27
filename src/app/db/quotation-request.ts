@@ -67,6 +67,7 @@ export const getQuotationRequestsByBuyerIdAndStatusPaginated = async ({
    });
 
    // Calculate unseen offers count manually
+   // TODO NOTE: This might not display all unseen as it only displays the fetched ones!
    const result = await Promise.all(
       quotationRequests.map(async (qr) => {
          const unseenOffersCount = qr.offers.filter(
