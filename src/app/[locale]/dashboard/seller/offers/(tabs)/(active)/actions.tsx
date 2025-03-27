@@ -4,10 +4,9 @@ import {
    UpdateOfferArgs,
    getActiveOffersBySellerIdPaginated,
    getActiveOffersCountBySellerId,
-   getSentOffersNotificationCountBySellerId,
    updateOffer,
 } from "@/app/db/offer";
-import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
+import { authWithSeller } from "@/auth/auth";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getActiveOffersForSeller({
@@ -53,9 +52,4 @@ export async function editOffer({ id, data }: UpdateOfferArgs) {
          updatedAt: updateDate,
       },
    });
-}
-
-export async function getSentOffersNotificationCount() {
-   const { seller } = await getAuthorizedSeller();
-   return await getSentOffersNotificationCountBySellerId(seller.id);
 }
