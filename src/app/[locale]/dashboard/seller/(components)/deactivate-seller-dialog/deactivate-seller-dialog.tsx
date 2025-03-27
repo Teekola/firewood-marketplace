@@ -23,8 +23,8 @@ import { useRouter } from "@/i18n/routing";
 import {
    sellerQuotationRequestsQueryKey,
    sellerRejectedQuotationRequestsQueryKey,
-   sellerUnseenQuotationRequestsQueryKey,
 } from "../../quotation-requests/constants";
+import { sellerUnseenQuotationRequestsQueryKey } from "../quotation-request-sidebar-nav-indicator/constants";
 import { deactivateSeller } from "./actions";
 
 type DeactivateSellerDialogProps = ComponentProps<typeof AlertDialogTrigger>;

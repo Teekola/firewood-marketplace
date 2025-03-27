@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { SidebarNavProps } from "../(components)/sidebar-nav";
-import { QuotationRequestSidebarNavIndicator } from "./(components)/quotation-request-sidebar-nav-indicator";
+import { QuotationRequestSidebarNavIndicator } from "./(components)/quotation-request-sidebar-nav-indicator/quotation-request-sidebar-nav-indicator";
 import { SellerLocationSidebarNavIndicator } from "./(components)/seller-location-sidebar-nav-indicator";
 import { SellerProfileSidebarNavIndicator } from "./(components)/seller-profile-sidebar-nav-indicator";
 import { SentOffersSidebarNavIndicator } from "./(components)/sent-offers-sidebar-nav-indicator";

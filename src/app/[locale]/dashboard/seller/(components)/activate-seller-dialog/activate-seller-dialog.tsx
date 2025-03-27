@@ -25,10 +25,8 @@ import { getSellerLocation } from "../../location/actions";
 import { sellerLocationQueryKey } from "../../location/constants";
 import { getSellerProfile } from "../../profile/actions";
 import { sellerProfileQueryKey } from "../../profile/constants";
-import {
-   sellerQuotationRequestsQueryKey,
-   sellerUnseenQuotationRequestsQueryKey,
-} from "../../quotation-requests/constants";
+import { sellerQuotationRequestsQueryKey } from "../../quotation-requests/constants";
+import { sellerUnseenQuotationRequestsQueryKey } from "../quotation-request-sidebar-nav-indicator/constants";
 import { isValidSellerLocation } from "../seller-location-sidebar-nav-indicator";
 import { isValidSellerProfile } from "../seller-profile-sidebar-nav-indicator";
 import { activateSeller } from "./actions";
