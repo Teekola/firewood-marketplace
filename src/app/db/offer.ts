@@ -258,6 +258,8 @@ export const deleteOfferById = async (id: string) => {
    await prisma.offer.delete({ where: { id } });
 };
 
+// TODO: Update this to make more sense! It should include also the number of newly accepted offers
+// TODO: Also ensure that when viewing the items, the notification disappears
 export const getSentOffersNotificationCountBySellerId = async (sellerId: string) => {
    return await prisma.offer.count({
       where: { sellerId, NOT: { rejectedAt: null } },
