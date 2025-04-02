@@ -1,341 +1,346 @@
 {
-  "auth": {
-    "Sign in with Google": "Kirjaudu sisään Googlella",
-    "Sign In": "Kirjaudu sisään",
-    "Sign Out": "Kirjaudu ulos",
-    "Register with Google": "Rekisteröidy Googlella",
-    "New user": "Uusi käyttäjä",
-    "Register here": "Rekisteröidy tästä",
-    "Already have an account": "Onko sinulla jo tili",
-    "to fill in the details": "täyttääksesi tiedot automaattisesti",
-    "Register": "Rekisteröidy",
-    "or": "tai",
-    "register with email": "rekisteröidy sähköpostiosoitteella",
-    "Email": "Sähköpostiosoite",
-    "Password": "Salasana",
-    "password-description": "Salasanassa tulee olla vähintään 8 merkkiä.",
-    "Sign up": "Rekisteröidy",
-    "sign in with email": "kirjaudu sisään sähköpostiosoitteella"
-  },
-  "settings": {
-    "preferences": {
-      "Toggle theme": "Vaihda teemaa",
-      "Light": "Vaalea",
-      "Dark": "Tumma",
-      "System": "Järjestelmä",
-      "Select language": "Valitse kieli"
-    }
-  },
-  "wood-types": {
-    "MIXED": "Sekapuu",
-    "BIRCH": "Koivu",
-    "PINE": "Mänty"
-  },
-  "wood-drynesses": {
-    "DRY": "Kuiva",
-    "GREEN": "Tuore"
-  },
-  "delivery-methods": {
-    "HOME_DELIVERY": "Kotiinkuljetus",
-    "PICKUP": "Nouto"
-  },
-  "request-offers": {
-    "Request Offers": "Tee tarjouspyyntö",
-    "Firewood": "Polttopuut",
-    "Delivery": "Toimitus",
-    "Contact": "Yhteystiedot",
-    "Submit": "Lähetä",
-    "Abandon Request": "Hylkää tarjouspyyntö",
-    "abandon-request-description": "Tätä toimintoa ei voi peruuttaa. Syötetyt tiedot menetetään.",
-    "Wood type": "Puulaji",
-    "mixed": "sekapuu",
-    "birch": "koivu",
-    "pine": "mänty",
-    "Dryness": "Kuivuusaste",
-    "any": "kaikki",
-    "dry or green": "kuiva tai tuore",
-    "dry": "kuiva",
-    "green": "tuore",
-    "Amount": "Määrä",
-    "Max length": "maksimipituus",
-    "Optional": "Valinnainen",
-    "Continue": "Jatka",
-    "home delivery": "kotiinkuljetus",
-    "homeDelivery": "kotiinkuljetus",
-    "HOME_DELIVERY": "kotiinkuljetus",
-    "home_delivery": "kotiinkuljetus",
-    "pickup": "nouto",
-    "PICKUP": "nouto",
-    "Country": "Maa",
-    "Select country": "Valitse maa",
-    "Search country": "Etsi maata...",
-    "No country found": "Maata ei löydy.",
-    "Postal code": "Postinumero",
-    "Invalid postal code": "Virheellinen postinumero",
-    "Address": "Toimitusosoite",
-    "Phone": "Puhelinnumero",
-    "Full name": "Koko nimi",
-    "Full name placeholder": "Etunimi Sukunimi",
-    "Email": "Sähköpostiosoite",
-    "Type your email": "Kirjoita sähköpostiosoite",
-    "Type your phone number": "Kirjoita puhelinnumero",
-    "You may use any format": "Voit syöttää numeron maakoodilla tai ilman",
-    "Additional information Optional": "Lisätiedot (Valinnainen)",
-    "Type special wishes or other useful information": "Kirjoita erityistoiveet tai muuta hyödyllistä tietoa tilaukseen liittyen",
-    "Delivery type": "Toimitustapa",
-    "Maximum length": "Maksimipituus",
-    "characters": "merkkiä",
-    "Buy as a company": "Tilaa yrityksenä",
-    "Company name": "Yrityksen nimi",
-    "Insert company name": "Kirjoita yrityksen nimi",
-    "Back": "Takaisin",
-    "Sign in to submit": "Kirjaudu sisään lähettääksesi",
-    "Register to submit": "Rekisteröidy lähettääksesi",
-    "Select at least one": "Valitse ainakin yksi",
-    "Additional information": "Lisätiedot",
-    "Your quotation request is being sent to sellers": "Tarjouspyyntöäsi lähetetään myyjille..."
-  },
-  "countries": {
-    "Finland": "Suomi",
-    "United States": "Yhdysvallat"
-  },
-  "form-messages": {
-    "Insert a valid number": "Syötä lukuarvo",
-    "Invalid postal code": "Postinumero on virheellinen",
-    "Address is required for home delivery": "Osoite vaaditaan kotiinkuljetukseen",
-    "Name is required": "Nimi vaaditaan",
-    "The email is invalid": "Sähköpostiosoite on virheellinen",
-    "Email is required": "Sähköpostiosoite vaaditaan",
-    "The phone number is invalid": "Puhelinnumero on virheellinen",
-    "Insert company name": "Kirjoita yrityksen nimi",
-    "Please select at least one option": "Valitse ainakin yksi",
-    "An error occurred": "Tapahtui virhe.",
-    "Password needs to be at least 8 characters long": "Salasanassa tulee olla vähintään 8 merkkiä.",
-    "The password is too short": "Salasana on liian lyhyt.",
-    "You must agree to our terms and conditions to register": "Sinun täytyy hyväksyä käyttöehdot.",
-    "Username is already taken": "Sähköpostiosoite on varattu.",
-    "Invalid credentials": "Virheelliset kirjautumistiedot.",
-    "Invalid username or password": "Virheellinen sähköpostiosoite tai salasana.",
-    "Your account uses a different login method": "Tilisi käyttää toista kirjautumistapaa.",
-    "Select at least one delivery method": "Valitse vähintään yksi toimitustapa."
-  },
-  "actions": {
-    "Cancel": "Peruuta",
-    "Abandon": "Hylkää",
-    "Close": "Sulje",
-    "More": "Lisää",
-    "Navigate to": "Siirry sivulle",
-    "Select a page to navigate to": "Valitse sivu, jolle haluat siirtyä.",
-    "Reject": "Hylkää",
-    "Submit": "Lähetä",
-    "Restore": "Palauta",
-    "View": "Näytä",
-    "Edit": "Muokkaa",
-    "Delete": "Poista",
-    "Back": "Takaisin",
-    "Reject Offer": "Hylkää tarjous",
-    "Accept offer": "Hyväksy tarjous",
-    "Save": "Tallenna",
-    "Continue": "Jatka",
-    "Start receiving requests": "Aloita tarjouspyyntöjen vastaanotto",
-    "Stop receiving requests": "Lopeta pyyntöjen vastaanotto"
-  },
-  "metadata": {
-    "page-titles": {
-      "request-offers-firewood": "Pyydä polttopuutarjous - Valitse millaista puuta haluat",
-      "request-offers-delivery": "Pyydä polttopuutarjous - Toimitustiedot",
-      "request-offers-contact": "Pyydä polttopuutarjous - Yhteystiedot",
-      "request-offers-submit": "Pyydä polttopuutarjous - Tarkista ja lähetä"
-    }
-  },
-  "new-user": {
-    "Continue": "Jatka",
-    "Welcome to Polttopuutori": "Tervetuloa Polttopuutoriin",
-    "I intend to use the platform for": "Aion käyttää alustaa",
-    "For selling": "Myymiseen",
-    "For buying": "Ostamiseen",
-    "Please select what you intend to use the platform for": "Valitse, mihin aiot käyttää alustaa"
-  },
-  "breadcrumbs": {
-    "/": "/Koti",
-    "/auth/sign-in": "/Kirjaudu sisään",
-    "/auth/register": "/Rekisteröidy",
-    "/dashboard": "/Oma paneeli",
-    "/dashboard/seller": "/Oma paneeli/Myyjän paneeli",
-    "/dashboard/seller/dashboard": "/Oma paneeli/Myyjän paneeli/Yleiskatsaus",
-    "/dashboard/seller/profile": "/Oma paneeli/Myyjän paneeli/Profiili",
-    "/dashboard/seller/location": "/Oma paneeli/Myyjän paneeli/Sijainti",
-    "/dashboard/seller/quotation-requests": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt",
-    "/dashboard/seller/quotation-requests/id": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt/Pyyntö",
-    "/dashboard/seller/quotation-requests/id/make-offer": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt/Pyyntö/Tee tarjous",
-    "/dashboard/seller/quotation-requests/rejected": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt/Hylätyt",
-    "/dashboard/seller/offers": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset",
-    "/dashboard/seller/offers/id": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous",
-    "/dashboard/seller/offers/id/edit": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous/Muokkaa",
-    "/dashboard/seller/offers/accepted": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Hyväksytyt",
-    "/dashboard/seller/offers/lost": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Hävityt",
-    "/dashboard/buyer": "/Oma paneeli/Ostajan paneeli",
-    "/dashboard/buyer/dashboard": "/Oma paneeli/Ostajan paneeli/Yleiskatsaus",
-    "/dashboard/buyer/quotation-requests": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt",
-    "/dashboard/buyer/quotation-requests/fulfilled": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Toteutuneet",
-    "/dashboard/buyer/quotation-requests/id": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö",
-    "/dashboard/buyer/quotation-requests/id/rejected-offers": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö/Hylätyt tarjoukset",
-    "/dashboard/buyer/quotation-requests/id/id": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö/Tarjous",
-    "/dashboard/buyer/quotation-requests/id/id/rejected": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö/Tarjous/Hylätty"
-  },
-  "dashboard": {
-    "Seller Dashboard": "Myyjän paneeli",
-    "Overview": "Yleiskatsaus",
-    "Profile": "Profiili",
-    "profile": {
-      "Seller name": "Myyjän nimi",
-      "Seller name instruction": "Myyjän nimi tai yrityksen nimi",
-      "Email": "Sähköpostiosoite"
-    },
-    "Location": "Sijainti",
-    "Quotation Requests": "Tarjouspyynnöt",
-    "Seller Location": "Myyjän sijainti",
-    "Define location settings These affect the offers you receive": "Määritä sijaintiasetukset. Nämä vaikuttavat siihen, kuinka kaukaa saat tarjouksia.",
-    "Seller Profile": "Myyjän profiili",
-    "Define contact information that potential buyers receive upon accepting an offer": "Nämä yhteystiedot lähetetään potentiaalisille ostajille, kun he hyväksyvät tarjouksesi.",
-    "Dashboard": "Oma paneeli",
-    "Buyer Dashboard": "Ostajan paneeli",
-    "User Settings": "Käyttäjäasetukset",
-    "Become a Seller": "Ryhdy myyjäksi",
-    "actions": {
+   "auth": {
+      "Sign in with Google": "Kirjaudu sisään Googlella",
+      "Sign In": "Kirjaudu sisään",
+      "Sign Out": "Kirjaudu ulos",
+      "Register with Google": "Rekisteröidy Googlella",
+      "New user": "Uusi käyttäjä",
+      "Register here": "Rekisteröidy tästä",
+      "Already have an account": "Onko sinulla jo tili",
+      "to fill in the details": "täyttääksesi tiedot automaattisesti",
+      "Register": "Rekisteröidy",
+      "or": "tai",
+      "register with email": "rekisteröidy sähköpostiosoitteella",
+      "Email": "Sähköpostiosoite",
+      "Password": "Salasana",
+      "password-description": "Salasanassa tulee olla vähintään 8 merkkiä.",
+      "Sign up": "Rekisteröidy",
+      "sign in with email": "kirjaudu sisään sähköpostiosoitteella"
+   },
+   "settings": {
+      "preferences": {
+         "Toggle theme": "Vaihda teemaa",
+         "Light": "Vaalea",
+         "Dark": "Tumma",
+         "System": "Järjestelmä",
+         "Select language": "Valitse kieli"
+      }
+   },
+   "wood-types": {
+      "MIXED": "Sekapuu",
+      "BIRCH": "Koivu",
+      "PINE": "Mänty"
+   },
+   "wood-drynesses": {
+      "DRY": "Kuiva",
+      "GREEN": "Tuore"
+   },
+   "delivery-methods": {
+      "HOME_DELIVERY": "Kotiinkuljetus",
+      "PICKUP": "Nouto"
+   },
+   "request-offers": {
+      "Request Offers": "Tee tarjouspyyntö",
+      "Firewood": "Polttopuut",
+      "Delivery": "Toimitus",
+      "Contact": "Yhteystiedot",
+      "Submit": "Lähetä",
+      "Abandon Request": "Hylkää tarjouspyyntö",
+      "abandon-request-description": "Tätä toimintoa ei voi peruuttaa. Syötetyt tiedot menetetään.",
+      "Wood type": "Puulaji",
+      "mixed": "sekapuu",
+      "birch": "koivu",
+      "pine": "mänty",
+      "Dryness": "Kuivuusaste",
+      "any": "kaikki",
+      "dry or green": "kuiva tai tuore",
+      "dry": "kuiva",
+      "green": "tuore",
+      "Amount": "Määrä",
+      "Max length": "maksimipituus",
+      "Optional": "Valinnainen",
+      "Continue": "Jatka",
+      "home delivery": "kotiinkuljetus",
+      "homeDelivery": "kotiinkuljetus",
+      "HOME_DELIVERY": "kotiinkuljetus",
+      "home_delivery": "kotiinkuljetus",
+      "pickup": "nouto",
+      "PICKUP": "nouto",
+      "Country": "Maa",
+      "Select country": "Valitse maa",
+      "Search country": "Etsi maata...",
+      "No country found": "Maata ei löydy.",
+      "Postal code": "Postinumero",
+      "Invalid postal code": "Virheellinen postinumero",
+      "Address": "Toimitusosoite",
+      "Phone": "Puhelinnumero",
+      "Full name": "Koko nimi",
+      "Full name placeholder": "Etunimi Sukunimi",
+      "Email": "Sähköpostiosoite",
+      "Type your email": "Kirjoita sähköpostiosoite",
+      "Type your phone number": "Kirjoita puhelinnumero",
+      "You may use any format": "Voit syöttää numeron maakoodilla tai ilman",
+      "Additional information Optional": "Lisätiedot (Valinnainen)",
+      "Type special wishes or other useful information": "Kirjoita erityistoiveet tai muuta hyödyllistä tietoa tilaukseen liittyen",
+      "Delivery type": "Toimitustapa",
+      "Maximum length": "Maksimipituus",
+      "characters": "merkkiä",
+      "Buy as a company": "Tilaa yrityksenä",
+      "Company name": "Yrityksen nimi",
+      "Insert company name": "Kirjoita yrityksen nimi",
       "Back": "Takaisin",
-      "Save": "Tallenna"
-    },
-    "Max distance": "Maksimietäisyys",
-    "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Aseta maksimietäisyys, jolta saat tarjouspyyntöjä. Mitä suurempi etäisyys on, sitä enemmän pyyntöjä saat. Suosittelemme asettamaan tämän mieluummin liian korkeaksi kuin liian pieneksi. Etäisyys lasketaan postinumeroiden perusteella, joten tämä ei ole täysin tarkka.",
-    "Sent Offers": "Lähetetyt tarjoukset",
-    "Rejected": "Hylätyt",
-    "Active": "Aktiiviset",
-    "Quotation request details": "Tarjouspyynnön tiedot",
-    "Additional information": "Lisätiedot",
-    "become-a-seller-description": "Painamalla Ryhdy myyjäksi -painiketta saat heti pääsyn Myyjän hallintapaneeliin. Alat heti saamaan tarjouspyyntöjä, kun olet täyttänyt pakolliset profiili- ja sijaintitiedot sekä aktivoinut tilin.",
-    "Accepted": "Hyväksytyt",
-    "Lost": "Hävityt"
-  },
-  "View": "Näytä",
-  "quotation-request": {
-    "Make offer": "Tee tarjous",
-    "Last updated": "Päivitetty",
-    "Make an Offer": "Tee tarjous",
-    "Additional information": "Lisätiedot",
-    "There are no pending quotation requests": "Sinulle ei ole tullut uusia tarjouspyyntöjä.",
-    "Reject Quotation Request": "Hylkää tarjouspyyntö",
-    "reject-request-description": "Hylätyt tarjouspyynnöt siirretään hylätyt-välilehdelle. Hylätyt pyynnöt on mahdollista palauttaa aktiiviset tarjouspyynnöt -välilehdelle. Hylätyt pyynnöt poistetaan automaattisesti 30 päivän kuluttua..",
-    "There are no rejected quotation requests": "Sinulla ei ole hylättyjä tarjouspyyntöjä.",
-    "New": "Uusi",
-    "number-of-offers": "{count, plural, =0 {odottaa tarjouksia} =1 {yksi tarjous} other {# tarjousta}}",
-    "Show details": "Näytä tiedot",
-    "Delete Quotation Request": "Poista tarjouspyyntö",
-    "delete-quotation-request-description": "Kun poistat tarjouspyynnön, kaikki siihen liittyvät tarjoukset poistuvat samalla. Tätä toimintoa ei voi peruuttaa. Haluatko varmasti poistaa tarjouspyynnön?",
-    "Quotation Request Details": "Tarjouspyynnön tiedot",
-    "Created": "Luotu"
-  },
-  "offer": {
-    "Price": "Hinta",
-    "Fill in the form to make an offer": "Täytä lomake tehdäksesi tarjouksen",
-    "Select the earliest availability of the firewood to be delivered": "Valitse aikaisin polttopuun toimituspäivämäärä.",
-    "Select the earliest availability of the firewood to be picked up": "Valitse aikaisin polttopuun noutopäivämäärä.",
-    "Earliest delivery date": "Aikaisin toimituspäivä",
-    "Earliest pickup date": "Aikaisin noutopäivä",
-    "Pick a date": "Valitse päivämäärä",
-    "There are no active offers": "Ei aktiivisia tarjouksia.",
-    "Rejected": "Hylätty",
-    "Pending": "Odottaa",
-    "Not seen": "Ei nähty",
-    "Seen": "Nähty",
-    "Offer details": "Tarjouksen tiedot",
-    "Edit Offer": "Muokkaa tarjousta",
-    "Delete Offer": "Poista tarjous",
-    "delete-offer-description": "Kun poistat tarjouksen, se poistuu välittömästi asiakkaalta. Tätä toimintoa ei peruuttaa. Oletko varma, että haluat poistaa tarjouksen?",
-    "Offer received": "Tarjottu",
-    "Seller": "Myyjä",
-    "Accepted Offer": "Hyväksytty tarjous",
-    "Reject Offer": "Hylkää tarjous",
-    "reject-offer-description": "Hylätyt tarjoukset siirtyvät hylätyt-välilehdelle. Voit myöhemmin hyväksyä myös hylätyn tarjouksen. Myyjä saa tiedon, että olet hylännyt tarjouksen, ja voi päivittää tarjoustaan. Haluatko varmasti hylätä tarjouksen?",
-    "No rejected offers": "Sinulla ei ole hylättyjä tarjouksia.",
-    "pickupAddress": "Noutopaikan osoite",
-    "Pickup location": "Noutopaikan tiedot",
-    "Address": "Osoite",
-    "There are no accepted offers": "Sinulla ei ole hyväksyttyjä tarjouksia.",
-    "There are no lost offers": "Et ole hävinnyt yhtään tarjouskilpailua.",
-    "Accepted at": "Hyväksytty"
-  },
-  "currencies": {
-    "label-USD": "Yhdysvaltain dollari",
-    "label-EUR": "Euro"
-  },
-  "pagination": {
-    "Loading": "Ladataan...",
-    "displayed-results": "Näytetään {displayed} / {total}"
-  },
-  "sorting": {
-    "newest-first": "Uusin ensin",
-    "oldest-first": "Vanhin ensin"
-  },
-  "instructions": {
-    "Please wait": "Odota hetki"
-  },
-  "offers": {
-    "Sent Offers": "Lähetetyt tarjoukset"
-  },
-  "ui": {
-    "Hide password": "Piilota salasana",
-    "Show password": "Näytä salasana"
-  },
-  "terms": {
-    "By registering I conrifm that I accept": "Rekisteröitymällä vahvistan, että hyväksyn",
-    "Terms and Conditions": "Polttopuutorin käyttöehdot",
-    "and that I have read": "ja että olen lukenut",
-    "Privacy Policy": "tietosuojaselosteen"
-  },
-  "screen-readers": {
-    "navigation": "navigointi"
-  },
-  "navigation": {
-    "Home": "Etusivu"
-  },
-  "buyer": {
-    "No pending quotation requests": "Sinulla ei ole odottavia tarjouspyyntöjä.",
-    "No offers": "Et ole saanut vielä tarjouksia",
-    "Rejected Offers": "Hylätyt tarjoukset",
-    "Offers": "Tarjoukset",
-    "Active": "Aktiiviset",
-    "Rejected": "Hylätyt",
-    "Quotation Requests": "Tarjouspyynnöt",
-    "Fulfilled": "Toteutuneet"
-  },
-  "loading": {
-    "Accepting offer": "Hyväksytään tarjousta..."
-  },
-  "quotation-requests": {
-    "No fulfilled requests": "Sinulla ei vielä ole toteutuneita tarjouspyyntöjä."
-  },
-  "seller-location": {
-    "Pickup address": "Nouto-osoite",
-    "pickup-address-description": "Syöttämällä nouto-osoitteen saat tarjouspyyntöjä asiakkailta, jotka noutavat polttopuunsa itse."
-  },
-  "form-labels": {
-    "Optional": "(Valinnainen)",
-    "Pickup address": "Nouto-osoite"
-  },
-  "conjunctions": {
-    "or": "tai"
-  },
-  "seller": {
-    "start-receiving-requests-description": "Aloita tarjouspyyntöjen vastaanotto alla olevasta napista. Saat heti kaikki voimassa olevat alueesi tarjouspyynnöt.",
-    "fill-in-missing-information": "Täytä puuttuvat tiedot"
-  },
-  "activate-seller": {
-    "Add missing location details": "Lisää puuttuvat sijaintitiedot",
-    "Add missing profile details": "Lisää puuttuvat profiilin tiedot"
-  },
-  "deactivate-seller": {
-    "Stop receiving requests": "Lopeta pyyntöjen vastaanotto",
-    "stop-receiving-requests-description": "Kun lopetat pyyntöjen vastaanottamisen, et enää saa uusia tarjouspyyntöjä. Et myöskään pysty lähettämään enää tarjouksia. Oletko varma, että haluat jatkaa?"
-  }
+      "Sign in to submit": "Kirjaudu sisään lähettääksesi",
+      "Register to submit": "Rekisteröidy lähettääksesi",
+      "Select at least one": "Valitse ainakin yksi",
+      "Additional information": "Lisätiedot",
+      "Your quotation request is being sent to sellers": "Tarjouspyyntöäsi lähetetään myyjille...",
+      "request sent to n sellers": "{n, plural, =0 {Alueellasi ei ole vielä myyjiä.} =1 {Lähetimme pyyntösi yhdelle myyjälle.} other {Lähetimme pyyntösi # myyjälle.}}",
+      "The quotation request was successfully submitted": "Tarjouspyyntö lähetettiin onnistuneesti.",
+      "Quotation Request Submitted": "Tarjouspyyntö lähetetty",
+      "When new sellers register in your area they will also receive your request": "Kun uusia myyjiä rekisteröityy alueellasi, mytös he saavat tarjouspyyntösi."
+   },
+   "countries": {
+      "Finland": "Suomi",
+      "United States": "Yhdysvallat"
+   },
+   "form-messages": {
+      "Insert a valid number": "Syötä lukuarvo",
+      "Invalid postal code": "Postinumero on virheellinen",
+      "Address is required for home delivery": "Osoite vaaditaan kotiinkuljetukseen",
+      "Name is required": "Nimi vaaditaan",
+      "The email is invalid": "Sähköpostiosoite on virheellinen",
+      "Email is required": "Sähköpostiosoite vaaditaan",
+      "The phone number is invalid": "Puhelinnumero on virheellinen",
+      "Insert company name": "Kirjoita yrityksen nimi",
+      "Please select at least one option": "Valitse ainakin yksi",
+      "An error occurred": "Tapahtui virhe.",
+      "Password needs to be at least 8 characters long": "Salasanassa tulee olla vähintään 8 merkkiä.",
+      "The password is too short": "Salasana on liian lyhyt.",
+      "You must agree to our terms and conditions to register": "Sinun täytyy hyväksyä käyttöehdot.",
+      "Username is already taken": "Sähköpostiosoite on varattu.",
+      "Invalid credentials": "Virheelliset kirjautumistiedot.",
+      "Invalid username or password": "Virheellinen sähköpostiosoite tai salasana.",
+      "Your account uses a different login method": "Tilisi käyttää toista kirjautumistapaa.",
+      "Select at least one delivery method": "Valitse vähintään yksi toimitustapa."
+   },
+   "actions": {
+      "Cancel": "Peruuta",
+      "Abandon": "Hylkää",
+      "Close": "Sulje",
+      "More": "Lisää",
+      "Navigate to": "Siirry sivulle",
+      "Select a page to navigate to": "Valitse sivu, jolle haluat siirtyä.",
+      "Reject": "Hylkää",
+      "Submit": "Lähetä",
+      "Restore": "Palauta",
+      "View": "Näytä",
+      "Edit": "Muokkaa",
+      "Delete": "Poista",
+      "Back": "Takaisin",
+      "Reject Offer": "Hylkää tarjous",
+      "Accept offer": "Hyväksy tarjous",
+      "Save": "Tallenna",
+      "Continue": "Jatka",
+      "Start receiving requests": "Aloita tarjouspyyntöjen vastaanotto",
+      "Stop receiving requests": "Lopeta pyyntöjen vastaanotto"
+   },
+   "metadata": {
+      "page-titles": {
+         "request-offers-firewood": "Pyydä polttopuutarjous - Valitse millaista puuta haluat",
+         "request-offers-delivery": "Pyydä polttopuutarjous - Toimitustiedot",
+         "request-offers-contact": "Pyydä polttopuutarjous - Yhteystiedot",
+         "request-offers-submit": "Pyydä polttopuutarjous - Tarkista ja lähetä"
+      }
+   },
+   "new-user": {
+      "Continue": "Jatka",
+      "Welcome to Polttopuutori": "Tervetuloa Polttopuutoriin",
+      "I intend to use the platform for": "Aion käyttää alustaa",
+      "For selling": "Myymiseen",
+      "For buying": "Ostamiseen",
+      "Please select what you intend to use the platform for": "Valitse, mihin aiot käyttää alustaa"
+   },
+   "breadcrumbs": {
+      "/": "/Koti",
+      "/auth/sign-in": "/Kirjaudu sisään",
+      "/auth/register": "/Rekisteröidy",
+      "/dashboard": "/Oma paneeli",
+      "/dashboard/seller": "/Oma paneeli/Myyjän paneeli",
+      "/dashboard/seller/dashboard": "/Oma paneeli/Myyjän paneeli/Yleiskatsaus",
+      "/dashboard/seller/profile": "/Oma paneeli/Myyjän paneeli/Profiili",
+      "/dashboard/seller/location": "/Oma paneeli/Myyjän paneeli/Sijainti",
+      "/dashboard/seller/quotation-requests": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt",
+      "/dashboard/seller/quotation-requests/id": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt/Pyyntö",
+      "/dashboard/seller/quotation-requests/id/make-offer": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt/Pyyntö/Tee tarjous",
+      "/dashboard/seller/quotation-requests/rejected": "/Oma paneeli/Myyjän paneeli/Tarjouspyynnöt/Hylätyt",
+      "/dashboard/seller/offers": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset",
+      "/dashboard/seller/offers/id": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous",
+      "/dashboard/seller/offers/id/edit": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Tarjous/Muokkaa",
+      "/dashboard/seller/offers/accepted": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Hyväksytyt",
+      "/dashboard/seller/offers/lost": "/Oma paneeli/Myyjän paneeli/Lähetetyt tarjoukset/Hävityt",
+      "/dashboard/buyer": "/Oma paneeli/Ostajan paneeli",
+      "/dashboard/buyer/dashboard": "/Oma paneeli/Ostajan paneeli/Yleiskatsaus",
+      "/dashboard/buyer/quotation-requests": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt",
+      "/dashboard/buyer/quotation-requests/fulfilled": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Toteutuneet",
+      "/dashboard/buyer/quotation-requests/id": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö",
+      "/dashboard/buyer/quotation-requests/id/rejected-offers": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö/Hylätyt tarjoukset",
+      "/dashboard/buyer/quotation-requests/id/id": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö/Tarjous",
+      "/dashboard/buyer/quotation-requests/id/id/rejected": "/Oma paneeli/Ostajan paneeli/Tarjouspyynnöt/Pyyntö/Tarjous/Hylätty"
+   },
+   "dashboard": {
+      "Seller Dashboard": "Myyjän paneeli",
+      "Overview": "Yleiskatsaus",
+      "Profile": "Profiili",
+      "profile": {
+         "Seller name": "Myyjän nimi",
+         "Seller name instruction": "Myyjän nimi tai yrityksen nimi",
+         "Email": "Sähköpostiosoite"
+      },
+      "Location": "Sijainti",
+      "Quotation Requests": "Tarjouspyynnöt",
+      "Seller Location": "Myyjän sijainti",
+      "Define location settings These affect the offers you receive": "Määritä sijaintiasetukset. Nämä vaikuttavat siihen, kuinka kaukaa saat tarjouksia.",
+      "Seller Profile": "Myyjän profiili",
+      "Define contact information that potential buyers receive upon accepting an offer": "Nämä yhteystiedot lähetetään potentiaalisille ostajille, kun he hyväksyvät tarjouksesi.",
+      "Dashboard": "Oma paneeli",
+      "Buyer Dashboard": "Ostajan paneeli",
+      "User Settings": "Käyttäjäasetukset",
+      "Become a Seller": "Ryhdy myyjäksi",
+      "actions": {
+         "Back": "Takaisin",
+         "Save": "Tallenna"
+      },
+      "Max distance": "Maksimietäisyys",
+      "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Aseta maksimietäisyys, jolta saat tarjouspyyntöjä. Mitä suurempi etäisyys on, sitä enemmän pyyntöjä saat. Suosittelemme asettamaan tämän mieluummin liian korkeaksi kuin liian pieneksi. Etäisyys lasketaan postinumeroiden perusteella, joten tämä ei ole täysin tarkka.",
+      "Sent Offers": "Lähetetyt tarjoukset",
+      "Rejected": "Hylätyt",
+      "Active": "Aktiiviset",
+      "Quotation request details": "Tarjouspyynnön tiedot",
+      "Additional information": "Lisätiedot",
+      "become-a-seller-description": "Painamalla Ryhdy myyjäksi -painiketta saat heti pääsyn Myyjän hallintapaneeliin. Alat heti saamaan tarjouspyyntöjä, kun olet täyttänyt pakolliset profiili- ja sijaintitiedot sekä aktivoinut tilin.",
+      "Accepted": "Hyväksytyt",
+      "Lost": "Hävityt"
+   },
+   "View": "Näytä",
+   "quotation-request": {
+      "Make offer": "Tee tarjous",
+      "Last updated": "Päivitetty",
+      "Make an Offer": "Tee tarjous",
+      "Additional information": "Lisätiedot",
+      "There are no pending quotation requests": "Sinulle ei ole tullut uusia tarjouspyyntöjä.",
+      "Reject Quotation Request": "Hylkää tarjouspyyntö",
+      "reject-request-description": "Hylätyt tarjouspyynnöt siirretään hylätyt-välilehdelle. Hylätyt pyynnöt on mahdollista palauttaa aktiiviset tarjouspyynnöt -välilehdelle. Hylätyt pyynnöt poistetaan automaattisesti 30 päivän kuluttua..",
+      "There are no rejected quotation requests": "Sinulla ei ole hylättyjä tarjouspyyntöjä.",
+      "New": "Uusi",
+      "number-of-offers": "{count, plural, =0 {odottaa tarjouksia} =1 {yksi tarjous} other {# tarjousta}}",
+      "Show details": "Näytä tiedot",
+      "Delete Quotation Request": "Poista tarjouspyyntö",
+      "delete-quotation-request-description": "Kun poistat tarjouspyynnön, kaikki siihen liittyvät tarjoukset poistuvat samalla. Tätä toimintoa ei voi peruuttaa. Haluatko varmasti poistaa tarjouspyynnön?",
+      "Quotation Request Details": "Tarjouspyynnön tiedot",
+      "Created": "Luotu"
+   },
+   "offer": {
+      "Price": "Hinta",
+      "Fill in the form to make an offer": "Täytä lomake tehdäksesi tarjouksen",
+      "Select the earliest availability of the firewood to be delivered": "Valitse aikaisin polttopuun toimituspäivämäärä.",
+      "Select the earliest availability of the firewood to be picked up": "Valitse aikaisin polttopuun noutopäivämäärä.",
+      "Earliest delivery date": "Aikaisin toimituspäivä",
+      "Earliest pickup date": "Aikaisin noutopäivä",
+      "Pick a date": "Valitse päivämäärä",
+      "There are no active offers": "Ei aktiivisia tarjouksia.",
+      "Rejected": "Hylätty",
+      "Pending": "Odottaa",
+      "Not seen": "Ei nähty",
+      "Seen": "Nähty",
+      "Offer details": "Tarjouksen tiedot",
+      "Edit Offer": "Muokkaa tarjousta",
+      "Delete Offer": "Poista tarjous",
+      "delete-offer-description": "Kun poistat tarjouksen, se poistuu välittömästi asiakkaalta. Tätä toimintoa ei peruuttaa. Oletko varma, että haluat poistaa tarjouksen?",
+      "Offer received": "Tarjottu",
+      "Seller": "Myyjä",
+      "Accepted Offer": "Hyväksytty tarjous",
+      "Reject Offer": "Hylkää tarjous",
+      "reject-offer-description": "Hylätyt tarjoukset siirtyvät hylätyt-välilehdelle. Voit myöhemmin hyväksyä myös hylätyn tarjouksen. Myyjä saa tiedon, että olet hylännyt tarjouksen, ja voi päivittää tarjoustaan. Haluatko varmasti hylätä tarjouksen?",
+      "No rejected offers": "Sinulla ei ole hylättyjä tarjouksia.",
+      "pickupAddress": "Noutopaikan osoite",
+      "Pickup location": "Noutopaikan tiedot",
+      "Address": "Osoite",
+      "There are no accepted offers": "Sinulla ei ole hyväksyttyjä tarjouksia.",
+      "There are no lost offers": "Et ole hävinnyt yhtään tarjouskilpailua.",
+      "Accepted at": "Hyväksytty"
+   },
+   "currencies": {
+      "label-USD": "Yhdysvaltain dollari",
+      "label-EUR": "Euro"
+   },
+   "pagination": {
+      "Loading": "Ladataan...",
+      "displayed-results": "Näytetään {displayed} / {total}"
+   },
+   "sorting": {
+      "newest-first": "Uusin ensin",
+      "oldest-first": "Vanhin ensin"
+   },
+   "instructions": {
+      "Please wait": "Odota hetki"
+   },
+   "offers": {
+      "Sent Offers": "Lähetetyt tarjoukset"
+   },
+   "ui": {
+      "Hide password": "Piilota salasana",
+      "Show password": "Näytä salasana"
+   },
+   "terms": {
+      "By registering I conrifm that I accept": "Rekisteröitymällä vahvistan, että hyväksyn",
+      "Terms and Conditions": "Polttopuutorin käyttöehdot",
+      "and that I have read": "ja että olen lukenut",
+      "Privacy Policy": "tietosuojaselosteen"
+   },
+   "screen-readers": {
+      "navigation": "navigointi"
+   },
+   "navigation": {
+      "Home": "Etusivu"
+   },
+   "buyer": {
+      "No pending quotation requests": "Sinulla ei ole odottavia tarjouspyyntöjä.",
+      "No offers": "Et ole saanut vielä tarjouksia",
+      "Rejected Offers": "Hylätyt tarjoukset",
+      "Offers": "Tarjoukset",
+      "Active": "Aktiiviset",
+      "Rejected": "Hylätyt",
+      "Quotation Requests": "Tarjouspyynnöt",
+      "Fulfilled": "Toteutuneet"
+   },
+   "loading": {
+      "Accepting offer": "Hyväksytään tarjousta..."
+   },
+   "quotation-requests": {
+      "No fulfilled requests": "Sinulla ei vielä ole toteutuneita tarjouspyyntöjä."
+   },
+   "seller-location": {
+      "Pickup address": "Nouto-osoite",
+      "pickup-address-description": "Syöttämällä nouto-osoitteen saat tarjouspyyntöjä asiakkailta, jotka noutavat polttopuunsa itse."
+   },
+   "form-labels": {
+      "Optional": "(Valinnainen)",
+      "Pickup address": "Nouto-osoite"
+   },
+   "conjunctions": {
+      "or": "tai"
+   },
+   "seller": {
+      "start-receiving-requests-description": "Aloita tarjouspyyntöjen vastaanotto alla olevasta napista. Saat heti kaikki voimassa olevat alueesi tarjouspyynnöt.",
+      "fill-in-missing-information": "Täytä puuttuvat tiedot"
+   },
+   "activate-seller": {
+      "Add missing location details": "Lisää puuttuvat sijaintitiedot",
+      "Add missing profile details": "Lisää puuttuvat profiilin tiedot"
+   },
+   "deactivate-seller": {
+      "Stop receiving requests": "Lopeta pyyntöjen vastaanotto",
+      "stop-receiving-requests-description": "Kun lopetat pyyntöjen vastaanottamisen, et enää saa uusia tarjouspyyntöjä. Et myöskään pysty lähettämään enää tarjouksia. Oletko varma, että haluat jatkaa?"
+   },
+   "Go to Dashboard": "Siirry omaan paneeliin"
 }
