@@ -42,8 +42,21 @@ export const firewoodFormSchema = z.object({
    dryness: z
       .array(z.nativeEnum(WoodDryness))
       .nonempty({ message: "Please, select a dryness level" }),
-   amount: z.string().min(1, { message: "Insert a valid number" }),
-   maxLength: z.string().default(""),
+   amount: z
+      .string()
+      .min(1, { message: "Insert a valid number" })
+      .refine((v) => Number(v.replace(",", ".")) > 0, { message: "Insert a valid number" }),
+   maxLength: z
+      .string()
+      .default("")
+      .refine(
+         (v) => {
+            if (v === "") return true;
+            if (Number(v.replace(",", ".")) > 0) return true;
+            return false;
+         },
+         { message: "Insert a valid number" }
+      ),
 });
 export type FirewoodData = z.infer<typeof firewoodFormSchema>;
 
@@ -187,6 +200,11 @@ function transformDecimalInputValue(input: string, decimalSeparator = ",") {
 
    if (decimalIndex === 0) {
       filteredValue = filteredValue.replace(decimalSeparator, "");
+   }
+
+   // Prevent leading zeros unless followed by a decimal separator
+   if (/^0[0-9]+/.test(filteredValue) && decimalIndex === -1) {
+      filteredValue = filteredValue.replace(/^0+/, "");
    }
    return filteredValue;
 }
