@@ -80,10 +80,36 @@ const config: Config = {
                   height: "0",
                },
             },
+
+            "move-1": {
+               "0%": { transform: "translate(0, 0) rotate(0deg)", opacity: "1" },
+               "100%": { transform: "translate(150px, -10px) rotate(15deg)", opacity: "0.5" },
+            },
+            "move-2": {
+               "0%": { transform: "translate(-0, 0) rotate(0deg)", opacity: "1" },
+               "100%": { transform: "translate(-150px, 10px) rotate(-15deg)", opacity: "0.5" },
+            },
+            "move-3": {
+               "0%": { transform: "translate(0, 0) rotate(0deg)", opacity: "1" },
+               "100%": { transform: "translate(200px, -50px) rotate(30deg)", opacity: "0.5" },
+            },
+            "move-4": {
+               "0%": { transform: "translate(-0, 0) rotate(0deg)", opacity: "1" },
+               "100%": { transform: "translate(-200px, 50px) rotate(-30deg)", opacity: "0.5" },
+            },
+            "move-5": {
+               "0%": { transform: "translate(0, 0) rotate(0deg)", opacity: "1" },
+               "100%": { transform: "translate(150px, 100px) rotate(45deg)", opacity: "0.5" },
+            },
          },
          animation: {
             "accordion-down": "accordion-down 0.2s ease-out",
             "accordion-up": "accordion-up 0.2s ease-out",
+            "send-1": "move-1 2s infinite cubic-bezier(0.25, 1, 0.5, 1)",
+            "send-2": "move-2 2s infinite cubic-bezier(0.25, 1, 0.5, 1)",
+            "send-3": "move-3 2s infinite cubic-bezier(0.25, 1, 0.5, 1)",
+            "send-4": "move-4 2s infinite cubic-bezier(0.25, 1, 0.5, 1)",
+            "send-5": "move-5 2s infinite cubic-bezier(0.25, 1, 0.5, 1)",
          },
       },
    },

@@ -9,18 +9,19 @@ export default async function SubmittedPage() {
    const session = await auth();
    const t = await getTranslations("request-offers");
 
+   if (!session) {
+      return (
+         <SignInDialog
+            open={!session}
+            signInTitle={t("Sign in to submit")}
+            registerTitle={t("Register to submit")}
+         />
+      );
+   }
+
    return (
-      <>
-         {!session && (
-            <div>
-               <SignInDialog
-                  open={!session}
-                  signInTitle={t("Sign in to submit")}
-                  registerTitle={t("Register to submit")}
-               />
-            </div>
-         )}
-         {session && <Submitter />}
-      </>
+      <div className="grid h-full place-items-center">
+         <Submitter />
+      </div>
    );
 }

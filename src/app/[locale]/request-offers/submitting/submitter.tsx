@@ -19,6 +19,7 @@ import {
    useValidSteps,
 } from "../(store)/request-offers-store-provider";
 import { submitQuotationRequest } from "./actions";
+import { LoadingIndicator } from "./loading-indicator";
 
 export function Submitter() {
    const submitData = useSubmitData();
@@ -85,5 +86,5 @@ export function Submitter() {
       router,
    ]);
 
-   return <div></div>;
+   return <LoadingIndicator />;
 }
