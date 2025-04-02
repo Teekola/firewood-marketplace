@@ -1,3 +1,3 @@
 export { cn } from "./cn";
 
-export { testPathnameRegex } from "./testPathnameRegex";
+export { testPathnameRegex } from "./test-pathname-regex";

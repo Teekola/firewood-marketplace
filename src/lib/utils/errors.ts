@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { ErrorBase } from "./errorBase";
+import { ErrorBase } from "./error-base";
 
 type AuthErrorName = "SESSION_ERROR" | "AUTH_ERROR";
 type DatabaseErrorName = "DATABASE_ERROR";
