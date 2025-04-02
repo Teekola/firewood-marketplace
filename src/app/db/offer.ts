@@ -68,6 +68,7 @@ export const createOffer = async ({
    pickupCity,
    pickupAddress,
 }: CreateOfferArgs) => {
+   const creationDate = new Date();
    const offer = await prisma.offer.create({
       data: {
          quotationRequest: {
@@ -85,7 +86,9 @@ export const createOffer = async ({
          pickupPostalCode,
          pickupCity,
          pickupAddress,
-         updatedAt: new Date(),
+         updatedAt: creationDate,
+         sellerLastSeenAt: creationDate,
+         createdAt: creationDate,
          isActive: true,
       },
       select: offerDTOFields,
@@ -258,11 +261,35 @@ export const deleteOfferById = async (id: string) => {
    await prisma.offer.delete({ where: { id } });
 };
 
-// TODO: Update this to make more sense! It should include also the number of newly accepted offers
-// TODO: Also ensure that when viewing the items, the notification disappears
+// Get number of offers that have been rejected after the last seen at
+// time of the seller and those that have been accepted after the last seen at time of seller
 export const getSentOffersNotificationCountBySellerId = async (sellerId: string) => {
    return await prisma.offer.count({
-      where: { sellerId, NOT: { rejectedAt: null } },
+      where: {
+         sellerId,
+         OR: [
+            { rejectedAt: { gt: prisma.offer.fields.sellerLastSeenAt } },
+            { acceptedAt: { gt: prisma.offer.fields.sellerLastSeenAt } },
+         ],
+      },
+   });
+};
+
+export const getSentOffersAcceptedNotificationCountBySellerId = async (sellerId: string) => {
+   return await prisma.offer.count({
+      where: {
+         sellerId,
+         OR: [{ acceptedAt: { gt: prisma.offer.fields.sellerLastSeenAt } }],
+      },
+   });
+};
+
+export const getSentOffersRejectedNotificationCountBySellerId = async (sellerId: string) => {
+   return await prisma.offer.count({
+      where: {
+         sellerId,
+         OR: [{ rejectedAt: { gt: prisma.offer.fields.sellerLastSeenAt } }],
+      },
    });
 };
 
@@ -300,14 +327,14 @@ export const rejectOfferById = async ({
 };
 
 export const updateOfferViewedAt = async ({
-   offerId,
+   offerIds,
    type,
 }: {
-   offerId: string;
+   offerIds: string[];
    type: "buyerLastSeenAt" | "sellerLastSeenAt";
 }) => {
-   await prisma.offer.update({
-      where: { id: offerId },
+   await prisma.offer.updateMany({
+      where: { id: { in: offerIds } },
       data: {
          [type]: new Date(),
       },

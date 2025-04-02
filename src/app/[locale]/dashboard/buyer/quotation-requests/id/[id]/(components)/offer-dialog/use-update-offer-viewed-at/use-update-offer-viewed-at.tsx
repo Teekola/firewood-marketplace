@@ -9,15 +9,15 @@ import { buyerUnseenOffersQueryKey } from "@/app/[locale]/dashboard/buyer/consta
 import { buyerQuotationRequestsQueryKey } from "../../../../../constants";
 import { updateBuyerViewedAt } from "./actions";
 
-export function useUpdateOfferViewedAt({ offerId }: Readonly<{ offerId?: string }>) {
+export function useUpdateOfferViewedAt({ offerIds }: Readonly<{ offerIds?: string[] }>) {
    const queryClient = useQueryClient();
    useEffect(() => {
-      if (!offerId) return;
+      if (!offerIds || offerIds.length < 1) return;
       (async () => {
-         await updateBuyerViewedAt(offerId);
+         await updateBuyerViewedAt(offerIds);
 
          queryClient.invalidateQueries({ queryKey: buyerUnseenOffersQueryKey });
          queryClient.invalidateQueries({ queryKey: buyerQuotationRequestsQueryKey });
       })();
-   }, [offerId, queryClient]);
+   }, [offerIds, queryClient]);
 }

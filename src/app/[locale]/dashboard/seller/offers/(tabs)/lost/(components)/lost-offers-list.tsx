@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { ArrowUpDownIcon } from "lucide-react";
@@ -18,13 +18,14 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortOrder } from "@/lib/utils/types";
 
+import { useUpdateSellerLastSeen } from "../../(hooks)/use-update-seller-last-seen";
 import { getLostOffersForSeller } from "../actions";
 import { sellerLostOffersQueryKey } from "../constants";
 import { LostOfferListItem } from "./lost-offer-list-item";
 
+const limit = 10; // Number of items per page
 export function LostOffersList() {
    const t = useTranslations();
-   const limit = 10; // Number of items per page
    const { ref, inView } = useInView();
    const [sortOrder, setSortOrder] = useState<SortOrder>("newest-first");
 
@@ -46,12 +47,14 @@ export function LostOffersList() {
       }
    }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+   const count = data?.pages[0].count;
+   const offers = useMemo(() => data?.pages.flatMap((page) => page.offers) ?? [], [data]);
+
+   const { useTrackOfferVisibility } = useUpdateSellerLastSeen();
+
    if (error) {
       return <p>{error.message}</p>;
    }
-
-   const offers = data?.pages.flatMap((page) => page.offers) || [];
-   const count = data?.pages[0].count;
 
    return (
       <div className="mb-6 flex h-full w-full flex-col gap-1 sm:max-h-[calc(100vh-180px)]">
@@ -102,13 +105,18 @@ export function LostOffersList() {
                      <Skeleton className="h-[106px] w-full min-w-10" />
                   </>
                )}
-               {offers.map((offer, index) => (
-                  <LostOfferListItem
-                     key={offer.id}
-                     offer={offer}
-                     ref={index === offers.length - 1 ? ref : null}
-                  />
-               ))}
+               {offers.map((offer, index) => {
+                  const isLast = index === offers.length - 1;
+                  return (
+                     <Fragment key={offer.id}>
+                        <LostOfferListItem
+                           offer={offer}
+                           useTrackOfferVisibility={useTrackOfferVisibility}
+                        />
+                        {isLast && <div ref={ref}></div>}
+                     </Fragment>
+                  );
+               })}
             </ul>
          </ScrollArea>
 

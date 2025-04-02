@@ -2,6 +2,6 @@
 
 import { updateOfferViewedAt } from "@/app/db/offer";
 
-export async function updateBuyerViewedAt(offerId: string) {
-   await updateOfferViewedAt({ offerId, type: "buyerLastSeenAt" });
+export async function updateBuyerViewedAt(offerIds: string[]) {
+   await updateOfferViewedAt({ offerIds, type: "buyerLastSeenAt" });
 }

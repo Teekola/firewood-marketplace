@@ -35,7 +35,7 @@ export function OfferDialog({
       if (pathname !== DIALOG_ROUTE) setOpen(false);
    }, [pathname]);
 
-   useUpdateOfferViewedAt({ offerId: offer?.id });
+   useUpdateOfferViewedAt({ offerIds: [offer?.id].filter((i) => i !== undefined) });
 
    if (!offer) return null;
 

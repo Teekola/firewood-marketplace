@@ -1,4 +1,4 @@
-import { ComponentProps, forwardRef } from "react";
+import { ComponentProps } from "react";
 
 import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
@@ -14,13 +14,17 @@ import { cn } from "@/lib/utils";
 
 interface AcceptedOfferListItemProps extends ComponentProps<"li"> {
    offer: OfferDTO;
+   useTrackOfferVisibility: (offerId: string) => (node?: Element | null) => void;
 }
 
-export const AcceptedOfferListItem = forwardRef<
-   HTMLLIElement,
-   Readonly<AcceptedOfferListItemProps>
->(({ offer, ...props }, ref) => {
+export const AcceptedOfferListItem = ({
+   offer,
+   useTrackOfferVisibility,
+   ...props
+}: Readonly<AcceptedOfferListItemProps>) => {
    const t = useTranslations();
+
+   const visibilityRef = useTrackOfferVisibility(offer.id);
 
    const quotationRequest = offer.quotationRequest;
 
@@ -38,7 +42,7 @@ export const AcceptedOfferListItem = forwardRef<
    // TODO: Add possibility to cancel accepted offer!
 
    return (
-      <li {...props} ref={ref} className={cn("w-full", props.className)}>
+      <li {...props} ref={visibilityRef} className={cn("w-full", props.className)}>
          <Card className={cn("flex flex-col justify-between gap-4 p-4 xs:flex-row")}>
             <div className="flex flex-col gap-2 text-sm">
                <CardTitle className="mb-2 text-xl font-bold hover:underline">
@@ -91,6 +95,4 @@ export const AcceptedOfferListItem = forwardRef<
          </Card>
       </li>
    );
-});
-
-AcceptedOfferListItem.displayName = "AcceptedOfferListItem";
+};

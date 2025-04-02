@@ -1,5 +1,7 @@
 "use client";
 
+import { ReactNode } from "react";
+
 import { useParams } from "next/navigation";
 
 import {
@@ -19,7 +21,7 @@ export function TabLink({
       | StaticPathname
       | { pathname: SingleDynamicPathname; params: { id: string } }
       | { pathname: DynamicPathname; params: { id: string; offerId: string } };
-   label: string;
+   label: ReactNode | string;
 }>) {
    const pathname = usePathname();
    const params = useParams();
