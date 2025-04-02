@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getQuotationRequest } from "@/app/db/quotation-request";
+import { getQuotationRequest } from "@/db/quotation-request";
 
 import QuotationRequestDialog from "../../(tabs)/quotation-request-dialog";
 

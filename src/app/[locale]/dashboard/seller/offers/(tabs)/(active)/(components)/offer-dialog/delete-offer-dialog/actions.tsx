@@ -2,9 +2,9 @@
 
 import { Prisma, SellerQuotationRequestStatus } from "@prisma/client";
 
-import { deleteOfferById } from "@/app/db/offer";
-import { updateSellerQuotationRequestStatus } from "@/app/db/quotation-request";
 import { getAuthorizedSeller } from "@/auth/auth";
+import { deleteOfferById } from "@/db/offer";
+import { updateSellerQuotationRequestStatus } from "@/db/quotation-request";
 
 export async function deleteOffer({
    offerId,

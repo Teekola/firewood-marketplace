@@ -4,7 +4,6 @@ import { getTranslations } from "next-intl/server";
 
 import { QuotationRequestTitle } from "@/app/[locale]/dashboard/(components)/quotation-request-title";
 import { TabLink } from "@/app/[locale]/dashboard/seller/quotation-requests/(tabs)/tab-link";
-import { getQuotationRequestWithAcceptedOffer } from "@/app/db/quotation-request";
 import { ShortQuotationRequestDetails } from "@/components/quotation-request/short-quotation-request-details";
 import {
    Accordion,
@@ -12,6 +11,7 @@ import {
    AccordionItem,
    AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getQuotationRequestWithAcceptedOffer } from "@/db/quotation-request";
 import { Locale } from "@/i18n/routing";
 
 import { AcceptedOffer } from "./(components)/accepted-offer";

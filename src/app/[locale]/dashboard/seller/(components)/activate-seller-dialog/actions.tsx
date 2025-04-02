@@ -1,7 +1,7 @@
 "use server";
 
-import { addAllSuitableQuotationRequestsForSeller } from "@/app/db/quotation-request";
 import { getAuthorizedSeller } from "@/auth/auth";
+import { addAllSuitableQuotationRequestsForSeller } from "@/db/quotation-request";
 
 export async function activateSeller() {
    const { seller } = await getAuthorizedSeller();

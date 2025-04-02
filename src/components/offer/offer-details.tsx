@@ -4,7 +4,7 @@ import { ComponentProps } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { OfferDTO } from "@/app/db/offer";
+import { OfferDTO } from "@/db/offer";
 import { currencyConfigs } from "@/i18n/currencies";
 
 import { PreviewSection } from "../preview-section";

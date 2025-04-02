@@ -4,7 +4,6 @@ import { ComponentProps } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { UserDTO } from "@/app/db/user";
 import {
    Dialog,
    DialogContent,
@@ -12,6 +11,7 @@ import {
    DialogHeader,
    DialogTitle,
 } from "@/components/ui/dialog";
+import { UserDTO } from "@/db/user";
 
 import { NewUserForm } from "./new-user-form";
 

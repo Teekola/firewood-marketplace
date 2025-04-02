@@ -2,12 +2,12 @@
 
 import { Prisma } from "@prisma/client";
 
+import { authWithSeller } from "@/auth/auth";
 import {
    SellerLocationArgs,
    createSellerLocation,
    updateSellerLocation,
-} from "@/app/db/seller-location";
-import { authWithSeller } from "@/auth/auth";
+} from "@/db/seller-location";
 import { AuthError, DatabaseError, UnknownError } from "@/lib/utils/errors";
 
 export async function getSellerLocation() {

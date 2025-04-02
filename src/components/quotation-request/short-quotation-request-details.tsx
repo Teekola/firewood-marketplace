@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
+import { QuotationRequest } from "@/db/quotation-request";
 
 import { DeliveryDetails } from "./delivery-details";
 import { FirewoodDetails } from "./firewood-details";

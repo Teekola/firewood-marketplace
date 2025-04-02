@@ -1,5 +1,5 @@
-import { getOfferById } from "@/app/db/offer";
 import { authWithSeller } from "@/auth/auth";
+import { getOfferById } from "@/db/offer";
 
 import { OfferEditDialog } from "../../../../(tabs)/(active)/(components)/offer-edit-dialog";
 

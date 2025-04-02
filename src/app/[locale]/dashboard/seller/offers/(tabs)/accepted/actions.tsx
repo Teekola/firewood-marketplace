@@ -1,10 +1,7 @@
 "use server";
 
-import {
-   getAcceptedOffersBySellerIdPaginated,
-   getAcceptedOffersCountBySellerId,
-} from "@/app/db/offer";
 import { authWithSeller } from "@/auth/auth";
+import { getAcceptedOffersBySellerIdPaginated, getAcceptedOffersCountBySellerId } from "@/db/offer";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getAcceptedOffersForSeller({

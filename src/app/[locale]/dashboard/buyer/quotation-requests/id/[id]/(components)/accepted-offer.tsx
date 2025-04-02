@@ -2,7 +2,6 @@ import { ComponentProps } from "react";
 
 import { getTranslations } from "next-intl/server";
 
-import { OfferDTO } from "@/app/db/offer";
 import { OfferDetails } from "@/components/offer/offer-details";
 import {
    Card,
@@ -12,6 +11,7 @@ import {
    CardHeader,
    CardTitle,
 } from "@/components/ui/card";
+import { OfferDTO } from "@/db/offer";
 
 import { RejectOfferDialog } from "./offer-dialog/reject-offer-dialog";
 

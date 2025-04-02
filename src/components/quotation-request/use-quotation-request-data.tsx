@@ -2,8 +2,8 @@
 
 import { UnitSystem } from "@prisma/client";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
 import { useUser } from "@/components/auth/user-store-provider";
+import { QuotationRequest } from "@/db/quotation-request";
 import {
    imperialWoodAmountUnit,
    imperialWoodLengthUnit,

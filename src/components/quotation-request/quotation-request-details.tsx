@@ -2,10 +2,10 @@
 
 import { useTranslations } from "next-intl";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
 import { PreviewSection } from "@/components/preview-section";
 import { FirewoodDetails } from "@/components/quotation-request/firewood-details";
 import { RelativeTime } from "@/components/relative-time";
+import { QuotationRequest } from "@/db/quotation-request";
 
 import { DeliveryDetails } from "./delivery-details";
 

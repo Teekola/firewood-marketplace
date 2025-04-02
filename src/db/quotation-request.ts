@@ -4,10 +4,10 @@ import cuid from "cuid";
 import { SortOrder } from "@/lib/utils/types";
 import { prisma } from "@/prisma";
 
-import { ContactData } from "../[locale]/request-offers/(stepper)/contact/contact-form";
-import { DeliveryData } from "../[locale]/request-offers/(stepper)/delivery/delivery-form";
-import { FirewoodData } from "../[locale]/request-offers/(stepper)/firewood/firewood-form";
-import { SubmitData } from "../[locale]/request-offers/(stepper)/submit/submit-form";
+import { ContactData } from "../app/[locale]/request-offers/(stepper)/contact/contact-form";
+import { DeliveryData } from "../app/[locale]/request-offers/(stepper)/delivery/delivery-form";
+import { FirewoodData } from "../app/[locale]/request-offers/(stepper)/firewood/firewood-form";
+import { SubmitData } from "../app/[locale]/request-offers/(stepper)/submit/submit-form";
 import { offerDTOFields } from "./offer";
 
 export const getPendingQuotationRequestsBySellerIdPaginated = async ({

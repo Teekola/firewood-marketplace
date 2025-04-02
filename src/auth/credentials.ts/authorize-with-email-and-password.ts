@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 
-import { getUserByUsername } from "@/app/db/user";
+import { getUserByUsername } from "@/db/user";
 import { AuthError } from "@/lib/utils/errors";
 
 import { PASSWORD_PEPPER, credentialsSchema } from "./utils";

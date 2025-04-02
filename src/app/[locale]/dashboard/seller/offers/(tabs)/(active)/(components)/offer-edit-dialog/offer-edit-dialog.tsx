@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
-import { OfferDTO } from "@/app/db/offer";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { OfferDTO } from "@/db/offer";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { ShortQuotationRequestDetails } from "../../../../../../../../../components/quotation-request/short-quotation-request-details";

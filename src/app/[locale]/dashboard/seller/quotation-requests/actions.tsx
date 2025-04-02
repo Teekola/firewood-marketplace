@@ -2,7 +2,8 @@
 
 import { SellerQuotationRequestStatus } from "@prisma/client";
 
-import { type CreateOfferArgs, createOffer as createOfferDB } from "@/app/db/offer";
+import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
+import { type CreateOfferArgs, createOffer as createOfferDB } from "@/db/offer";
 import {
    getPendingQuotationRequestsBySellerIdPaginated,
    getPendingQuotationRequestsCountBySellerId,
@@ -10,8 +11,7 @@ import {
    getRejectedQuotationRequestsBySellerIdPaginated,
    updateSellerQuotationRequestStatus,
    updateSellerQuotationRequestViewedAt,
-} from "@/app/db/quotation-request";
-import { authWithSeller, getAuthorizedSeller } from "@/auth/auth";
+} from "@/db/quotation-request";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getPendingQuotationRequestsForSeller({

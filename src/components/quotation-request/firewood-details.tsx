@@ -3,7 +3,7 @@
 import { WoodDryness, WoodType } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
+import { QuotationRequest } from "@/db/quotation-request";
 import { replaceLastInstance } from "@/lib/utils/strings";
 
 import { useQuotationRequestData } from "./use-quotation-request-data";

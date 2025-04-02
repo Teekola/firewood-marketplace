@@ -3,7 +3,7 @@ import "server-only";
 import { auth } from "@/auth/auth";
 import { prisma } from "@/prisma";
 
-import { SellerLocation } from "../../../prisma/prismaClientExtensions";
+import { SellerLocation } from "../../prisma/prismaClientExtensions";
 
 type SellerResult = {
    sellerId: string;

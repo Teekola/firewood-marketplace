@@ -1,6 +1,6 @@
 import { createStore } from "zustand/vanilla";
 
-import { UserDTO } from "@/app/db/user";
+import { UserDTO } from "@/db/user";
 
 export type UserStoreState = {
    user?: UserDTO | null;

@@ -1,7 +1,7 @@
 "use server";
 
-import { getNumberOfUnseenQuotationRequests } from "@/app/db/quotation-request";
 import { getAuthorizedSeller } from "@/auth/auth";
+import { getNumberOfUnseenQuotationRequests } from "@/db/quotation-request";
 
 export async function getUnseenQuotationRequestsCount() {
    const { seller } = await getAuthorizedSeller();

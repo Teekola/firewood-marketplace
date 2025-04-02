@@ -1,7 +1,7 @@
 import { DeliveryMethod } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
+import { QuotationRequest } from "@/db/quotation-request";
 
 import { Date } from "../date";
 import { useGetTranslatedCountryName } from "../ui/country-field";

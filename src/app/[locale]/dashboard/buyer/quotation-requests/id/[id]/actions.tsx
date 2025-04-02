@@ -5,7 +5,7 @@ import {
    getPendingOffersForBuyerByQuotationRequestIdPaginated,
    getRejectedOffersCountForBuyerByQuotationRequestId,
    getRejectedOffersForBuyerByQuotationRequestIdPaginated,
-} from "@/app/db/offer";
+} from "@/db/offer";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getPendingOffersForBuyerByQuotationRequestId({

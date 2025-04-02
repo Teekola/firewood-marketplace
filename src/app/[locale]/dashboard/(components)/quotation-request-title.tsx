@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef, ElementType } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
+import { QuotationRequest } from "@/db/quotation-request";
 import { replaceLastInstance } from "@/lib/utils/strings";
 
 import { useQuotationRequestData } from "../../../../components/quotation-request/use-quotation-request-data";

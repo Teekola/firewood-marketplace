@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { QuotationRequest } from "@/db/quotation-request";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { OfferForm, OfferFormData } from "../(components)/(make-offer-form)/offer-form";

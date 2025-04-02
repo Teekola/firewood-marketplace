@@ -1,4 +1,4 @@
-import { getOfferById } from "@/app/db/offer";
+import { getOfferById } from "@/db/offer";
 
 import { OfferDialog } from "../../../../(components)/offer-dialog";
 

@@ -5,10 +5,10 @@ import { ComponentProps, forwardRef } from "react";
 import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
 
-import { OfferDTO } from "@/app/db/offer";
 import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
+import { OfferDTO } from "@/db/offer";
 import { currencyConfigs } from "@/i18n/currencies";
 import { Link, Pathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";

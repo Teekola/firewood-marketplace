@@ -5,7 +5,7 @@ import { type ReactNode, createContext, useContext, useEffect, useRef, useState 
 import { UnitSystem } from "@prisma/client";
 import { useStore } from "zustand";
 
-import { UserDTO } from "@/app/db/user";
+import { UserDTO } from "@/db/user";
 
 import { UserStore, createUserStore } from "./user-store";
 

@@ -1,4 +1,4 @@
-import { OfferDTO } from "@/app/db/offer";
+import { OfferDTO } from "@/db/offer";
 
 export function SellerDetails({ offer }: Readonly<{ offer: OfferDTO }>) {
    return (

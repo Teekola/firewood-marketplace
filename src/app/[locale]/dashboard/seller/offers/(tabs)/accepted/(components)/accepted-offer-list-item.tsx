@@ -3,12 +3,12 @@ import { ComponentProps } from "react";
 import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
 
-import { OfferDTO } from "@/app/db/offer";
 import { PreviewSection } from "@/components/preview-section";
 import { DeliveryDetails } from "@/components/quotation-request/delivery-details";
 import { FirewoodDetails } from "@/components/quotation-request/firewood-details";
 import { RelativeTime } from "@/components/relative-time";
 import { Card, CardTitle } from "@/components/ui/card";
+import { OfferDTO } from "@/db/offer";
 import { currencyConfigs } from "@/i18n/currencies";
 import { cn } from "@/lib/utils";
 

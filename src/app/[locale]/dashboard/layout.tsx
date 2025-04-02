@@ -1,8 +1,8 @@
 import { setRequestLocale } from "next-intl/server";
 
-import { getUser } from "@/app/db/user";
 import { NewUserDialog } from "@/components/auth/new-user-dialog";
 import { WebsiteTopbar } from "@/components/topbar/website-topbar";
+import { getUser } from "@/db/user";
 import { Locale, routing } from "@/i18n/routing";
 
 export function generateStaticParams() {

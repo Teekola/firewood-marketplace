@@ -2,11 +2,11 @@ import { ComponentProps, forwardRef } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { BuyerQuotationRequest } from "@/app/db/quotation-request";
 import { ShortDeliveryDetails } from "@/components/quotation-request/short-delivery-details";
 import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
+import { BuyerQuotationRequest } from "@/db/quotation-request";
 import { Link, Pathname } from "@/i18n/routing";
 
 import { QuotationRequestTitle } from "../../../(components)/quotation-request-title";

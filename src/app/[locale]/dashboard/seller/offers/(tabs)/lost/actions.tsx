@@ -1,7 +1,7 @@
 "use server";
 
-import { getLostOffersBySellerIdPaginated, getLostOffersCountBySellerId } from "@/app/db/offer";
 import { authWithSeller } from "@/auth/auth";
+import { getLostOffersBySellerIdPaginated, getLostOffersCountBySellerId } from "@/db/offer";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getLostOffersForSeller({

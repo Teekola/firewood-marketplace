@@ -6,11 +6,11 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { OfferDTO } from "@/app/db/offer";
 import { OfferDetails } from "@/components/offer/offer-details";
 import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { OfferDTO } from "@/db/offer";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 
 import { DeleteOfferDialog } from "./delete-offer-dialog/delete-offer-dialog";

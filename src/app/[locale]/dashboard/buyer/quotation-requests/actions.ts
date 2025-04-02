@@ -2,11 +2,11 @@
 
 import { QuotationRequestStatus } from "@prisma/client";
 
+import { authWithBuyer } from "@/auth/auth";
 import {
    getQuotationRequestsByBuyerIdAndStatusPaginated,
    getQuotationRequestsCountByBuyerIdAndStatus,
-} from "@/app/db/quotation-request";
-import { authWithBuyer } from "@/auth/auth";
+} from "@/db/quotation-request";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getQuotationRequestsForBuyer({

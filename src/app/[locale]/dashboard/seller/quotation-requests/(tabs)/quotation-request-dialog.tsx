@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
-import { QuotationRequest } from "@/app/db/quotation-request";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { QuotationRequest } from "@/db/quotation-request";
 import { usePathname, useRouter } from "@/i18n/routing";
 import { Link } from "@/i18n/routing";
 

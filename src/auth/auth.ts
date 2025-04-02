@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 
-import { getBuyerByUserId } from "@/app/db/buyer";
-import { getSellerByUserId } from "@/app/db/seller";
 import { authOptions } from "@/auth/auth-options";
+import { getBuyerByUserId } from "@/db/buyer";
+import { getSellerByUserId } from "@/db/seller";
 import { prismaEdge } from "@/prismaEdge";
 
 import { ExtendedPrismaAdapter } from "./extended-prisma-adapter";

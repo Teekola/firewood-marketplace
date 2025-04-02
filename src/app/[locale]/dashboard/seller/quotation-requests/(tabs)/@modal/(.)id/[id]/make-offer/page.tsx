@@ -1,5 +1,5 @@
-import { getQuotationRequest } from "@/app/db/quotation-request";
 import { authWithSeller } from "@/auth/auth";
+import { getQuotationRequest } from "@/db/quotation-request";
 
 import MakeOfferDialog from "../../../../make-offer-dialog";
 

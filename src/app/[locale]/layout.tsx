@@ -10,7 +10,7 @@ import { nunitoSans } from "@/fonts/index";
 import { Locale } from "@/i18n/routing";
 import { ReactQueryProvider } from "@/lib/react-query";
 
-import { getUser } from "../db/user";
+import { getUser } from "../../db/user";
 import "../globals.css";
 
 export const metadata: Metadata = {

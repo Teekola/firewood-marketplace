@@ -2,7 +2,7 @@ import { UnitSystem } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import * as z from "zod";
 
-import { createUserAndAcceptTerms, getUserByUsername } from "@/app/db/user";
+import { createUserAndAcceptTerms, getUserByUsername } from "@/db/user";
 import { AuthError } from "@/lib/utils/errors";
 
 import { PASSWORD_PEPPER, credentialsSchema } from "./utils";

@@ -1,6 +1,6 @@
 "use server";
 
-import { acceptOfferById } from "@/app/db/offer";
+import { acceptOfferById } from "@/db/offer";
 
 export async function acceptOffer({
    offerId,

@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
-import { OfferDTO } from "@/app/db/offer";
 import { OfferDetails } from "@/components/offer/offer-details";
 import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { OfferDTO } from "@/db/offer";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { acceptOffer } from "../offer-dialog/actions";
