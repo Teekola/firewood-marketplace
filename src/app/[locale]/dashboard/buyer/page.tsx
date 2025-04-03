@@ -13,7 +13,7 @@ export default async function BuyerRootPage() {
    return (
       <div className="w-full">
          <header className="mb-4 border-b pb-4 md:hidden">
-            <h2 className="text-2xl font-bold leading-tight">{t("Seller Dashboard")}</h2>
+            <h2 className="text-2xl font-bold leading-tight">{t("Buyer Dashboard")}</h2>
          </header>
          <SidebarNav items={sidebarNavItems} className="w-full md:hidden" />
          <BuyerDashboard className="hidden md:block" />
