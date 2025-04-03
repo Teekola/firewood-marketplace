@@ -145,7 +145,7 @@ export function OfferForm({
          <form
             {...props}
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex h-full max-w-lg flex-1 flex-col gap-4 text-left"
+            className={cn("flex h-full max-w-lg flex-1 flex-col gap-4 text-left", props.className)}
          >
             <CurrencyField />
 
@@ -194,9 +194,9 @@ export function OfferForm({
                         <PopoverTrigger asChild>
                            <FormControl>
                               <Button
-                                 variant={"outline"}
+                                 variant="outline"
                                  className={cn(
-                                    "pl-3 text-left font-normal",
+                                    "w-auto pl-3 text-left font-normal",
                                     !field.value && "text-muted-foreground"
                                  )}
                               >
@@ -272,7 +272,7 @@ export function OfferForm({
                </div>
             )}
 
-            <div className="sticky bottom-0 mt-4">
+            <div className="sticky bottom-0 z-20 mt-4">
                <div
                   className="pointer-events-none h-8 w-full bg-gradient-to-b from-transparent via-background to-background"
                   aria-hidden="true"

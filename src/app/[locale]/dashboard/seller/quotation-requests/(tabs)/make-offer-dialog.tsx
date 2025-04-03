@@ -53,7 +53,7 @@ export default function MakeOfferDialog({
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent
-            className="pl-4 pr-0"
+            className="flex h-full max-h-[80vh] flex-1 flex-col pl-4 pr-0"
             disableCloseOnOverlayClick
             {...(!autoFocus && { onOpenAutoFocus: (e) => e.preventDefault() })}
          >
@@ -66,28 +66,27 @@ export default function MakeOfferDialog({
                </DialogDescription>
             </DialogHeader>
 
-            <ScrollArea className="h-full max-h-[80vh]">
-               <div className="p-1 pr-4">
-                  <div className="mb-4 border-b pb-4">
-                     <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
-                  </div>
-                  <OfferForm
-                     defaultValues={{
-                        pickupCountryCode: sellerLocation.countryCode,
-                        pickupCountryName: sellerLocation.countryName,
-                        pickupCity: sellerLocation.city,
-                        pickupPostalCode: sellerLocation.postalCode,
-                        pickupAddress: sellerLocation.address ?? "",
-                     }}
-                     cancelHref={{
-                        pathname: DIALOG_PREVIOUS_ROUTE,
-                        params: { id: quotationRequest.id },
-                     }}
-                     countryCode={sellerLocation.countryCode}
-                     quotationRequestDeliveryMethods={quotationRequest.deliveryMethods}
-                     handleSubmit={handleSubmit}
-                  />
+            <ScrollArea className="pr-1">
+               <div className="mb-4 border-b pb-4 pr-3">
+                  <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
                </div>
+               <OfferForm
+                  className="mr-4"
+                  defaultValues={{
+                     pickupCountryCode: sellerLocation.countryCode,
+                     pickupCountryName: sellerLocation.countryName,
+                     pickupCity: sellerLocation.city,
+                     pickupPostalCode: sellerLocation.postalCode,
+                     pickupAddress: sellerLocation.address ?? "",
+                  }}
+                  cancelHref={{
+                     pathname: DIALOG_PREVIOUS_ROUTE,
+                     params: { id: quotationRequest.id },
+                  }}
+                  countryCode={sellerLocation.countryCode}
+                  quotationRequestDeliveryMethods={quotationRequest.deliveryMethods}
+                  handleSubmit={handleSubmit}
+               />
             </ScrollArea>
          </DialogContent>
       </Dialog>
