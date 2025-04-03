@@ -34,7 +34,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
                   isPathnameWithinHref(pathname, item.href)
                      ? "border border-input md:border-none md:bg-muted md:hover:bg-muted"
                      : "h-16 border border-input shadow-sm hover:bg-accent hover:text-accent-foreground md:h-auto md:border-none md:shadow-none md:hover:bg-transparent md:hover:underline",
-                  "relative justify-start md:w-48 lg:w-64"
+                  "relative w-full justify-start md:w-48 lg:w-64"
                )}
             >
                {item.title} {item.indicator}
