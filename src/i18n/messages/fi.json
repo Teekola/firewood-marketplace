@@ -97,7 +97,7 @@
       "request sent to n sellers": "{n, plural, =0 {Alueellasi ei ole vielä myyjiä.} =1 {Lähetimme pyyntösi yhdelle myyjälle.} other {Lähetimme pyyntösi # myyjälle.}}",
       "The quotation request was successfully submitted": "Tarjouspyyntö lähetettiin onnistuneesti.",
       "Quotation Request Submitted": "Tarjouspyyntö lähetetty",
-      "When new sellers register in your area they will also receive your request": "Kun uusia myyjiä rekisteröityy alueellasi, mytös he saavat tarjouspyyntösi."
+      "When new sellers register in your area they will also receive your request": "Kun uusia myyjiä rekisteröityy alueellasi, myös he saavat tarjouspyyntösi."
    },
    "countries": {
       "Finland": "Suomi",
