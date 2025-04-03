@@ -54,7 +54,7 @@ export function QuotationRequestsList() {
    const count = data?.pages[0].count;
 
    return (
-      <div className="flex h-full flex-col gap-1 overflow-hidden">
+      <div className="flex flex-1 flex-col gap-1">
          <div className="flex items-center gap-2">
             {count === 0 && !isFetching && (
                <p className="text-sm text-muted-foreground">
@@ -88,12 +88,8 @@ export function QuotationRequestsList() {
             </Select>
          </div>
 
-         <ScrollArea className="relative min-h-64 pr-3">
-            <div
-               className="pointer-events-none sticky top-0 h-5 w-full bg-gradient-to-b from-background via-background to-transparent"
-               aria-hidden="true"
-            ></div>
-            <ul className="flex min-h-20 w-full flex-col gap-1">
+         <ScrollArea className="min-h-64">
+            <ul className="flex min-h-20 w-full flex-col gap-1 pr-3">
                {isFetching && requests.length === 0 && (
                   <>
                      <Skeleton className="h-[106px] w-full min-w-10" />

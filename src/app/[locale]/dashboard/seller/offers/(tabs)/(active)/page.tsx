@@ -14,10 +14,8 @@ export default async function SellerActiveOffersPage() {
    });
 
    return (
-      <div className="w-full">
-         <HydrationBoundary state={dehydrate(queryClient)}>
-            <OfferList />
-         </HydrationBoundary>
-      </div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+         <OfferList />
+      </HydrationBoundary>
    );
 }

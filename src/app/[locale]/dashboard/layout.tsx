@@ -22,7 +22,7 @@ export default async function DashboardLayout({
    return (
       <>
          <WebsiteTopbar />
-         <div className="mx-auto h-full w-full max-w-screen-xl p-3">{children}</div>
+         <div className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col p-3">{children}</div>
          <NewUserDialog user={user} />
       </>
    );

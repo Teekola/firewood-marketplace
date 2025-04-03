@@ -10,7 +10,7 @@ export default async function BuyerQuotationRequestsLayout({
    const t = await getTranslations();
 
    return (
-      <div className="flex w-full flex-col gap-2">
+      <div className="flex flex-1 flex-col gap-2">
          <h1 className="h1 md:h3">{t("buyer.Quotation Requests")}</h1>
          <div className="flex max-w-lg justify-between rounded-md bg-muted p-1">
             <TabLink href="/dashboard/buyer/quotation-requests" label={t("buyer.Active")} />

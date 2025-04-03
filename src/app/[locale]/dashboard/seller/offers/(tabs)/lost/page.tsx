@@ -14,10 +14,8 @@ export default async function SellerLostOffersPage() {
    });
 
    return (
-      <div className="w-full">
-         <HydrationBoundary state={dehydrate(queryClient)}>
-            <LostOffersList />
-         </HydrationBoundary>
-      </div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+         <LostOffersList />
+      </HydrationBoundary>
    );
 }

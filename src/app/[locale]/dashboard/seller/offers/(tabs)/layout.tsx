@@ -13,7 +13,7 @@ export default async function SellerOffersLayout({
    const t = await getTranslations();
 
    return (
-      <div className="flex w-full flex-col gap-2 pb-5">
+      <div className="flex w-full flex-1 flex-col gap-2 pb-5">
          <h1 className="h1 md:h3">{t("dashboard.Sent Offers")}</h1>
          <div className="flex max-w-lg justify-between rounded-md bg-muted p-1">
             <TabLink

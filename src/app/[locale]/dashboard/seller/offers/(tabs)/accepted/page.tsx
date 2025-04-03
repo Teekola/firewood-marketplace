@@ -14,10 +14,8 @@ export default async function SellerAcceptedOffersPage() {
    });
 
    return (
-      <div className="w-full">
-         <HydrationBoundary state={dehydrate(queryClient)}>
-            <AcceptedOffersList />
-         </HydrationBoundary>
-      </div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+         <AcceptedOffersList />
+      </HydrationBoundary>
    );
 }
