@@ -53,7 +53,7 @@ export default function MakeOfferDialog({
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent
-            className="flex h-full max-h-[80vh] flex-1 flex-col pl-4 pr-0"
+            className="flex h-full max-h-[80vh] flex-1 flex-col pl-4 pr-1"
             disableCloseOnOverlayClick
             {...(!autoFocus && { onOpenAutoFocus: (e) => e.preventDefault() })}
          >
@@ -66,7 +66,7 @@ export default function MakeOfferDialog({
                </DialogDescription>
             </DialogHeader>
 
-            <ScrollArea className="pr-1">
+            <ScrollArea>
                <div className="mb-4 border-b pb-4 pl-1 pr-3">
                   <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
                </div>

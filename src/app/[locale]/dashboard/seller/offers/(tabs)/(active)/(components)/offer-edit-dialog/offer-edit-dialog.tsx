@@ -53,6 +53,7 @@ export function OfferEditDialog({
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent
+            className="flex h-full max-h-[80vh] flex-1 flex-col pr-1"
             disableCloseOnOverlayClick
             onOpenAutoFocus={(e) => e.preventDefault() /** Prevent autofocusing price field */}
          >
@@ -62,30 +63,29 @@ export function OfferEditDialog({
                </DialogTitle>
                <DialogDescription className="sr-only">{t("offer.Edit Offer")}</DialogDescription>
             </DialogHeader>
-            <ScrollArea className="h-full max-h-[80vh]">
-               <div className="p-1 pr-4">
-                  <div className="mb-4 border-b pb-4">
-                     <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
-                  </div>
-
-                  <OfferForm
-                     countryCode={countryCode}
-                     defaultValues={{
-                        price: offer.price,
-                        currency: offer.currency,
-                        earliestAvailability: offer.earliestAvailability,
-                        deliveryMethods: offer.deliveryMethods,
-                        pickupAddress: offer.pickupAddress ?? "",
-                        pickupCity: offer.pickupCity ?? "",
-                        pickupPostalCode: offer.pickupPostalCode ?? "",
-                        pickupCountryCode: offer.pickupCountryCode ?? "",
-                        pickupCountryName: offer.pickupCountryName ?? "",
-                     }}
-                     cancelHref={{ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } }}
-                     quotationRequestDeliveryMethods={offer.quotationRequest.deliveryMethods}
-                     handleSubmit={handleSubmit}
-                  />
+            <ScrollArea>
+               <div className="mb-4 border-b pb-4 pl-1 pr-3">
+                  <ShortQuotationRequestDetails quotationRequest={offer.quotationRequest} />
                </div>
+
+               <OfferForm
+                  className="mr-4 pl-1"
+                  countryCode={countryCode}
+                  defaultValues={{
+                     price: offer.price,
+                     currency: offer.currency,
+                     earliestAvailability: offer.earliestAvailability,
+                     deliveryMethods: offer.deliveryMethods,
+                     pickupAddress: offer.pickupAddress ?? "",
+                     pickupCity: offer.pickupCity ?? "",
+                     pickupPostalCode: offer.pickupPostalCode ?? "",
+                     pickupCountryCode: offer.pickupCountryCode ?? "",
+                     pickupCountryName: offer.pickupCountryName ?? "",
+                  }}
+                  cancelHref={{ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: offer.id } }}
+                  quotationRequestDeliveryMethods={offer.quotationRequest.deliveryMethods}
+                  handleSubmit={handleSubmit}
+               />
             </ScrollArea>
          </DialogContent>
       </Dialog>
