@@ -67,11 +67,11 @@ export default function MakeOfferDialog({
             </DialogHeader>
 
             <ScrollArea className="pr-1">
-               <div className="mb-4 border-b pb-4 pr-3">
+               <div className="mb-4 border-b pb-4 pl-1 pr-3">
                   <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
                </div>
                <OfferForm
-                  className="mr-4"
+                  className="mr-4 pl-1"
                   defaultValues={{
                      pickupCountryCode: sellerLocation.countryCode,
                      pickupCountryName: sellerLocation.countryName,
