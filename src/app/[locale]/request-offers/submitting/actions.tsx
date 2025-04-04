@@ -1,9 +1,9 @@
 "use server";
 
-import { authWithSeller } from "@/auth/auth";
 import { getBuyerByUserId, updateNullBuyerData } from "@/db/buyer";
 import { createQuotationRequest } from "@/db/quotation-request";
 import { findSellersWithinDistance } from "@/db/seller-location";
+import { authWithSeller } from "@/lib/auth/auth";
 
 import { ContactData } from "../(stepper)/contact/contact-form";
 import { DeliveryData } from "../(stepper)/delivery/delivery-form";

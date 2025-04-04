@@ -21,8 +21,8 @@
          "@/*": ["./src/*"],
          "@/fonts/*": ["./src/fonts/*"],
          "@/env/*": ["./src/env/*"],
-         "@/auth/*": ["./src/auth/*"],
-         "@/auth": ["./src/auth/auth"],
+         "@/auth/*": ["./src/lib/auth/*"],
+         "@/auth": ["./src/lib/auth/auth"],
          "@/prisma": ["./prisma/prisma"],
          "@/prismaEdge": ["./prisma/prismaEdge"],
          "@/components/*": ["./src/components/*"],
@@ -32,7 +32,13 @@
       "types": ["vitest/jsdom", "@testing-library/jest-dom"],
       "target": "ES2017"
    },
-   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+   "include": [
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx",
+      ".next/types/**/*.ts",
+      "src/lib/auth/providers/credentials"
+   ],
    "exclude": ["node_modules"],
    "ts-node": {
       "compilerOptions": {

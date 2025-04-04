@@ -2,7 +2,7 @@ import "server-only";
 
 import { Prisma, UnitSystem } from "@prisma/client";
 
-import { auth } from "@/auth/auth";
+import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma/prisma";
 
 const userDTOFields = Prisma.validator<Prisma.UserSelect>()({

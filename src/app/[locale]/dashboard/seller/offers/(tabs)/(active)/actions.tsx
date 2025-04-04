@@ -1,12 +1,12 @@
 "use server";
 
-import { authWithSeller } from "@/auth/auth";
 import {
    UpdateOfferArgs,
    getActiveOffersBySellerIdPaginated,
    getActiveOffersCountBySellerId,
    updateOffer,
 } from "@/db/offer";
+import { authWithSeller } from "@/lib/auth/auth";
 import { SortOrder } from "@/lib/utils/types";
 
 export async function getActiveOffersForSeller({

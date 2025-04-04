@@ -2,8 +2,8 @@
 
 import { Prisma } from "@prisma/client";
 
-import { authWithSeller } from "@/auth/auth";
 import { SellerProfileArgs, createSellerProfile, updateSellerProfile } from "@/db/seller-profile";
+import { authWithSeller } from "@/lib/auth/auth";
 import { AuthError, DatabaseError, UnknownError } from "@/lib/utils/errors";
 
 export async function getSellerProfile() {

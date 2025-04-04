@@ -1,5 +1,5 @@
-import { authWithSeller } from "@/auth/auth";
 import { getQuotationRequest } from "@/db/quotation-request";
+import { authWithSeller } from "@/lib/auth/auth";
 
 import MakeOfferDialog from "../../../(tabs)/make-offer-dialog";
 

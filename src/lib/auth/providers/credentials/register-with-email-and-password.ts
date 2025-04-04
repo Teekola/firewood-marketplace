@@ -5,7 +5,7 @@ import * as z from "zod";
 import { createUserAndAcceptTerms, getUserByUsername } from "@/db/user";
 import { AuthError } from "@/lib/utils/errors";
 
-import { PASSWORD_PEPPER, credentialsSchema } from "./utils";
+import { PASSWORD_PEPPER, credentialsSchema } from "./configs";
 
 export async function registerUserWithEmailAndPassword(data: {
    username: string;

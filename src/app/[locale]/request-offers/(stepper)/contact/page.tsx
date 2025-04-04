@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
-import { authWithBuyer } from "@/auth/auth";
 import { Locale } from "@/i18n/routing";
+import { authWithBuyer } from "@/lib/auth/auth";
 
 import { SignInSuggestion } from "../../(components)/sign-in-suggestion";
 import { ContactForm } from "./contact-form";

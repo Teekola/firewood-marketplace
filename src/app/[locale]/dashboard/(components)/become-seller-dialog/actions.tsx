@@ -2,8 +2,8 @@
 
 import { Plan } from "@prisma/client";
 
-import { auth } from "@/auth/auth";
 import { updateUserById } from "@/db/user";
+import { auth } from "@/lib/auth/auth";
 
 export async function addSellerToUser() {
    const session = await auth();

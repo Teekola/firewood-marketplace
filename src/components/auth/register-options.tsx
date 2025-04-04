@@ -4,8 +4,8 @@ import { useSearchParams } from "next/navigation";
 
 import { useTranslations } from "next-intl";
 
-import { CALLBACK_URL_KEY } from "@/auth/constants";
 import { Link, usePathname } from "@/i18n/routing";
+import { CALLBACK_URL_KEY } from "@/lib/auth/constants";
 
 import { GoogleRegisterButton } from "./google-register-button";
 

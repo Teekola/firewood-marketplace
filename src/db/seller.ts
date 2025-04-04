@@ -1,6 +1,6 @@
 import "server-only";
 
-import { auth } from "@/auth/auth";
+import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma/prisma";
 
 import { SellerLocation } from "./seller-location";

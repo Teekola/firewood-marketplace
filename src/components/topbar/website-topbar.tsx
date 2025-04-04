@@ -1,6 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 
-import { auth } from "@/auth/auth";
+import { auth } from "@/lib/auth/auth";
 
 import { RegisterButton } from "../auth/register-button";
 import { SignInButton } from "../auth/sign-in-button";

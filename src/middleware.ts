@@ -3,11 +3,16 @@ import { NextResponse } from "next/server";
 import NextAuth from "next-auth";
 import createMiddleware from "next-intl/middleware";
 
-import { DEFAULT_ROUTE, authOptions, authPages, pages, protectedPages } from "@/auth/auth-options";
-
-import { CALLBACK_URL_KEY } from "./auth/constants";
-import { routing } from "./i18n/routing";
-import { testPathnameRegex } from "./lib/utils";
+import { authOptions } from "@/auth/auth-options";
+import {
+   CALLBACK_URL_KEY,
+   DEFAULT_ROUTE,
+   authPages,
+   pages,
+   protectedPages,
+} from "@/auth/constants";
+import { routing } from "@/i18n/routing";
+import { testPathnameRegex } from "@/lib/utils";
 
 const handleI18nRouting = createMiddleware(routing);
 

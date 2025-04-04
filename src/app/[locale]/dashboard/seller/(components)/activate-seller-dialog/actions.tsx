@@ -1,7 +1,7 @@
 "use server";
 
-import { getAuthorizedSeller } from "@/auth/auth";
 import { addAllSuitableQuotationRequestsForSeller } from "@/db/quotation-request";
+import { getAuthorizedSeller } from "@/lib/auth/auth";
 
 export async function activateSeller() {
    const { seller } = await getAuthorizedSeller();

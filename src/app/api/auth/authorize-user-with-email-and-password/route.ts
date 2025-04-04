@@ -1,7 +1,7 @@
 import { type NextRequest } from "next/server";
 
-import { authorizeUserWithEmailAndPassword } from "@/auth/credentials.ts/authorize-with-email-and-password";
 import { env } from "@/env/server";
+import { authorizeUserWithEmailAndPassword } from "@/lib/auth/providers/credentials/authorize-with-email-and-password";
 import { AuthError } from "@/lib/utils/errors";
 
 export async function POST(request: NextRequest) {

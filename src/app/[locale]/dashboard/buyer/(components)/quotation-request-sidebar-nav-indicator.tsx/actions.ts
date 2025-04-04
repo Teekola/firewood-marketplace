@@ -1,7 +1,7 @@
 "use server";
 
-import { authWithBuyer } from "@/auth/auth";
 import { getUnseenOffersCountByBuyerId } from "@/db/offer";
+import { authWithBuyer } from "@/lib/auth/auth";
 
 export async function getUnseenOffersCount() {
    const session = await authWithBuyer();

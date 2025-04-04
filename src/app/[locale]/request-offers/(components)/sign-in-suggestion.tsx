@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
-import { auth } from "@/auth/auth";
 import { SignInDialog } from "@/components/auth/sign-in-dialog";
+import { auth } from "@/lib/auth/auth";
 
 export async function SignInSuggestion() {
    const session = await auth();

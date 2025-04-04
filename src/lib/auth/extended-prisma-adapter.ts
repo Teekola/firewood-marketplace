@@ -3,7 +3,7 @@ import { AdapterUser } from "next-auth/adapters";
 
 import { prismaEdge } from "@/lib/prisma/prismaEdge";
 
-import { UnitSystemT } from "./auth-options";
+import { UnitSystemT } from "./types";
 
 export interface CustomAdapterUser extends AdapterUser {
    name?: string;

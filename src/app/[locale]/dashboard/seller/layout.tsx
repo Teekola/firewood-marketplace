@@ -1,9 +1,9 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { authWithSeller } from "@/auth/auth";
 import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Locale, routing } from "@/i18n/routing";
+import { authWithSeller } from "@/lib/auth/auth";
 
 import { SidebarNav } from "../(components)/sidebar-nav";
 import { ActivateSellerDialog } from "./(components)/activate-seller-dialog";

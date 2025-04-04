@@ -1,7 +1,7 @@
 import { type NextRequest } from "next/server";
 
-import { registerUserWithEmailAndPassword } from "@/auth/credentials.ts/register-with-email-and-password";
 import { env } from "@/env/server";
+import { registerUserWithEmailAndPassword } from "@/lib/auth/providers/credentials/register-with-email-and-password";
 
 export async function POST(req: NextRequest) {
    if (req.headers.get("X-Api-Key") !== env.INTERNAL_API_SECRET) {

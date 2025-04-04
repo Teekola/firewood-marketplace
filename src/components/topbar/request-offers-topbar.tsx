@@ -1,4 +1,4 @@
-import { auth } from "@/auth/auth";
+import { auth } from "@/lib/auth/auth";
 
 import { SignInButton } from "../auth/sign-in-button";
 import { LanguageDropdown } from "../language-dropdown";

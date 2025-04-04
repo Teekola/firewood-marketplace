@@ -1,7 +1,7 @@
 "use server";
 
-import { getAuthorizedSeller } from "@/auth/auth";
 import { getSentOffersNotificationCountBySellerId } from "@/db/offer";
+import { getAuthorizedSeller } from "@/lib/auth/auth";
 
 export async function getSentOffersNotificationCount() {
    const { seller } = await getAuthorizedSeller();

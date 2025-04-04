@@ -1,7 +1,7 @@
 "use server";
 
-import { getAuthorizedSeller } from "@/auth/auth";
 import { deactivateSellerById } from "@/db/seller";
+import { getAuthorizedSeller } from "@/lib/auth/auth";
 
 export async function deactivateSeller() {
    const { seller } = await getAuthorizedSeller();

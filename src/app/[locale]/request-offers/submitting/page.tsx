@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
-import { auth } from "@/auth/auth";
 import { SignInDialog } from "@/components/auth/sign-in-dialog";
+import { auth } from "@/lib/auth/auth";
 
 import { Submitter } from "./submitter";
 

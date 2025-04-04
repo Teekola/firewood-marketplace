@@ -2,9 +2,9 @@
 
 import { Prisma, SellerQuotationRequestStatus } from "@prisma/client";
 
-import { getAuthorizedSeller } from "@/auth/auth";
 import { deleteOfferById } from "@/db/offer";
 import { updateSellerQuotationRequestStatus } from "@/db/quotation-request";
+import { getAuthorizedSeller } from "@/lib/auth/auth";
 
 export async function deleteOffer({
    offerId,

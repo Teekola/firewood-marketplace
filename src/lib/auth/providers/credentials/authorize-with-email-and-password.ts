@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { getUserByUsername } from "@/db/user";
 import { AuthError } from "@/lib/utils/errors";
 
-import { PASSWORD_PEPPER, credentialsSchema } from "./utils";
+import { PASSWORD_PEPPER, credentialsSchema } from "./configs";
 
 export async function authorizeUserWithEmailAndPassword(credentials: unknown) {
    // Validate input
@@ -14,8 +14,6 @@ export async function authorizeUserWithEmailAndPassword(credentials: unknown) {
 
    const { username, password } = parsedCredentials.data;
 
-   // Find user by username
-   // NOTE: THIS NEEDS TO BE FROM AN API ROUTE, CANNOT USE PRISMA DIRECTLY
    const user = await getUserByUsername(username);
 
    if (!user) {

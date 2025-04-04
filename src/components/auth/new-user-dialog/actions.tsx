@@ -2,7 +2,7 @@
 
 import { Plan } from "@prisma/client";
 
-import { unstable_update } from "@/auth/auth";
+import { unstable_update } from "@/lib/auth/auth";
 import { prismaEdge } from "@/lib/prisma/prismaEdge";
 
 interface RegsiterUserArgs {

@@ -2,10 +2,10 @@ import { ComponentProps, PropsWithChildren } from "react";
 
 import { getTranslations } from "next-intl/server";
 
-import { authWithSeller } from "@/auth/auth";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Button } from "@/components/ui/button";
 import { Link, Pathname, StaticPathname } from "@/i18n/routing";
+import { authWithSeller } from "@/lib/auth/auth";
 
 import { BecomeSellerDialog } from "./(components)/become-seller-dialog";
 import { QuotationRequestSidebarNavIndicator } from "./buyer/(components)/quotation-request-sidebar-nav-indicator.tsx";
