@@ -25,7 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { getValidHref, useRouter } from "@/i18n/routing";
-import "@/lib/utils/unit-conversions";
+import "@/i18n/utils/unit-conversions";
 
 export const emailPasswordRegistrationFormSchema = z.object({
    username: z.string().min(1, "Email is required").email("The email is invalid"),

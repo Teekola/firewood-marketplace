@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useUser } from "@/hooks/user-store";
 import { useRouter } from "@/i18n/routing";
-import { cubicFeetToCubicMeters, inchesToCentimeters } from "@/lib/utils/unit-conversions";
+import { cubicFeetToCubicMeters, inchesToCentimeters } from "@/i18n/utils/unit-conversions";
 
 import { ContactData } from "../(stepper)/contact/contact-form";
 import { DeliveryData } from "../(stepper)/delivery/delivery-form";

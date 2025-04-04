@@ -21,9 +21,9 @@ import {
    FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import "@/i18n/utils/unit-conversions";
 import { parseError } from "@/lib/utils/errors";
 import { Nullable } from "@/lib/utils/types";
-import "@/lib/utils/unit-conversions";
 
 import { upsertSellerProfile } from "./actions";
 import { sellerProfileQueryKey } from "./constants";

@@ -9,13 +9,13 @@ import { useTranslations } from "next-intl";
 import { FirewoodParagraph } from "@/components/quotation-request/firewood-details";
 import { useGetTranslatedCountryName } from "@/components/ui/country-field";
 import { useUser } from "@/hooks/user-store";
-import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 import {
    imperialWoodAmountUnit,
    imperialWoodLengthUnit,
    metricWoodAmountUnit,
    metricWoodLengthUnit,
-} from "@/i18n/units";
+} from "@/i18n/constants/units";
+import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import {

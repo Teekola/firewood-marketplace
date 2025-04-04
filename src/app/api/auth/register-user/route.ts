@@ -5,7 +5,7 @@ import { geolocation } from "@vercel/functions";
 
 import { prisma } from "@/lib/prisma/prisma";
 
-import { imperialSystemCountries } from "../../../../i18n/imperial-system-countries";
+import { imperialSystemCountries } from "../../../../i18n/constants/imperial-system-countries";
 
 export async function GET(request: NextRequest) {
    const id = request.nextUrl.searchParams.get("id");

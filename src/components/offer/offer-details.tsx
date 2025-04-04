@@ -5,7 +5,7 @@ import { ComponentProps } from "react";
 import { useTranslations } from "next-intl";
 
 import { OfferDTO } from "@/db/offer";
-import { currencyConfigs } from "@/i18n/currencies";
+import { currencyConfigs } from "@/i18n/constants/currencies";
 
 import { PreviewSection } from "../preview-section";
 import { DeliveryDetails } from "../quotation-request/delivery-details";

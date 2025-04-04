@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { RelativeTime } from "@/components/ui/relative-time";
 import { OfferDTO } from "@/db/offer";
-import { currencyConfigs } from "@/i18n/currencies";
+import { currencyConfigs } from "@/i18n/constants/currencies";
 import { Link, Pathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 

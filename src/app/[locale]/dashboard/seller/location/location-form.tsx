@@ -29,9 +29,9 @@ import { Input } from "@/components/ui/input";
 import { SellerLocation } from "@/db/seller-location";
 import { useGeolocationData } from "@/hooks/use-geolocation-data";
 import { useUser } from "@/hooks/user-store";
+import "@/i18n/utils/unit-conversions";
+import { kilometersToMiles, milesToKilometers } from "@/i18n/utils/unit-conversions";
 import { parseError } from "@/lib/utils/errors";
-import "@/lib/utils/unit-conversions";
-import { kilometersToMiles, milesToKilometers } from "@/lib/utils/unit-conversions";
 
 import { upsertSellerLocation } from "./actions";
 import { sellerLocationQueryKey } from "./constants";

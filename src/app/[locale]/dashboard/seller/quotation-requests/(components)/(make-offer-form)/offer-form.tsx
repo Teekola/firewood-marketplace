@@ -28,11 +28,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { PostalCodeField } from "@/components/ui/postal-code-field";
-import { countryCodeToCurrency } from "@/i18n/currencies";
+import { countryCodeToCurrency } from "@/i18n/constants/currencies";
 import { Link, SingleDynamicPathname } from "@/i18n/routing";
+import "@/i18n/utils/unit-conversions";
 import { cn } from "@/lib/utils";
 import { parseError } from "@/lib/utils/errors";
-import "@/lib/utils/unit-conversions";
 
 import { CurrencyField } from "./currency-field";
 

@@ -13,7 +13,10 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
-import { CurrencyConfigs, currencyConfigs as baseCurrencyConfigs } from "@/i18n/currencies";
+import {
+   CurrencyConfigs,
+   currencyConfigs as baseCurrencyConfigs,
+} from "@/i18n/constants/currencies";
 import { cn } from "@/lib/utils";
 
 import { OfferFormData } from "./offer-form";

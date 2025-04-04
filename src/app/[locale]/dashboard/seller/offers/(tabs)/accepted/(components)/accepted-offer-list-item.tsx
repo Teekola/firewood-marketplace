@@ -9,7 +9,7 @@ import { FirewoodDetails } from "@/components/quotation-request/firewood-details
 import { Card, CardTitle } from "@/components/ui/card";
 import { RelativeTime } from "@/components/ui/relative-time";
 import { OfferDTO } from "@/db/offer";
-import { currencyConfigs } from "@/i18n/currencies";
+import { currencyConfigs } from "@/i18n/constants/currencies";
 import { cn } from "@/lib/utils";
 
 interface AcceptedOfferListItemProps extends ComponentProps<"li"> {

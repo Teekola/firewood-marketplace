@@ -19,13 +19,13 @@ import {
 } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
 import { useUser } from "@/hooks/user-store";
-import { StaticPathname, useRouter } from "@/i18n/routing";
 import {
    imperialWoodAmountUnit,
    imperialWoodLengthUnit,
    metricWoodAmountUnit,
    metricWoodLengthUnit,
-} from "@/i18n/units";
+} from "@/i18n/constants/units";
+import { StaticPathname, useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
 import { StickyFooter } from "../../(components)/sticky-footer";

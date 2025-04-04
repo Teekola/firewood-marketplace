@@ -9,8 +9,8 @@ import {
    imperialWoodLengthUnit,
    metricWoodAmountUnit,
    metricWoodLengthUnit,
-} from "@/i18n/units";
-import { centimetersToInches, cubicMetersToCubicFeet } from "@/lib/utils/unit-conversions";
+} from "@/i18n/constants/units";
+import { centimetersToInches, cubicMetersToCubicFeet } from "@/i18n/utils/unit-conversions";
 
 export function useQuotationRequestData(quotationRequest: QuotationRequest) {
    const isImperial = useUser().preferredUnitSystem === UnitSystem.IMPERIAL;

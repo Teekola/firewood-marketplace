@@ -19,7 +19,7 @@ import {
    SelectValue,
 } from "@/components/ui/select";
 import { useUser } from "@/hooks/user-store";
-import { kilometersToMiles } from "@/lib/utils/unit-conversions";
+import { kilometersToMiles } from "@/i18n/utils/unit-conversions";
 
 export const distanceOptionsKm = new Array(30).fill(1).map((v, i) => (i + 1) * 25);
 export const distanceOptionsMi = distanceOptionsKm.map((km) => Math.round(kilometersToMiles(km)));

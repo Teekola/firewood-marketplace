@@ -25,8 +25,8 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useGeolocationData } from "@/hooks/use-geolocation-data";
 import { Link } from "@/i18n/routing";
+import "@/i18n/utils/unit-conversions";
 import { AuthError, parseError } from "@/lib/utils/errors";
-import "@/lib/utils/unit-conversions";
 
 import { registerWithEmailAndPassword } from "../actions";
 
