@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
-import { useUser } from "@/components/auth/user-store-provider";
 import { Button } from "@/components/ui/button";
 import {
    Form,
@@ -19,6 +18,7 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
+import { useUser } from "@/hooks/user-store";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 import {
    imperialWoodAmountUnit,

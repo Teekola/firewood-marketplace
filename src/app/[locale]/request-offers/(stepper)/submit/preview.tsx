@@ -6,9 +6,9 @@ import { DeliveryMethod, UnitSystem } from "@prisma/client";
 import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { useUser } from "@/components/auth/user-store-provider";
 import { FirewoodParagraph } from "@/components/quotation-request/firewood-details";
 import { useGetTranslatedCountryName } from "@/components/ui/country-field";
+import { useUser } from "@/hooks/user-store";
 import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 import {
    imperialWoodAmountUnit,

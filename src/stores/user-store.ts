@@ -1,3 +1,5 @@
+"use client";
+
 import { createStore } from "zustand/vanilla";
 
 import { UserDTO } from "@/db/user";

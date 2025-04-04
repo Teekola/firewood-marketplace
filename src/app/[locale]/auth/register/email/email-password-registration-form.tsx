@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { useGeolocationData } from "@/components/auth/user-store-provider";
 import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -24,6 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
+import { useGeolocationData } from "@/hooks/use-geolocation-data";
 import { Link } from "@/i18n/routing";
 import { AuthError, parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";

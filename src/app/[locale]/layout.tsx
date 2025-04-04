@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 
-import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-import { UserStoreProvider } from "@/components/auth/user-store-provider";
-import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { nunitoSans } from "@/fonts/index";
 import { Locale } from "@/i18n/routing";
-import { ReactQueryProvider } from "@/lib/react-query";
+import Providers from "@/providers";
 
 import { getUser } from "../../db/user";
 import "../globals.css";
@@ -32,25 +28,10 @@ export default async function RootLayout({
          <body
             className={`${nunitoSans.variable} flex h-screen min-h-screen w-full flex-col font-sans antialiased`}
          >
-            <NextIntlClientProvider messages={messages}>
-               <ThemeProvider
-                  attribute="class"
-                  defaultTheme="system"
-                  enableSystem
-                  disableTransitionOnChange
-               >
-                  <UserStoreProvider user={user}>
-                     <ReactQueryProvider>
-                        <TooltipProvider>
-                           <>
-                              {/**TODO: Add terms and services dialog with a check on terms acceptance date to ensure acceptance of always the latest terms and privacy policy */}
-                              {children}
-                           </>
-                        </TooltipProvider>
-                     </ReactQueryProvider>
-                  </UserStoreProvider>
-               </ThemeProvider>
-            </NextIntlClientProvider>
+            <Providers messages={messages} user={user}>
+               {/**TODO: Add terms and services dialog with a check on terms acceptance date to ensure acceptance of always the latest terms and privacy policy */}
+               {children}
+            </Providers>
          </body>
       </html>
    );

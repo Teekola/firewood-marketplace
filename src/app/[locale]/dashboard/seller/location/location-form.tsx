@@ -14,7 +14,6 @@ import {
    countries,
 } from "@/app/[locale]/request-offers/(stepper)/delivery/country-field";
 import { PostalCodeField } from "@/app/[locale]/request-offers/(stepper)/delivery/postal-code-field";
-import { useGeolocationData, useUser } from "@/components/auth/user-store-provider";
 import { Button } from "@/components/ui/button";
 import {
    Form,
@@ -28,6 +27,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SellerLocation } from "@/db/seller-location";
+import { useGeolocationData } from "@/hooks/use-geolocation-data";
+import { useUser } from "@/hooks/user-store";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
 import { kilometersToMiles, milesToKilometers } from "@/lib/utils/unit-conversions";

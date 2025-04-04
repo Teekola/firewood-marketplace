@@ -9,7 +9,6 @@ import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { SessionWithBuyer } from "@/auth/auth";
-import { useGeolocationData } from "@/components/auth/user-store-provider";
 import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Button } from "@/components/ui/button";
 import { CheckboxGroupItemCard } from "@/components/ui/checkbox-group-item-card";
@@ -22,6 +21,7 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useGeolocationData } from "@/hooks/use-geolocation-data";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 
 import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";

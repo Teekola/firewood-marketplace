@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { FieldValues, Path, useFormContext } from "react-hook-form";
 
-import { useUser } from "@/components/auth/user-store-provider";
 import {
    FormControl,
    FormDescription,
@@ -19,6 +18,7 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
+import { useUser } from "@/hooks/user-store";
 import { kilometersToMiles } from "@/lib/utils/unit-conversions";
 
 export const distanceOptionsKm = new Array(30).fill(1).map((v, i) => (i + 1) * 25);

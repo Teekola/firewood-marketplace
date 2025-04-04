@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { useUser } from "@/components/auth/user-store-provider";
+import { useUser } from "@/hooks/user-store";
 import { useRouter } from "@/i18n/routing";
 import { cubicFeetToCubicMeters, inchesToCentimeters } from "@/lib/utils/unit-conversions";
 
