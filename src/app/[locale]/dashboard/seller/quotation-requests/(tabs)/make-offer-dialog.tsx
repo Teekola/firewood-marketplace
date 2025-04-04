@@ -8,10 +8,10 @@ import { useTranslations } from "next-intl";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { QuotationRequest } from "@/db/quotation-request";
+import { SellerLocation } from "@/db/seller-location";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 import { OfferForm, OfferFormData } from "../(components)/(make-offer-form)/offer-form";
-import { SellerLocation } from "../../../../../../../prisma/prismaClientExtensions";
 import { ShortQuotationRequestDetails } from "../../../../../../components/quotation-request/short-quotation-request-details";
 import { createOffer } from "../actions";
 

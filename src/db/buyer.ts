@@ -1,6 +1,6 @@
 import "server-only";
 
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 
 import { ContactData } from "../app/[locale]/request-offers/(stepper)/contact/contact-form";
 import { DeliveryData } from "../app/[locale]/request-offers/(stepper)/delivery/delivery-form";

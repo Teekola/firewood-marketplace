@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { BackButtonLink } from "@/components/back-button-link";
-import { Logo } from "@/components/logo";
+import { BackButtonLink } from "@/components/ui/back-button-link";
+import { Logo } from "@/components/ui/logo";
 import { Link, Locale, routing } from "@/i18n/routing";
 
 import { EmailPasswordSignInForm } from "./email-password-sign-in-form";

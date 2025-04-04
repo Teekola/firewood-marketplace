@@ -3,8 +3,8 @@ import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/db/quotation-request";
 
-import { Date } from "../date";
 import { useGetTranslatedCountryName } from "../ui/country-field";
+import { Date } from "../ui/date";
 
 export function DeliveryDetails({
    quotationRequest: qr,

@@ -6,9 +6,9 @@ import { useFormatter, useTranslations } from "next-intl";
 
 import { FirewoodDetails } from "@/components/quotation-request/firewood-details";
 import { ShortDeliveryDetails } from "@/components/quotation-request/short-delivery-details";
-import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
+import { RelativeTime } from "@/components/ui/relative-time";
 import { OfferDTO } from "@/db/offer";
 import { currencyConfigs } from "@/i18n/currencies";
 import { Link, Pathname } from "@/i18n/routing";

@@ -1,6 +1,6 @@
 import "server-only";
 
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 
 export type SellerProfileArgs = {
    sellerId: string;

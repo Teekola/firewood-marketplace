@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { RegisterButton } from "../auth/register-button";
 import { SignInButton } from "../auth/sign-in-button";
 import { LanguageDropdown } from "../language-dropdown";
-import { Logo } from "../logo";
+import { Logo } from "../ui/logo";
 import { DashboardButton } from "./dashboard-button";
 
 export function MobileContents() {

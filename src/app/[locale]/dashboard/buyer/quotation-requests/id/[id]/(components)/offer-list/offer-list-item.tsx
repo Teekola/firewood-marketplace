@@ -4,10 +4,10 @@ import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { SidebarNavIndicator } from "@/app/[locale]/dashboard/(components)/sidebar-nav-indicator";
-import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { useGetTranslatedCountryName } from "@/components/ui/country-field";
+import { RelativeTime } from "@/components/ui/relative-time";
 import { OfferDTO } from "@/db/offer";
 import { currencyConfigs } from "@/i18n/currencies";
 import { Link, Pathname } from "@/i18n/routing";

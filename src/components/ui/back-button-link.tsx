@@ -9,7 +9,7 @@ import { ArrowLeftIcon } from "lucide-react";
 import { DynamicPathname, Link, Pathname, StaticPathname, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-import { Button } from "./ui/button";
+import { Button } from "./button";
 
 type Href =
    | StaticPathname

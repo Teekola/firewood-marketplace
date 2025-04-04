@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import { authOptions } from "@/auth/auth-options";
 import { getBuyerByUserId } from "@/db/buyer";
 import { getSellerByUserId } from "@/db/seller";
-import { prismaEdge } from "@/prismaEdge";
+import { prismaEdge } from "@/lib/prisma/prismaEdge";
 
 import { ExtendedPrismaAdapter } from "./extended-prisma-adapter";
 

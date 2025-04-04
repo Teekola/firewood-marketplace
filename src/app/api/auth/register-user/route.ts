@@ -3,7 +3,7 @@ import { type NextRequest } from "next/server";
 import { UnitSystem } from "@prisma/client";
 import { geolocation } from "@vercel/functions";
 
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 
 import { imperialSystemCountries } from "../../../../i18n/imperial-system-countries";
 

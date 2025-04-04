@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 import { PreviewSection } from "@/components/preview-section";
 import { FirewoodDetails } from "@/components/quotation-request/firewood-details";
-import { RelativeTime } from "@/components/relative-time";
+import { RelativeTime } from "@/components/ui/relative-time";
 import { QuotationRequest } from "@/db/quotation-request";
 
 import { DeliveryDetails } from "./delivery-details";

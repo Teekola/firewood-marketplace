@@ -1,9 +1,9 @@
 import "server-only";
 
 import { auth } from "@/auth/auth";
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 
-import { SellerLocation } from "../../prisma/prismaClientExtensions";
+import { SellerLocation } from "./seller-location";
 
 type SellerResult = {
    sellerId: string;
@@ -28,7 +28,7 @@ type SellerResult = {
 }[];
 
 export const getSellerByUserId = async (userId: string) => {
-   const result = await prisma.$queryRaw<SellerResult>`
+   const [result] = await prisma.$queryRaw<SellerResult>`
         SELECT 
             s.id AS "sellerId",
             s.plan AS "plan",
@@ -55,7 +55,7 @@ export const getSellerByUserId = async (userId: string) => {
         WHERE s.user_id = ${userId};
     `;
 
-   if (result.length === 0) return null;
+   if (!result) return null;
 
    const {
       sellerId,
@@ -67,7 +67,7 @@ export const getSellerByUserId = async (userId: string) => {
       sellerPhone,
       isActive,
       ...locationData
-   } = result[0];
+   } = result;
 
    const location: SellerLocation | null = locationData.locationId
       ? {

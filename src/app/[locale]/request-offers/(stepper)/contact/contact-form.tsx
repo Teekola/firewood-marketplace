@@ -8,7 +8,7 @@ import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { SessionWithBuyer } from "@/auth/auth";
-import { BackButtonLink } from "@/components/back-button-link";
+import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {

@@ -1,7 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { AdapterUser } from "next-auth/adapters";
 
-import { prismaEdge } from "@/prismaEdge";
+import { prismaEdge } from "@/lib/prisma/prismaEdge";
 
 import { UnitSystemT } from "./auth-options";
 

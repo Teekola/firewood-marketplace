@@ -3,7 +3,7 @@ import { ComponentProps, PropsWithChildren } from "react";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-import { Logo } from "../logo";
+import { Logo } from "../ui/logo";
 
 type TopbarProps = ComponentProps<"div">;
 

@@ -27,11 +27,11 @@ import {
    FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { SellerLocation } from "@/db/seller-location";
 import { parseError } from "@/lib/utils/errors";
 import "@/lib/utils/unit-conversions";
 import { kilometersToMiles, milesToKilometers } from "@/lib/utils/unit-conversions";
 
-import { SellerLocation } from "../../../../../../prisma/prismaClientExtensions";
 import { upsertSellerLocation } from "./actions";
 import { sellerLocationQueryKey } from "./constants";
 import { MaxDistanceSelectField } from "./maxDistanceSelectField";

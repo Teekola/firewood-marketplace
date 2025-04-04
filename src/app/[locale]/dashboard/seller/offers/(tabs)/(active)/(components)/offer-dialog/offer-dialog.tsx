@@ -7,9 +7,9 @@ import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { OfferDetails } from "@/components/offer/offer-details";
-import { RelativeTime } from "@/components/relative-time";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
+import { RelativeTime } from "@/components/ui/relative-time";
 import { OfferDTO } from "@/db/offer";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 

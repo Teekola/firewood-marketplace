@@ -10,7 +10,7 @@ import { z } from "zod";
 
 import { SessionWithBuyer } from "@/auth/auth";
 import { useGeolocationData } from "@/components/auth/user-store-provider";
-import { BackButtonLink } from "@/components/back-button-link";
+import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Button } from "@/components/ui/button";
 import { CheckboxGroupItemCard } from "@/components/ui/checkbox-group-item-card";
 import {

@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { SignInOptions } from "@/components/auth/sign-in-options";
-import { Logo } from "@/components/logo";
+import { Logo } from "@/components/ui/logo";
 import { Link, Locale, routing } from "@/i18n/routing";
 
 export function generateStaticParams() {

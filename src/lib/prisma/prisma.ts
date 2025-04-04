@@ -5,15 +5,13 @@ import ws from "ws";
 
 import { env } from "@/env/server";
 
-import { extendPrismaClientWithSellerLocation } from "./prismaClientExtensions";
-
 const connectionString = env.POSTGRES_PRISMA_URL;
 
 const prismaClientSingleton = () => {
    neonConfig.webSocketConstructor = ws;
    const pool = new Pool({ connectionString });
    const adapter = new PrismaNeon(pool);
-   return extendPrismaClientWithSellerLocation(new PrismaClient({ adapter }));
+   return new PrismaClient({ adapter });
 };
 
 declare const globalThis: {

@@ -1,7 +1,7 @@
 import { Currency, DeliveryMethod, Prisma, QuotationRequestStatus } from "@prisma/client";
 
+import { prisma } from "@/lib/prisma/prisma";
 import { SortOrder } from "@/lib/utils/types";
-import { prisma } from "@/prisma";
 
 export const offerDTOFields = Prisma.validator<Prisma.OfferSelect>()({
    id: true,

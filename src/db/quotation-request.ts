@@ -1,8 +1,8 @@
 import { Prisma, QuotationRequestStatus, SellerQuotationRequestStatus } from "@prisma/client";
 import cuid from "cuid";
 
+import { prisma } from "@/lib/prisma/prisma";
 import { SortOrder } from "@/lib/utils/types";
-import { prisma } from "@/prisma";
 
 import { ContactData } from "../app/[locale]/request-offers/(stepper)/contact/contact-form";
 import { DeliveryData } from "../app/[locale]/request-offers/(stepper)/delivery/delivery-form";
