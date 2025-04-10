@@ -5,9 +5,9 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Locale, routing } from "@/i18n/routing";
 import { authWithSeller } from "@/lib/auth/auth";
 
-import { SidebarNav } from "../(components)/sidebar-nav";
-import { ActivateSellerDialog } from "./(components)/activate-seller-dialog";
-import { DeactivateSellerDialog } from "./(components)/deactivate-seller-dialog";
+import { SidebarNav } from "../_components/sidebar-nav";
+import { ActivateSellerDialog } from "./_components/activate-seller-dialog";
+import { DeactivateSellerDialog } from "./_components/deactivate-seller-dialog";
 import { getSidebarNavItems } from "./get-sidebar-nav-items";
 
 export function generateStaticParams() {

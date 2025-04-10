@@ -4,13 +4,13 @@ import { ComponentProps } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { SidebarNavIndicator } from "../../../(components)/sidebar-nav-indicator";
+import { SidebarNavIndicator } from "../../../_components/sidebar-nav-indicator";
 import { getActiveOffersNotificationCount } from "./actions";
 import { sellerActiveOffersNotificationsQueryKey } from "./constants";
 
-type ActiveOffersIndicator = ComponentProps<"div">;
+type AcceptedOffersIndicator = ComponentProps<"div">;
 
-export function ActiveOffersIndicator({ ...props }: ActiveOffersIndicator) {
+export function AcceptedOffersIndicator({ ...props }: AcceptedOffersIndicator) {
    const { data: activeOffersNotificationCount } = useQuery({
       queryKey: sellerActiveOffersNotificationsQueryKey,
       queryFn: getActiveOffersNotificationCount,

@@ -1,8 +1,8 @@
 import { QuotationRequestStatus } from "@prisma/client";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
-import { QuotationRequestList } from "../(components)/quotation-request-list";
-import { QuotationRequestListEmptyState } from "../(components)/quotation-request-list-empty-state";
+import { QuotationRequestList } from "../_components/quotation-request-list";
+import { QuotationRequestListEmptyState } from "../_components/quotation-request-list-empty-state";
 import { getQuotationRequestsForBuyer } from "../actions";
 import { buyerQuotationRequestsQueryKey } from "../constants";
 

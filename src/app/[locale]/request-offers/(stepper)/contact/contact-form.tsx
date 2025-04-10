@@ -22,9 +22,9 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/routing";
 import { SessionWithBuyer } from "@/lib/auth/types";
 
-import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
-import { StickyFooter } from "../../(components)/sticky-footer";
-import { useContactData, useSetContactData } from "../../(store)/request-offers-store-provider";
+import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
+import { StickyFooter } from "../../_components/sticky-footer";
+import { useContactData, useSetContactData } from "../../_store/request-offers-store-provider";
 import { PhoneField } from "./phone-field";
 
 export const contactFormSchema = z

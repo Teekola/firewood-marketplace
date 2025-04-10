@@ -1,7 +1,7 @@
 import { getOfferById } from "@/db/offer";
 import { authWithSeller } from "@/lib/auth/auth";
 
-import { OfferEditDialog } from "../../../(tabs)/(active)/(components)/offer-edit-dialog";
+import { OfferEditDialog } from "../../../(tabs)/(active)/_components/offer-edit-dialog";
 
 export default async function OfferEditPage({
    params,

@@ -24,14 +24,14 @@ import { useGeolocationData } from "@/hooks/use-geolocation-data";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 import { SessionWithBuyer } from "@/lib/auth/types";
 
-import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
-import { StickyFooter } from "../../(components)/sticky-footer";
-import { stepToPath } from "../../(components)/use-step-manager";
+import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
+import { StickyFooter } from "../../_components/sticky-footer";
+import { stepToPath } from "../../_components/use-step-manager";
 import {
    useDeliveryData,
    useLastUnlockedStep,
    useSetDeliveryData,
-} from "../../(store)/request-offers-store-provider";
+} from "../../_store/request-offers-store-provider";
 import { CountryField, DEFAULT_COUNTRY, countries } from "./country-field";
 import { PostalCodeField } from "./postal-code-field";
 

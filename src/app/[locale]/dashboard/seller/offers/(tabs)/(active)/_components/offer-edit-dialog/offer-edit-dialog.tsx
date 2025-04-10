@@ -14,7 +14,7 @@ import { ShortQuotationRequestDetails } from "../../../../../../../../../compone
 import {
    OfferForm,
    OfferFormData,
-} from "../../../../../quotation-requests/(components)/(make-offer-form)/offer-form";
+} from "../../../../../quotation-requests/_components/(make-offer-form)/offer-form";
 import { editOffer } from "../../actions";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/offers/id/[id]";

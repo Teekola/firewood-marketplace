@@ -17,7 +17,7 @@ import {
    useFirewoodData,
    useSubmitData,
    useValidSteps,
-} from "../(store)/request-offers-store-provider";
+} from "../_store/request-offers-store-provider";
 import { submitQuotationRequest } from "./actions";
 import { LoadingIndicator } from "./loading-indicator";
 

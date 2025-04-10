@@ -1,6 +1,6 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
-import { OfferList } from "./(components)/offer-list";
+import { OfferList } from "./_components/offer-list";
 import { getActiveOffersForSeller } from "./actions";
 import { sellerOffersQueryKey } from "./constants";
 

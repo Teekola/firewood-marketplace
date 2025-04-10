@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Link, Pathname, StaticPathname } from "@/i18n/routing";
 import { authWithSeller } from "@/lib/auth/auth";
 
-import { BecomeSellerDialog } from "./(components)/become-seller-dialog";
-import { QuotationRequestSidebarNavIndicator } from "./buyer/(components)/quotation-request-sidebar-nav-indicator.tsx";
+import { BecomeSellerDialog } from "./_components/become-seller-dialog";
+import { QuotationRequestSidebarNavIndicator } from "./buyer/_components/quotation-request-sidebar-nav-indicator.tsx";
 
 export default async function DashboardPage() {
    const session = await authWithSeller();

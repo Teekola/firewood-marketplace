@@ -18,7 +18,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortOrder } from "@/lib/utils/types";
 
-import { QuotationRequestListItem } from "../(components)/quotation-request-list-item";
+import { QuotationRequestListItem } from "../_components/quotation-request-list-item";
 import { useQuotationRequestListData } from "./use-quotation-request-list-data";
 
 export function QuotationRequestList({

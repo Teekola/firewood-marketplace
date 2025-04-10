@@ -2,8 +2,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Locale, routing } from "@/i18n/routing";
 
-import { PageWrapper } from "../(components)/page-wrapper";
-import { RequestOffersStepper } from "../(components)/request-offers-stepper";
+import { PageWrapper } from "../_components/page-wrapper";
+import { RequestOffersStepper } from "../_components/request-offers-stepper";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));

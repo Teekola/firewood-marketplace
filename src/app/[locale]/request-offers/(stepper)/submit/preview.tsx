@@ -22,7 +22,7 @@ import {
    useContactData,
    useDeliveryData,
    useFirewoodData,
-} from "../../(store)/request-offers-store-provider";
+} from "../../_store/request-offers-store-provider";
 
 export function Preview({ ...props }: Readonly<ComponentProps<"div">>) {
    const firewoodData = useFirewoodData();

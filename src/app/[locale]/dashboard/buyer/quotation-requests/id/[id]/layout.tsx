@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { getTranslations } from "next-intl/server";
 
-import { QuotationRequestTitle } from "@/app/[locale]/dashboard/(components)/quotation-request-title";
+import { QuotationRequestTitle } from "@/app/[locale]/dashboard/_components/quotation-request-title";
 import { TabLink } from "@/app/[locale]/dashboard/seller/quotation-requests/(tabs)/tab-link";
 import { ShortQuotationRequestDetails } from "@/components/quotation-request/short-quotation-request-details";
 import {
@@ -14,9 +14,9 @@ import {
 import { getQuotationRequestWithAcceptedOffer } from "@/db/quotation-request";
 import { Locale } from "@/i18n/routing";
 
-import { AcceptedOffer } from "./(components)/accepted-offer";
-import { DeleteQuotationRequestDialog } from "./(components)/delete-quotation-request-dialog/delete-quotation-request-dialog";
-import { OfferListTitle } from "./(components)/offer-list/offer-list-title";
+import { AcceptedOffer } from "./_components/accepted-offer";
+import { DeleteQuotationRequestDialog } from "./_components/delete-quotation-request-dialog/delete-quotation-request-dialog";
+import { OfferListTitle } from "./_components/offer-list/offer-list-title";
 
 export default async function BuyerQuotationRequestLayout({
    children,

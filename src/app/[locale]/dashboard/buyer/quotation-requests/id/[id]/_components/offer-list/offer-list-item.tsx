@@ -3,7 +3,7 @@ import { ComponentProps, forwardRef } from "react";
 import { DeliveryMethod } from "@prisma/client";
 import { useFormatter, useTranslations } from "next-intl";
 
-import { SidebarNavIndicator } from "@/app/[locale]/dashboard/(components)/sidebar-nav-indicator";
+import { SidebarNavIndicator } from "@/app/[locale]/dashboard/_components/sidebar-nav-indicator";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { useGetTranslatedCountryName } from "@/components/ui/country-field";

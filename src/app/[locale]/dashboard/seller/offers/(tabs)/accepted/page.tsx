@@ -1,6 +1,6 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
-import { AcceptedOffersList } from "./(components)/accepted-offers-list";
+import { AcceptedOffersList } from "./_components/accepted-offers-list";
 import { getAcceptedOffersForSeller } from "./actions";
 import { sellerAcceptedOffersQueryKey } from "./constants";
 

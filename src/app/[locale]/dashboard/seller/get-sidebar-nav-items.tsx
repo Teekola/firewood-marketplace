@@ -1,10 +1,10 @@
 import { getTranslations } from "next-intl/server";
 
-import { SidebarNavProps } from "../(components)/sidebar-nav";
-import { QuotationRequestSidebarNavIndicator } from "./(components)/quotation-request-sidebar-nav-indicator/quotation-request-sidebar-nav-indicator";
-import { SellerLocationSidebarNavIndicator } from "./(components)/seller-location-sidebar-nav-indicator";
-import { SellerProfileSidebarNavIndicator } from "./(components)/seller-profile-sidebar-nav-indicator";
-import { SentOffersSidebarNavIndicator } from "./(components)/sent-offers-sidebar-nav-indicator/sent-offers-sidebar-nav-indicator";
+import { SidebarNavProps } from "../_components/sidebar-nav";
+import { QuotationRequestSidebarNavIndicator } from "./_components/quotation-request-sidebar-nav-indicator/quotation-request-sidebar-nav-indicator";
+import { SellerLocationSidebarNavIndicator } from "./_components/seller-location-sidebar-nav-indicator";
+import { SellerProfileSidebarNavIndicator } from "./_components/seller-profile-sidebar-nav-indicator";
+import { SentOffersSidebarNavIndicator } from "./_components/sent-offers-sidebar-nav-indicator/sent-offers-sidebar-nav-indicator";
 
 export async function getSidebarNavItems() {
    const t = await getTranslations("dashboard");

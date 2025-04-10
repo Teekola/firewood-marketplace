@@ -11,7 +11,7 @@ import { RelativeTime } from "@/components/ui/relative-time";
 import { QuotationRequest } from "@/db/quotation-request";
 import { Link, Pathname } from "@/i18n/routing";
 
-import { QuotationRequestTitle } from "../../../(components)/quotation-request-title";
+import { QuotationRequestTitle } from "../../../_components/quotation-request-title";
 
 export const QuotationRequestListItem = forwardRef<
    HTMLLIElement,

@@ -27,15 +27,15 @@ import {
 } from "@/i18n/constants/units";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 
-import { FormStoreSyncManager } from "../../(components)/form-store-sync-manager";
-import { StickyFooter } from "../../(components)/sticky-footer";
-import { stepToPath } from "../../(components)/use-step-manager";
+import { CheckboxGroupItemCard } from "../../../../../components/ui/checkbox-group-item-card";
+import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
+import { StickyFooter } from "../../_components/sticky-footer";
+import { stepToPath } from "../../_components/use-step-manager";
 import {
    useFirewoodData,
    useLastUnlockedStep,
    useSetFirewoodData,
-} from "../../(store)/request-offers-store-provider";
-import { CheckboxGroupItemCard } from "../../../../../components/ui/checkbox-group-item-card";
+} from "../../_store/request-offers-store-provider";
 
 export const firewoodFormSchema = z.object({
    woodTypes: z.array(z.nativeEnum(WoodType)).nonempty("Please, select a wood type"),

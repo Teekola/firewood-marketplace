@@ -4,7 +4,7 @@ import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Locale, routing } from "@/i18n/routing";
 
-import { SidebarNav } from "../(components)/sidebar-nav";
+import { SidebarNav } from "../_components/sidebar-nav";
 import { getSidebarNavItems } from "./get-sidebar-nav-items";
 
 export function generateStaticParams() {

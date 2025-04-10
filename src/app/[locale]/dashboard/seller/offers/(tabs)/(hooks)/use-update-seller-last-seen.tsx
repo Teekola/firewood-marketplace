@@ -4,8 +4,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { useDebouncedCallback } from "use-debounce";
 
-import { sellerActiveOffersNotificationsQueryKey } from "../../../(components)/accepted-offers-indicator/constants";
-import { sellerSentOffersNotificationsQueryKey } from "../../../(components)/sent-offers-sidebar-nav-indicator/constants";
+import { sellerActiveOffersNotificationsQueryKey } from "../../../_components/accepted-offers-indicator/constants";
+import { sellerSentOffersNotificationsQueryKey } from "../../../_components/sent-offers-sidebar-nav-indicator/constants";
 import { sellerAcceptedOffersQueryKey } from "../accepted/constants";
 import { updateSellerLastSeenOffers } from "./actions";
 

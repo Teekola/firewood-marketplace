@@ -2,8 +2,8 @@ import { getTranslations } from "next-intl/server";
 
 import { TabLink } from "@/app/[locale]/dashboard/seller/quotation-requests/(tabs)/tab-link";
 
-import { AcceptedOffersIndicator } from "../../(components)/accepted-offers-indicator";
-import { ActiveOffersIndicator } from "../../(components)/active-offers-indicator";
+import { AcceptedOffersIndicator } from "../../_components/accepted-offers-indicator";
+import { ActiveOffersIndicator } from "../../_components/active-offers-indicator";
 
 export default async function SellerOffersLayout({
    children,

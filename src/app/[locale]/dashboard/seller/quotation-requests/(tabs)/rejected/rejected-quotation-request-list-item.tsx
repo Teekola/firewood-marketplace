@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { QuotationRequestTitle } from "@/app/[locale]/dashboard/(components)/quotation-request-title";
+import { QuotationRequestTitle } from "@/app/[locale]/dashboard/_components/quotation-request-title";
 import { ShortDeliveryDetails } from "@/components/quotation-request/short-delivery-details";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";

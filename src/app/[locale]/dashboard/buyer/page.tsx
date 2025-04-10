@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
-import { SidebarNav } from "../(components)/sidebar-nav";
-import { BuyerDashboard } from "./(components)/buyer-dashboard";
+import { SidebarNav } from "../_components/sidebar-nav";
+import { BuyerDashboard } from "./_components/buyer-dashboard";
 import { getSidebarNavItems } from "./get-sidebar-nav-items";
 
 export default async function BuyerRootPage() {

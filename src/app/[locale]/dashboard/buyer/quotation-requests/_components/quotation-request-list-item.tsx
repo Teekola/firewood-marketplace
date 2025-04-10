@@ -9,8 +9,8 @@ import { RelativeTime } from "@/components/ui/relative-time";
 import { BuyerQuotationRequest } from "@/db/quotation-request";
 import { Link, Pathname } from "@/i18n/routing";
 
-import { QuotationRequestTitle } from "../../../(components)/quotation-request-title";
-import { SidebarNavIndicator } from "../../../(components)/sidebar-nav-indicator";
+import { QuotationRequestTitle } from "../../../_components/quotation-request-title";
+import { SidebarNavIndicator } from "../../../_components/sidebar-nav-indicator";
 
 interface QuotationRequestListItemProps extends ComponentProps<"li"> {
    quotationRequest: BuyerQuotationRequest;

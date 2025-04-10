@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 
-import { sellerUnseenQuotationRequestsQueryKey } from "../../(components)/quotation-request-sidebar-nav-indicator/constants";
+import { sellerUnseenQuotationRequestsQueryKey } from "../../_components/quotation-request-sidebar-nav-indicator/constants";
 import { updateViewedAt } from "../actions";
 
 export function useUpdateQuotationRequestViewedAt({

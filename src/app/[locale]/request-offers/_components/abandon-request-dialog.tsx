@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/routing";
 
-import { useClearRequestOffersStore } from "../(store)/request-offers-store-provider";
+import { useClearRequestOffersStore } from "../_store/request-offers-store-provider";
 
 export function AbandonRequestDialog({ ...props }: ComponentProps<typeof AlertDialogTrigger>) {
    const t = useTranslations();

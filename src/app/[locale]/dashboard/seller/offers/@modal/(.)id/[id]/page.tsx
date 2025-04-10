@@ -1,6 +1,6 @@
 import { getOfferById } from "@/db/offer";
 
-import { OfferDialog } from "../../../(tabs)/(active)/(components)/offer-dialog";
+import { OfferDialog } from "../../../(tabs)/(active)/_components/offer-dialog";
 
 export default async function OfferPageModal({
    params,

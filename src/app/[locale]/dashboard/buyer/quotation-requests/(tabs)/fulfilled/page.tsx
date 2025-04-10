@@ -2,7 +2,7 @@ import { QuotationRequestStatus } from "@prisma/client";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-import { QuotationRequestList } from "../../(components)/quotation-request-list";
+import { QuotationRequestList } from "../../_components/quotation-request-list";
 import { getQuotationRequestsForBuyer } from "../../actions";
 import { buyerQuotationRequestsQueryKey } from "../../constants";
 

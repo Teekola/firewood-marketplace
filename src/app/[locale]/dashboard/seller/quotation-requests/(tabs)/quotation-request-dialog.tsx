@@ -11,9 +11,9 @@ import { QuotationRequest } from "@/db/quotation-request";
 import { usePathname, useRouter } from "@/i18n/routing";
 import { Link } from "@/i18n/routing";
 
-import { RejectQuotationRequestDialog } from "../(components)/reject-quotation-request-dialog";
 import { useUpdateQuotationRequestViewedAt } from "../(hooks)/use-update-quotation-request-viewed-at";
 import QuotationRequestDetails from "../../../../../../components/quotation-request/quotation-request-details";
+import { RejectQuotationRequestDialog } from "../_components/reject-quotation-request-dialog";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests";
 const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
