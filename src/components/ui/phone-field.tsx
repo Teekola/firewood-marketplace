@@ -1,7 +1,7 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ComponentProps } from "react";
 
 import { useTranslations } from "next-intl";
-import { useFormContext } from "react-hook-form";
+import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
 
 import {
    FormControl,
@@ -13,11 +13,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { ContactData } from "./contact-form";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface PhoneFieldProps<T extends FieldValues = any>
+   extends Omit<ComponentProps<typeof FormField<T>>, "name" | "render"> {
+   name: FieldPath<T>;
+   label: string;
+}
 
-export function PhoneField() {
-   const form = useFormContext<ContactData>();
-   const t = useTranslations("request-offers");
+export function PhoneField({ name, label, ...props }: PhoneFieldProps) {
+   const form = useFormContext();
+   const t = useTranslations();
    const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
       let masked = "";
@@ -34,24 +39,25 @@ export function PhoneField() {
          ? (masked.length >= 6 && masked.length <= 15) || masked.length < 1
          : form.formState.isValid || masked.length > 6 || masked.length > 15 || masked.length === 0;
 
-      form.setValue("phone", masked, { shouldValidate, shouldDirty: true, shouldTouch: true });
+      form.setValue(name, masked, { shouldValidate, shouldDirty: true, shouldTouch: true });
    };
 
    return (
       <FormField
-         name="phone"
+         {...props}
+         name={name}
          control={form.control}
          render={({ field }) => (
             <FormItem className="w-full">
-               <FormLabel>{t("Phone")}</FormLabel>
+               <FormLabel>{label}</FormLabel>
                <FormControl>
                   <Input
                      {...field}
                      onChange={handlePhoneChange}
-                     placeholder={t("Type your phone number")}
+                     placeholder={t("form-placeholders.phone")}
                   />
                </FormControl>
-               <FormDescription>{t("You may use any format")}</FormDescription>
+               <FormDescription>{t("form-descriptions.You may use any format")}</FormDescription>
                <FormMessage />
             </FormItem>
          )}

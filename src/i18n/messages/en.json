@@ -97,7 +97,10 @@
     "request sent to n sellers": "{n, plural, =0 {There are no sellers yet in your area.} =1 {We have sent your request to one seller.} other {We have sent your request to # sellers.}}",
     "The quotation request was successfully submitted": "The quotation request was successfully submitted.",
     "Quotation Request Submitted": "Quotation Request Submitted",
-    "When new sellers register in your area they will also receive your request": "When new sellers register in your area, they will also receive your request."
+    "When new sellers register in your area they will also receive your request": "When new sellers register in your area, they will also receive your request.",
+    "form-labels": {
+      "Phone": "Phone"
+    }
   },
   "countries": {
     "Finland": "Finland",
@@ -326,7 +329,13 @@
   },
   "form-labels": {
     "Optional": "(Optional)",
-    "Pickup address": "Pickup address"
+    "Pickup address": "Pickup address",
+    "email": "Email",
+    "Full name": "Full name",
+    "Email": "Email",
+    "Phone": "Phone",
+    "Buy as a company": "Buy as a company",
+    "Company name": "Company name"
   },
   "conjunctions": {
     "or": "or"
@@ -343,5 +352,12 @@
     "Stop receiving requests": "Stop Receiving Requests",
     "stop-receiving-requests-description": "When you stop receiving actions, you will no longer receive new quotation requests and you will not be able to send new offers. Are you sure that you want to proceed?"
   },
-  "Go to Dashboard": "Go to Dashboard"
+  "Go to Dashboard": "Go to Dashboard",
+  "form-placeholders": {
+    "Type your phone number": "Type your phone number",
+    "phone": "Type your phone number"
+  },
+  "form-descriptions": {
+    "You may use any format": "You may use any format"
+  }
 }

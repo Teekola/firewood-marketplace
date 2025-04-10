@@ -22,10 +22,10 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/routing";
 import { SessionWithBuyer } from "@/lib/auth/types";
 
+import { PhoneField } from "../../../../../components/ui/phone-field";
 import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
 import { StickyFooter } from "../../_components/sticky-footer";
 import { useContactData, useSetContactData } from "../../_store/request-offers-store-provider";
-import { PhoneField } from "./phone-field";
 
 export const contactFormSchema = z
    .object({
@@ -55,7 +55,7 @@ export type ContactData = z.infer<typeof contactFormSchema>;
 
 export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>) {
    const contactData = useContactData();
-   const t = useTranslations("request-offers");
+   const t = useTranslations();
    const router = useRouter();
    const setContactData = useSetContactData();
 
@@ -130,9 +130,12 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
                   control={form.control}
                   render={({ field }) => (
                      <FormItem className="w-full">
-                        <FormLabel>{t("Full name")}</FormLabel>
+                        <FormLabel>{t("form-labels.Full name")}</FormLabel>
                         <FormControl>
-                           <Input {...field} placeholder={t("Full name placeholder")} />
+                           <Input
+                              {...field}
+                              placeholder={t("request-offers.Full name placeholder")}
+                           />
                         </FormControl>
 
                         <FormMessage />
@@ -144,12 +147,12 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
                   control={form.control}
                   render={({ field }) => (
                      <FormItem className="w-full">
-                        <FormLabel>{t("Email")}</FormLabel>
+                        <FormLabel>{t("form-labels.Email")}</FormLabel>
                         <FormControl>
                            <Input
                               {...field}
                               inputMode="email"
-                              placeholder={t("Type your email")}
+                              placeholder={t("request-offers.Type your email")}
                               onBlur={() => {
                                  field.onBlur();
                                  form.trigger(field.name);
@@ -160,7 +163,7 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
                      </FormItem>
                   )}
                />
-               <PhoneField />
+               <PhoneField name="phone" label={t("form-labels.Phone")} />
                <div className="space-y-2">
                   <FormField
                      control={form.control}
@@ -176,7 +179,7 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
                            </FormControl>
 
                            <FormLabel className="cursor-pointer leading-none">
-                              {t("Buy as a company")}
+                              {t("form-labels.Buy as a company")}
                            </FormLabel>
                         </FormItem>
                      )}
@@ -187,9 +190,12 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
                         control={form.control}
                         render={({ field }) => (
                            <FormItem className="w-full">
-                              <FormLabel>{t("Company name")}</FormLabel>
+                              <FormLabel>{t("form-labels.Company name")}</FormLabel>
                               <FormControl>
-                                 <Input {...field} placeholder={t("Insert company name")} />
+                                 <Input
+                                    {...field}
+                                    placeholder={t("request-offers.Insert company name")}
+                                 />
                               </FormControl>
                               <FormMessage />
                            </FormItem>
@@ -200,9 +206,13 @@ export function ContactForm({ session }: Readonly<{ session: SessionWithBuyer }>
             </div>
 
             <StickyFooter>
-               <BackButtonLink href="/request-offers/delivery" label={t("Back")} size="lg" />
+               <BackButtonLink
+                  href="/request-offers/delivery"
+                  label={t("actions.Back")}
+                  size="lg"
+               />
                <Button type="submit" size="lg" className="w-full" data-disabled={!canProceed}>
-                  {t("Continue")}
+                  {t("actions.Continue")}
                </Button>
             </StickyFooter>
          </form>

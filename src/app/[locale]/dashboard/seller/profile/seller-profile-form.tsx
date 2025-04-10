@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { PhoneField } from "@/app/[locale]/request-offers/(stepper)/contact/phone-field";
 import { Button } from "@/components/ui/button";
 import {
    Form,
@@ -21,6 +20,7 @@ import {
    FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PhoneField } from "@/components/ui/phone-field";
 import "@/i18n/utils/unit-conversions";
 import { parseError } from "@/lib/utils/errors";
 import { Nullable } from "@/lib/utils/types";
@@ -41,7 +41,7 @@ interface SellerProfileFormProps extends ComponentProps<"form"> {
 }
 
 export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileFormProps) {
-   const t = useTranslations("dashboard");
+   const t = useTranslations();
    const queryClient = useQueryClient();
 
    const defaultValues: DefaultValues<SellerProfileFormData> = {
@@ -83,11 +83,13 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
                   control={form.control}
                   render={({ field }) => (
                      <FormItem className="w-full">
-                        <FormLabel>{t("profile.Seller name")}</FormLabel>
+                        <FormLabel>{t("dashboard.profile.Seller name")}</FormLabel>
                         <FormControl>
                            <Input {...field} />
                         </FormControl>
-                        <FormDescription>{t("profile.Seller name instruction")}</FormDescription>
+                        <FormDescription>
+                           {t("dashboard.profile.Seller name instruction")}
+                        </FormDescription>
                         <FormMessage />
                      </FormItem>
                   )}
@@ -97,7 +99,7 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
                   control={form.control}
                   render={({ field }) => (
                      <FormItem className="w-full">
-                        <FormLabel>{t("profile.Email")}</FormLabel>
+                        <FormLabel>{t("form-labels.email")}</FormLabel>
                         <FormControl>
                            <Input {...field} inputMode="email" />
                         </FormControl>
@@ -105,7 +107,7 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
                      </FormItem>
                   )}
                />
-               <PhoneField />
+               <PhoneField name="phone" label={t("form-labels.Phone")} />
             </div>
             <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 sm:w-fit">
                {t("actions.Save")}
