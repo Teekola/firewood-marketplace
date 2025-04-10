@@ -22,10 +22,10 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/routing";
 import { SessionWithBuyer } from "@/lib/auth/types";
 
-import { PhoneField } from "../../../../../components/ui/phone-field";
+import { PhoneField } from "../../../../../../components/ui/phone-field";
+import { useContactData, useSetContactData } from "../../../_store/request-offers-store-provider";
 import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
 import { StickyFooter } from "../../_components/sticky-footer";
-import { useContactData, useSetContactData } from "../../_store/request-offers-store-provider";
 
 export const contactFormSchema = z
    .object({

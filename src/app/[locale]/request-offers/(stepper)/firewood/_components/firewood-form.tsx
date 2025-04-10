@@ -9,6 +9,7 @@ import { DefaultValues, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { CheckboxGroupItemCard } from "@/components/ui/checkbox-group-item-card";
 import {
    Form,
    FormControl,
@@ -27,15 +28,14 @@ import {
 } from "@/i18n/constants/units";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 
-import { CheckboxGroupItemCard } from "../../../../../components/ui/checkbox-group-item-card";
-import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
-import { StickyFooter } from "../../_components/sticky-footer";
-import { stepToPath } from "../../_components/use-step-manager";
 import {
    useFirewoodData,
    useLastUnlockedStep,
    useSetFirewoodData,
-} from "../../_store/request-offers-store-provider";
+} from "../../../_store/request-offers-store-provider";
+import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
+import { StickyFooter } from "../../_components/sticky-footer";
+import { stepToPath } from "../../_hooks/use-step-manager";
 
 export const firewoodFormSchema = z.object({
    woodTypes: z.array(z.nativeEnum(WoodType)).nonempty("Please, select a wood type"),

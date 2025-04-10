@@ -3,11 +3,10 @@ import { getTranslations } from "next-intl/server";
 import { SignInDialog } from "@/components/auth/sign-in-dialog";
 import { auth } from "@/lib/auth/auth";
 
-import { Submitter } from "./submitter";
+import { Submitter } from "./_components/submitter";
 
 export default async function SubmittedPage() {
-   const session = await auth();
-   const t = await getTranslations("request-offers");
+   const [session, t] = await Promise.all([auth(), getTranslations("request-offers")]);
 
    if (!session) {
       return (

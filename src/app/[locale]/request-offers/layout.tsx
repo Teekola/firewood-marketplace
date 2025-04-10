@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 
+import { RequestOffersTopbar } from "@/app/[locale]/request-offers/_components/request-offers-topbar";
 import { Footer } from "@/components/footer";
-import { RequestOffersTopbar } from "@/components/topbar/request-offers-topbar";
 import { Locale, routing } from "@/i18n/routing";
 
 import { RequestOffersStoreProvider } from "./_store/request-offers-store-provider";

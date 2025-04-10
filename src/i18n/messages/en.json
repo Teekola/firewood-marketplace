@@ -335,7 +335,8 @@
     "Email": "Email",
     "Phone": "Phone",
     "Buy as a company": "Buy as a company",
-    "Company name": "Company name"
+    "Company name": "Company name",
+    "Postal code": "Postal code"
   },
   "conjunctions": {
     "or": "or"
@@ -355,7 +356,8 @@
   "Go to Dashboard": "Go to Dashboard",
   "form-placeholders": {
     "Type your phone number": "Type your phone number",
-    "phone": "Type your phone number"
+    "phone": "Type your phone number",
+    "Select country": "Select country"
   },
   "form-descriptions": {
     "You may use any format": "You may use any format"

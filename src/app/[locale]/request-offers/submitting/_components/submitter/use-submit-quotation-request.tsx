@@ -6,10 +6,10 @@ import { useUser } from "@/hooks/user-store";
 import { useRouter } from "@/i18n/routing";
 import { cubicFeetToCubicMeters, inchesToCentimeters } from "@/i18n/utils/unit-conversions";
 
-import { ContactData } from "../(stepper)/contact/contact-form";
-import { DeliveryData } from "../(stepper)/delivery/delivery-form";
-import { FirewoodData } from "../(stepper)/firewood/firewood-form";
-import { SubmitData } from "../(stepper)/submit/submit-form";
+import { ContactData } from "../../../(stepper)/contact/_components/contact-form";
+import { DeliveryData } from "../../../(stepper)/delivery/_components/delivery-form";
+import { FirewoodData } from "../../../(stepper)/firewood/_components/firewood-form";
+import { SubmitData } from "../../../(stepper)/submit/_components/submit-form";
 import {
    useClearRequestOffersStore,
    useContactData,
@@ -17,11 +17,10 @@ import {
    useFirewoodData,
    useSubmitData,
    useValidSteps,
-} from "../_store/request-offers-store-provider";
+} from "../../../_store/request-offers-store-provider";
 import { submitQuotationRequest } from "./actions";
-import { LoadingIndicator } from "./loading-indicator";
 
-export function Submitter() {
+export function useSubmitQuotationRequest() {
    const submitData = useSubmitData();
    const firewoodData = useFirewoodData();
    const deliveryData = useDeliveryData();
@@ -85,6 +84,4 @@ export function Submitter() {
       validSteps,
       router,
    ]);
-
-   return <LoadingIndicator />;
 }

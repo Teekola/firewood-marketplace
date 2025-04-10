@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { Locale } from "@/i18n/routing";
 
-import { FirewoodForm } from "./firewood-form";
+import { FirewoodForm } from "./_components/firewood-form";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
    const { locale } = await params;

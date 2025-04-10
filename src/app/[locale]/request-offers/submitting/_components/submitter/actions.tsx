@@ -5,10 +5,10 @@ import { createQuotationRequest } from "@/db/quotation-request";
 import { findSellersWithinDistance } from "@/db/seller-location";
 import { authWithSeller } from "@/lib/auth/auth";
 
-import { ContactData } from "../(stepper)/contact/contact-form";
-import { DeliveryData } from "../(stepper)/delivery/delivery-form";
-import { FirewoodData } from "../(stepper)/firewood/firewood-form";
-import { SubmitData } from "../(stepper)/submit/submit-form";
+import { ContactData } from "../../../(stepper)/contact/_components/contact-form";
+import { DeliveryData } from "../../../(stepper)/delivery/_components/delivery-form";
+import { FirewoodData } from "../../../(stepper)/firewood/_components/firewood-form";
+import { SubmitData } from "../../../(stepper)/submit/_components/submit-form";
 
 export async function submitQuotationRequest({
    firewoodData,

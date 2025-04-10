@@ -18,32 +18,13 @@ import {
 } from "@/components/ui/command";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { countries } from "@/i18n/constants/countries";
 import { cn } from "@/lib/utils";
-
-export const countries = [
-   { label: "Finland", code: "FI" },
-   { label: "United States", code: "US" },
-] as const;
-export const DEFAULT_COUNTRY = countries[0];
 
 interface CountryFieldProps extends React.HTMLAttributes<HTMLDivElement> {
    name: string;
    countryNameField: string;
    onCountrySelect?: (selected: { code: string; label: string }) => void;
-}
-
-export function useGetTranslatedCountryName() {
-   const t = useTranslations();
-
-   function getTranslatedCountryName(countryName?: string | null) {
-      if (!countryName) return "";
-      return (
-         t(`countries.${countries.find((country) => country.label === countryName)?.label}`) ??
-         countryName
-      );
-   }
-
-   return getTranslatedCountryName;
 }
 
 export function CountryField({

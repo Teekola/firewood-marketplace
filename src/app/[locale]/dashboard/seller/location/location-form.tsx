@@ -8,13 +8,8 @@ import { useTranslations } from "next-intl";
 import { DefaultValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import {
-   CountryField,
-   DEFAULT_COUNTRY,
-   countries,
-} from "@/app/[locale]/request-offers/(stepper)/delivery/country-field";
-import { PostalCodeField } from "@/app/[locale]/request-offers/(stepper)/delivery/postal-code-field";
 import { Button } from "@/components/ui/button";
+import { CountryField } from "@/components/ui/country-field";
 import {
    Form,
    FormControl,
@@ -26,9 +21,11 @@ import {
    FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PostalCodeField } from "@/components/ui/postal-code-field";
 import { SellerLocation } from "@/db/seller-location";
 import { useGeolocationData } from "@/hooks/use-geolocation-data";
 import { useUser } from "@/hooks/user-store";
+import { DEFAULT_COUNTRY, countries } from "@/i18n/constants/countries";
 import "@/i18n/utils/unit-conversions";
 import { kilometersToMiles, milesToKilometers } from "@/i18n/utils/unit-conversions";
 import { parseError } from "@/lib/utils/errors";
@@ -118,8 +115,20 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
             onSubmit={form.handleSubmit(onSubmit)}
             className="mt-4 flex h-full max-w-lg flex-1 flex-col gap-4"
          >
-            <CountryField />
-            <PostalCodeField />
+            <CountryField
+               name="countryCode"
+               countryNameField="countryName"
+               onCountrySelect={() => {
+                  form.setValue("postalCode", "", { shouldDirty: true });
+                  form.setValue("city", "", { shouldDirty: true });
+               }}
+            />
+            <PostalCodeField
+               name="postalCode"
+               label={t("form-labels.Postal code")}
+               cityField="city"
+               countryField="countryCode"
+            />
             <FormField
                control={form.control}
                name="address"

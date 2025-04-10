@@ -4,9 +4,9 @@ import { type ReactNode, createContext, useContext, useEffect, useRef, useState 
 
 import { useStore } from "zustand";
 
-import { contactFormSchema } from "../(stepper)/contact/contact-form";
-import { deliveryFormSchema } from "../(stepper)/delivery/delivery-form";
-import { firewoodFormSchema } from "../(stepper)/firewood/firewood-form";
+import { contactFormSchema } from "../(stepper)/contact/_components/contact-form";
+import { deliveryFormSchema } from "../(stepper)/delivery/_components/delivery-form";
+import { firewoodFormSchema } from "../(stepper)/firewood/_components/firewood-form";
 import { type RequestOffersStore, createRequestOffersStore } from "./request-offers-store";
 
 export type RequestOffersStoreApi = ReturnType<typeof createRequestOffersStore>;

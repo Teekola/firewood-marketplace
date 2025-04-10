@@ -11,6 +11,7 @@ import { z } from "zod";
 import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Button } from "@/components/ui/button";
 import { CheckboxGroupItemCard } from "@/components/ui/checkbox-group-item-card";
+import { CountryField } from "@/components/ui/country-field";
 import {
    Form,
    FormControl,
@@ -20,20 +21,20 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PostalCodeField } from "@/components/ui/postal-code-field";
 import { useGeolocationData } from "@/hooks/use-geolocation-data";
+import { DEFAULT_COUNTRY, countries } from "@/i18n/constants/countries";
 import { StaticPathname, useRouter } from "@/i18n/routing";
 import { SessionWithBuyer } from "@/lib/auth/types";
 
-import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
-import { StickyFooter } from "../../_components/sticky-footer";
-import { stepToPath } from "../../_components/use-step-manager";
 import {
    useDeliveryData,
    useLastUnlockedStep,
    useSetDeliveryData,
-} from "../../_store/request-offers-store-provider";
-import { CountryField, DEFAULT_COUNTRY, countries } from "./country-field";
-import { PostalCodeField } from "./postal-code-field";
+} from "../../../_store/request-offers-store-provider";
+import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
+import { StickyFooter } from "../../_components/sticky-footer";
+import { stepToPath } from "../../_hooks/use-step-manager";
 
 export const deliveryFormSchema = z
    .object({
@@ -181,8 +182,20 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
                   )}
                />
 
-               <CountryField />
-               <PostalCodeField />
+               <CountryField
+                  name="countryCode"
+                  countryNameField="countryName"
+                  onCountrySelect={() => {
+                     form.setValue("postalCode", "", { shouldDirty: true });
+                     form.setValue("city", "", { shouldDirty: true });
+                  }}
+               />
+               <PostalCodeField
+                  name="postalCode"
+                  label={t("form-labels.Postal code")}
+                  cityField="city"
+                  countryField="countryCode"
+               />
 
                {deliveryMethods.includes(DeliveryMethod.HOME_DELIVERY) && (
                   <FormField

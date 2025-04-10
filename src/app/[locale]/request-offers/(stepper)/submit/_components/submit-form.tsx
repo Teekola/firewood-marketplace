@@ -23,13 +23,13 @@ import {
 import { useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
-import { StickyFooter } from "../../_components/sticky-footer";
 import {
    useSetSubmitData,
    useSubmitData,
    useValidSteps,
-} from "../../_store/request-offers-store-provider";
+} from "../../../_store/request-offers-store-provider";
+import { FormStoreSyncManager } from "../../_components/form-store-sync-manager";
+import { StickyFooter } from "../../_components/sticky-footer";
 import { Preview } from "./preview";
 
 const ADDITIONAL_INFORMATION_MAX_LENGTH = 450;

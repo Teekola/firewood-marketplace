@@ -12,8 +12,8 @@ import {
    useIsHydrated,
    useLastUnlockedStep,
    useValidSteps,
-} from "../_store/request-offers-store-provider";
-import { stepToPath } from "./use-step-manager";
+} from "../../_store/request-offers-store-provider";
+import { stepToPath } from "../_hooks/use-step-manager";
 
 const stepToProgressWidth: Record<number, string> = {
    1: "8%",

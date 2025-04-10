@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { Locale } from "@/i18n/routing";
 import { authWithBuyer } from "@/lib/auth/auth";
 
-import { SignInSuggestion } from "../../_components/sign-in-suggestion";
-import { DeliveryForm } from "./delivery-form";
+import { SignInSuggestion } from "../_components/sign-in-suggestion";
+import { DeliveryForm } from "./_components/delivery-form";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
    const { locale } = await params;

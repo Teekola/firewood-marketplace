@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentProps } from "react";
+import { ChangeEvent } from "react";
 
 import { useTranslations } from "next-intl";
 import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
@@ -12,10 +12,11 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface PhoneFieldProps<T extends FieldValues = any>
-   extends Omit<ComponentProps<typeof FormField<T>>, "name" | "render"> {
+   extends React.HTMLAttributes<HTMLDivElement> {
    name: FieldPath<T>;
    label: string;
 }
@@ -44,11 +45,10 @@ export function PhoneField({ name, label, ...props }: PhoneFieldProps) {
 
    return (
       <FormField
-         {...props}
          name={name}
          control={form.control}
          render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem {...props} className={cn("w-full", props.className)}>
                <FormLabel>{label}</FormLabel>
                <FormControl>
                   <Input

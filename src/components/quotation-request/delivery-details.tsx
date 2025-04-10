@@ -2,8 +2,8 @@ import { DeliveryMethod } from "@prisma/client";
 import { useTranslations } from "next-intl";
 
 import { QuotationRequest } from "@/db/quotation-request";
+import { useGetTranslatedCountryName } from "@/hooks/use-get-translated-country-name";
 
-import { useGetTranslatedCountryName } from "../ui/country-field";
 import { Date } from "../ui/date";
 
 export function DeliveryDetails({

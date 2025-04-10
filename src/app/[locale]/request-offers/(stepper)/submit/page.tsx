@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { Locale } from "@/i18n/routing";
 
-import { SubmitForm } from "./submit-form";
+import { SubmitForm } from "./_components/submit-form";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
    const { locale } = await params;

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { Calendar } from "@/components/ui/calendar";
 import { CheckboxGroupItemCard } from "@/components/ui/checkbox-group-item-card";
-import { CountryField, countries } from "@/components/ui/country-field";
+import { CountryField } from "@/components/ui/country-field";
 import {
    Form,
    FormControl,
@@ -28,6 +28,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { PostalCodeField } from "@/components/ui/postal-code-field";
+import { countries } from "@/i18n/constants/countries";
 import { countryCodeToCurrency } from "@/i18n/constants/currencies";
 import { Link, SingleDynamicPathname } from "@/i18n/routing";
 import "@/i18n/utils/unit-conversions";
@@ -245,14 +246,14 @@ export function OfferForm({
                   <CountryField
                      name="pickupCountryCode"
                      countryNameField="pickupCountryName"
-                     onCountrySelect={({ label }) => {
-                        form.setValue("pickupCountryName", label, { shouldDirty: true });
+                     onCountrySelect={() => {
                         form.setValue("pickupPostalCode", "", { shouldDirty: true });
                         form.setValue("pickupCity", "", { shouldDirty: true });
                      }}
                   />
                   <PostalCodeField
                      name="pickupPostalCode"
+                     label={t("form-labels.Postal code")}
                      cityField="pickupCity"
                      countryField="pickupCountryCode"
                   />

@@ -331,7 +331,8 @@
     "Email": "Sähköpostiosoite",
     "Phone": "Puhelinnumero",
     "Buy as a company": "Tilaa yrityksenä",
-    "Company name": "Yrityksen nimi"
+    "Company name": "Yrityksen nimi",
+    "Postal code": "Postinumero"
   },
   "conjunctions": {
     "or": "tai"
@@ -351,7 +352,8 @@
   "Go to Dashboard": "Siirry omaan paneeliin",
   "form-placeholders": {
     "Type your phone number": "Kirjoita puhelinnumerosi",
-    "phone": "Kirjoita puhelinnumerosi"
+    "phone": "Kirjoita puhelinnumerosi",
+    "Select country": "Valitse maa"
   },
   "form-descriptions": {
     "You may use any format": "Voit syöttää numeron maakoodilla tai ilman"

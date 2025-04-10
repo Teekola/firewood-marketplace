@@ -1,13 +1,13 @@
 import { Prisma, QuotationRequestStatus, SellerQuotationRequestStatus } from "@prisma/client";
 import cuid from "cuid";
 
+import { FirewoodData } from "@/app/[locale]/request-offers/(stepper)/firewood/_components/firewood-form";
+import { SubmitData } from "@/app/[locale]/request-offers/(stepper)/submit/_components/submit-form";
 import { prisma } from "@/lib/prisma/prisma";
 import { SortOrder } from "@/lib/utils/types";
 
-import { ContactData } from "../app/[locale]/request-offers/(stepper)/contact/contact-form";
-import { DeliveryData } from "../app/[locale]/request-offers/(stepper)/delivery/delivery-form";
-import { FirewoodData } from "../app/[locale]/request-offers/(stepper)/firewood/firewood-form";
-import { SubmitData } from "../app/[locale]/request-offers/(stepper)/submit/submit-form";
+import { ContactData } from "../app/[locale]/request-offers/(stepper)/contact/_components/contact-form";
+import { DeliveryData } from "../app/[locale]/request-offers/(stepper)/delivery/_components/delivery-form";
 import { offerDTOFields } from "./offer";
 
 export const getPendingQuotationRequestsBySellerIdPaginated = async ({

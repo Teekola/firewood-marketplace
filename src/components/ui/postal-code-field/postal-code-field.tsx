@@ -10,8 +10,7 @@ import { useTranslations } from "next-intl";
 import { useFormContext } from "react-hook-form";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 
-import { DeliveryData } from "@/app/[locale]/request-offers/(stepper)/delivery/delivery-form";
-import { parsePostalCodeFile } from "@/app/[locale]/request-offers/(stepper)/delivery/parse-postal-code-file";
+import { DeliveryData } from "@/app/[locale]/request-offers/(stepper)/delivery/_components/delivery-form";
 import {
    Command,
    CommandEmpty,
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/command";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { InputWithContent } from "@/components/ui/input-with-content";
+import { parsePostalCodeFile } from "@/components/ui/postal-code-field/parse-postal-code-file";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
@@ -35,8 +35,9 @@ async function fetchPostalCodesByCountryCode(countryCode: DeliveryData["countryC
    return parsePostalCodeFile(text);
 }
 
-type PostalCodeFieldProps = {
+interface PostalCodeFieldProps extends React.HTMLAttributes<HTMLDivElement> {
    name: string;
+   label: string;
    countryField: string;
    cityField: string;
    fetchPostalCodes?: (
@@ -48,10 +49,11 @@ type PostalCodeFieldProps = {
       latitude: number;
       longitude: number;
    }) => void;
-} & React.HTMLAttributes<HTMLDivElement>;
+}
 
 export function PostalCodeField({
    name,
+   label,
    countryField,
    cityField,
    fetchPostalCodes = fetchPostalCodesByCountryCode,
@@ -137,7 +139,7 @@ export function PostalCodeField({
          name={name}
          render={({ field }) => (
             <FormItem {...props}>
-               <FormLabel>{t("Postal code")}</FormLabel>
+               <FormLabel>{label}</FormLabel>
                <Command className="relative h-auto overflow-visible bg-transparent">
                   <div className="flex w-full items-center gap-4">
                      <div className="flex w-full min-w-[150px] max-w-[150px] flex-wrap items-center justify-between gap-4 sm:max-w-[60%]">

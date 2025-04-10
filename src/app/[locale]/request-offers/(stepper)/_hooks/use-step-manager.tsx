@@ -4,7 +4,10 @@ import { useEffect } from "react";
 
 import { Pathname, StaticPathname, usePathname, useRouter } from "@/i18n/routing";
 
-import { useLastUnlockedStep, useSetStepVerified } from "../_store/request-offers-store-provider";
+import {
+   useLastUnlockedStep,
+   useSetStepVerified,
+} from "../../_store/request-offers-store-provider";
 
 const basePath = "/request-offers";
 export const stepToPath: Record<number, Pathname> = {

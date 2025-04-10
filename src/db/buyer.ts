@@ -2,8 +2,8 @@ import "server-only";
 
 import { prisma } from "@/lib/prisma/prisma";
 
-import { ContactData } from "../app/[locale]/request-offers/(stepper)/contact/contact-form";
-import { DeliveryData } from "../app/[locale]/request-offers/(stepper)/delivery/delivery-form";
+import { ContactData } from "../app/[locale]/request-offers/(stepper)/contact/_components/contact-form";
+import { DeliveryData } from "../app/[locale]/request-offers/(stepper)/delivery/_components/delivery-form";
 
 export async function getBuyerByUserId(userId: string) {
    return await prisma.buyer.findUnique({

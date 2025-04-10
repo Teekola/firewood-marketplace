@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth/auth";
 
-import { SignInButton } from "../auth/sign-in-button";
-import { LanguageDropdown } from "../language-dropdown";
-import { Topbar } from "./topbar";
+import { SignInButton } from "../../../../components/auth/sign-in-button";
+import { LanguageDropdown } from "../../../../components/language-dropdown";
+import { Topbar } from "../../../../components/topbar/topbar";
 
 export async function RequestOffersTopbar() {
    const session = await auth();

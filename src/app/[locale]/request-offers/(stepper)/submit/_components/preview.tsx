@@ -7,7 +7,7 @@ import { EditIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { FirewoodParagraph } from "@/components/quotation-request/firewood-details";
-import { useGetTranslatedCountryName } from "@/components/ui/country-field";
+import { useGetTranslatedCountryName } from "@/hooks/use-get-translated-country-name";
 import { useUser } from "@/hooks/user-store";
 import {
    imperialWoodAmountUnit,
@@ -22,7 +22,7 @@ import {
    useContactData,
    useDeliveryData,
    useFirewoodData,
-} from "../../_store/request-offers-store-provider";
+} from "../../../_store/request-offers-store-provider";
 
 export function Preview({ ...props }: Readonly<ComponentProps<"div">>) {
    const firewoodData = useFirewoodData();
