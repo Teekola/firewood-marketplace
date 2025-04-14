@@ -2,7 +2,12 @@
 
 import * as React from "react";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import {
+   ChevronDownIcon,
+   ChevronLeftIcon,
+   ChevronRightIcon,
+   ChevronUpIcon,
+} from "@radix-ui/react-icons";
 import { DayPicker } from "react-day-picker";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -54,14 +59,18 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
             ...classNames,
          }}
          components={{
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            IconLeft: ({ className, children, ...props }) => (
-               <ChevronLeftIcon className={cn("h-4 w-4", className)} {...props} />
-            ),
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            IconRight: ({ className, children, ...props }) => (
-               <ChevronRightIcon className={cn("h-4 w-4", className)} {...props} />
-            ),
+            Chevron: ({ className, orientation, ...props }) => {
+               if (orientation === "left") {
+                  return <ChevronLeftIcon className={cn("h-4 w-4", className)} {...props} />;
+               }
+               if (orientation === "right") {
+                  return <ChevronRightIcon className={cn("h-4 w-4", className)} {...props} />;
+               }
+               if (orientation === "up") {
+                  return <ChevronUpIcon className={cn("h-4 w-4", className)} {...props} />;
+               }
+               return <ChevronDownIcon className={cn("h-4 w-4", className)} {...props} />;
+            },
          }}
          {...props}
       />
