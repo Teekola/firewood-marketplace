@@ -64,17 +64,23 @@ function mockUseTranslationsForLocale(locale: TestLocale) {
       locale
    ];
    return vi.mocked(nextIntl.useTranslations).mockImplementation(() => {
-      return Object.assign(
+      const t = Object.assign(
          <TargetKey extends string>(key: TargetKey): string => {
             return translations[key] ?? key;
          },
          {
-            rich: (key: string) => key,
-            markup: (key: string) => key,
-            raw: (key: string) => key,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            rich: (...args: any[]) => args[0], // key only
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            markup: (...args: any[]) => args[0],
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            raw: (...args: any[]) => args[0],
             has: () => true,
          }
       );
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return t as any;
    });
 }
 

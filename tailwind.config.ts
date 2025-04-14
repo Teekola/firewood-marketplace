@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
-   darkMode: ["class"],
+   darkMode: "class",
    content: [
       "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
       "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -36,6 +36,10 @@ const config: Config = {
                DEFAULT: "hsl(var(--primary))",
                foreground: "hsl(var(--primary-foreground))",
             },
+            cta: {
+               DEFAULT: "hsl(var(--cta))",
+               foreground: "hsl(var(--cta-foreground))",
+            },
             secondary: {
                DEFAULT: "hsl(var(--secondary))",
                foreground: "hsl(var(--secondary-foreground))",
@@ -47,6 +51,18 @@ const config: Config = {
             accent: {
                DEFAULT: "hsl(var(--accent))",
                foreground: "hsl(var(--accent-foreground))",
+               "1": {
+                  DEFAULT: "hsl(var(--accent-1))",
+                  foreground: "hsl(var(--accent-1-foreground))",
+               },
+               "2": {
+                  DEFAULT: "hsl(var(--accent-2))",
+                  foreground: "hsl(var(--accent-2-foreground))",
+               },
+               "3": {
+                  DEFAULT: "hsl(var(--accent-3))",
+                  foreground: "hsl(var(--accent-3-foreground))",
+               },
             },
             destructive: {
                DEFAULT: "hsl(var(--destructive))",
