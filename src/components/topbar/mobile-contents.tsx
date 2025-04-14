@@ -53,7 +53,9 @@ export function MobileContents() {
             <div className="mt-auto flex flex-col gap-2 pb-20">
                {!session && <RegisterButton size="lg" className="h-12 w-full" />}
                {!session && <SignInButton variant="outline" size="lg" className="h-12 w-full" />}
-               {session && <DashboardButton onClick={() => setOpen(false)} className="h-12" />}
+               {session && (
+                  <DashboardButton onClick={() => setOpen(false)} className="h-12 w-full" />
+               )}
                <LanguageDropdown className="mt-4 self-end" />
             </div>
          </SheetContent>
