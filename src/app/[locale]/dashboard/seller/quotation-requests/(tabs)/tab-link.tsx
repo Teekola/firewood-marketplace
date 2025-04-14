@@ -35,7 +35,7 @@ export function TabLink({
       <Link
          href={href}
          className={cn(
-            "w-full rounded px-2 py-2 text-center text-sm font-semibold text-muted-foreground transition",
+            "w-full rounded px-2 py-2 text-center text-sm font-semibold text-foreground-muted transition",
             isCurrentPath &&
                "cursor-default bg-card text-card-foreground shadow active:pointer-events-none"
          )}

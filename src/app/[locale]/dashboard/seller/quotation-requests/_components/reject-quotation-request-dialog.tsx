@@ -45,7 +45,7 @@ export function RejectQuotationRequestDialog({
    return (
       <AlertDialog>
          <AlertDialogTrigger {...props} asChild>
-            <Button size="lg" variant="outline" className="text-muted-foreground">
+            <Button size="lg" variant="outline" className="text-foreground-muted">
                {t("actions.Reject")}
             </Button>
          </AlertDialogTrigger>

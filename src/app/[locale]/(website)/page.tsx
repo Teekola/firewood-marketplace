@@ -15,7 +15,7 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
    return (
       <>
          <main className="mx-auto max-w-screen-xl p-3">
-            <Button asChild>
+            <Button asChild variant="cta">
                <Link href="/request-offers/firewood">{t("Request Offers")}</Link>
             </Button>
          </main>

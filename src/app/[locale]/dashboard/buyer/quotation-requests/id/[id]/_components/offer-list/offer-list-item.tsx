@@ -62,7 +62,7 @@ export const OfferListItem = forwardRef<HTMLLIElement, Readonly<OfferListItemPro
                      {earliestAvailability}
                   </p>
 
-                  <p className="mt-2 text-xs text-muted-foreground">
+                  <p className="mt-2 text-xs text-foreground-muted">
                      {t("offer.Offer received")} <RelativeTime date={offer.createdAt} />
                   </p>
                </div>

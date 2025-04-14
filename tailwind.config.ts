@@ -22,8 +22,14 @@ const config: Config = {
             sm: "calc(var(--radius) - 4px)",
          },
          colors: {
-            background: "hsl(var(--background))",
-            foreground: "hsl(var(--foreground))",
+            background: {
+               DEFAULT: "hsl(var(--background))",
+               hover: "hsl(var(--background-hover))",
+            },
+            foreground: {
+               DEFAULT: "hsl(var(--foreground))",
+               muted: "hsl(var(--foreground-muted))",
+            },
             card: {
                DEFAULT: "hsl(var(--card))",
                foreground: "hsl(var(--card-foreground))",
@@ -35,14 +41,17 @@ const config: Config = {
             primary: {
                DEFAULT: "hsl(var(--primary))",
                foreground: "hsl(var(--primary-foreground))",
+               hover: "hsl(var(--primary-hover))",
             },
             cta: {
                DEFAULT: "hsl(var(--cta))",
                foreground: "hsl(var(--cta-foreground))",
+               hover: "hsl(var(--cta-hover))",
             },
             secondary: {
                DEFAULT: "hsl(var(--secondary))",
                foreground: "hsl(var(--secondary-foreground))",
+               hover: "hsl(var(--secondary-hover))",
             },
             muted: {
                DEFAULT: "hsl(var(--muted))",

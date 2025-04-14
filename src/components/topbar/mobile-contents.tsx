@@ -11,7 +11,6 @@ import {
    Sheet,
    SheetContent,
    SheetDescription,
-   SheetFooter,
    SheetHeader,
    SheetTitle,
    SheetTrigger,
@@ -51,12 +50,12 @@ export function MobileContents() {
                   {t("navigation.Home")}
                </Navlink>
             </div>
-            <SheetFooter className="mt-auto flex flex-col gap-2 pb-20">
-               {!session && <RegisterButton size="lg" className="h-12" />}
-               {!session && <SignInButton variant="outline" size="lg" className="h-12" />}
+            <div className="mt-auto flex flex-col gap-2 pb-20">
+               {!session && <RegisterButton size="lg" className="h-12 w-full" />}
+               {!session && <SignInButton variant="outline" size="lg" className="h-12 w-full" />}
                {session && <DashboardButton onClick={() => setOpen(false)} className="h-12" />}
                <LanguageDropdown className="mt-4 self-end" />
-            </SheetFooter>
+            </div>
          </SheetContent>
       </Sheet>
    );
@@ -70,11 +69,7 @@ function Navlink({ href, setOpen, children, ...props }: Readonly<PropsWithChildr
 
    if (pathname === href) {
       return (
-         <Button
-            variant="ghost"
-            className="h-12 w-full bg-muted hover:brightness-95"
-            onClick={() => setOpen(false)}
-         >
+         <Button variant="ghost" className="h-12 w-full bg-muted" onClick={() => setOpen(false)}>
             {children}
          </Button>
       );
@@ -83,11 +78,7 @@ function Navlink({ href, setOpen, children, ...props }: Readonly<PropsWithChildr
       <Link
          {...props}
          href={href}
-         className={cn(
-            buttonVariants({ variant: "outline" }),
-            pathname === href && "border-none bg-muted hover:brightness-95",
-            "h-12 w-full"
-         )}
+         className={cn(buttonVariants({ variant: "outline" }), "h-12 w-full")}
       >
          {children}
       </Link>

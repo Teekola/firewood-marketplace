@@ -58,7 +58,7 @@ export const OfferListItemRejected = forwardRef<HTMLLIElement, Readonly<OfferLis
                         {t("offer.Earliest pickup date")} {earliestAvailability}
                      </p>
                   )}
-                  <p className="mt-2 text-xs text-muted-foreground">
+                  <p className="mt-2 text-xs text-foreground-muted">
                      {t("offer.Offer received")} <RelativeTime date={offer.createdAt} />
                   </p>
                </div>

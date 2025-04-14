@@ -38,10 +38,10 @@ import { StickyFooter } from "../../_components/sticky-footer";
 import { stepToPath } from "../../_hooks/use-step-manager";
 
 export const firewoodFormSchema = z.object({
-   woodTypes: z.array(z.nativeEnum(WoodType)).nonempty("Please, select a wood type"),
+   woodTypes: z.array(z.nativeEnum(WoodType)).nonempty("Please select a wood type"),
    dryness: z
       .array(z.nativeEnum(WoodDryness))
-      .nonempty({ message: "Please, select a dryness level" }),
+      .nonempty({ message: "Please select a dryness level" }),
    amount: z
       .string()
       .min(1, { message: "Insert a valid number" })

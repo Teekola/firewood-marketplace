@@ -76,7 +76,7 @@ function StepLink({
                className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-full border-4 border-primary bg-primary text-lg font-bold text-primary-foreground",
                   isActive && "bg-primary-foreground text-primary",
-                  isDisabled && "border-muted bg-muted text-muted-foreground"
+                  isDisabled && "border-muted bg-muted text-foreground-muted"
                )}
             >
                {!isCompleted && !isLoading && step}
@@ -87,7 +87,7 @@ function StepLink({
             htmlFor={id}
             className={cn(
                "absolute bottom-2 text-xs font-medium text-foreground",
-               isDisabled && "text-muted-foreground"
+               isDisabled && "text-foreground-muted"
             )}
          >
             {label}

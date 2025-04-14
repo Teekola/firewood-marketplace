@@ -45,7 +45,7 @@ export const QuotationRequestListItem = forwardRef<
                />
 
                <div className="flex flex-wrap gap-4">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-foreground-muted">
                      {quotationRequest.updatedAt
                         ? t("quotation-request.Last updated")
                         : t("quotation-request.Created")}{" "}
@@ -53,7 +53,7 @@ export const QuotationRequestListItem = forwardRef<
                         date={new Date(quotationRequest.updatedAt ?? quotationRequest.createdAt)}
                      />
                   </p>
-                  <p className="text-sm font-bold text-muted-foreground">
+                  <p className="text-sm font-bold text-foreground-muted">
                      {t("quotation-request.number-of-offers", {
                         count: quotationRequest._count.offers,
                      })}

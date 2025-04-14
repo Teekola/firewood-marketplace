@@ -55,12 +55,12 @@ export function OfferList({
       <div className="flex flex-1 flex-col gap-1">
          <div className="flex items-center gap-2">
             {count !== undefined && count > 0 && (
-               <p className="text-sm text-muted-foreground">
+               <p className="text-sm text-foreground-muted">
                   {t("pagination.displayed-results", { displayed: offers.length, total: count })}{" "}
                </p>
             )}
             {isFetching && (
-               <p className="animate-pulse text-center text-sm text-muted-foreground">
+               <p className="animate-pulse text-center text-sm text-foreground-muted">
                   {t("pagination.Loading")}
                </p>
             )}
@@ -70,7 +70,7 @@ export function OfferList({
          <ScrollArea className="min-h-64">
             {count === 0 && !isFetching && (
                <div className="flex flex-col items-center gap-4">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-foreground-muted">
                      {emptyText ?? t("buyer.No offers")}
                   </p>
                </div>

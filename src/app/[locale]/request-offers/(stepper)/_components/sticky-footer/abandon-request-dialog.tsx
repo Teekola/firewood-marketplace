@@ -33,7 +33,7 @@ export function AbandonRequestDialog({ ...props }: ComponentProps<typeof AlertDi
    return (
       <AlertDialog>
          <AlertDialogTrigger {...props} asChild>
-            <Button variant="ghost" className="text-muted-foreground">
+            <Button variant="ghost" className="text-foreground-muted">
                {t("request-offers.Abandon Request")}
             </Button>
          </AlertDialogTrigger>

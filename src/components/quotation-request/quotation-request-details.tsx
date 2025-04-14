@@ -30,7 +30,7 @@ export default function QuotationRequestDetails({
             </PreviewSection>
          )}
 
-         <p className="mt-2 text-sm text-muted-foreground">
+         <p className="mt-2 text-sm text-foreground-muted">
             {t("quotation-request.Last updated")}{" "}
             <RelativeTime date={new Date(qr.updatedAt ?? qr.createdAt)} />
          </p>

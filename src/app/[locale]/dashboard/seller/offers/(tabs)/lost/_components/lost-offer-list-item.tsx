@@ -63,7 +63,7 @@ export const LostOfferListItem = ({
                   {earliestAvailability}
                </p>
 
-               <p className="mt-2 text-xs text-muted-foreground">
+               <p className="mt-2 text-xs text-foreground-muted">
                   {t("quotation-request.Last updated")} <RelativeTime date={offer.updatedAt} />
                </p>
             </div>

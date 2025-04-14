@@ -21,7 +21,7 @@ export default async function DeliveryPage() {
    return (
       <>
          <SignInSuggestion />
-         <h1 className="text-4xl font-extrabold">{t("request-offers.Delivery")}</h1>
+         <h1 className="text-4xl font-extrabold text-primary">{t("request-offers.Delivery")}</h1>
          <DeliveryForm session={session} />
       </>
    );

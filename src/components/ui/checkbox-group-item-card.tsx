@@ -21,13 +21,13 @@ export function CheckboxGroupItemCard({
    return (
       <FormItem
          {...props}
-         className="rounded [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:ring-primary/50 [&:has(:focus-visible)]:ring-offset-2"
+         className="rounded outline-none ring-offset-background [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:ring-primary [&:has(:focus-visible)]:ring-offset-2"
       >
-         <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
+         <FormLabel className="[&:has([data-state=checked])>div]:border-secondary">
             <FormControl>
                <Checkbox checked={checked} onCheckedChange={onChange} className="sr-only" />
             </FormControl>
-            <div className="flex h-28 cursor-pointer items-center justify-center rounded-md border-4 border-muted bg-secondary p-1 capitalize hover:border-accent">
+            <div className="flex h-28 cursor-pointer items-center justify-center rounded-md border-4 border-border p-1 capitalize hover:bg-background-hover">
                {icon}
                {label}
             </div>

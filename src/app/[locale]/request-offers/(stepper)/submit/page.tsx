@@ -19,7 +19,7 @@ export default async function SubmitPage() {
 
    return (
       <>
-         <h1 className="text-4xl font-extrabold">{t("request-offers.Submit")}</h1>
+         <h1 className="text-4xl font-extrabold text-primary">{t("request-offers.Submit")}</h1>
          <SubmitForm className="mt-4" />
       </>
    );

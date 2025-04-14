@@ -9,10 +9,10 @@ type TopbarProps = ComponentProps<"div">;
 
 export async function Topbar({ children, ...props }: Readonly<PropsWithChildren<TopbarProps>>) {
    return (
-      <div {...props} className={cn("bg-secondary", props.className)}>
+      <div {...props} className={cn("border-b border-border bg-background", props.className)}>
          <div className="mx-auto flex max-w-screen-xl justify-between p-3">
             <Link href="/">
-               <Logo className="my-auto hover:brightness-150" />
+               <Logo className="my-auto hover:text-primary-hover" />
             </Link>
 
             {children}

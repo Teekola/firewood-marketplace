@@ -23,7 +23,7 @@ export default async function RequestOffersLayout({
 
    return (
       <div className="flex h-full flex-col">
-         <p className="mb-3 text-base text-muted-foreground">
+         <p className="mb-3 text-base text-foreground-muted">
             {t("request-offers.Request Offers")}
          </p>
 

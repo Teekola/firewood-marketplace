@@ -88,7 +88,7 @@ export const AcceptedOfferListItem = ({
 
                {/**TODO: ADD BUYER INFORMATION */}
 
-               <p className="mt-2 text-xs text-muted-foreground">
+               <p className="mt-2 text-xs text-foreground-muted">
                   {t("offer.Accepted at")} <RelativeTime date={offer.acceptedAt!} />
                </p>
             </div>

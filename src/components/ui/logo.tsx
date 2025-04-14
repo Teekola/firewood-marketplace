@@ -6,10 +6,7 @@ export function Logo({ ...props }: Readonly<ComponentProps<"div">>) {
    return (
       <div
          {...props}
-         className={cn(
-            "text-secondary-foreground-foreground text-2xl font-extrabold",
-            props.className && props.className
-         )}
+         className={cn("text-2xl font-extrabold text-primary", props.className && props.className)}
       >
          {"Polttopuutori"}
       </div>

@@ -32,7 +32,7 @@ export const RejectedQuotationRequestListItem = forwardRef<
                   deliveryCity={quotationRequest.city}
                />
 
-               <p className="text-sm text-muted-foreground">
+               <p className="text-sm text-foreground-muted">
                   <RelativeTime
                      date={new Date(quotationRequest.updatedAt ?? quotationRequest.createdAt)}
                   />

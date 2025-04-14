@@ -57,17 +57,17 @@ export function QuotationRequestsList() {
       <div className="flex flex-1 flex-col gap-1">
          <div className="flex items-center gap-2">
             {count === 0 && !isFetching && (
-               <p className="text-sm text-muted-foreground">
+               <p className="text-sm text-foreground-muted">
                   {t("quotation-request.There are no pending quotation requests")}
                </p>
             )}
             {count !== undefined && count > 0 && (
-               <p className="text-sm text-muted-foreground">
+               <p className="text-sm text-foreground-muted">
                   {t("pagination.displayed-results", { displayed: requests.length, total: count })}{" "}
                </p>
             )}
             {isFetching && (
-               <p className="animate-pulse text-center text-sm text-muted-foreground">
+               <p className="animate-pulse text-center text-sm text-foreground-muted">
                   {t("pagination.Loading")}
                </p>
             )}

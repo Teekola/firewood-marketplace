@@ -147,7 +147,7 @@ export function CurrencyField() {
                            )}
                         >
                            <SelectValue>
-                              <span className="text-muted-foreground">{symbol}</span>
+                              <span className="text-foreground-muted">{symbol}</span>
                            </SelectValue>
                         </SelectTrigger>
                         <SelectContent>

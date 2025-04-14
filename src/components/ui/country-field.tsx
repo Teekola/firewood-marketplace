@@ -51,8 +51,9 @@ export function CountryField({
                            variant="outline"
                            role="combobox"
                            className={cn(
-                              "w-auto justify-between",
-                              !field.value && "text-muted-foreground"
+                              "w-auto justify-between text-foreground",
+                              "focus-visible:border-primary focus-visible:ring-0",
+                              !field.value && "text-foreground-muted"
                            )}
                            onClick={() => setOpen((prev) => !prev)}
                         >

@@ -36,7 +36,7 @@ export const QuotationRequestListItem = forwardRef<
                   deliveryCity={quotationRequest.city}
                />
 
-               <p className="text-sm text-muted-foreground">
+               <p className="text-sm text-foreground-muted">
                   {quotationRequest.updatedAt
                      ? t("quotation-request.Last updated")
                      : t("quotation-request.Created")}{" "}

@@ -100,17 +100,17 @@ export function RejectedQuotationRequestsList() {
       <div className="flex h-full flex-col gap-1 overflow-hidden">
          <div className="flex items-center gap-2">
             {count === 0 && !isFetching && (
-               <p className="text-sm text-muted-foreground">
+               <p className="text-sm text-foreground-muted">
                   {t("quotation-request.There are no rejected quotation requests")}
                </p>
             )}
             {count !== undefined && count > 0 && (
-               <p className="text-sm text-muted-foreground">
+               <p className="text-sm text-foreground-muted">
                   {t("pagination.displayed-results", { displayed: requests.length, total: count })}{" "}
                </p>
             )}
             {isFetching && (
-               <p className="animate-pulse text-center text-sm text-muted-foreground">
+               <p className="animate-pulse text-center text-sm text-foreground-muted">
                   {t("pagination.Loading")}
                </p>
             )}

@@ -26,7 +26,7 @@ export default async function BuyerFulfilledQuotationRequestsPage() {
          <QuotationRequestList
             status={status}
             emptyState={
-               <p className="text-center text-sm text-muted-foreground">
+               <p className="text-center text-sm text-foreground-muted">
                   {t("quotation-requests.No fulfilled requests")}
                </p>
             }
