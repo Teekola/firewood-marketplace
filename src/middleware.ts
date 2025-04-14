@@ -12,7 +12,6 @@ import {
    protectedPages,
 } from "@/auth/constants";
 import { routing } from "@/i18n/routing";
-import { testPathnameRegex } from "@/lib/utils";
 
 const handleI18nRouting = createMiddleware(routing);
 
@@ -23,10 +22,7 @@ export default auth(async function middleware(req) {
 
    const isSignedIn = !!auth;
 
-   const isProtectedRoute = testPathnameRegex({
-      paths: protectedPages,
-      pathName: nextUrl.pathname,
-   });
+   const isProtectedRoute = protectedPages.has(nextUrl.pathname);
 
    // Redirect to sign in with callback url
    if (isProtectedRoute && !isSignedIn) {
@@ -37,7 +33,7 @@ export default auth(async function middleware(req) {
       return NextResponse.redirect(redirectUrl);
    }
 
-   const isAuthPage = testPathnameRegex({ paths: authPages, pathName: nextUrl.pathname });
+   const isAuthPage = authPages.has(nextUrl.pathname);
 
    // Redirect to callback url or default
    if (isAuthPage && isSignedIn) {
@@ -45,6 +41,7 @@ export default auth(async function middleware(req) {
          nextUrl.searchParams.get(CALLBACK_URL_KEY) ?? DEFAULT_ROUTE,
          nextUrl.origin
       );
+
       return NextResponse.redirect(targetUrl);
    }
 

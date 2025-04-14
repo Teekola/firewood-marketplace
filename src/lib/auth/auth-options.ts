@@ -4,8 +4,9 @@ import { JWT } from "next-auth/jwt";
 
 import { env } from "@/env/server";
 
-import { baseUrl, pages } from "./constants";
+import { pages } from "./constants";
 import { credentialsProvider, googleProvider } from "./providers";
+import { baseUrl } from "./server-only-constants";
 import { UnitSystem } from "./types";
 
 // NOTE: DO NOT IMPORT PRISMA IN THIS FILE, OR IN MIDDLEWARE, OTHERWISE VERCEL DEPLOYMENT FAILS

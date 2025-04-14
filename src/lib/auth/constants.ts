@@ -11,10 +11,8 @@ export const pages = {
 const signInPages = [pages.signIn, "/auth/sign-in/email"];
 const registerPages = ["/auth/register", "/auth/register/email"];
 
-export const authPages = [
-   ...signInPages,
-   ...registerPages,
-   ...getLocalizedPages([...registerPages, ...signInPages]),
-];
+export const authPages = getLocalizedPages([...registerPages, ...signInPages]);
+
 export const protectedPages = getLocalizedPages(protectedRoutes);
+
 export const DEFAULT_ROUTE = "/";

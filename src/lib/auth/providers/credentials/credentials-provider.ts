@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { env } from "@/env/server";
 import { errorSchema } from "@/lib/utils/errors";
 
-import { baseUrl } from "../../constants";
+import { baseUrl } from "../../server-only-constants";
 
 export const credentialsProvider = Credentials({
    id: "email-password",
