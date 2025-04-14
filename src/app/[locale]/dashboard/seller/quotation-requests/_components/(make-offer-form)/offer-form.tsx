@@ -217,12 +217,12 @@ export function OfferForm({
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                            <Calendar
+                              showOutsideDays
                               {...(locale === "fi" && { locale: fi })}
                               mode="single"
                               selected={field.value}
                               onSelect={field.onChange}
                               disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
-                              initialFocus
                            />
                         </PopoverContent>
                      </Popover>
