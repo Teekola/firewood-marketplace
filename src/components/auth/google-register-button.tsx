@@ -10,7 +10,12 @@ import { GoogleLogo } from "./google-logo";
 export function GoogleRegisterButton() {
    const t = useTranslations("auth");
    return (
-      <Button variant="outline" size="lg" onClick={() => signIn("google")}>
+      <Button
+         variant="outline"
+         className="bg-[#fff] font-[Roboto] text-[#1f1f1f] hover:bg-[#efefef]"
+         size="lg"
+         onClick={() => signIn("google")}
+      >
          <GoogleLogo className="mr-2" />
          {t("Register with Google")}
       </Button>
