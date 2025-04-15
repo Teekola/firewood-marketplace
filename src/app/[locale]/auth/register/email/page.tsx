@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BackButtonLink } from "@/components/ui/back-button-link";
-import { Logo } from "@/components/ui/logo";
 import { Link, Locale, routing } from "@/i18n/routing";
 
 import { EmailPasswordRegistrationForm } from "./email-password-registration-form";
@@ -23,8 +22,6 @@ export default async function RegisterWithEmailPage({
    const t = await getTranslations();
    return (
       <>
-         <Logo className="-mt-5 mb-5 text-xl" />
-
          <EmailPasswordRegistrationForm />
          <div className="mt-6 flex flex-wrap-reverse items-center gap-6 xs:gap-2">
             <BackButtonLink label={t("actions.Back")} className="self-start" />

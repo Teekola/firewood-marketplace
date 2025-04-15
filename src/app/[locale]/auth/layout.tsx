@@ -1,5 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 
+import { LanguageDropdown } from "@/components/language-dropdown";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Locale, routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
@@ -20,6 +22,10 @@ export default async function AuthLayout({
       <div className="flex h-screen flex-col items-center justify-center gap-4 bg-background">
          <div className="flex w-full max-w-screen-xs flex-col items-center gap-5 rounded bg-card px-5 py-20 shadow">
             {children}
+         </div>
+         <div className="flex w-full max-w-screen-xs justify-end gap-2">
+            <ThemeToggle />
+            <LanguageDropdown />
          </div>
       </div>
    );

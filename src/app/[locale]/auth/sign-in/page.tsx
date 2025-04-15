@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { SignInOptions } from "@/components/auth/sign-in-options";
-import { Logo } from "@/components/ui/logo";
 import { Link, Locale, routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
@@ -24,7 +23,6 @@ export default async function SignInPage({
 
    return (
       <>
-         <Logo className="-mt-5 mb-5 text-xl" />
          <SignInOptions />
 
          <p className="mt-5 text-sm">

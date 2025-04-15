@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { RegisterOptions } from "@/components/auth/register-options";
-import { Logo } from "@/components/ui/logo";
 import { Link, Locale, routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
@@ -21,8 +20,6 @@ export default async function RegisterPage({
    const t = await getTranslations("auth");
    return (
       <>
-         <Logo className="-mt-5 mb-5 text-xl" />
-
          <RegisterOptions />
          <p className="mt-5 text-right text-sm">
             {t("Already have an account")}
