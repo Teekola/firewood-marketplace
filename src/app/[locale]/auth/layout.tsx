@@ -1,0 +1,26 @@
+import { setRequestLocale } from "next-intl/server";
+
+import { Locale, routing } from "@/i18n/routing";
+
+export function generateStaticParams() {
+   return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function AuthLayout({
+   children,
+   params,
+}: Readonly<{
+   children: React.ReactNode;
+   params: Promise<{ locale: Locale }>;
+}>) {
+   const [{ locale }] = await Promise.all([params]);
+   setRequestLocale(locale);
+
+   return (
+      <div className="flex h-screen flex-col items-center justify-center gap-4 bg-background">
+         <div className="flex w-full max-w-screen-xs flex-col items-center gap-5 rounded bg-card px-5 py-20 shadow">
+            {children}
+         </div>
+      </div>
+   );
+}

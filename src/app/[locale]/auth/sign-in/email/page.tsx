@@ -22,27 +22,25 @@ export default async function RegisterWithEmailPage({
 
    const t = await getTranslations();
    return (
-      <div className="flex h-screen flex-col items-center justify-center gap-4 bg-secondary">
-         <div className="flex w-full max-w-screen-xs flex-col items-center gap-5 rounded bg-card px-5 pb-10 pt-20 shadow">
-            <div className="flex flex-col items-center">
-               <Logo className="-mt-5 mb-5 text-xl" />
-               <h1 className="h2">{t("auth.Sign In")}</h1>
-            </div>
-            <EmailPasswordSignInForm />
-            <div className="mt-6 flex flex-wrap-reverse items-center gap-6 xs:gap-2">
-               <BackButtonLink label={t("actions.Back")} className="self-start" />
-               <p className="text-right text-sm">
-                  {t("auth.New user")}
-                  {"? "}
-                  <Link
-                     href={{ pathname: "/auth/register", query: search }}
-                     className="cursor-pointer underline"
-                  >
-                     {t("auth.Register here")}
-                  </Link>
-               </p>
-            </div>
+      <>
+         <div className="flex flex-col items-center">
+            <Logo className="-mt-5 mb-5 text-xl" />
+            <h1 className="h2">{t("auth.Sign In")}</h1>
          </div>
-      </div>
+         <EmailPasswordSignInForm />
+         <div className="mt-6 flex flex-wrap-reverse items-center gap-6 xs:gap-2">
+            <BackButtonLink label={t("actions.Back")} className="self-start" />
+            <p className="text-right text-sm">
+               {t("auth.New user")}
+               {"? "}
+               <Link
+                  href={{ pathname: "/auth/register", query: search }}
+                  className="cursor-pointer underline"
+               >
+                  {t("auth.Register here")}
+               </Link>
+            </p>
+         </div>
+      </>
    );
 }

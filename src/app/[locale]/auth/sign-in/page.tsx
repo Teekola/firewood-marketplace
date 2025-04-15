@@ -23,22 +23,20 @@ export default async function SignInPage({
    setRequestLocale(locale);
 
    return (
-      <div className="flex h-screen flex-col items-center justify-center gap-4 bg-secondary">
-         <div className="flex w-full max-w-screen-xs flex-col items-center gap-5 rounded bg-card px-5 py-20 shadow">
-            <Logo className="-mt-5 mb-5 text-xl" />
-            <SignInOptions />
+      <>
+         <Logo className="-mt-5 mb-5 text-xl" />
+         <SignInOptions />
 
-            <p className="mt-5 text-sm">
-               {t("New user")}
-               {"? "}
-               <Link
-                  href={{ pathname: "/auth/register", query: search }}
-                  className="cursor-pointer underline"
-               >
-                  {t("Register here")}
-               </Link>
-            </p>
-         </div>
-      </div>
+         <p className="mt-5 text-sm">
+            {t("New user")}
+            {"? "}
+            <Link
+               href={{ pathname: "/auth/register", query: search }}
+               className="cursor-pointer underline"
+            >
+               {t("Register here")}
+            </Link>
+         </p>
+      </>
    );
 }
