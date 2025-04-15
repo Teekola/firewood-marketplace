@@ -44,10 +44,10 @@ export function AbandonRequestDialog({ ...props }: ComponentProps<typeof AlertDi
                   {t("request-offers.abandon-request-description")}
                </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
-               <AlertDialogCancel>{t("actions.Cancel")}</AlertDialogCancel>
+            <AlertDialogFooter className="mt-4">
+               <AlertDialogCancel className="w-full">{t("actions.Cancel")}</AlertDialogCancel>
                <Button asChild variant="destructive">
-                  <AlertDialogAction asChild>
+                  <AlertDialogAction asChild className="w-full">
                      <Button type="button" className="bg-destructive" onClick={handleAbort}>
                         {t("actions.Abandon")}
                      </Button>
