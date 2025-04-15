@@ -128,6 +128,13 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
                label={t("form-labels.Postal code")}
                cityField="city"
                countryField="countryCode"
+               onPostalCodeSelect={({ latitude, longitude }) => {
+                  form.setValue("latitude", latitude, { shouldDirty: true });
+                  form.setValue("longitude", longitude, {
+                     shouldDirty: true,
+                     shouldValidate: true,
+                  });
+               }}
             />
             <FormField
                control={form.control}

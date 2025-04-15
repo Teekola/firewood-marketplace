@@ -98,6 +98,8 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
    const deliveryMethods = form.watch("deliveryMethods");
 
    const canProceed = form.formState.isValid;
+   console.log(form.formState.isValid);
+   console.log(form.getValues());
 
    // This updates the values in the form if the user signs in and has buyer data
    useEffect(() => {
@@ -195,6 +197,13 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
                   label={t("form-labels.Postal code")}
                   cityField="city"
                   countryField="countryCode"
+                  onPostalCodeSelect={({ latitude, longitude }) => {
+                     form.setValue("latitude", latitude, { shouldDirty: true });
+                     form.setValue("longitude", longitude, {
+                        shouldDirty: true,
+                        shouldValidate: true,
+                     });
+                  }}
                />
 
                {deliveryMethods.includes(DeliveryMethod.HOME_DELIVERY) && (
