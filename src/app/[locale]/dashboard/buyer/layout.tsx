@@ -33,7 +33,7 @@ export default async function BuyerDashboardLayout({
             <p className="text-2xl font-bold leading-tight">{t("Buyer Dashboard")}</p>
          </header>
          <div className="flex h-full gap-12">
-            <aside className="hidden w-64 md:block 2xl:-mx-4">
+            <aside className="hidden md:block 2xl:-mx-4">
                <SidebarNav items={sidebarNavItems} />
             </aside>
             {children}
