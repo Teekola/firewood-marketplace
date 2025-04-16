@@ -1,56 +1,30 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { ComponentProps, Fragment, useState } from "react";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { ArrowUpDownIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useInView } from "react-intersection-observer";
 
+import { SortButton } from "@/app/[locale]/dashboard/buyer/quotation-requests/id/[id]/_components/offer-list/sort-button";
+import { useInfiniteScroll } from "@/components/infinite-list/_hooks/use-infinite-scroll";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-   Select,
-   SelectContent,
-   SelectItem,
-   SelectTrigger,
-   SelectValue,
-} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { OfferDTO } from "@/db/offer";
+import { cn } from "@/lib/utils";
 import { SortOrder } from "@/lib/utils/types";
 
 import { useUpdateSellerLastSeen } from "../../(hooks)/use-update-seller-last-seen";
-import { getActiveOffersForSeller } from "../actions";
-import { sellerOffersQueryKey } from "../constants";
+import { getOffersInfiniteQueryOptions } from "../query-options";
 import { OfferListItem } from "./offer-list-item";
 
-const limit = 10;
-export function OfferList() {
+export function OfferListContainer() {
    const t = useTranslations();
-   const { ref, inView } = useInView();
    const [sortOrder, setSortOrder] = useState<SortOrder>("newest-first");
-
    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-      useInfiniteQuery({
-         queryKey: [...sellerOffersQueryKey, { sort: sortOrder, limit }],
-         queryFn: ({ pageParam }: { pageParam: string | null }) =>
-            getActiveOffersForSeller({ cursor: pageParam, limit, sort: sortOrder }),
-         getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
-         initialPageParam: null,
-         refetchInterval: 30 * 1000,
-         staleTime: 15 * 1000,
-      });
+      useInfiniteQuery(getOffersInfiniteQueryOptions({ sortOrder }));
 
-   // Fetch next page when the last item is in view
-   useEffect(() => {
-      if (inView && hasNextPage && !isFetchingNextPage) {
-         fetchNextPage();
-      }
-   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-   const count = data?.pages[0].count;
-   const offers = useMemo(() => data?.pages.flatMap((page) => page.offers) ?? [], [data]);
-
-   const { useTrackOfferVisibility } = useUpdateSellerLastSeen();
+   const offers = data?.offers ?? [];
+   const count = data?.count ?? 0;
 
    if (error) {
       return <p>{error.message}</p>;
@@ -58,67 +32,110 @@ export function OfferList() {
 
    return (
       <div className="flex flex-1 flex-col gap-1">
-         <div className="flex items-center gap-2">
-            {count === 0 && !isFetching && (
-               <p className="text-sm text-foreground-muted">
-                  {t("offer.There are no active offers")}
-               </p>
-            )}
-            {count !== undefined && count > 0 && (
-               <p className="text-sm text-foreground-muted">
-                  {t("pagination.displayed-results", { displayed: offers.length, total: count })}{" "}
-               </p>
-            )}
-            {isFetching && (
-               <p className="animate-pulse text-center text-sm text-foreground-muted">
-                  {t("pagination.Loading")}
-               </p>
-            )}
-
-            <Select value={sortOrder} onValueChange={(value) => setSortOrder(value as SortOrder)}>
-               <SelectTrigger
-                  className="m-1 ml-auto max-w-32"
-                  icon={<ArrowUpDownIcon className="h-4 w-4 opacity-50" />}
-               >
-                  <SelectValue asChild>
-                     <p>{t(`sorting.${sortOrder}`)}</p>
-                  </SelectValue>
-               </SelectTrigger>
-               <SelectContent>
-                  <SelectItem value="newest-first">{t("sorting.newest-first")}</SelectItem>
-                  <SelectItem value="oldest-first">{t("sorting.oldest-first")}</SelectItem>
-               </SelectContent>
-            </Select>
-         </div>
-         <ScrollArea className="min-h-64">
-            <ul className="flex min-h-20 w-full flex-col gap-1 pr-3">
-               {isFetching && offers.length === 0 && (
-                  <>
-                     <Skeleton className="h-[106px] w-full min-w-10" />
-                     <Skeleton className="h-[106px] w-full min-w-10" />
-                     <Skeleton className="h-[106px] w-full min-w-10" />
-                     <Skeleton className="h-[106px] w-full min-w-10" />
-                     <Skeleton className="h-[106px] w-full min-w-10" />
-                  </>
-               )}
-               {offers.map((offer, index) => {
-                  const isLast = index === offers.length - 1;
-                  return (
-                     <Fragment key={offer.id}>
-                        <OfferListItem
-                           offer={offer}
-                           useTrackOfferVisibility={useTrackOfferVisibility}
-                        />
-                        {isLast && <div ref={ref}></div>}
-                     </Fragment>
-                  );
-               })}
-            </ul>
-         </ScrollArea>
+         <OfferListHeader
+            count={count}
+            offersLength={offers.length}
+            isFetching={isFetching}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+         />
+         <OfferList
+            offers={offers}
+            fetchNextPage={fetchNextPage}
+            isFetching={isFetching}
+            isFetchingNextPage={isFetchingNextPage}
+            hasNextPage={hasNextPage}
+         />
 
          {isFetchingNextPage && (
             <p className="animate-pulse py-4 text-center text-sm">{t("pagination.Loading")}</p>
          )}
       </div>
+   );
+}
+
+interface OfferListHeaderProps {
+   count: number;
+   offersLength: number;
+   isFetching: boolean;
+   sortOrder: SortOrder;
+   setSortOrder: (sortOrder: SortOrder) => void;
+}
+
+function OfferListHeader({
+   count,
+   offersLength,
+   isFetching,
+   sortOrder,
+   setSortOrder,
+}: OfferListHeaderProps) {
+   const t = useTranslations();
+
+   return (
+      <div className="flex items-center gap-2">
+         {count === 0 && !isFetching && (
+            <p className="text-sm text-foreground-muted">{t("offer.There are no active offers")}</p>
+         )}
+         {count > 0 && (
+            <p className="text-sm text-foreground-muted">
+               {t("pagination.displayed-results", { displayed: offersLength, total: count })}
+            </p>
+         )}
+         {isFetching && (
+            <p className="animate-pulse text-center text-sm text-foreground-muted">
+               {t("pagination.Loading")}
+            </p>
+         )}
+
+         <SortButton sortOrder={sortOrder} setSortOrder={setSortOrder} />
+      </div>
+   );
+}
+
+interface OfferListProps extends ComponentProps<typeof ScrollArea> {
+   offers: OfferDTO[];
+   isFetching?: boolean;
+   fetchNextPage: () => void;
+   hasNextPage?: boolean;
+   isFetchingNextPage?: boolean;
+}
+function OfferList({
+   offers,
+   isFetching,
+   isFetchingNextPage,
+   hasNextPage,
+   className,
+   fetchNextPage,
+   ...props
+}: OfferListProps) {
+   const { useTrackOfferVisibility } = useUpdateSellerLastSeen();
+   const { ref } = useInfiniteScroll({ fetchNextPage, hasNextPage, isFetchingNextPage });
+
+   return (
+      <ScrollArea {...props} className={cn("min-h-64", className)}>
+         <ul className="flex min-h-20 w-full flex-col gap-1 pr-3">
+            {isFetching && offers.length === 0 && (
+               <>
+                  <Skeleton className="h-[106px] w-full min-w-10" />
+                  <Skeleton className="h-[106px] w-full min-w-10" />
+                  <Skeleton className="h-[106px] w-full min-w-10" />
+                  <Skeleton className="h-[106px] w-full min-w-10" />
+                  <Skeleton className="h-[106px] w-full min-w-10" />
+               </>
+            )}
+            {offers.map((offer, index) => {
+               const isLast = index === offers.length - 1;
+               return (
+                  <Fragment key={offer.id}>
+                     <OfferListItem
+                        offer={offer}
+                        useTrackOfferVisibility={useTrackOfferVisibility}
+                     />
+                     {isLast && <div ref={ref}></div>}
+                  </Fragment>
+               );
+            })}
+         </ul>
+      </ScrollArea>
    );
 }

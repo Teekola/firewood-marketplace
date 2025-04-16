@@ -20,10 +20,8 @@ import { Button } from "@/components/ui/button";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { useRouter } from "@/i18n/routing";
 
-import {
-   sellerQuotationRequestsQueryKey,
-   sellerRejectedQuotationRequestsQueryKey,
-} from "../../quotation-requests/constants";
+import { sellerQuotationRequestsQueryKey } from "../../quotation-requests/_components/pending-quotation-request-list/query-options";
+import { sellerRejectedQuotationRequestsQueryKey } from "../../quotation-requests/constants";
 import { sellerUnseenQuotationRequestsQueryKey } from "../quotation-request-sidebar-nav-indicator/constants";
 import { deactivateSeller } from "./actions";
 

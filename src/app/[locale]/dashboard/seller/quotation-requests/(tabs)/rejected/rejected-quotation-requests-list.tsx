@@ -18,11 +18,9 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortOrder } from "@/lib/utils/types";
 
+import { sellerQuotationRequestsQueryKey } from "../../_components/pending-quotation-request-list/query-options";
 import { getRejectedQuotationRequestsForSeller, restoreQuotationRequest } from "../../actions";
-import {
-   sellerQuotationRequestsQueryKey,
-   sellerRejectedQuotationRequestsQueryKey,
-} from "../../constants";
+import { sellerRejectedQuotationRequestsQueryKey } from "../../constants";
 import { RejectedQuotationRequestListItem } from "./rejected-quotation-request-list-item";
 
 export function RejectedQuotationRequestsList() {

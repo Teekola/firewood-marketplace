@@ -1,28 +1,34 @@
 "use client";
 
-import { forwardRef } from "react";
-
 import { useTranslations } from "next-intl";
 
+import { TUseTrackViewing } from "@/components/infinite-list/types";
 import { ShortDeliveryDetails } from "@/components/quotation-request/short-delivery-details";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { RelativeTime } from "@/components/ui/relative-time";
-import { QuotationRequest } from "@/db/quotation-request";
 import { Link, Pathname } from "@/i18n/routing";
 
-import { QuotationRequestTitle } from "../../../_components/quotation-request-title";
+import { QuotationRequestTitle } from "../../../../_components/quotation-request-title";
+import { SellerQuotationRequest } from "./query-options";
 
-export const QuotationRequestListItem = forwardRef<
-   HTMLLIElement,
-   Readonly<{ quotationRequest: QuotationRequest; isNew?: boolean }>
->(({ quotationRequest, isNew }, ref) => {
+export function PendingQuotationRequestListItem({
+   data: sellerQuotationRequest,
+   useTrackViewing,
+}: Readonly<{ data: SellerQuotationRequest; useTrackViewing: TUseTrackViewing }>) {
    const t = useTranslations();
+   const trackingRef = useTrackViewing(sellerQuotationRequest.id);
 
+   const { quotationRequest } = sellerQuotationRequest;
    const linkPathname: Pathname = "/dashboard/seller/quotation-requests/id/[id]";
+   const isNew =
+      !sellerQuotationRequest.lastViewedAt ||
+      sellerQuotationRequest.lastViewedAt <
+         (sellerQuotationRequest.quotationRequest.updatedAt ??
+            sellerQuotationRequest.quotationRequest.createdAt);
 
    return (
-      <li ref={ref}>
+      <li ref={trackingRef}>
          <Card className="relative flex flex-col justify-between gap-4 p-4 xs:flex-row">
             <div className="flex flex-col gap-2">
                <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
@@ -60,5 +66,4 @@ export const QuotationRequestListItem = forwardRef<
          </Card>
       </li>
    );
-});
-QuotationRequestListItem.displayName = "QuotationRequestListItem";
+}

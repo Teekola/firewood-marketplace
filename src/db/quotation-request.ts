@@ -332,3 +332,10 @@ export const addAllSuitableQuotationRequestsForSeller = async ({
 
    return created.count;
 };
+
+export async function viewSellerQuotationRequests(ids: string[]) {
+   await prisma.sellerQuotationRequest.updateMany({
+      where: { id: { in: ids } },
+      data: { lastViewedAt: new Date() },
+   });
+}
