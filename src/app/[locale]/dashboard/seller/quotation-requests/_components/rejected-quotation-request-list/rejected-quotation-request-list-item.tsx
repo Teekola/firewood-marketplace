@@ -40,8 +40,8 @@ export function RejectedQuotationRequestListItem({
          });
       } catch (error) {
          console.error(error);
+         setIsRestoring(false);
       }
-      setIsRestoring(false);
    }
 
    return (
