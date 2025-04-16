@@ -12,7 +12,7 @@ export default async function SellerInformationPage() {
    return (
       <div>
          <header>
-            <h1 className="h3">{t("Seller Location")}</h1>
+            <h1 className="h1 md:h3">{t("Seller Location")}</h1>
             <p className="mt-2">
                {t("Define location settings These affect the offers you receive")}
             </p>
