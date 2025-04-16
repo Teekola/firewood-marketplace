@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { QuotationRequest } from "@/db/quotation-request";
+import { SellerQuotationRequest } from "@/db/quotation-request";
 import { SellerLocation } from "@/db/seller-location";
 import { usePathname, useRouter } from "@/i18n/routing";
 
@@ -20,12 +20,12 @@ const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]/make-offer";
 
 export default function MakeOfferDialog({
    isOpen,
-   quotationRequest,
+   sellerQuotationRequest,
    sellerLocation,
    autoFocus,
 }: Readonly<{
    isOpen: boolean;
-   quotationRequest: QuotationRequest | null;
+   sellerQuotationRequest: SellerQuotationRequest | null;
    sellerLocation: SellerLocation;
    autoFocus?: boolean;
 }>) {
@@ -39,14 +39,14 @@ export default function MakeOfferDialog({
       if (pathname !== DIALOG_ROUTE) setOpen(false);
    }, [pathname]);
 
-   if (!quotationRequest) return null;
+   if (!sellerQuotationRequest) return null;
 
    const handleClose = () => {
-      router.push({ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: quotationRequest.id } });
+      router.push({ pathname: DIALOG_PREVIOUS_ROUTE, params: { id: sellerQuotationRequest.id } });
    };
 
    const handleSubmit = async (data: OfferFormData) => {
-      await createOffer({ quotationRequestId: quotationRequest.id, ...data });
+      await createOffer({ quotationRequestId: sellerQuotationRequest.quotationRequestId, ...data });
       router.push("/dashboard/seller/quotation-requests");
    };
 
@@ -68,7 +68,9 @@ export default function MakeOfferDialog({
 
             <ScrollArea>
                <div className="mb-4 border-b pb-4 pl-1 pr-3">
-                  <ShortQuotationRequestDetails quotationRequest={quotationRequest} />
+                  <ShortQuotationRequestDetails
+                     quotationRequest={sellerQuotationRequest.quotationRequest}
+                  />
                </div>
                <OfferForm
                   className="mr-4 pl-1"
@@ -81,10 +83,12 @@ export default function MakeOfferDialog({
                   }}
                   cancelHref={{
                      pathname: DIALOG_PREVIOUS_ROUTE,
-                     params: { id: quotationRequest.id },
+                     params: { id: sellerQuotationRequest.id },
                   }}
                   countryCode={sellerLocation.countryCode}
-                  quotationRequestDeliveryMethods={quotationRequest.deliveryMethods}
+                  quotationRequestDeliveryMethods={
+                     sellerQuotationRequest.quotationRequest.deliveryMethods
+                  }
                   handleSubmit={handleSubmit}
                />
             </ScrollArea>

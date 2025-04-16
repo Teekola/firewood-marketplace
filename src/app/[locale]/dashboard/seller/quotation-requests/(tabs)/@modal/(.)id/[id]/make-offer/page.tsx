@@ -1,4 +1,4 @@
-import { getQuotationRequest } from "@/db/quotation-request";
+import { getSellerQuotationRequest } from "@/db/quotation-request";
 import { authWithSeller } from "@/lib/auth/auth";
 
 import MakeOfferDialog from "../../../../make-offer-dialog";
@@ -7,7 +7,7 @@ export default async function QuotationRequestPage({
    params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
    const { id } = await params;
-   const quotationRequest = await getQuotationRequest({ id });
+   const sellerQuotationRequest = await getSellerQuotationRequest({ id });
    const auth = await authWithSeller();
 
    if (!auth) return null;
@@ -21,7 +21,7 @@ export default async function QuotationRequestPage({
    return (
       <MakeOfferDialog
          isOpen={true}
-         quotationRequest={quotationRequest}
+         sellerQuotationRequest={sellerQuotationRequest}
          sellerLocation={auth.seller.location}
       />
    );
