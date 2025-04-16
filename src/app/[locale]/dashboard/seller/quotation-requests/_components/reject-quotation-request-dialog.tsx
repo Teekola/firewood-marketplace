@@ -22,11 +22,11 @@ import { useRouter } from "@/i18n/routing";
 import { rejectQuotationRequest } from "../actions";
 
 interface RejectQuotationRequestDialogProps extends ComponentProps<typeof AlertDialogTrigger> {
-   quotationRequestId: string;
+   sellerQuotationRequestId: string;
 }
 
 export function RejectQuotationRequestDialog({
-   quotationRequestId,
+   sellerQuotationRequestId,
    ...props
 }: RejectQuotationRequestDialogProps) {
    const t = useTranslations();
@@ -37,7 +37,7 @@ export function RejectQuotationRequestDialog({
    async function handleReject(e: React.MouseEvent<HTMLButtonElement>) {
       e.preventDefault();
       setIsLoading(true);
-      await rejectQuotationRequest(quotationRequestId);
+      await rejectQuotationRequest(sellerQuotationRequestId);
       // TODO: Display a toast informing that the request was rejected
       router.push("/dashboard/seller/quotation-requests");
    }

@@ -21,7 +21,7 @@ import { ButtonLoading } from "@/components/ui/button-loading";
 import { useRouter } from "@/i18n/routing";
 
 import { sellerQuotationRequestsQueryKey } from "../../quotation-requests/_components/pending-quotation-request-list/query-options";
-import { sellerRejectedQuotationRequestsQueryKey } from "../../quotation-requests/constants";
+import { sellerRejectedQuotationRequestsQueryKey } from "../../quotation-requests/_components/rejected-quotation-request-list/query-options";
 import { sellerUnseenQuotationRequestsQueryKey } from "../quotation-request-sidebar-nav-indicator/constants";
 import { deactivateSeller } from "./actions";
 

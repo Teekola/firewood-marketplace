@@ -9,6 +9,7 @@ import {
    getRejectedQuotationRequestCountBySellerId,
    getRejectedQuotationRequestsBySellerIdPaginated,
    updateSellerQuotationRequestStatus,
+   updateSellerQuotationRequestStatusBySellerIdAndQuotationRequestId,
    updateSellerQuotationRequestViewedAt,
 } from "@/db/quotation-request";
 import { authWithSeller, getAuthorizedSeller } from "@/lib/auth/auth";
@@ -76,29 +77,19 @@ export async function getRejectedQuotationRequestsForSeller({
    return { requests, nextCursor, count };
 }
 
-export async function rejectQuotationRequest(quotationRequestId: string) {
-   const { seller } = await getAuthorizedSeller();
+export async function rejectQuotationRequest(sellerQuotationRequestId: string) {
    return await updateSellerQuotationRequestStatus({
-      sellerId: seller.id,
-      quotationRequestId,
+      sellerQuotationRequestId,
       status: SellerQuotationRequestStatus.REJECTED,
    });
 }
 
-export async function restoreQuotationRequest(quotationRequestId: string) {
-   const { seller } = await getAuthorizedSeller();
-   return await updateSellerQuotationRequestStatus({
-      sellerId: seller.id,
-      quotationRequestId,
-      status: SellerQuotationRequestStatus.PENDING,
-   });
-}
 export async function createOffer(data: Omit<CreateOfferArgs, "sellerId">) {
    const { seller } = await getAuthorizedSeller();
 
    const [offer] = await Promise.all([
       createOfferDB({ ...data, sellerId: seller.id }),
-      updateSellerQuotationRequestStatus({
+      updateSellerQuotationRequestStatusBySellerIdAndQuotationRequestId({
          sellerId: seller.id,
          quotationRequestId: data.quotationRequestId,
          status: SellerQuotationRequestStatus.OFFER_SENT,

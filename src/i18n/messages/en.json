@@ -241,7 +241,8 @@
     "Show details": "Show Details",
     "delete-quotation-request-description": "By deleting the quotation request, all the offers will be deleted too. This action can not be reverted. Are you sure you want to continue?",
     "Quotation Request Details": "Quotation Request Details",
-    "Created": "Created"
+    "Created": "Created",
+    "reject-request-description": "Rejected quotation requests are transferred to the \"Rejected\" tab. Rejected requests can be returned to the \"Active\" tab. Rejected requests are automatically deleted after 30 days."
   },
   "offer": {
     "Price": "Price",

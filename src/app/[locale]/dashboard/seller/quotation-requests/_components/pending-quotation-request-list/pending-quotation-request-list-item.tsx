@@ -31,7 +31,7 @@ export function PendingQuotationRequestListItem({
       <li ref={trackingRef}>
          <Card className="relative flex flex-col justify-between gap-4 p-4 xs:flex-row">
             <div className="flex flex-col gap-2">
-               <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
+               <Link href={{ pathname: linkPathname, params: { id: sellerQuotationRequest.id } }}>
                   <CardTitle className="text-left font-bold hover:underline">
                      <QuotationRequestTitle quotationRequest={quotationRequest} />
                   </CardTitle>
@@ -58,7 +58,9 @@ export function PendingQuotationRequestListItem({
                   </p>
                )}
                <Button asChild variant="outline" className="my-auto">
-                  <Link href={{ pathname: linkPathname, params: { id: quotationRequest.id } }}>
+                  <Link
+                     href={{ pathname: linkPathname, params: { id: sellerQuotationRequest.id } }}
+                  >
                      {t("View")}
                   </Link>
                </Button>

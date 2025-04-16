@@ -153,6 +153,17 @@ export const getQuotationRequest = async ({ id }: { id: string }) => {
    return await prisma.quotationRequest.findUnique({ where: { id } });
 };
 
+export const getSellerQuotationRequest = async ({ id }: { id: string }) => {
+   return await prisma.sellerQuotationRequest.findUnique({
+      where: { id },
+      include: { quotationRequest: true },
+   });
+};
+
+export type SellerQuotationRequest = NonNullable<
+   Awaited<ReturnType<typeof getSellerQuotationRequest>>
+>;
+
 export const getQuotationRequestWithAcceptedOffer = async ({ id }: { id: string }) => {
    const quotationRequest = await prisma.quotationRequest.findUnique({
       where: { id },
@@ -237,15 +248,33 @@ export const createQuotationRequest = async ({
 
 export interface UpdateSellerQuotationRequestStatusArgs {
    status: SellerQuotationRequestStatus;
-   quotationRequestId: string;
-   sellerId: string;
+   sellerQuotationRequestId: string;
 }
 
 export const updateSellerQuotationRequestStatus = async ({
    status,
-   quotationRequestId,
-   sellerId,
+   sellerQuotationRequestId,
 }: UpdateSellerQuotationRequestStatusArgs) => {
+   const result = await prisma.sellerQuotationRequest.update({
+      where: {
+         id: sellerQuotationRequestId,
+      },
+      data: {
+         status,
+      },
+   });
+   return result;
+};
+
+export const updateSellerQuotationRequestStatusBySellerIdAndQuotationRequestId = async ({
+   status,
+   sellerId,
+   quotationRequestId,
+}: {
+   status: SellerQuotationRequestStatus;
+   sellerId: string;
+   quotationRequestId: string;
+}) => {
    const result = await prisma.sellerQuotationRequest.update({
       where: {
          quotationRequestId_sellerId: {

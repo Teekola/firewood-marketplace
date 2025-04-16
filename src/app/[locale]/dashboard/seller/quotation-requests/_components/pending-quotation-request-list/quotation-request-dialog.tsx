@@ -7,23 +7,22 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
-import { QuotationRequest } from "@/db/quotation-request";
+import { SellerQuotationRequest } from "@/db/quotation-request";
 import { usePathname, useRouter } from "@/i18n/routing";
 import { Link } from "@/i18n/routing";
 
-import { useUpdateQuotationRequestViewedAt } from "../(hooks)/use-update-quotation-request-viewed-at";
-import QuotationRequestDetails from "../../../../../../components/quotation-request/quotation-request-details";
-import { RejectQuotationRequestDialog } from "../_components/reject-quotation-request-dialog";
+import QuotationRequestDetails from "../../../../../../../components/quotation-request/quotation-request-details";
+import { RejectQuotationRequestDialog } from "../reject-quotation-request-dialog";
 
 const DIALOG_PREVIOUS_ROUTE = "/dashboard/seller/quotation-requests";
 const DIALOG_ROUTE = "/dashboard/seller/quotation-requests/id/[id]";
 
 export default function QuotationRequestDialog({
    isOpen,
-   quotationRequest,
+   sellerQuotationRequest,
 }: Readonly<{
    isOpen: boolean;
-   quotationRequest: QuotationRequest | null;
+   sellerQuotationRequest: SellerQuotationRequest | null;
 }>) {
    const router = useRouter();
    const t = useTranslations();
@@ -39,9 +38,9 @@ export default function QuotationRequestDialog({
       if (pathname !== DIALOG_ROUTE) setOpen(false);
    }, [pathname]);
 
-   useUpdateQuotationRequestViewedAt({ quotationRequestId: quotationRequest?.id });
+   if (!sellerQuotationRequest) return null;
 
-   if (!quotationRequest) return null;
+   const { quotationRequest } = sellerQuotationRequest;
    return (
       <Dialog open={open} onOpenChange={handleClose}>
          <DialogContent>
@@ -59,14 +58,14 @@ export default function QuotationRequestDialog({
                   <Link
                      href={{
                         pathname: "/dashboard/seller/quotation-requests/id/[id]/make-offer",
-                        params: { id: quotationRequest.id },
+                        params: { id: sellerQuotationRequest.id },
                      }}
                   >
                      {t("quotation-request.Make offer")}
                   </Link>
                </Button>
                <RejectQuotationRequestDialog
-                  quotationRequestId={quotationRequest.id}
+                  sellerQuotationRequestId={sellerQuotationRequest.id}
                   className="w-full"
                />
             </div>

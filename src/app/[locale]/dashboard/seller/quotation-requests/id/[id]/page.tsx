@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation";
 
-import { getQuotationRequest } from "@/db/quotation-request";
+import { getSellerQuotationRequest } from "@/db/quotation-request";
 
-import QuotationRequestDialog from "../../(tabs)/quotation-request-dialog";
+import QuotationRequestDialog from "../../_components/pending-quotation-request-list/quotation-request-dialog";
 
 export default async function QuotationRequestPage({
    params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
    const { id } = await params;
-   const quotationRequest = await getQuotationRequest({ id });
+   const sellerQuotationRequest = await getSellerQuotationRequest({ id });
 
-   if (!quotationRequest) return notFound();
+   if (!sellerQuotationRequest) return notFound();
 
-   return <QuotationRequestDialog isOpen={true} quotationRequest={quotationRequest} />;
+   return <QuotationRequestDialog isOpen={true} sellerQuotationRequest={sellerQuotationRequest} />;
 }

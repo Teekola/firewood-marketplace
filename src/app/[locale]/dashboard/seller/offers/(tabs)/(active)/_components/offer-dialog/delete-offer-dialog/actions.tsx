@@ -3,7 +3,7 @@
 import { Prisma, SellerQuotationRequestStatus } from "@prisma/client";
 
 import { deleteOfferById } from "@/db/offer";
-import { updateSellerQuotationRequestStatus } from "@/db/quotation-request";
+import { updateSellerQuotationRequestStatusBySellerIdAndQuotationRequestId } from "@/db/quotation-request";
 import { getAuthorizedSeller } from "@/lib/auth/auth";
 
 export async function deleteOffer({
@@ -16,7 +16,7 @@ export async function deleteOffer({
    const { seller } = await getAuthorizedSeller();
 
    try {
-      await updateSellerQuotationRequestStatus({
+      await updateSellerQuotationRequestStatusBySellerIdAndQuotationRequestId({
          quotationRequestId,
          status: SellerQuotationRequestStatus.PENDING,
          sellerId: seller.id,
