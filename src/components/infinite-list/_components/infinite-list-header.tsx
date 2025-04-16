@@ -25,7 +25,7 @@ export function InfiniteListHeader({
    return (
       <div className="flex items-center gap-2">
          {totalCount === 0 && !isFetching && (
-            <p className="text-sm text-foreground-muted">{t("offer.There are no active offers")}</p>
+            <p className="text-sm text-foreground-muted">{t("pagination.empty")}</p>
          )}
          {totalCount > 0 && (
             <p className="text-sm text-foreground-muted">
