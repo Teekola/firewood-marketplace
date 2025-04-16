@@ -41,7 +41,7 @@ export default async function SellerDashboardLayout({
             {!seller.seller?.isActive ? <ActivateSellerDialog /> : <DeactivateSellerDialog />}
          </header>
          <div className="flex h-full gap-12">
-            <aside className="hidden w-64 md:block 2xl:-mx-4">
+            <aside className="hidden md:block 2xl:-mx-4">
                <SidebarNav items={sidebarNavItems} />
             </aside>
             {children}
