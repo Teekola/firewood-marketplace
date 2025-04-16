@@ -9,16 +9,24 @@ import { SortOrder } from "@/lib/utils/types";
 import { ObjectWithId, TQueryOptions } from "../types";
 
 interface UseInfiniteListArgs<T extends ObjectWithId> {
-   queryOptions: TQueryOptions<T>;
+   getQueryOptions: ({
+      sortOrder,
+      limit,
+   }: {
+      sortOrder: SortOrder;
+      limit: number;
+   }) => TQueryOptions<T>;
    defaultSortOrder: SortOrder;
+   defaultLimit: number;
 }
 export function useInfiniteList<T extends ObjectWithId>({
-   queryOptions,
+   getQueryOptions,
    defaultSortOrder,
+   defaultLimit,
 }: UseInfiniteListArgs<T>) {
    const [sortOrder, setSortOrder] = useState<SortOrder>(defaultSortOrder);
    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-      useInfiniteQuery(queryOptions);
+      useInfiniteQuery(getQueryOptions({ sortOrder, limit: defaultLimit }));
 
    return {
       sortOrder,

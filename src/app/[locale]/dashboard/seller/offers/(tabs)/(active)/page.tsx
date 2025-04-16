@@ -1,7 +1,7 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
-import { OfferListContainer } from "./_components/offer-list";
-import { getOffersInfiniteQueryOptions } from "./query-options";
+import { OfferList } from "./_components/offer-list";
+import { getOffersInfiniteQueryOptions } from "./_components/offer-list/query-options";
 
 export default async function SellerActiveOffersPage() {
    const queryClient = new QueryClient();
@@ -9,7 +9,7 @@ export default async function SellerActiveOffersPage() {
 
    return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-         <OfferListContainer />
+         <OfferList />
       </HydrationBoundary>
    );
 }

@@ -19,18 +19,19 @@ export function getOffersInfiniteQueryOptions({
 }): UseInfiniteQueryOptions<
    Page,
    Error,
-   { offers: OfferDTO[]; count: number },
+   { items: OfferDTO[]; count: number },
    Page,
    QueryKey,
    string | null
 > {
    return {
       queryKey: ["seller-offers", { sortOrder, limit }],
-      queryFn: ({ pageParam = null }) => getActiveOffersForSeller({ cursor: pageParam, limit }),
+      queryFn: ({ pageParam = null }) =>
+         getActiveOffersForSeller({ cursor: pageParam, limit, sort: sortOrder }),
       initialPageParam: null,
       getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
       select: (data) => ({
-         offers: data.pages.flatMap((p) => p.offers),
+         items: data.pages.flatMap((p) => p.offers),
          count: data.pages[0]?.count ?? 0,
       }),
       refetchInterval: 30_000,

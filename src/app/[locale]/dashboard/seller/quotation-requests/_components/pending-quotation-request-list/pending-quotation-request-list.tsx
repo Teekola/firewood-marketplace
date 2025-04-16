@@ -24,7 +24,7 @@ export function PendingQuotationRequestList() {
 
    return (
       <InfiniteList<SellerQuotationRequest>
-         queryOptions={getQuotationRequestsInfiniteQueryOptions({})}
+         getQueryOptions={getQuotationRequestsInfiniteQueryOptions}
          ListItemComponent={PendingQuotationRequestListItem}
          viewItems={viewItems}
       />

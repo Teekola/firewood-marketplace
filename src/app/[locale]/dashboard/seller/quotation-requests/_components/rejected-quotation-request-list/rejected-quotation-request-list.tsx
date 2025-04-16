@@ -15,7 +15,7 @@ async function viewItems(ids: string[]) {
 export function RejectedQuotationRequestList() {
    return (
       <InfiniteList<SellerQuotationRequest>
-         queryOptions={getRejectedQuotationRequestsInfiniteQueryOptions({})}
+         getQueryOptions={getRejectedQuotationRequestsInfiniteQueryOptions}
          ListItemComponent={RejectedQuotationRequestListItem}
          viewItems={viewItems}
       />

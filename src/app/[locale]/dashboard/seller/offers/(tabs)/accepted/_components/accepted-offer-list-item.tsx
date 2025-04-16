@@ -13,18 +13,18 @@ import { currencyConfigs } from "@/i18n/constants/currencies";
 import { cn } from "@/lib/utils";
 
 interface AcceptedOfferListItemProps extends ComponentProps<"li"> {
-   offer: OfferDTO;
-   useTrackOfferVisibility: (offerId: string) => (node?: Element | null) => void;
+   data: OfferDTO;
+   useTrackViewing: (offerId: string) => (node?: Element | null) => void;
 }
 
 export const AcceptedOfferListItem = ({
-   offer,
-   useTrackOfferVisibility,
+   data: offer,
+   useTrackViewing,
    ...props
 }: Readonly<AcceptedOfferListItemProps>) => {
    const t = useTranslations();
 
-   const visibilityRef = useTrackOfferVisibility(offer.id);
+   const visibilityRef = useTrackViewing(offer.id);
 
    const quotationRequest = offer.quotationRequest;
 

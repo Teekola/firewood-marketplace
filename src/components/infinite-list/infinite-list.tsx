@@ -10,18 +10,27 @@ import { useInfiniteList } from "./_hooks/use-infinite-list";
 import { ObjectWithId, TListItemComponent, TQueryOptions, TViewItemsFn } from "./types";
 
 const DEFAULT_SORT_ORDER: SortOrder = "newest-first";
+const DEFAULT_LIMIT: number = 10;
 
 interface InfiniteListProps<T extends ObjectWithId> {
-   queryOptions: TQueryOptions<T>;
+   getQueryOptions: ({
+      sortOrder,
+      limit,
+   }: {
+      sortOrder: SortOrder;
+      limit: number;
+   }) => TQueryOptions<T>;
    ListItemComponent: TListItemComponent<T>;
    viewItems: TViewItemsFn;
    defaultSortOrder?: SortOrder;
+   defaultLimit?: number;
 }
 export function InfiniteList<T extends ObjectWithId>({
-   queryOptions,
+   getQueryOptions,
    ListItemComponent,
    viewItems,
    defaultSortOrder = DEFAULT_SORT_ORDER,
+   defaultLimit = DEFAULT_LIMIT,
 }: InfiniteListProps<T>) {
    const {
       sortOrder,
@@ -31,7 +40,7 @@ export function InfiniteList<T extends ObjectWithId>({
       fetchNextPage,
       isFetchingNextPage,
       hasNextPage,
-   } = useInfiniteList<T>({ queryOptions, defaultSortOrder });
+   } = useInfiniteList<T>({ getQueryOptions, defaultSortOrder, defaultLimit });
    const t = useTranslations();
    const items = data?.items ?? [];
    const count = data?.count ?? 0;
