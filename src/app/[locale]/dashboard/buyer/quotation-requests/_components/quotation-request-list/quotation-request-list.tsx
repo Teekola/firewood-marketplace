@@ -21,7 +21,7 @@ export function QuotationRequestList({
          ListItemComponent={QuotationRequestListItem}
          emptyStateComponent={emptyStateComponent}
          loadingStateComponent={
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
                {Array.from({ length: 3 }).map((_, index) => (
                   <Skeleton key={index} className="h-[106.5px] w-full" />
                ))}
