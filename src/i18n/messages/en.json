@@ -365,5 +365,14 @@
   },
   "form-descriptions": {
     "You may use any format": "You may use any format"
+  },
+  "Error": {
+    "actions": {
+      "Refresh": "Refresh"
+    },
+    "request-offers": {
+      "root-error-title": "Something went wrong!",
+      "root-error-description": "We are working on fixing the issue. You can try refreshing the page."
+    }
   }
 }

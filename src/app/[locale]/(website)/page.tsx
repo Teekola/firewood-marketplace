@@ -12,6 +12,7 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
    setRequestLocale(locale);
 
    const t = await getTranslations("request-offers");
+
    return (
       <>
          <main className="mx-auto max-w-screen-xl p-3">
