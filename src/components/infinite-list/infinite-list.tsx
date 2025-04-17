@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { useTranslations } from "next-intl";
 
 import { SortOrder } from "@/lib/utils/types";
@@ -21,6 +23,8 @@ interface InfiniteListProps<T extends ObjectWithId> {
       limit: number;
    }) => TQueryOptions<T>;
    ListItemComponent: TListItemComponent<T>;
+   emptyStateComponent?: React.ReactNode;
+   loadingStateComponent?: React.ReactNode;
    viewItems: TViewItemsFn;
    defaultSortOrder?: SortOrder;
    defaultLimit?: number;
@@ -28,6 +32,8 @@ interface InfiniteListProps<T extends ObjectWithId> {
 export function InfiniteList<T extends ObjectWithId>({
    getQueryOptions,
    ListItemComponent,
+   loadingStateComponent,
+   emptyStateComponent,
    viewItems,
    defaultSortOrder = DEFAULT_SORT_ORDER,
    defaultLimit = DEFAULT_LIMIT,
@@ -56,7 +62,10 @@ export function InfiniteList<T extends ObjectWithId>({
          <InfiniteListList
             items={items}
             ListItemComponent={ListItemComponent}
+            emptyStateComponent={emptyStateComponent}
+            loadingStateComponent={loadingStateComponent}
             isFetchingNextPage={isFetchingNextPage}
+            isFetching={isFetching}
             hasNextPage={hasNextPage}
             fetchNextPage={fetchNextPage}
             viewItems={viewItems}
