@@ -11,8 +11,7 @@ import { BecomeSellerDialog } from "./_components/become-seller-dialog";
 import { QuotationRequestSidebarNavIndicator } from "./buyer/_components/quotation-request-sidebar-nav-indicator.tsx";
 
 export default async function DashboardPage() {
-   const session = await authWithSeller();
-   const t = await getTranslations("dashboard");
+   const [session, t] = await Promise.all([authWithSeller(), getTranslations()]);
 
    const isSeller = !!session?.seller;
 
@@ -24,14 +23,16 @@ export default async function DashboardPage() {
          </div>
          <div className="flex w-full flex-col gap-2 md:grid md:grid-cols-3 lg:grid-cols-5">
             {isSeller && (
-               <DashboardLink href="/dashboard/seller">{t("Seller Dashboard")}</DashboardLink>
+               <DashboardLink href="/dashboard/seller">
+                  {t("dashboard.Seller Dashboard")}
+               </DashboardLink>
             )}
 
             <DashboardLink href="/dashboard/buyer">
-               {t("Buyer Dashboard")}
+               {t("dashboard.Buyer Dashboard")}
                <QuotationRequestSidebarNavIndicator className="static ml-2" />
             </DashboardLink>
-            <DashboardLink href="/dashboard">{t("User Settings")}</DashboardLink>
+            <DashboardLink href="/dashboard">{t("dashboard.User Settings")}</DashboardLink>
          </div>
       </>
    );

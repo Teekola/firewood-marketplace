@@ -6,8 +6,10 @@ import { OfferEditDialog } from "../../../../(tabs)/(active)/_components/offer-e
 export default async function OfferEditPage({
    params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
-   const { id } = await params;
-   const [offer, auth] = await Promise.all([getOfferById(id), authWithSeller()]);
+   const [offer, auth] = await Promise.all([
+      params.then(({ id }) => getOfferById(id)),
+      authWithSeller(),
+   ]);
 
    if (!auth) return null;
 

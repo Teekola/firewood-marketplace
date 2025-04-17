@@ -6,9 +6,10 @@ import MakeOfferDialog from "../../../../make-offer-dialog";
 export default async function QuotationRequestPage({
    params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
-   const { id } = await params;
-   const sellerQuotationRequest = await getSellerQuotationRequest({ id });
-   const auth = await authWithSeller();
+   const [sellerQuotationRequest, auth] = await Promise.all([
+      params.then(({ id }) => getSellerQuotationRequest({ id })),
+      authWithSeller(),
+   ]);
 
    if (!auth) return null;
 
