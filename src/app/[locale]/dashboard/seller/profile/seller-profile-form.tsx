@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PhoneField } from "@/components/ui/phone-field";
 import "@/i18n/utils/unit-conversions";
+import { cn } from "@/lib/utils";
 import { parseError } from "@/lib/utils/errors";
 import { Nullable } from "@/lib/utils/types";
 
@@ -37,17 +38,18 @@ export const sellerProfileFormSchema = z.object({
 export type SellerProfileFormData = z.infer<typeof sellerProfileFormSchema>;
 
 interface SellerProfileFormProps extends ComponentProps<"form"> {
-   sellerProfile: Nullable<SellerProfileFormData> | null;
+   sellerProfile?: Nullable<SellerProfileFormData> | null;
+   isLoading?: boolean;
 }
 
-export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileFormProps) {
+export function SellerProfileForm({ sellerProfile, isLoading, ...props }: SellerProfileFormProps) {
    const t = useTranslations();
    const queryClient = useQueryClient();
 
    const defaultValues: DefaultValues<SellerProfileFormData> = {
-      name: sellerProfile?.name ?? "",
-      email: sellerProfile?.email ?? "",
-      phone: sellerProfile?.phone ?? "",
+      name: isLoading ? " " : (sellerProfile?.name ?? ""),
+      email: isLoading ? " " : (sellerProfile?.email ?? ""),
+      phone: isLoading ? " " : (sellerProfile?.phone ?? ""),
    };
 
    const form = useForm<SellerProfileFormData>({
@@ -80,9 +82,10 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
             <div className="space-y-4">
                <FormField
                   name="name"
+                  disabled={isLoading}
                   control={form.control}
                   render={({ field }) => (
-                     <FormItem className="w-full">
+                     <FormItem className={cn("w-full", isLoading && "animate-pulse")}>
                         <FormLabel>{t("dashboard.profile.Seller name")}</FormLabel>
                         <FormControl>
                            <Input {...field} />
@@ -96,9 +99,10 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
                />
                <FormField
                   name="email"
+                  disabled={isLoading}
                   control={form.control}
                   render={({ field }) => (
-                     <FormItem className="w-full">
+                     <FormItem className={cn("w-full", isLoading && "animate-pulse")}>
                         <FormLabel>{t("form-labels.email")}</FormLabel>
                         <FormControl>
                            <Input {...field} inputMode="email" />
@@ -107,9 +111,20 @@ export function SellerProfileForm({ sellerProfile, ...props }: SellerProfileForm
                      </FormItem>
                   )}
                />
-               <PhoneField name="phone" label={t("form-labels.Phone")} />
+               <PhoneField
+                  name="phone"
+                  label={t("form-labels.Phone")}
+                  disabled={isLoading}
+                  className={cn(isLoading && "animate-pulse")}
+               />
             </div>
-            <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 sm:w-fit">
+            <Button
+               type="submit"
+               size="lg"
+               data-disabled={!canProceed}
+               disabled={isLoading}
+               className={cn("mt-4 sm:w-fit", isLoading && "animate-pulse")}
+            >
                {t("actions.Save")}
             </Button>
             <FormRootError />

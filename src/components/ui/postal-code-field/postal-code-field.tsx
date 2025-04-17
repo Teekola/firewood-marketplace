@@ -40,6 +40,7 @@ interface PostalCodeFieldProps extends React.HTMLAttributes<HTMLDivElement> {
    label: string;
    countryField: string;
    cityField: string;
+   disabled?: boolean;
    fetchPostalCodes?: (
       countryCode: DeliveryData["countryCode"]
    ) => Promise<{ postalCode: string; placeName: string; latitude: number; longitude: number }[]>;
@@ -56,6 +57,7 @@ export function PostalCodeField({
    label,
    countryField,
    cityField,
+   disabled,
    fetchPostalCodes = fetchPostalCodesByCountryCode,
    onPostalCodeSelect,
    ...props
@@ -149,7 +151,8 @@ export function PostalCodeField({
                                  {...field}
                                  className="max-w-sm"
                                  autoComplete="off"
-                                 type="tel"
+                                 inputMode="numeric"
+                                 disabled={disabled}
                                  onFocus={(e) => {
                                     if (e.currentTarget.value.length > 0) {
                                        handleInputChange(e);

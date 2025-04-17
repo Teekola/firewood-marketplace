@@ -25,12 +25,14 @@ interface CountryFieldProps extends React.HTMLAttributes<HTMLDivElement> {
    name: string;
    countryNameField: string;
    onCountrySelect?: (selected: { code: string; label: string }) => void;
+   disabled?: boolean;
 }
 
 export function CountryField({
    name,
    countryNameField,
    onCountrySelect,
+   disabled,
    ...props
 }: Readonly<CountryFieldProps>) {
    const [isOpen, setOpen] = useState(false);
@@ -50,6 +52,7 @@ export function CountryField({
                         <Button
                            variant="outline"
                            role="combobox"
+                           disabled={disabled}
                            className={cn(
                               "w-auto justify-between text-foreground",
                               "focus-visible:border-primary focus-visible:ring-0",

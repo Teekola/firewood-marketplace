@@ -24,9 +24,16 @@ import { kilometersToMiles } from "@/i18n/utils/unit-conversions";
 export const distanceOptionsKm = new Array(30).fill(1).map((v, i) => (i + 1) * 25);
 export const distanceOptionsMi = distanceOptionsKm.map((km) => Math.round(kilometersToMiles(km)));
 
+interface MaxDistanceSelectFieldProps<T extends FieldValues>
+   extends React.HTMLAttributes<HTMLDivElement> {
+   name: Path<T>;
+   disabled?: boolean;
+}
 export function MaxDistanceSelectField<T extends FieldValues>({
    name,
-}: Readonly<{ name: Path<T> }>) {
+   disabled,
+   ...props
+}: Readonly<MaxDistanceSelectFieldProps<T>>) {
    const form = useFormContext<T>();
    const t = useTranslations("dashboard");
    const user = useUser();
@@ -37,9 +44,10 @@ export function MaxDistanceSelectField<T extends FieldValues>({
    return (
       <FormField
          control={form.control}
+         disabled={disabled}
          name={name}
          render={({ field }) => (
-            <FormItem>
+            <FormItem {...props}>
                <FormLabel>{t("Max distance")}</FormLabel>
                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>

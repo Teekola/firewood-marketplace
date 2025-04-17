@@ -32,7 +32,7 @@ import { parseError } from "@/lib/utils/errors";
 
 import { upsertSellerLocation } from "./actions";
 import { sellerLocationQueryKey } from "./constants";
-import { MaxDistanceSelectField } from "./maxDistanceSelectField";
+import { MaxDistanceSelectField } from "./max-distance-select-field";
 
 export const sellerLocationFormSchema = z.object({
    countryCode: z.enum(["FI", "US"]),
@@ -48,12 +48,17 @@ export const sellerLocationFormSchema = z.object({
 export type SellerLocationFormData = z.infer<typeof sellerLocationFormSchema>;
 
 interface SellerLocationFormProps extends ComponentProps<"form"> {
-   sellerLocation: SellerLocation | null;
+   sellerLocation?: SellerLocation | null;
+   isLoading?: boolean;
 }
 
 const DEFAULT_MAX_DISTANCE = 50;
 
-export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationFormProps) {
+export function SellerLocationForm({
+   sellerLocation,
+   isLoading,
+   ...props
+}: SellerLocationFormProps) {
    const geolocationData = useGeolocationData();
    const t = useTranslations();
    const queryClient = useQueryClient();
@@ -72,16 +77,18 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
 
    const countryCode = sellerLocation?.countryCode ?? geolocationData.country;
    const validCountryCode = countries.find((country) => country.code === countryCode);
-   const defaultValues: DefaultValues<SellerLocationFormData> = {
-      countryCode: validCountryCode ? validCountryCode.code : DEFAULT_COUNTRY.code,
-      countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
-      postalCode: sellerLocation?.postalCode ?? "",
-      city: sellerLocation?.city ?? "",
-      address: sellerLocation?.address ?? "",
-      latitude: sellerLocation?.coordinates.latitude ?? 0,
-      longitude: sellerLocation?.coordinates.longitude ?? 0,
-      maxDistance,
-   };
+   const defaultValues: DefaultValues<SellerLocationFormData> = isLoading
+      ? {}
+      : {
+           countryCode: validCountryCode ? validCountryCode.code : DEFAULT_COUNTRY.code,
+           countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
+           postalCode: sellerLocation?.postalCode ?? "",
+           city: sellerLocation?.city ?? "",
+           address: sellerLocation?.address ?? "",
+           latitude: sellerLocation?.coordinates.latitude ?? 0,
+           longitude: sellerLocation?.coordinates.longitude ?? 0,
+           maxDistance,
+        };
 
    const form = useForm<SellerLocationFormData>({
       resolver: zodResolver(sellerLocationFormSchema),
@@ -118,6 +125,7 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
             <CountryField
                name="countryCode"
                countryNameField="countryName"
+               disabled={isLoading}
                onCountrySelect={() => {
                   form.setValue("postalCode", "", { shouldDirty: true });
                   form.setValue("city", "", { shouldDirty: true });
@@ -128,6 +136,7 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
                label={t("form-labels.Postal code")}
                cityField="city"
                countryField="countryCode"
+               disabled={isLoading}
                onPostalCodeSelect={({ latitude, longitude }) => {
                   form.setValue("latitude", latitude, { shouldDirty: true });
                   form.setValue("longitude", longitude, {
@@ -138,6 +147,7 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
             />
             <FormField
                control={form.control}
+               disabled={isLoading}
                name="address"
                render={({ field }) => (
                   <FormItem className="w-full">
@@ -154,9 +164,18 @@ export function SellerLocationForm({ sellerLocation, ...props }: SellerLocationF
                   </FormItem>
                )}
             />
-            <MaxDistanceSelectField<SellerLocationFormData> name="maxDistance" />
+            <MaxDistanceSelectField<SellerLocationFormData>
+               name="maxDistance"
+               disabled={isLoading}
+            />
 
-            <Button type="submit" size="lg" data-disabled={!canProceed} className="mt-4 sm:w-fit">
+            <Button
+               type="submit"
+               size="lg"
+               data-disabled={!canProceed}
+               disabled={isLoading}
+               className="mt-4 sm:w-fit"
+            >
                {t("actions.Save")}
             </Button>
             <FormRootError />

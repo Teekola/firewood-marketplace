@@ -19,9 +19,10 @@ interface PhoneFieldProps<T extends FieldValues = any>
    extends React.HTMLAttributes<HTMLDivElement> {
    name: FieldPath<T>;
    label: string;
+   disabled?: boolean;
 }
 
-export function PhoneField({ name, label, ...props }: PhoneFieldProps) {
+export function PhoneField({ name, label, disabled, ...props }: PhoneFieldProps) {
    const form = useFormContext();
    const t = useTranslations();
    const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +54,7 @@ export function PhoneField({ name, label, ...props }: PhoneFieldProps) {
                <FormControl>
                   <Input
                      {...field}
+                     disabled={disabled}
                      onChange={handlePhoneChange}
                      placeholder={t("form-placeholders.phone")}
                   />
