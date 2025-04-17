@@ -154,7 +154,12 @@
       "request-offers-firewood": "Request Offers For Firewood - Select Firewood Options",
       "request-offers-delivery": "Request Offers For Firewood - Select Delivery Options",
       "request-offers-contact": "Request Offers For Firewood - Select Contact Options",
-      "request-offers-submit": "Request Offers For Firewood - Review and Submit"
+      "request-offers-submit": "Request Offers For Firewood - Review and Submit",
+      "default": "Polttopuutori",
+      "home": "The Firewood Marketplace – Connecting buyers and sellers near you"
+    },
+    "page-descriptions": {
+      "default": "Find trusted firewood sellers or start selling today. No fees, no hassle – completely free for both buyers and sellers."
     }
   },
   "new-user": {

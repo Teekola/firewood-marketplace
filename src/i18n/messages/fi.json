@@ -151,7 +151,12 @@
       "request-offers-firewood": "Pyydä polttopuutarjous - Valitse millaista puuta haluat",
       "request-offers-delivery": "Pyydä polttopuutarjous - Toimitustiedot",
       "request-offers-contact": "Pyydä polttopuutarjous - Yhteystiedot",
-      "request-offers-submit": "Pyydä polttopuutarjous - Tarkista ja lähetä"
+      "request-offers-submit": "Pyydä polttopuutarjous - Tarkista ja lähetä",
+      "default": "Polttopuutori",
+      "home": "Helppo tapa ostaa ja myydä polttopuita lähelläsi"
+    },
+    "page-descriptions": {
+      "default": "Löydä luotettavat polttopuunmyyjät läheltäsi tai aloita myyminen tänään. Ei maksuja tai sitoumuksia – palvelu on täysin ilmainen sekä ostajille että myyjille."
     }
   },
   "new-user": {
