@@ -1,13 +1,13 @@
-"use client";
-
 import { Suspense } from "react";
 
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { SellerProfileForm } from "./seller-profile-form";
 
-export default function ProfileTemplate({ children }: Readonly<{ children: React.ReactNode }>) {
-   const t = useTranslations();
+export default async function ProfileTemplate({
+   children,
+}: Readonly<{ children: React.ReactNode }>) {
+   const t = await getTranslations();
    return (
       <div>
          <header>
