@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Link, Locale, routing } from "@/i18n/routing";
+import { authWithSeller } from "@/lib/auth/auth";
 import { Button } from "@/ui/button";
 
 export function generateStaticParams() {
@@ -8,18 +9,31 @@ export function generateStaticParams() {
 }
 
 export default async function Home({ params }: Readonly<{ params: Promise<{ locale: Locale }> }>) {
-   const { locale } = await params;
+   const [{ locale }, auth, t] = await Promise.all([params, authWithSeller(), getTranslations()]);
    setRequestLocale(locale);
 
-   const t = await getTranslations("request-offers");
-
    return (
-      <>
-         <main className="mx-auto max-w-screen-xl p-3">
-            <Button asChild variant="cta">
-               <Link href="/request-offers/firewood">{t("Request Offers")}</Link>
-            </Button>
-         </main>
-      </>
+      <main className="mx-auto w-full max-w-screen-xl p-3">
+         <section className="my-5 flex w-full gap-3">
+            <div className="ml-0 flex w-full max-w-screen-sm flex-col gap-3">
+               <h1 className="h1">{t("home-page.hero-title")}</h1>
+               <p className="leading-relaxed text-foreground-muted">
+                  {t("home-page.hero-subheadline")}
+               </p>
+               <div className="mt-2 flex gap-2">
+                  <Button asChild variant="cta" size="lg">
+                     <Link href="/request-offers/firewood">
+                        {t("home-page.Request Firewood Offers")}
+                     </Link>
+                  </Button>
+                  {!auth?.seller && (
+                     <Button asChild variant="outline" size="lg">
+                        <Link href="/auth/register">{t("home-page.Start Selling")}</Link>
+                     </Button>
+                  )}
+               </div>
+            </div>
+         </section>
+      </main>
    );
 }

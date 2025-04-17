@@ -374,5 +374,12 @@
       "root-error-title": "Something went wrong!",
       "root-error-description": "We are working on fixing the issue. You can try refreshing the page."
     }
+  },
+  "home-page": {
+    "Request Offers": "Request Offers",
+    "Request Firewood Offers": "Request Firewood Offers",
+    "hero-title": "The Firewood Marketplace. Connecting buyers and sellers near you.",
+    "hero-subheadline": "Find trusted firewood sellers or start selling today. No fees, no hassle – completely free for both buyers and sellers.",
+    "Start Selling": "Start Selling"
   }
 }
