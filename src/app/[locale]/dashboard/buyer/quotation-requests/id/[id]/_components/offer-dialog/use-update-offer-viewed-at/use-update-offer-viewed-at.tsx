@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { buyerUnseenOffersQueryKey } from "@/app/[locale]/dashboard/buyer/constants";
 
-import { buyerQuotationRequestsQueryKey } from "../../../../../constants";
+import { buyerQuotationRequestsQueryKey } from "../../../../../_components/quotation-request-list/query-options";
 import { updateBuyerViewedAt } from "./actions";
 
 export function useUpdateOfferViewedAt({ offerIds }: Readonly<{ offerIds?: string[] }>) {

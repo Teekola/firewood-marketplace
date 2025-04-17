@@ -1,36 +1,19 @@
 import { QuotationRequestStatus } from "@prisma/client";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { getTranslations } from "next-intl/server";
 
-import { QuotationRequestList } from "../../_components/quotation-request-list";
-import { getQuotationRequestsForBuyer } from "../../actions";
-import { buyerQuotationRequestsQueryKey } from "../../constants";
+import { getBuyerQuotationRequestInfiniteQueryOptions } from "../../_components/quotation-request-list/query-options";
+import { QuotationRequestList } from "../../_components/quotation-request-list/quotation-request-list";
 
-const limit = 10;
-const status = QuotationRequestStatus.FULFILLED;
+const status: QuotationRequestStatus = QuotationRequestStatus.FULFILLED;
 export default async function BuyerFulfilledQuotationRequestsPage() {
    const queryClient = new QueryClient();
-   const t = await getTranslations();
-   await queryClient.prefetchInfiniteQuery({
-      queryKey: [...buyerQuotationRequestsQueryKey, { sort: "newest-first", limit, status }],
-      queryFn: ({ pageParam = null }) =>
-         getQuotationRequestsForBuyer({
-            cursor: pageParam,
-            limit,
-            status,
-         }),
-      initialPageParam: null,
-   });
+
+   await queryClient.prefetchInfiniteQuery(
+      getBuyerQuotationRequestInfiniteQueryOptions({ status })
+   );
    return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-         <QuotationRequestList
-            status={status}
-            emptyState={
-               <p className="text-center text-sm text-foreground-muted">
-                  {t("quotation-requests.No fulfilled requests")}
-               </p>
-            }
-         />
+         <QuotationRequestList status={status} />
       </HydrationBoundary>
    );
 }

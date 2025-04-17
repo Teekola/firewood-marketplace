@@ -15,7 +15,6 @@ export function LostOffersList() {
       <InfiniteList<OfferDTO>
          getQueryOptions={getLostOffersInfiniteQueryOptions}
          ListItemComponent={LostOfferListItem}
-         viewItems={async (ids) => console.log(ids)}
          emptyStateComponent={
             <p className="text-sm text-foreground-muted">{t("offer.There are no lost offers")}</p>
          }

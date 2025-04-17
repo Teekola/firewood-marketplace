@@ -8,15 +8,17 @@ import { useDebouncedCallback } from "use-debounce";
 import { TViewItemsFn } from "../types";
 
 interface UseViewItemsArgs {
-   viewItems: TViewItemsFn; // NOTE! This function should also handle invalidating queries
+   viewItems?: TViewItemsFn; // NOTE! This function should also handle invalidating queries
 }
 export function useViewItems({ viewItems }: UseViewItemsArgs) {
    const [, setPendingViewedItems] = useState(new Set<string>());
 
    const viewItemsDebounced = useDebouncedCallback((ids: string[]) => {
       if (ids.length < 1) return;
-      viewItems(ids);
-      console.log("VIEWING", ids);
+      if (viewItems) {
+         viewItems(ids);
+         console.log("items viewed:", ids.length);
+      }
       setPendingViewedItems(new Set()); // Clear the pending viewed tiems set after sending the update
    }, 2000); // Update after 2 seconds
 
@@ -24,7 +26,7 @@ export function useViewItems({ viewItems }: UseViewItemsArgs) {
       const { ref, inView } = useInView({ triggerOnce: true });
 
       useEffect(() => {
-         if (!inView) return;
+         if (!inView || !viewItems) return;
 
          setPendingViewedItems((prev) => {
             // Only add to pending viewed items if it has not been already seen

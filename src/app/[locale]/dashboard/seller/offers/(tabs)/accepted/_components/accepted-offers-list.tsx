@@ -15,7 +15,6 @@ export function AcceptedOffersList() {
       <InfiniteList<OfferDTO>
          getQueryOptions={getAcceptedOffersInfiniteQueryOptions}
          ListItemComponent={AcceptedOfferListItem}
-         viewItems={async (ids) => console.log(ids)}
          emptyStateComponent={
             <p className="text-sm text-foreground-muted">
                {t("offer.There are no accepted offers")}

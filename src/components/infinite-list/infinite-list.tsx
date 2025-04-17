@@ -25,7 +25,7 @@ interface InfiniteListProps<T extends ObjectWithId> {
    ListItemComponent: TListItemComponent<T>;
    emptyStateComponent?: React.ReactNode;
    loadingStateComponent?: React.ReactNode;
-   viewItems: TViewItemsFn;
+   viewItems?: TViewItemsFn;
    defaultSortOrder?: SortOrder;
    defaultLimit?: number;
 }

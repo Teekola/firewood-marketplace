@@ -17,7 +17,7 @@ interface InfiniteListProps<T extends ObjectWithId> {
    hasNextPage?: boolean;
    isFetchingNextPage?: boolean;
    fetchNextPage: () => void;
-   viewItems: TViewItemsFn;
+   viewItems?: TViewItemsFn;
 }
 
 export function InfiniteListList<T extends ObjectWithId>({

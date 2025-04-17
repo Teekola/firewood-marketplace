@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { SortButton } from "@/app/[locale]/dashboard/buyer/quotation-requests/id/[id]/_components/offer-list/sort-button";
+import { SortButton } from "@/components/infinite-list/_components/sort-button";
 import { SortOrder } from "@/lib/utils/types";
 
 interface InfiniteListHeaderProps {
