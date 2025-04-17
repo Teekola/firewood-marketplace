@@ -27,9 +27,8 @@ export default async function BuyerQuotationRequestLayout({
    modal: React.ReactNode;
    params: Promise<{ id: string; locale: Locale }>;
 }>) {
-   const { id } = await params;
    const [{ quotationRequest, acceptedOffer }, t] = await Promise.all([
-      getQuotationRequestWithAcceptedOffer({ id }),
+      params.then(({ id }) => getQuotationRequestWithAcceptedOffer({ id })),
       getTranslations(),
    ]);
 
@@ -57,13 +56,16 @@ export default async function BuyerQuotationRequestLayout({
          <OfferListTitle className="mt-5" />
          <div className="flex max-w-lg justify-between rounded-md bg-muted p-1">
             <TabLink
-               href={{ pathname: "/dashboard/buyer/quotation-requests/id/[id]", params: { id } }}
+               href={{
+                  pathname: "/dashboard/buyer/quotation-requests/id/[id]",
+                  params: { id: quotationRequest.id },
+               }}
                label={t("buyer.Active")}
             />
             <TabLink
                href={{
                   pathname: "/dashboard/buyer/quotation-requests/id/[id]/rejected-offers",
-                  params: { id },
+                  params: { id: quotationRequest.id },
                }}
                label={t("buyer.Rejected")}
             />

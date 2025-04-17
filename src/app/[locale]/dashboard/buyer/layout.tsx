@@ -18,19 +18,19 @@ export default async function BuyerDashboardLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const { locale } = await params;
+   const [{ locale }, t, sidebarNavItems] = await Promise.all([
+      params,
+      getTranslations(),
+      getSidebarNavItems(),
+   ]);
    setRequestLocale(locale);
-
-   const t = await getTranslations("dashboard");
-
-   const sidebarNavItems = await getSidebarNavItems();
 
    return (
       <>
          <Breadcrumbs className="mb-4" />
          <BackButtonLink label={t("actions.Back")} className="mb-4" />
          <header className="mb-4 hidden border-b pb-4 md:block">
-            <p className="text-2xl font-bold leading-tight">{t("Buyer Dashboard")}</p>
+            <p className="text-2xl font-bold leading-tight">{t("dashboard.Buyer Dashboard")}</p>
          </header>
          <div className="flex h-full gap-12">
             <aside className="hidden md:block 2xl:-mx-4">
