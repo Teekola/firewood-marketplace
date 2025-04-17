@@ -8,7 +8,9 @@ import { getBuyerPendingOffersInfiniteQueryOptions } from "./query-options";
 export function PendingOfferList({ quotationRequestId }: Readonly<{ quotationRequestId: string }>) {
    return (
       <InfiniteList
-         getQueryOptions={() => getBuyerPendingOffersInfiniteQueryOptions({ quotationRequestId })}
+         getQueryOptions={({ limit, sortOrder }) =>
+            getBuyerPendingOffersInfiniteQueryOptions({ quotationRequestId, limit, sortOrder })
+         }
          ListItemComponent={OfferListItem}
       />
    );

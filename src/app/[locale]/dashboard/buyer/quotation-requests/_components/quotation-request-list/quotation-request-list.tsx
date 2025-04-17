@@ -15,7 +15,9 @@ export function QuotationRequestList({
 }: Readonly<{ status: QuotationRequestStatus; emptyStateComponent?: React.ReactNode }>) {
    return (
       <InfiniteList<BuyerQuotationRequest>
-         getQueryOptions={() => getBuyerQuotationRequestInfiniteQueryOptions({ status })}
+         getQueryOptions={({ limit, sortOrder }) =>
+            getBuyerQuotationRequestInfiniteQueryOptions({ status, limit, sortOrder })
+         }
          ListItemComponent={QuotationRequestListItem}
          emptyStateComponent={emptyStateComponent}
          loadingStateComponent={

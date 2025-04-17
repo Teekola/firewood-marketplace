@@ -10,7 +10,9 @@ export function RejectedOfferList({
 }: Readonly<{ quotationRequestId: string }>) {
    return (
       <InfiniteList
-         getQueryOptions={() => getBuyerRejectedOffersInfiniteQueryOptions({ quotationRequestId })}
+         getQueryOptions={({ limit, sortOrder }) =>
+            getBuyerRejectedOffersInfiniteQueryOptions({ quotationRequestId, limit, sortOrder })
+         }
          ListItemComponent={OfferListItem}
       />
    );
