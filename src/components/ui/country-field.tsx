@@ -60,14 +60,17 @@ export function CountryField({
                            )}
                            onClick={() => setOpen((prev) => !prev)}
                         >
-                           {field.value
-                              ? t(
-                                   `countries.${
-                                      countries.find((country) => country.code === field.value)
-                                         ?.label
-                                   }`
-                                )
-                              : t("request-offers.Select country")}{" "}
+                           {field.value ? (
+                              t(
+                                 `countries.${
+                                    countries.find((country) => country.code === field.value)?.label
+                                 }`
+                              )
+                           ) : disabled ? (
+                              <div></div>
+                           ) : (
+                              t("request-offers.Select country")
+                           )}{" "}
                            {field.value && `– ${field.value}`}
                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>

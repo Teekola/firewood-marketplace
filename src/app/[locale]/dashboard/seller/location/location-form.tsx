@@ -78,7 +78,7 @@ export function SellerLocationForm({
    const countryCode = sellerLocation?.countryCode ?? geolocationData.country;
    const validCountryCode = countries.find((country) => country.code === countryCode);
    const defaultValues: DefaultValues<SellerLocationFormData> = isLoading
-      ? { countryName: " " }
+      ? {}
       : {
            countryCode: validCountryCode ? validCountryCode.code : DEFAULT_COUNTRY.code,
            countryName: validCountryCode ? validCountryCode.label : DEFAULT_COUNTRY.label,
