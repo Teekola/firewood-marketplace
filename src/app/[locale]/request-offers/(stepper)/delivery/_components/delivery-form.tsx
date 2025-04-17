@@ -98,8 +98,6 @@ export function DeliveryForm({ session }: Readonly<{ session: SessionWithBuyer }
    const deliveryMethods = form.watch("deliveryMethods");
 
    const canProceed = form.formState.isValid;
-   console.log(form.formState.isValid);
-   console.log(form.getValues());
 
    // This updates the values in the form if the user signs in and has buyer data
    useEffect(() => {
