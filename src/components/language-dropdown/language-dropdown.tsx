@@ -35,6 +35,7 @@ export function LanguageDropdown({
    const t = useTranslations("settings.preferences");
 
    const changeLocale = (locale: Locale) => {
+      console.log("DEBUG");
       if (!locale) return; // Ensure that there is always a value
       // setValue(locale);
       // @ts-expect-error -- TypeScript will validate that only known `params`

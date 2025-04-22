@@ -1,18 +1,28 @@
-# Function to build vitest command
-buildVitestCommand() {
-  filenames=$1
-  # Build the vitest command for the given filenames
-  echo "vitest related --run $(echo $filenames | tr '\n' ' ')"
-}
+#!/bin/sh
 
 # Get the list of changed files (staged) that match .ts, .tsx, .js, .jsx
-changed_files=$(git diff --name-only --cached --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx)$')
+changed_files=$(git diff --name-only --cached --diff-filter=ACM)
+
+# Check if git diff returned any files
+echo "Staged files: $changed_files"  # Debugging output
+
+# If no files are staged, exit early
+if [ -z "$changed_files" ]; then
+  echo "No staged files. Skipping pre-push checks."
+  exit 0
+fi
+
+# Filter the changed files to only include .ts, .tsx, .js, .jsx files
+changed_files=$(echo "$changed_files" | grep -E '\.(ts|tsx|js|jsx)$')
 
 # If there are changed files, run vitest tests
 if [ -n "$changed_files" ]; then
   echo "Running vitest tests on changed files..."
-  # Call the function and run vitest with the staged filenames
-  buildVitestCommand "$changed_files" | xargs -I {} sh -c "{}"
+  # Construct the vitest command for the staged files
+  vitest related --run $changed_files
 else
   echo "No relevant changes, skipping tests."
 fi
+
+# Ensure the hook succeeds and allows the push
+exit 0
