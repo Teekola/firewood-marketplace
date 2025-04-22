@@ -1,0 +1,18 @@
+# Function to build vitest command
+buildVitestCommand() {
+  filenames=$1
+  # Build the vitest command for the given filenames
+  echo "vitest related --run $(echo $filenames | tr '\n' ' ')"
+}
+
+# Get the list of changed files (staged) that match .ts, .tsx, .js, .jsx
+changed_files=$(git diff --name-only --cached --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx)$')
+
+# If there are changed files, run vitest tests
+if [ -n "$changed_files" ]; then
+  echo "Running vitest tests on changed files..."
+  # Call the function and run vitest with the staged filenames
+  buildVitestCommand "$changed_files" | xargs -I {} sh -c "{}"
+else
+  echo "No relevant changes, skipping tests."
+fi
