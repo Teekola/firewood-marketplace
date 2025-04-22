@@ -34,7 +34,7 @@ export async function submitQuotationRequest({
       latitude: deliveryData.latitude,
    });
 
-   const buyerPromise = await getBuyerByUserId(session.user.id);
+   const buyerPromise = getBuyerByUserId(session.user.id);
 
    const [sellers, buyer] = await Promise.all([sellersPromise, buyerPromise]);
 
