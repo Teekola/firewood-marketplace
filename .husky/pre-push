@@ -1,6 +1,5 @@
 #!/bin/sh
 set -euo pipefail
-set -x
 
 # If this is the first commit, fallback to empty tree
 if [ "$(git rev-list --count HEAD)" -eq 1 ]; then
