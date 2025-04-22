@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -x  # Enable debugging to see what’s happening
-
 # Get the list of changed files in the most recent commit
 changed_files=$(git diff --name-only HEAD~1 HEAD --diff-filter=ACM)
 
