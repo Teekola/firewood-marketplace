@@ -1,19 +1,23 @@
 #!/bin/sh
 
-# Get the list of changed files (staged) that match .ts, .tsx, .js, .jsx
-changed_files=$(git diff --name-only --cached --diff-filter=ACM)
+set -x  # Enable debugging to see what’s happening
+
+# Get the list of changed files in the most recent commit
+changed_files=$(git diff --name-only HEAD~1 HEAD --diff-filter=ACM)
 
 # Check if git diff returned any files
-echo "Staged files: $changed_files"  # Debugging output
+echo "Changed files in the last commit: $changed_files"  # Debugging output
 
-# If no files are staged, exit early
+# If no files are found, exit early
 if [ -z "$changed_files" ]; then
-  echo "No staged files. Skipping pre-push checks."
+  echo "No relevant changes found in the last commit. Skipping pre-push checks."
   exit 0
 fi
 
 # Filter the changed files to only include .ts, .tsx, .js, .jsx files
 changed_files=$(echo "$changed_files" | grep -E '\.(ts|tsx|js|jsx)$')
+
+echo "Filtered changed files: $changed_files"  # Debugging output
 
 # If there are changed files, run vitest tests
 if [ -n "$changed_files" ]; then
