@@ -1,30 +1,36 @@
 #!/bin/sh
+set -euo pipefail
+set -x
 
-# Get the list of changed files in the most recent commit
-changed_files=$(git diff --name-only HEAD~1 HEAD --diff-filter=ACM)
+# If this is the first commit, fallback to empty tree
+if [ "$(git rev-list --count HEAD)" -eq 1 ]; then
+  base_ref=$(git hash-object -t tree /dev/null)
+else
+  base_ref=HEAD~1
+fi
 
-# Check if git diff returned any files
-echo "Changed files in the last commit: $changed_files"  # Debugging output
+# Get the list of changed files from the last commit (or from empty tree for first commit)
+changed_files=$(git diff --name-only "$base_ref" HEAD --diff-filter=ACM || true)
 
-# If no files are found, exit early
+echo "Changed files in the last commit: $changed_files"
+
+# If no files, exit
 if [ -z "$changed_files" ]; then
-  echo "No relevant changes found in the last commit. Skipping pre-push checks."
+  echo "No relevant changes found. Skipping pre-push checks."
   exit 0
 fi
 
-# Filter the changed files to only include .ts, .tsx, .js, .jsx files
-changed_files=$(echo "$changed_files" | grep -E '\.(ts|tsx|js|jsx)$')
+# Filter only ts/js files
+changed_files=$(echo "$changed_files" | grep -E '\.(ts|tsx|js|jsx)$' || true)
 
-echo "Filtered changed files: $changed_files"  # Debugging output
+echo "Filtered changed files: $changed_files"
 
-# If there are changed files, run vitest tests
+# Run tests if there are matching files
 if [ -n "$changed_files" ]; then
-  echo "Running vitest tests on changed files..."
-  # Construct the vitest command for the staged files
+  echo "Running vitest..."
   vitest related --run $changed_files
 else
-  echo "No relevant changes, skipping tests."
+  echo "No relevant changes. Skipping tests."
 fi
 
-# Ensure the hook succeeds and allows the push
 exit 0
