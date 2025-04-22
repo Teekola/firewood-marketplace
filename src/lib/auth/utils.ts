@@ -30,6 +30,13 @@ export function getLocalizedPages(routes: string[]) {
          // If it's a simple static path, add the localized paths
          if (typeof localizedPaths === "string") {
             localizedPages.add(localizedPaths);
+
+            // Add prefixed versions for non-default locales (if missing)
+            routing.locales.forEach((locale) => {
+               if (locale !== routing.defaultLocale) {
+                  localizedPages.add(`/${locale}${localizedPaths}`);
+               }
+            });
          } else {
             // Add both localized paths (for different locales)
             Object.values(localizedPaths).forEach((localizedPath) => {
