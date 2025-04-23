@@ -1,4 +1,4 @@
-import { routing } from "@/i18n/routing";
+import { Locale, routing } from "@/i18n/routing";
 
 // Escape the slashes (/) and ensure the regex pattern is valid
 function regexifyPath(path: string): RegExp {
@@ -16,55 +16,47 @@ function regexifyPath(path: string): RegExp {
  */
 export function getLocalizedPages(routes: string[]) {
    const localizedPages = new Set<string>();
+   const { locales, defaultLocale } = routing;
+   const pathnames: Record<string, string | Record<Locale, string>> = routing.pathnames;
 
-   // Pre-compile the regex pattern for all routes with dynamic segments
-   const regexRoutes = routes.filter((route) => route.includes(".*"));
-   const staticRoutes = routes.filter((route) => !route.includes(".*"));
+   const isRegexRoute = (route: string) => route.includes(".*");
+   const staticRoutes = routes.filter((route) => !isRegexRoute(route));
+   const regexRoutes = routes.filter(isRegexRoute);
 
-   const pathnames: Record<string, string | Record<string, string>> = routing.pathnames;
-
-   // Process static routes
-   staticRoutes.forEach((route) => {
-      const localizedPaths = pathnames[route];
-      if (localizedPaths) {
-         // If it's a simple static path, add the localized paths
-         if (typeof localizedPaths === "string") {
-            localizedPages.add(localizedPaths);
-
-            // Add prefixed versions for non-default locales (if missing)
-            routing.locales.forEach((locale) => {
-               if (locale !== routing.defaultLocale) {
-                  localizedPages.add(`/${locale}${localizedPaths}`);
-               }
-            });
-         } else {
-            // Add both localized paths (for different locales)
-            Object.values(localizedPaths).forEach((localizedPath) => {
-               localizedPages.add(localizedPath);
-            });
-         }
-      }
-   });
-
-   // Process regex routes (those that include ".*")
-   regexRoutes.forEach((route) => {
-      const regex = regexifyPath(route); // Create the regex pattern once
-      // Check if any static paths match the regex
-      Object.keys(pathnames).forEach((staticPath) => {
-         // If the regex matches a static path, add localized paths to set
-         if (regex.test(staticPath)) {
-            const localizedPaths = pathnames[staticPath];
-            if (localizedPaths) {
-               if (typeof localizedPaths === "string") {
-                  localizedPages.add(localizedPaths);
-               } else {
-                  Object.values(localizedPaths).forEach((localizedPath) => {
-                     localizedPages.add(localizedPath);
-                  });
-               }
-            }
+   const addLocalizedPath = (path: string) => {
+      localizedPages.add(path);
+      locales.forEach((locale) => {
+         if (locale !== defaultLocale) {
+            localizedPages.add(`/${locale}${path}`);
          }
       });
+   };
+
+   const processPath = (localized: string | Record<Locale, string>) => {
+      if (typeof localized === "string") {
+         addLocalizedPath(localized);
+      } else {
+         for (const [locale, path] of Object.entries(localized)) {
+            localizedPages.add(path);
+            if (locale !== defaultLocale) {
+               localizedPages.add(`/${locale}${path}`);
+            }
+         }
+      }
+   };
+
+   staticRoutes.forEach((route) => {
+      const localized = pathnames[route];
+      if (localized) processPath(localized);
+   });
+
+   regexRoutes.forEach((pattern) => {
+      const regex = regexifyPath(pattern);
+      for (const [staticPath, localized] of Object.entries(pathnames)) {
+         if (regex.test(staticPath)) {
+            processPath(localized);
+         }
+      }
    });
 
    return localizedPages;
