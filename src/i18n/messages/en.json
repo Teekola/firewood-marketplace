@@ -1,390 +1,390 @@
 {
-  "auth": {
-    "Sign in with Google": "Sign in with Google",
-    "Sign In": "Sign In",
-    "Sign Out": "Sign Out",
-    "Register with Google": "Register with Google",
-    "New user": "New user",
-    "Register here": "Register here",
-    "Already have an account": "Already have an account",
-    "to fill in the details": "to fill in the details.",
-    "Register": "Register",
-    "or": "or",
-    "register with email": "register with email",
-    "Email": "Email",
-    "Password": "Password",
-    "password-description": "Password needs to be at least 8 characters long.",
-    "Sign up": "Sign up",
-    "sign in with email": "sign in with email"
-  },
-  "settings": {
-    "preferences": {
-      "Toggle theme": "Toggle theme",
-      "Light": "Light",
-      "Dark": "Dark",
-      "System": "System",
-      "Select language": "Select language"
-    }
-  },
-  "wood-types": {
-    "MIXED": "Mixed",
-    "BIRCH": "Birch",
-    "PINE": "Pine"
-  },
-  "wood-drynesses": {
-    "DRY": "Dry",
-    "GREEN": "Green"
-  },
-  "delivery-methods": {
-    "HOME_DELIVERY": "Home delivery",
-    "PICKUP": "Pickup"
-  },
-  "request-offers": {
-    "Request Offers": "Request Offers",
-    "Firewood": "Firewood",
-    "Delivery": "Delivery",
-    "Contact": "Contact",
-    "Submit": "Submit",
-    "Abandon Request": "Abandon Request",
-    "abandon-request-description": "This action cannot be undone. The inputted data will be lost.",
-    "Wood type": "Wood type",
-    "mixed": "mixed",
-    "birch": "birch",
-    "pine": "pine",
-    "Dryness": "Dryness",
-    "any": "any",
-    "dry": "dry",
-    "green": "green",
-    "Amount": "Amount",
-    "Max length": "max length",
-    "Optional": "Optional",
-    "Continue": "Continue",
-    "pickup": "pickup",
-    "PICKUP": "pickup",
-    "home delivery": "home delivery",
-    "homeDelivery": "home delivery",
-    "home_delivery": "home delivery",
-    "HOME_DELIVERY": "home delivery",
-    "Country": "Country",
-    "Select country": "Select country",
-    "Search country": "Search country...",
-    "No country found": "No country found.",
-    "Postal code": "Postal code",
-    "Invalid postal code": "Invalid postal code",
-    "Address": "Address",
-    "Phone": "Phone",
-    "Full name": "Full name",
-    "Full name placeholder": "First Last",
-    "Email": "Email",
-    "Type your email": "Type your email",
-    "Type your phone number": "Type your phone number",
-    "You may use any format": "You may use any format",
-    "Additional information Optional": "Additional information (Optional)",
-    "Type special wishes or other useful information": "Type special wishes or other useful information",
-    "dry or green": "dry or green",
-    "Delivery type": "Delivery type",
-    "Maximum length": "Maximum length",
-    "characters": "characters",
-    "Buy as a company": "Buy as a company",
-    "Company name": "Company name",
-    "Insert company name": "Insert company name",
-    "Back": "Back",
-    "Sign in to submit": "Sign in to submit",
-    "Register to submit": "Register to submit",
-    "Select at least one": "Select at least one",
-    "Additional information": "Additional Information",
-    "Your quotation request is being sent to sellers": "Your quotation request is being sent to sellers...",
-    "request sent to n sellers": "{n, plural, =0 {There are no sellers yet in your area.} =1 {We have sent your request to one seller.} other {We have sent your request to # sellers.}}",
-    "The quotation request was successfully submitted": "The quotation request was successfully submitted.",
-    "Quotation Request Submitted": "Quotation Request Submitted",
-    "When new sellers register in your area they will also receive your request": "When new sellers register in your area, they will also receive your request.",
-    "form-labels": {
-      "Phone": "Phone"
-    }
-  },
-  "countries": {
-    "Finland": "Finland",
-    "United States": "United States"
-  },
-  "form-messages": {
-    "Insert a valid number": "Insert a valid number.",
-    "Invalid postal code": "Invalid postal code.",
-    "Address is required for home delivery": "Address is required for home delivery.",
-    "Name is required": "Name is required.",
-    "The email is invalid": "The email is invalid.",
-    "Email is required": "Email is required.",
-    "The phone number is invalid": "The phone number is invalid.",
-    "Insert company name": "Insert company name.",
-    "Please select at least one option": "Please, select at least one option.",
-    "An error occurred": "An error occurred.",
-    "Password needs to be at least 8 characters long": "Password needs to be at least 8 characters long.",
-    "The password is too short": "The password is too short.",
-    "You must agree to our terms and conditions to register": "You must agree to our terms and conditions to register.",
-    "Email is already taken": "Email is already taken.",
-    "Invalid credentials": "Invalid credentials.",
-    "Invalid username or password": "Invalid email or password.",
-    "Your account uses a different login method": "Your account uses a different login method.",
-    "Select at least one delivery method": "Please, select at least one delivery method.",
-    "Please select a wood type": "Please, select a wood type.",
-    "Please select a dryness level": "Please, select a dryness level."
-  },
-  "actions": {
-    "Cancel": "Cancel",
-    "Abandon": "Abandon",
-    "Close": "Close",
-    "More": "More",
-    "Navigate to": "Navigate to",
-    "Select a page to navigate to": "Select a page to navigate to",
-    "Reject": "Reject",
-    "Submit": "Submit",
-    "Restore": "Restore",
-    "View": "View",
-    "Edit": "Edit",
-    "Delete": "Delete",
-    "Back": "Back",
-    "Reject Offer": "Reject Offer",
-    "Accept offer": "Accept offer",
-    "Save": "Save",
-    "Continue": "Continue",
-    "Start receiving requests": "Start Receiving Requests",
-    "Stop receiving requests": "Stop receiving requests"
-  },
-  "metadata": {
-    "page-titles": {
-      "request-offers-firewood": "Request Offers For Firewood - Select Firewood Options",
-      "request-offers-delivery": "Request Offers For Firewood - Select Delivery Options",
-      "request-offers-contact": "Request Offers For Firewood - Select Contact Options",
-      "request-offers-submit": "Request Offers For Firewood - Review and Submit",
-      "default": "Polttopuutori",
-      "home": "The Firewood Marketplace – Connecting buyers and sellers near you"
-    },
-    "page-descriptions": {
-      "default": "Find trusted firewood sellers or start selling today. No fees, no hassle – completely free for both buyers and sellers."
-    }
-  },
-  "new-user": {
-    "Continue": "Continue",
-    "Welcome to Polttopuutori": "Welcome to Polttopuutori",
-    "I intend to use the platform for": "I intend to use the platform for",
-    "For selling": "Selling",
-    "For buying": "Buying",
-    "Please select what you intend to use the platform for": "Please, select what you intend to use the platform for"
-  },
-  "breadcrumbs": {
-    "/": "/Home",
-    "/auth/sign-in": "/Sign In",
-    "/auth/register": "/Register",
-    "/dashboard": "/Dashboard",
-    "/dashboard/seller": "/Dashboard/Seller Dashboard",
-    "/dashboard/seller/dashboard": "/Dashboard/Seller Dashboard/Overview",
-    "/dashboard/seller/profile": "/Dashboard/Seller Dashboard/Profile",
-    "/dashboard/seller/location": "/Dashboard/Seller Dashboard/Location",
-    "/dashboard/seller/quotation-requests": "/Dashboard/Seller Dashboard/Quotation Requests",
-    "/dashboard/seller/quotation-requests/id": "/Dashboard/Seller Dashboard/Quotation Requests/Request",
-    "/dashboard/seller/quotation-requests/id/make-offer": "/Dashboard/Seller Dashboard/Quotation Requests/Request/Make Offer",
-    "/dashboard/seller/quotation-requests/rejected": "/Dashboard/Seller Dashboard/Quotation Requests/Rejected",
-    "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
-    "/dashboard/seller/offers/id": "/Dashboard/Seller Dashboard/Sent Offers/Offer",
-    "/dashboard/seller/offers/id/edit": "/Dashboard/Seller Dashboard/Sent Offers/Offer/Edit",
-    "/dashboard/seller/offers/accepted": "/Dashboard/Seller Dashboard/Sent Offers/Accepted",
-    "/dashboard/seller/offers/lost": "/Dashboard/Seller Dashboard/Sent Offers/Lost",
-    "/dashboard/buyer": "/Dashboard/Buyer Dashboard",
-    "/dashboard/buyer/dashboard": "/Dashboard/Buyer Dashboard/Overview",
-    "/dashboard/buyer/quotation-requests": "/Dashboard/Buyer Dashboard/Quotation Requests",
-    "/dashboard/buyer/quotation-requests/fulfilled": "/Dashboard/Buyer Dashboard/Quotation Requests/Fulfilled",
-    "/dashboard/buyer/quotation-requests/id": "/Dashboard/Buyer Dashboard/Quotation Requests/Request",
-    "/dashboard/buyer/quotation-requests/id/rejected-offers": "/Dashboard/Buyer Dashboard/Quotation Requests/Request/Rejected Offers",
-    "/dashboard/buyer/quotation-requests/id/id": "/Dashboard/Buyer Dashboard/Quotation Requests/Request/Offer",
-    "/dashboard/buyer/quotation-requests/id/id/rejected": "/Dashboard/Buyer Dashboard/Quotation Requests/Request/Offer/Rejected"
-  },
-  "dashboard": {
-    "Seller Dashboard": "Seller Dashboard",
-    "Overview": "Overview",
-    "Profile": "Profile",
-    "Location": "Location",
-    "Quotation Requests": "Quotation Requests",
-    "Seller Location": "Seller Location",
-    "Define location settings These affect the offers you receive": "Define location settings. These affect the offers you receive.",
-    "Seller Profile": "Seller Profile",
-    "Define contact information that potential buyers receive upon accepting an offer": "Define contact information that potential buyers receive upon accepting an offer.",
-    "Dashboard": "Dashboard",
-    "Buyer Dashboard": "Buyer Dashboard",
-    "User Settings": "User Settings",
-    "Become a Seller": "Become a Seller",
-    "actions": {
+   "auth": {
+      "Sign in with Google": "Sign in with Google",
+      "Sign In": "Sign In",
+      "Sign Out": "Sign Out",
+      "Register with Google": "Register with Google",
+      "New user": "New user",
+      "Register here": "Register here",
+      "Already have an account": "Already have an account",
+      "to fill in the details": "to fill in the details.",
+      "Register": "Register",
+      "or": "or",
+      "register with email": "register with email",
+      "Email": "Email",
+      "Password": "Password",
+      "password-description": "Password needs to be at least 8 characters long.",
+      "Sign up": "Sign up",
+      "sign in with email": "sign in with email"
+   },
+   "settings": {
+      "preferences": {
+         "Toggle theme": "Toggle theme",
+         "Light": "Light",
+         "Dark": "Dark",
+         "System": "System",
+         "Select language": "Select language"
+      }
+   },
+   "wood-types": {
+      "MIXED": "Mixed",
+      "BIRCH": "Birch",
+      "PINE": "Pine"
+   },
+   "wood-drynesses": {
+      "DRY": "Dry",
+      "GREEN": "Green"
+   },
+   "delivery-methods": {
+      "HOME_DELIVERY": "Home delivery",
+      "PICKUP": "Pickup"
+   },
+   "request-offers": {
+      "Request Offers": "Request Offers",
+      "Firewood": "Firewood",
+      "Delivery": "Delivery",
+      "Contact": "Contact",
+      "Submit": "Submit",
+      "Abandon Request": "Abandon Request",
+      "abandon-request-description": "This action cannot be undone. The inputted data will be lost.",
+      "Wood type": "Wood type",
+      "mixed": "mixed",
+      "birch": "birch",
+      "pine": "pine",
+      "Dryness": "Dryness",
+      "any": "any",
+      "dry": "dry",
+      "green": "green",
+      "Amount": "Amount",
+      "Max length": "max length",
+      "Optional": "Optional",
+      "Continue": "Continue",
+      "pickup": "pickup",
+      "PICKUP": "pickup",
+      "home delivery": "home delivery",
+      "homeDelivery": "home delivery",
+      "home_delivery": "home delivery",
+      "HOME_DELIVERY": "home delivery",
+      "Country": "Country",
+      "Select country": "Select country",
+      "Search country": "Search country...",
+      "No country found": "No country found.",
+      "Postal code": "Postal code",
+      "Invalid postal code": "Invalid postal code",
+      "Address": "Address",
+      "Phone": "Phone",
+      "Full name": "Full name",
+      "Full name placeholder": "First Last",
+      "Email": "Email",
+      "Type your email": "Type your email",
+      "Type your phone number": "Type your phone number",
+      "You may use any format": "You may use any format",
+      "Additional information Optional": "Additional information (Optional)",
+      "Type special wishes or other useful information": "Type special wishes or other useful information",
+      "dry or green": "dry or green",
+      "Delivery type": "Delivery type",
+      "Maximum length": "Maximum length",
+      "characters": "characters",
+      "Buy as a company": "Buy as a company",
+      "Company name": "Company name",
+      "Insert company name": "Insert company name",
       "Back": "Back",
-      "Save": "Save"
-    },
-    "Max distance": "Max distance",
-    "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Set the rough maximum distance for quotation requests. The larger the distance the more quotation requests you will receive. We recommend setting this rather too high than too low. The location is determined based on postal codes so this is not very accurate.",
-    "profile": {
-      "Seller name": "Seller name",
-      "Seller name instruction": "Seller's name or company name",
-      "Email": "Email"
-    },
-    "Sent Offers": "Sent Offers",
-    "Rejected": "Rejected",
-    "Active": "Active",
-    "Quotation request details": "Quotation Request Details",
-    "Additional information": "Additional Information",
-    "become-a-seller-description": "By clicking on the Become a Seller button, you will gain access to the Seller Dashboard. You may instantly start receiving quotation requests after filling in the required profile and location information and activating the account.",
-    "Accepted": "Accepted",
-    "Lost": "Lost"
-  },
-  "View": "View",
-  "quotation-request": {
-    "Make offer": "Make offer",
-    "Last updated": "Last updated",
-    "Make an Offer": "Make an Offer",
-    "Additional information": "Additional information",
-    "There are no pending quotation requests": "There are no pending quotation requests.",
-    "Reject Quotation Request": "Reject Quotation Request",
-    "There are no rejected quotation requests": "There are no rejected quotation requests.",
-    "New": "New",
-    "number-of-offers": "{count, plural, =0 {no offers yet} =1 {one offer} other {# offers}}",
-    "Delete Quotation Request": "Delete Quotation Request",
-    "Show details": "Show Details",
-    "delete-quotation-request-description": "By deleting the quotation request, all the offers will be deleted too. This action can not be reverted. Are you sure you want to continue?",
-    "Quotation Request Details": "Quotation Request Details",
-    "Created": "Created",
-    "reject-request-description": "Rejected quotation requests are transferred to the \"Rejected\" tab. Rejected requests can be returned to the \"Active\" tab. Rejected requests are automatically deleted after 30 days."
-  },
-  "offer": {
-    "Price": "Price",
-    "Fill in the form to make an offer": "Fill in the form to make an offer.",
-    "US Dollar": "US Dollar",
-    "Select the earliest availability of the firewood to be delivered": "Select the earliest date for the firewood to be delivered.",
-    "Select the earliest availability of the firewood to be picked up": "Select the earliest pickup date for the firewood.",
-    "Earliest delivery date": "Earliest delivery date",
-    "Earliest pickup date": "Earliest pickup date",
-    "Pick a date": "Pick a date",
-    "There are no active offers": "There are no active offers.",
-    "Rejected": "Rejected",
-    "Pending": "Pending",
-    "Not seen": "Not seen",
-    "Seen": "Seen",
-    "Offer details": "Offer Details",
-    "Edit Offer": "Edit Offer",
-    "Delete Offer": "Delete Offer",
-    "delete-offer-description": "By deleting the offer, it will be instantly removed from the customer. This action can not be reverted. Are you sure you want to delete the offer?",
-    "Offer received": "Offer received",
-    "Seller": "Seller",
-    "Accepted Offer": "Accepted Offer",
-    "Reject Offer": "Reject Offer",
-    "reject-offer-description": "Rejected offers are moved to the rejected tab. You may choose to accept a rejected offer later. The seller will now that you have rejected their offer and they can edit their offer. Are you sure that you want to reject the offer?",
-    "No rejected offers": "You don't have any rejected offers.",
-    "pickupAddress": "Pickup address",
-    "Pickup location": "Pickup Location",
-    "Address": "Address",
-    "There are no accepted offers": "There are no accepted offers",
-    "There are no lost offers": "There are no lost offers",
-    "Accepted at": "Accepted at"
-  },
-  "currencies": {
-    "label-USD": "US Dollar",
-    "label-EUR": "Euro"
-  },
-  "pagination": {
-    "Loading": "Loading...",
-    "displayed-results": "Displaying {displayed} / {total}",
-    "empty": "There is nothing yet!"
-  },
-  "sorting": {
-    "newest-first": "Newest first",
-    "oldest-first": "Oldest first"
-  },
-  "instructions": {
-    "Please wait": "Please wait"
-  },
-  "offers": {
-    "Sent Offers": "Sent Offers"
-  },
-  "ui": {
-    "Hide password": "Hide password",
-    "Show password": "Show password"
-  },
-  "terms": {
-    "By registering I conrifm that I accept": "By registering, I confirm that I accept",
-    "Terms and Conditions": "Polttopuutori's Terms and Conditions",
-    "and that I have read": "and that I have read",
-    "Privacy Policy": "Privacy Policy"
-  },
-  "screen-readers": {
-    "navigation": "navigation"
-  },
-  "navigation": {
-    "Home": "Home"
-  },
-  "buyer": {
-    "No pending quotation requests": "You don't have pending quotation requests.",
-    "No offers": "You have not received offers yet.",
-    "Rejected Offers": "Rejected Offers",
-    "Offers": "Offers",
-    "Active": "Active",
-    "Rejected": "Rejected",
-    "Quotation Requests": "Quotation Requests",
-    "Fulfilled": "Fulfilled"
-  },
-  "loading": {
-    "Accepting offer": "Accepting offer..."
-  },
-  "quotation-requests": {
-    "No fulfilled requests": "You don't have fulfilled quotation requests yet."
-  },
-  "seller-location": {
-    "Address": "Address",
-    "Pickup address": "Pickup address",
-    "pickup-address-description": "Enter pickup address to receive quotation requests from customers who do not need delivery."
-  },
-  "form-labels": {
-    "Optional": "(Optional)",
-    "Pickup address": "Pickup address",
-    "email": "Email",
-    "Full name": "Full name",
-    "Email": "Email",
-    "Phone": "Phone",
-    "Buy as a company": "Buy as a company",
-    "Company name": "Company name",
-    "Postal code": "Postal code"
-  },
-  "conjunctions": {
-    "or": "or"
-  },
-  "seller": {
-    "start-receiving-requests-description": "Start receiving quotation requests by pressing the button. You will instantly receive all pending quotation requests from your area.",
-    "fill-in-missing-information": "Fill in Missing Information"
-  },
-  "activate-seller": {
-    "Add missing location details": "Add missing location details",
-    "Add missing profile details": "Add missin profile details"
-  },
-  "deactivate-seller": {
-    "Stop receiving requests": "Stop Receiving Requests",
-    "stop-receiving-requests-description": "When you stop receiving actions, you will no longer receive new quotation requests and you will not be able to send new offers. Are you sure that you want to proceed?"
-  },
-  "Go to Dashboard": "Go to Dashboard",
-  "form-placeholders": {
-    "Type your phone number": "Type your phone number",
-    "phone": "Type your phone number",
-    "Select country": "Select country"
-  },
-  "form-descriptions": {
-    "You may use any format": "You may use any format"
-  },
-  "Error": {
-    "actions": {
-      "Refresh": "Refresh"
-    },
-    "request-offers": {
-      "root-error-title": "Something went wrong!",
-      "root-error-description": "We are working on fixing the issue. You can try refreshing the page."
-    }
-  },
-  "home-page": {
-    "Request Offers": "Request Offers",
-    "Request Firewood Offers": "Request Firewood Offers",
-    "hero-title": "The Firewood Marketplace. Connecting buyers and sellers near you.",
-    "hero-subheadline": "Find trusted firewood sellers or start selling today. No fees, no hassle – completely free for both buyers and sellers.",
-    "Start Selling": "Start Selling"
-  }
+      "Sign in to submit": "Sign in to submit",
+      "Register to submit": "Register to submit",
+      "Select at least one": "Select at least one",
+      "Additional information": "Additional Information",
+      "Your quotation request is being sent to sellers": "Your quotation request is being sent to sellers...",
+      "request sent to n sellers": "{n, plural, =0 {There are no sellers yet in your area.} =1 {We have sent your request to one seller.} other {We have sent your request to # sellers.}}",
+      "The quotation request was successfully submitted": "The quotation request was successfully submitted.",
+      "Quotation Request Submitted": "Quotation Request Submitted",
+      "When new sellers register in your area they will also receive your request": "When new sellers register in your area, they will also receive your request.",
+      "form-labels": {
+         "Phone": "Phone"
+      }
+   },
+   "countries": {
+      "Finland": "Finland",
+      "United States": "United States"
+   },
+   "form-messages": {
+      "Insert a valid number": "Insert a valid number.",
+      "Invalid postal code": "Invalid postal code.",
+      "Address is required for home delivery": "Address is required for home delivery.",
+      "Name is required": "Name is required.",
+      "The email is invalid": "The email is invalid.",
+      "Email is required": "Email is required.",
+      "The phone number is invalid": "The phone number is invalid.",
+      "Insert company name": "Insert company name.",
+      "Please select at least one option": "Please, select at least one option.",
+      "An error occurred": "An error occurred.",
+      "Password needs to be at least 8 characters long": "Password needs to be at least 8 characters long.",
+      "The password is too short": "The password is too short.",
+      "You must agree to our terms and conditions to register": "You must agree to our terms and conditions to register.",
+      "Email is already taken": "Email is already taken.",
+      "Invalid credentials": "Invalid credentials.",
+      "Invalid username or password": "Invalid email or password.",
+      "Your account uses a different login method": "Your account uses a different login method.",
+      "Select at least one delivery method": "Please, select at least one delivery method.",
+      "Please select a wood type": "Please, select a wood type.",
+      "Please select a dryness level": "Please, select a dryness level."
+   },
+   "actions": {
+      "Cancel": "Cancel",
+      "Abandon": "Abandon",
+      "Close": "Close",
+      "More": "More",
+      "Navigate to": "Navigate to",
+      "Select a page to navigate to": "Select a page to navigate to",
+      "Reject": "Reject",
+      "Submit": "Submit",
+      "Restore": "Restore",
+      "View": "View",
+      "Edit": "Edit",
+      "Delete": "Delete",
+      "Back": "Back",
+      "Reject Offer": "Reject Offer",
+      "Accept offer": "Accept offer",
+      "Save": "Save",
+      "Continue": "Continue",
+      "Start receiving requests": "Start Receiving Requests",
+      "Stop receiving requests": "Stop receiving requests"
+   },
+   "metadata": {
+      "page-titles": {
+         "request-offers-firewood": "Request Offers For Firewood - Select Firewood Options",
+         "request-offers-delivery": "Request Offers For Firewood - Select Delivery Options",
+         "request-offers-contact": "Request Offers For Firewood - Select Contact Options",
+         "request-offers-submit": "Request Offers For Firewood - Review and Submit",
+         "default": "Polttopuutori",
+         "home": "The Firewood Marketplace – Connecting buyers and sellers near you"
+      },
+      "page-descriptions": {
+         "default": "Find trusted firewood sellers or start selling today. No fees, no hassle – completely free for both buyers and sellers."
+      }
+   },
+   "new-user": {
+      "Continue": "Continue",
+      "Welcome to Polttopuutori": "Welcome to Polttopuutori",
+      "I intend to use the platform for": "I intend to use the platform for",
+      "SELLING": "Selling",
+      "BUYING": "Buying",
+      "Please select what you intend to use the platform for": "Please, select what you intend to use the platform for"
+   },
+   "breadcrumbs": {
+      "/": "/Home",
+      "/auth/sign-in": "/Sign In",
+      "/auth/register": "/Register",
+      "/dashboard": "/Dashboard",
+      "/dashboard/seller": "/Dashboard/Seller Dashboard",
+      "/dashboard/seller/dashboard": "/Dashboard/Seller Dashboard/Overview",
+      "/dashboard/seller/profile": "/Dashboard/Seller Dashboard/Profile",
+      "/dashboard/seller/location": "/Dashboard/Seller Dashboard/Location",
+      "/dashboard/seller/quotation-requests": "/Dashboard/Seller Dashboard/Quotation Requests",
+      "/dashboard/seller/quotation-requests/id": "/Dashboard/Seller Dashboard/Quotation Requests/Request",
+      "/dashboard/seller/quotation-requests/id/make-offer": "/Dashboard/Seller Dashboard/Quotation Requests/Request/Make Offer",
+      "/dashboard/seller/quotation-requests/rejected": "/Dashboard/Seller Dashboard/Quotation Requests/Rejected",
+      "/dashboard/seller/offers": "/Dashboard/Seller Dashboard/Sent Offers",
+      "/dashboard/seller/offers/id": "/Dashboard/Seller Dashboard/Sent Offers/Offer",
+      "/dashboard/seller/offers/id/edit": "/Dashboard/Seller Dashboard/Sent Offers/Offer/Edit",
+      "/dashboard/seller/offers/accepted": "/Dashboard/Seller Dashboard/Sent Offers/Accepted",
+      "/dashboard/seller/offers/lost": "/Dashboard/Seller Dashboard/Sent Offers/Lost",
+      "/dashboard/buyer": "/Dashboard/Buyer Dashboard",
+      "/dashboard/buyer/dashboard": "/Dashboard/Buyer Dashboard/Overview",
+      "/dashboard/buyer/quotation-requests": "/Dashboard/Buyer Dashboard/Quotation Requests",
+      "/dashboard/buyer/quotation-requests/fulfilled": "/Dashboard/Buyer Dashboard/Quotation Requests/Fulfilled",
+      "/dashboard/buyer/quotation-requests/id": "/Dashboard/Buyer Dashboard/Quotation Requests/Request",
+      "/dashboard/buyer/quotation-requests/id/rejected-offers": "/Dashboard/Buyer Dashboard/Quotation Requests/Request/Rejected Offers",
+      "/dashboard/buyer/quotation-requests/id/id": "/Dashboard/Buyer Dashboard/Quotation Requests/Request/Offer",
+      "/dashboard/buyer/quotation-requests/id/id/rejected": "/Dashboard/Buyer Dashboard/Quotation Requests/Request/Offer/Rejected"
+   },
+   "dashboard": {
+      "Seller Dashboard": "Seller Dashboard",
+      "Overview": "Overview",
+      "Profile": "Profile",
+      "Location": "Location",
+      "Quotation Requests": "Quotation Requests",
+      "Seller Location": "Seller Location",
+      "Define location settings These affect the offers you receive": "Define location settings. These affect the offers you receive.",
+      "Seller Profile": "Seller Profile",
+      "Define contact information that potential buyers receive upon accepting an offer": "Define contact information that potential buyers receive upon accepting an offer.",
+      "Dashboard": "Dashboard",
+      "Buyer Dashboard": "Buyer Dashboard",
+      "User Settings": "User Settings",
+      "Become a Seller": "Become a Seller",
+      "actions": {
+         "Back": "Back",
+         "Save": "Save"
+      },
+      "Max distance": "Max distance",
+      "Set the rough maximum distance for quotation requests The larger the distance the more quotation requests you will receive We recommend setting this rather too high than too low The location is determined based on postal codes so this is not very accurate": "Set the rough maximum distance for quotation requests. The larger the distance the more quotation requests you will receive. We recommend setting this rather too high than too low. The location is determined based on postal codes so this is not very accurate.",
+      "profile": {
+         "Seller name": "Seller name",
+         "Seller name instruction": "Seller's name or company name",
+         "Email": "Email"
+      },
+      "Sent Offers": "Sent Offers",
+      "Rejected": "Rejected",
+      "Active": "Active",
+      "Quotation request details": "Quotation Request Details",
+      "Additional information": "Additional Information",
+      "become-a-seller-description": "By clicking on the Become a Seller button, you will gain access to the Seller Dashboard. You may instantly start receiving quotation requests after filling in the required profile and location information and activating the account.",
+      "Accepted": "Accepted",
+      "Lost": "Lost"
+   },
+   "View": "View",
+   "quotation-request": {
+      "Make offer": "Make offer",
+      "Last updated": "Last updated",
+      "Make an Offer": "Make an Offer",
+      "Additional information": "Additional information",
+      "There are no pending quotation requests": "There are no pending quotation requests.",
+      "Reject Quotation Request": "Reject Quotation Request",
+      "There are no rejected quotation requests": "There are no rejected quotation requests.",
+      "New": "New",
+      "number-of-offers": "{count, plural, =0 {no offers yet} =1 {one offer} other {# offers}}",
+      "Delete Quotation Request": "Delete Quotation Request",
+      "Show details": "Show Details",
+      "delete-quotation-request-description": "By deleting the quotation request, all the offers will be deleted too. This action can not be reverted. Are you sure you want to continue?",
+      "Quotation Request Details": "Quotation Request Details",
+      "Created": "Created",
+      "reject-request-description": "Rejected quotation requests are transferred to the \"Rejected\" tab. Rejected requests can be returned to the \"Active\" tab. Rejected requests are automatically deleted after 30 days."
+   },
+   "offer": {
+      "Price": "Price",
+      "Fill in the form to make an offer": "Fill in the form to make an offer.",
+      "US Dollar": "US Dollar",
+      "Select the earliest availability of the firewood to be delivered": "Select the earliest date for the firewood to be delivered.",
+      "Select the earliest availability of the firewood to be picked up": "Select the earliest pickup date for the firewood.",
+      "Earliest delivery date": "Earliest delivery date",
+      "Earliest pickup date": "Earliest pickup date",
+      "Pick a date": "Pick a date",
+      "There are no active offers": "There are no active offers.",
+      "Rejected": "Rejected",
+      "Pending": "Pending",
+      "Not seen": "Not seen",
+      "Seen": "Seen",
+      "Offer details": "Offer Details",
+      "Edit Offer": "Edit Offer",
+      "Delete Offer": "Delete Offer",
+      "delete-offer-description": "By deleting the offer, it will be instantly removed from the customer. This action can not be reverted. Are you sure you want to delete the offer?",
+      "Offer received": "Offer received",
+      "Seller": "Seller",
+      "Accepted Offer": "Accepted Offer",
+      "Reject Offer": "Reject Offer",
+      "reject-offer-description": "Rejected offers are moved to the rejected tab. You may choose to accept a rejected offer later. The seller will now that you have rejected their offer and they can edit their offer. Are you sure that you want to reject the offer?",
+      "No rejected offers": "You don't have any rejected offers.",
+      "pickupAddress": "Pickup address",
+      "Pickup location": "Pickup Location",
+      "Address": "Address",
+      "There are no accepted offers": "There are no accepted offers",
+      "There are no lost offers": "There are no lost offers",
+      "Accepted at": "Accepted at"
+   },
+   "currencies": {
+      "label-USD": "US Dollar",
+      "label-EUR": "Euro"
+   },
+   "pagination": {
+      "Loading": "Loading...",
+      "displayed-results": "Displaying {displayed} / {total}",
+      "empty": "There is nothing yet!"
+   },
+   "sorting": {
+      "newest-first": "Newest first",
+      "oldest-first": "Oldest first"
+   },
+   "instructions": {
+      "Please wait": "Please wait"
+   },
+   "offers": {
+      "Sent Offers": "Sent Offers"
+   },
+   "ui": {
+      "Hide password": "Hide password",
+      "Show password": "Show password"
+   },
+   "terms": {
+      "By registering I conrifm that I accept": "By registering, I confirm that I accept",
+      "Terms and Conditions": "Polttopuutori's Terms and Conditions",
+      "and that I have read": "and that I have read",
+      "Privacy Policy": "Privacy Policy"
+   },
+   "screen-readers": {
+      "navigation": "navigation"
+   },
+   "navigation": {
+      "Home": "Home"
+   },
+   "buyer": {
+      "No pending quotation requests": "You don't have pending quotation requests.",
+      "No offers": "You have not received offers yet.",
+      "Rejected Offers": "Rejected Offers",
+      "Offers": "Offers",
+      "Active": "Active",
+      "Rejected": "Rejected",
+      "Quotation Requests": "Quotation Requests",
+      "Fulfilled": "Fulfilled"
+   },
+   "loading": {
+      "Accepting offer": "Accepting offer..."
+   },
+   "quotation-requests": {
+      "No fulfilled requests": "You don't have fulfilled quotation requests yet."
+   },
+   "seller-location": {
+      "Address": "Address",
+      "Pickup address": "Pickup address",
+      "pickup-address-description": "Enter pickup address to receive quotation requests from customers who do not need delivery."
+   },
+   "form-labels": {
+      "Optional": "(Optional)",
+      "Pickup address": "Pickup address",
+      "email": "Email",
+      "Full name": "Full name",
+      "Email": "Email",
+      "Phone": "Phone",
+      "Buy as a company": "Buy as a company",
+      "Company name": "Company name",
+      "Postal code": "Postal code"
+   },
+   "conjunctions": {
+      "or": "or"
+   },
+   "seller": {
+      "start-receiving-requests-description": "Start receiving quotation requests by pressing the button. You will instantly receive all pending quotation requests from your area.",
+      "fill-in-missing-information": "Fill in Missing Information"
+   },
+   "activate-seller": {
+      "Add missing location details": "Add missing location details",
+      "Add missing profile details": "Add missin profile details"
+   },
+   "deactivate-seller": {
+      "Stop receiving requests": "Stop Receiving Requests",
+      "stop-receiving-requests-description": "When you stop receiving actions, you will no longer receive new quotation requests and you will not be able to send new offers. Are you sure that you want to proceed?"
+   },
+   "Go to Dashboard": "Go to Dashboard",
+   "form-placeholders": {
+      "Type your phone number": "Type your phone number",
+      "phone": "Type your phone number",
+      "Select country": "Select country"
+   },
+   "form-descriptions": {
+      "You may use any format": "You may use any format"
+   },
+   "Error": {
+      "actions": {
+         "Refresh": "Refresh"
+      },
+      "request-offers": {
+         "root-error-title": "Something went wrong!",
+         "root-error-description": "We are working on fixing the issue. You can try refreshing the page."
+      }
+   },
+   "home-page": {
+      "Request Offers": "Request Offers",
+      "Request Firewood Offers": "Request Firewood Offers",
+      "hero-title": "The Firewood Marketplace. Connecting buyers and sellers near you.",
+      "hero-subheadline": "Find trusted firewood sellers or start selling today. No fees, no hassle – completely free for both buyers and sellers.",
+      "Start Selling": "Start Selling"
+   }
 }
