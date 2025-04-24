@@ -44,7 +44,9 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
                   </Button>
                   {!auth?.seller && (
                      <Button asChild variant="outline" size="lg">
-                        <Link href="/auth/register">{t("home-page.Start Selling")}</Link>
+                        <Link href={auth ? "/dashboard" : "/auth/register"}>
+                           {t("home-page.Start Selling")}
+                        </Link>
                      </Button>
                   )}
                </div>
