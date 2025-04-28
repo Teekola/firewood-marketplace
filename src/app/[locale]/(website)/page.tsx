@@ -70,7 +70,7 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
    const requestOffersJsonLd = JsonLd<Offer>({
       "@context": "https://schema.org",
       "@type": "Offer",
-      url: env.NEXT_PUBLIC_BASE_URL,
+      url: `${env.NEXT_PUBLIC_BASE_URL}/request-offers/firewood`,
       name: t("home-page.Request Firewood Offers"),
       description: t("home-page.request-offers-description"),
       price: t("home-page.request-offers-service-price"),
