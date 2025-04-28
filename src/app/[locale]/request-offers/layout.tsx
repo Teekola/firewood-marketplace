@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { setRequestLocale } from "next-intl/server";
 
 import { RequestOffersTopbar } from "@/app/[locale]/request-offers/_components/request-offers-topbar";
@@ -9,6 +11,13 @@ import { RequestOffersStoreProvider } from "./_store/request-offers-store-provid
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
 }
+
+export const metadata: Metadata = {
+   robots: {
+      index: false,
+      follow: true,
+   },
+};
 
 export default async function RequestOffersLayout({
    children,

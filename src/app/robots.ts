@@ -4,14 +4,7 @@ import { env } from "@/env/client";
 import { routing } from "@/i18n/routing";
 
 export default function robots(): MetadataRoute.Robots {
-   const disallowRoutes: (keyof typeof routing.pathnames)[] = [
-      "/dashboard",
-      "/request-offers",
-      "/auth/register",
-      "/auth/register/email",
-      "/auth/sign-in",
-      "/auth/sign-in/email",
-   ];
+   const disallowRoutes: (keyof typeof routing.pathnames)[] = ["/dashboard"];
 
    const getLocalizedPaths = (path: keyof typeof routing.pathnames) => {
       if (typeof routing.pathnames[path] !== "string") {

@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { setRequestLocale } from "next-intl/server";
 
 import { LanguageDropdown } from "@/components/language-dropdown";
@@ -7,6 +9,13 @@ import { Locale, routing } from "@/i18n/routing";
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
 }
+
+export const metadata: Metadata = {
+   robots: {
+      index: false,
+      follow: true,
+   },
+};
 
 export default async function AuthLayout({
    children,
