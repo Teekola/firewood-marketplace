@@ -137,17 +137,14 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
                </div>
             </section>
          </main>
+         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webPageJsonLd }} />
          <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+            dangerouslySetInnerHTML={{ __html: requestOffersJsonLd }}
          />
          <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(requestOffersJsonLd) }}
-         />
-         <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(startSellingJsonLd) }}
+            dangerouslySetInnerHTML={{ __html: startSellingJsonLd }}
          />
       </>
    );
