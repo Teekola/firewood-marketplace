@@ -380,6 +380,16 @@
       "Request Firewood Offers": "Tee tarjouspyyntö",
       "hero-title": "Helppo tapa ostaa ja myydä polttopuita",
       "hero-subheadline": "Löydä luotettavat polttopuunmyyjät läheltäsi tai aloita myyminen tänään. Ei maksuja tai sitoumuksia – palvelu on täysin ilmainen sekä ostajille että myyjille.",
-      "Start Selling": "Aloita myyminen"
+      "Start Selling": "Aloita myyminen",
+      "request-offers-description": "Tee tarjouspyyntö polttopuusta luotettaville myyjille.",
+      "request-offers-service-type": "Polttopuutarjousten pyytäminen",
+      "request-offers-service-price": "Ilmainen",
+      "start-selling-description": "Ryhdy polttopuumyyjäksi saadaksesi tarjouspyyntöjä."
+   },
+   "company": {
+      "name": "Polttopuutori",
+      "customer-service": "Asiakaspalvelu",
+      "phone": "-",
+      "email": "info@polttopuutori.fi"
    }
 }

@@ -386,6 +386,16 @@
       "Request Firewood Offers": "Request Firewood Offers",
       "hero-title": "The Easiest Way to Buy and Sell Firewood",
       "hero-subheadline": "Find trusted firewood sellers or start selling today. No fees, no hassle – completely free for both buyers and sellers.",
-      "Start Selling": "Start Selling"
+      "Start Selling": "Start Selling",
+      "request-offers-description": "Request offers for firewood from trusted sellers.",
+      "request-offers-service-type": "Requesting Offers for Firewood",
+      "request-offers-service-price": "Free",
+      "start-selling-description": "Become a firewood seller to receive quotation requests."
+   },
+   "company": {
+      "name": "Polttopuutori",
+      "customer-service": "Customer Service",
+      "phone": "-",
+      "email": "info@polttopuutori.fi"
    }
 }
