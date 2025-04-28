@@ -50,7 +50,6 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
          contactPoint: {
             "@type": "ContactPoint",
             contactType: t("company.customer-service"),
-            telephone: t("company.phone"),
             email: t("company.email"),
             areaServed: [
                { "@type": "Place", name: "FI" },
