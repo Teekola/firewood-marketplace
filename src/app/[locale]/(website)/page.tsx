@@ -20,7 +20,7 @@ export async function generateMetadata({
 
    return {
       title: t("page-titles.home"),
-      description: t("page-descriptions.default"),
+      description: t("page-descriptions.home"),
    };
 }
 

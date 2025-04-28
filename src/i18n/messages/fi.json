@@ -156,7 +156,8 @@
          "home": "Helppo tapa ostaa ja myydä polttopuita"
       },
       "page-descriptions": {
-         "default": "Löydä luotettavat polttopuumyyjät läheltäsi tai aloita myyminen tänään. Ei maksuja tai sitoumuksia – palvelu on täysin ilmainen sekä ostajille että myyjille."
+         "default": "Löydä luotettavat polttopuumyyjät läheltäsi tai aloita myyminen tänään. Ei maksuja tai sitoumuksia – palvelu on täysin ilmainen sekä ostajille että myyjille.",
+         "home": "Löydä luotettavat polttopuumyyjät läheltäsi tai aloita myyminen tänään. Ei maksuja tai sitoumuksia – palvelu on täysin ilmainen sekä ostajille että myyjille."
       }
    },
    "new-user": {
