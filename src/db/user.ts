@@ -1,5 +1,7 @@
 import "server-only";
 
+import { cache } from "react";
+
 import { Prisma, UnitSystem } from "@prisma/client";
 
 import { auth } from "@/lib/auth/auth";
@@ -61,7 +63,7 @@ export const updateUserById = async ({
  * Gets the authenticated user's data
  * @returns user object with UserDTO data or null if the user is not authenticated or if the user is not found
  */
-export const getUser = async () => {
+export const getUser = cache(async () => {
    const session = await auth();
 
    if (!session) {
@@ -70,7 +72,7 @@ export const getUser = async () => {
    const userId = session.user.id;
    const user = await getUserById(userId);
    return user;
-};
+});
 
 export const getUserByUsername = async (username: string) => {
    const user = await prisma.user.findFirst({
