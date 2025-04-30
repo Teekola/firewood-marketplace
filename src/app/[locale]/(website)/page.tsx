@@ -5,7 +5,6 @@ import { Action, Offer, WebPage } from "schema-dts";
 
 import { env } from "@/env/client";
 import { Link, Locale, localeToLanguageName, routing } from "@/i18n/routing";
-import { authWithSeller } from "@/lib/auth/auth";
 import { JsonLd } from "@/lib/utils/json-ld";
 import { Button } from "@/ui/button";
 
@@ -28,7 +27,7 @@ export async function generateMetadata({
 }
 
 export default async function Home({ params }: Readonly<{ params: Promise<{ locale: Locale }> }>) {
-   const [{ locale }, auth, t] = await Promise.all([params, authWithSeller(), getTranslations()]);
+   const [{ locale }, t] = await Promise.all([params, getTranslations()]);
    setRequestLocale(locale);
 
    // SchemaMarkup
@@ -126,13 +125,10 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
                            {t("home-page.Request Firewood Offers")}
                         </Link>
                      </Button>
-                     {!auth?.seller && (
-                        <Button asChild variant="outline" size="lg">
-                           <Link href={auth ? "/dashboard" : "/auth/register"}>
-                              {t("home-page.Start Selling")}
-                           </Link>
-                        </Button>
-                     )}
+
+                     <Button asChild variant="outline" size="lg">
+                        <Link href="/dashboard">{t("home-page.Start Selling")}</Link>
+                     </Button>
                   </div>
                </div>
             </section>
