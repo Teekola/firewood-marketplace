@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { setRequestLocale } from "next-intl/server";
 
 import { NewUserDialog } from "@/components/auth/new-user-dialog";
@@ -17,7 +19,7 @@ export default async function WebsiteLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const [{ locale }, user] = await Promise.all([params, getUser()]);
+   const { locale } = await params;
 
    setRequestLocale(locale);
 
@@ -26,7 +28,14 @@ export default async function WebsiteLayout({
          <WebsiteTopbar />
          {children}
          <Footer />
-         <NewUserDialog user={user} />
+         <Suspense>
+            <NewUserDialogContainer />
+         </Suspense>
       </div>
    );
+}
+
+async function NewUserDialogContainer() {
+   const user = await getUser();
+   return <NewUserDialog user={user} />;
 }

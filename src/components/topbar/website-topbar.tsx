@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { SessionProvider } from "next-auth/react";
 
 import { auth } from "@/lib/auth/auth";
@@ -9,15 +11,25 @@ import { DashboardButton } from "./dashboard-button";
 import { MobileContents } from "./mobile-contents";
 import { Topbar } from "./topbar";
 
-export async function WebsiteTopbar() {
-   const session = await auth();
+export function WebsiteTopbar() {
    return (
       <Topbar>
-         <SessionProvider session={session}>
-            <MobileContents />
-         </SessionProvider>
-         <DesktopContents />
+         <Suspense>
+            <MobileContentsContainer />
+         </Suspense>
+         <Suspense>
+            <DesktopContents />
+         </Suspense>
       </Topbar>
+   );
+}
+
+async function MobileContentsContainer() {
+   const session = await auth();
+   return (
+      <SessionProvider session={session}>
+         <MobileContents />
+      </SessionProvider>
    );
 }
 
