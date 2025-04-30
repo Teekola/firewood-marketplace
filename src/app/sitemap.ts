@@ -1,7 +1,34 @@
 import type { MetadataRoute } from "next";
 
 import { env } from "@/env/client";
-import { routing } from "@/i18n/routing";
+import { Locale, routing } from "@/i18n/routing";
+
+// Route configuration — central place to manage paths and metadata
+const ROUTES: {
+   route: keyof (typeof routing)["pathnames"];
+   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+   priority: number;
+   lastModified: Date;
+}[] = [
+   {
+      route: "/",
+      changeFrequency: "weekly",
+      priority: 1,
+      lastModified: new Date("2025-04-28"),
+   },
+   {
+      route: "/auth/sign-in",
+      changeFrequency: "monthly",
+      priority: 0.3,
+      lastModified: new Date("2025-04-28"),
+   },
+   {
+      route: "/auth/register",
+      changeFrequency: "monthly",
+      priority: 0.3,
+      lastModified: new Date("2025-04-28"),
+   },
+];
 
 function generateAlternateLanguagesFromRoute(
    internalRoute: keyof (typeof routing)["pathnames"]
@@ -10,20 +37,7 @@ function generateAlternateLanguagesFromRoute(
 
    const alternates = Object.fromEntries(
       routing.locales.map((locale) => {
-         let path: string;
-
-         if (typeof localizedRoute === "string") {
-            path = localizedRoute;
-         } else if (typeof localizedRoute === "object") {
-            path = localizedRoute[locale];
-            if (!path) {
-               throw new Error(
-                  `Missing localized path for route ${internalRoute} and locale ${locale}`
-               );
-            }
-         } else {
-            throw new Error(`Unknown route format for: ${internalRoute}`);
-         }
+         const path = typeof localizedRoute === "string" ? localizedRoute : localizedRoute[locale];
 
          const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
          return [locale, `${env.NEXT_PUBLIC_BASE_URL}${prefix}${path}`];
@@ -37,42 +51,34 @@ function generateAlternateLanguagesFromRoute(
    return alternates;
 }
 
-function getDefaultLocalePath(internalRoute: keyof (typeof routing)["pathnames"]): string {
+function getLocalizedPath(
+   internalRoute: keyof (typeof routing)["pathnames"],
+   locale: Locale
+): string {
    const localizedRoute = routing.pathnames[internalRoute];
-   const defaultLocale = routing.defaultLocale;
-   const path = typeof localizedRoute === "string" ? localizedRoute : localizedRoute[defaultLocale];
-
-   return `${env.NEXT_PUBLIC_BASE_URL}${path}`;
+   const path = typeof localizedRoute === "string" ? localizedRoute : localizedRoute[locale];
+   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+   return `${env.NEXT_PUBLIC_BASE_URL}${prefix}${path}`;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-   return [
-      {
-         url: getDefaultLocalePath("/"),
-         lastModified: new Date("2025-04-28"),
-         changeFrequency: "weekly",
-         priority: 1,
-         alternates: {
-            languages: generateAlternateLanguagesFromRoute("/"),
-         },
-      },
-      {
-         url: getDefaultLocalePath("/auth/sign-in"),
-         lastModified: new Date("2025-04-28"),
-         changeFrequency: "monthly",
-         priority: 0.3,
-         alternates: {
-            languages: generateAlternateLanguagesFromRoute("/auth/sign-in"),
-         },
-      },
-      {
-         url: getDefaultLocalePath("/auth/register"),
-         lastModified: new Date("2025-04-28"),
-         changeFrequency: "monthly",
-         priority: 0.3,
-         alternates: {
-            languages: generateAlternateLanguagesFromRoute("/auth/register"),
-         },
-      },
-   ];
+   const entries: MetadataRoute.Sitemap = [];
+
+   for (const { route, changeFrequency, priority, lastModified } of ROUTES) {
+      const alternates = generateAlternateLanguagesFromRoute(route);
+
+      for (const locale of routing.locales) {
+         entries.push({
+            url: getLocalizedPath(route, locale),
+            lastModified,
+            changeFrequency,
+            priority,
+            alternates: {
+               languages: alternates,
+            },
+         });
+      }
+   }
+
+   return entries;
 }
