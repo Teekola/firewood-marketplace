@@ -144,7 +144,8 @@
     "Save": "Tallenna",
     "Continue": "Jatka",
     "Start receiving requests": "Aloita tarjouspyyntöjen vastaanotto",
-    "Stop receiving requests": "Lopeta pyyntöjen vastaanotto"
+    "Stop receiving requests": "Lopeta pyyntöjen vastaanotto",
+    "Navigation": "Navigointivalikko"
   },
   "metadata": {
     "page-titles": {

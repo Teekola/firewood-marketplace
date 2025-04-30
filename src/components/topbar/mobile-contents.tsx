@@ -32,7 +32,7 @@ export function MobileContents() {
    return (
       <Sheet open={isOpen} onOpenChange={(value) => setOpen(value)}>
          <SheetTrigger asChild className="sm:hidden">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" aria-label={t("actions.Navigation")}>
                <MenuIcon className="h-7 w-7 stroke-card-foreground" />
             </Button>
          </SheetTrigger>
