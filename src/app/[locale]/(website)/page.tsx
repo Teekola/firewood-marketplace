@@ -5,6 +5,7 @@ import { Action, Offer, WebPage } from "schema-dts";
 
 import { env } from "@/env/client";
 import { Link, Locale, localeToLanguageName, routing } from "@/i18n/routing";
+import { getLocalizedPath } from "@/i18n/utils/get-localized-path";
 import { JsonLd } from "@/lib/utils/json-ld";
 import { Button } from "@/ui/button";
 
@@ -23,6 +24,9 @@ export async function generateMetadata({
    return {
       title: t("page-titles.home"),
       description: t("page-descriptions.home"),
+      alternates: {
+         canonical: getLocalizedPath("/", locale),
+      },
    };
 }
 

@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { SignInOptions } from "@/components/auth/sign-in-options";
 import { Link, Locale, routing } from "@/i18n/routing";
+import { getLocalizedPath } from "@/i18n/utils/get-localized-path";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
@@ -20,6 +21,9 @@ export async function generateMetadata({
    return {
       title: t("page-titles.sign-in"),
       description: t("page-descriptions.sign-in"),
+      alternates: {
+         canonical: getLocalizedPath("/auth/sign-in", locale),
+      },
    };
 }
 

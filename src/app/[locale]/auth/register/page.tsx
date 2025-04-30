@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { RegisterOptions } from "@/components/auth/register-options";
 import { Link, Locale, routing } from "@/i18n/routing";
+import { getLocalizedPath } from "@/i18n/utils/get-localized-path";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
@@ -20,6 +21,9 @@ export async function generateMetadata({
    return {
       title: t("page-titles.register"),
       description: t("page-descriptions.register"),
+      alternates: {
+         canonical: getLocalizedPath("/auth/register", locale),
+      },
    };
 }
 

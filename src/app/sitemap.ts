@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
 import { env } from "@/env/client";
-import { Locale, routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
+import { getLocalizedPath } from "@/i18n/utils/get-localized-path";
 
 // Route configuration — central place to manage paths and metadata
 const ROUTES: {
@@ -49,16 +50,6 @@ function generateAlternateLanguagesFromRoute(
    alternates["x-default"] = `${env.NEXT_PUBLIC_BASE_URL}/en${englishPath}`;
 
    return alternates;
-}
-
-function getLocalizedPath(
-   internalRoute: keyof (typeof routing)["pathnames"],
-   locale: Locale
-): string {
-   const localizedRoute = routing.pathnames[internalRoute];
-   const path = typeof localizedRoute === "string" ? localizedRoute : localizedRoute[locale];
-   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
-   return `${env.NEXT_PUBLIC_BASE_URL}${prefix}${path}`;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
