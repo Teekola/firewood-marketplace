@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 
-import { env } from "@/env/client";
 import { routing } from "@/i18n/routing";
 import { getLocalizedPath } from "@/i18n/utils/get-localized-path";
 
@@ -34,20 +33,15 @@ const ROUTES: {
 function generateAlternateLanguagesFromRoute(
    internalRoute: keyof (typeof routing)["pathnames"]
 ): Record<string, string> {
-   const localizedRoute = routing.pathnames[internalRoute];
-
    const alternates = Object.fromEntries(
       routing.locales.map((locale) => {
-         const path = typeof localizedRoute === "string" ? localizedRoute : localizedRoute[locale];
-
-         const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
-         return [locale, `${env.NEXT_PUBLIC_BASE_URL}${prefix}${path}`];
+         const localizedRoute = getLocalizedPath(internalRoute, locale);
+         return [locale, localizedRoute];
       })
    );
 
    // Add x-default pointing to English
-   const englishPath = typeof localizedRoute === "object" ? localizedRoute["en"] : localizedRoute;
-   alternates["x-default"] = `${env.NEXT_PUBLIC_BASE_URL}/en${englishPath}`;
+   alternates["x-default"] = getLocalizedPath(internalRoute, "en");
 
    return alternates;
 }

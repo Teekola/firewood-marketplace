@@ -6,7 +6,12 @@ export function getLocalizedPath(
    locale: Locale
 ): string {
    const localizedRoute = routing.pathnames[internalRoute];
-   const path = typeof localizedRoute === "string" ? localizedRoute : localizedRoute[locale];
+   const path =
+      typeof localizedRoute === "string"
+         ? localizedRoute === "/"
+            ? ""
+            : localizedRoute
+         : localizedRoute[locale];
    const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
    return `${env.NEXT_PUBLIC_BASE_URL}${prefix}${path}`;
 }
