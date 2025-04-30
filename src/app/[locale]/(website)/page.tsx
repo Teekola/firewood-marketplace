@@ -27,6 +27,9 @@ export async function generateMetadata({
       alternates: {
          canonical: getLocalizedPath("/", locale),
       },
+      openGraph: {
+         url: getLocalizedPath("/", locale),
+      },
    };
 }
 
