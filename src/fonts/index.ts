@@ -14,4 +14,5 @@ export const nunitoSans = localFont({
       },
    ],
    variable: "--font-nunito-sans",
+   display: "swap",
 });
