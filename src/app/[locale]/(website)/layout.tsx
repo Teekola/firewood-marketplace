@@ -20,7 +20,6 @@ export default async function WebsiteLayout({
    params: Promise<{ locale: Locale }>;
 }>) {
    const { locale } = await params;
-
    setRequestLocale(locale);
 
    return (

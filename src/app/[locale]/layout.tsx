@@ -3,11 +3,14 @@ import type { Metadata } from "next";
 import { getMessages, getTranslations } from "next-intl/server";
 
 import { nunitoSans } from "@/fonts/index";
-import { Locale } from "@/i18n/routing";
+import { Locale, routing } from "@/i18n/routing";
 import Providers from "@/providers";
 
-import { getUser } from "../../db/user";
 import "../globals.css";
+
+export function generateStaticParams() {
+   return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
    params,
@@ -33,14 +36,14 @@ export default async function RootLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const [{ locale }, messages, user] = await Promise.all([params, getMessages(), getUser()]);
+   const [{ locale }, messages] = await Promise.all([params, getMessages()]);
 
    return (
       <html lang={locale} suppressHydrationWarning>
          <body
             className={`${nunitoSans.variable} flex h-screen min-h-screen w-full flex-col font-sans antialiased`}
          >
-            <Providers messages={messages} user={user}>
+            <Providers messages={messages}>
                {/**TODO: Add terms and services dialog with a check on terms acceptance date to ensure acceptance of always the latest terms and privacy policy */}
                {children}
             </Providers>

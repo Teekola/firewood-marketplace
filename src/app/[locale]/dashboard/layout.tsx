@@ -6,6 +6,7 @@ import { NewUserDialog } from "@/components/auth/new-user-dialog";
 import { WebsiteTopbar } from "@/components/topbar/website-topbar";
 import { getUser } from "@/db/user";
 import { Locale, routing } from "@/i18n/routing";
+import { UserStoreProvider } from "@/providers/user-store-provider";
 
 export function generateStaticParams() {
    return routing.locales.map((locale) => ({ locale }));
@@ -31,7 +32,9 @@ export default async function DashboardLayout({
    return (
       <>
          <WebsiteTopbar />
-         <div className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col p-3">{children}</div>
+         <div className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col p-3">
+            <UserStoreProvider user={user}>{children}</UserStoreProvider>
+         </div>
          <NewUserDialog user={user} />
       </>
    );

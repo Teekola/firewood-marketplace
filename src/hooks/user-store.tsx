@@ -27,6 +27,7 @@ export function useUser() {
    }
 
    return {
+      id: null,
       country: geolocationData.country,
       preferredUnitSystem: geolocationData.preferredUnitSystem,
    };
