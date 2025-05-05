@@ -9,6 +9,7 @@ export const routing = defineRouting({
    // Define all paths, localize when needed
    pathnames: {
       "/": "/",
+      "/[slug]": "/[slug]",
       "/auth/sign-in": "/auth/sign-in", // This can not be localized
       "/auth/sign-in/email": {
          en: "/sign-in-with-email",
@@ -162,9 +163,10 @@ export type StaticPathname = Exclude<
    keyof typeof routing.pathnames,
    `${string}[${string}]${string}`
 >;
-export type DynamicPathname = Exclude<Pathname, StaticPathname>;
+export type ProgrammaticPathname = `/[${string}]`;
+export type DynamicPathname = Exclude<Exclude<Pathname, StaticPathname>, ProgrammaticPathname>;
 export type SingleDynamicPathname = Exclude<
-   DynamicPathname,
+   Exclude<DynamicPathname, `${string}[${string}]${string}[${string}]${string}`>,
    `${string}[${string}]${string}[${string}]${string}`
 >;
 
