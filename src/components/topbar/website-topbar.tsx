@@ -14,10 +14,10 @@ import { Topbar } from "./topbar";
 export function WebsiteTopbar() {
    return (
       <Topbar>
-         <Suspense>
+         <Suspense fallback={<></>}>
             <MobileContentsContainer />
          </Suspense>
-         <Suspense>
+         <Suspense fallback={<></>}>
             <DesktopContents />
          </Suspense>
       </Topbar>

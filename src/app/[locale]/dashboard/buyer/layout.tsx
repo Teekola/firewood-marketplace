@@ -2,14 +2,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { Locale, routing } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 
 import { SidebarNav } from "../_components/sidebar-nav";
 import { getSidebarNavItems } from "./get-sidebar-nav-items";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
 
 export default async function BuyerDashboardLayout({
    children,
@@ -18,12 +14,9 @@ export default async function BuyerDashboardLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const [{ locale }, t, sidebarNavItems] = await Promise.all([
-      params,
-      getTranslations(),
-      getSidebarNavItems(),
-   ]);
+   const { locale } = await params;
    setRequestLocale(locale);
+   const [t, sidebarNavItems] = await Promise.all([getTranslations(), getSidebarNavItems()]);
 
    return (
       <>

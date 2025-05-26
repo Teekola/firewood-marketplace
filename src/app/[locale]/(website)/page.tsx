@@ -9,10 +9,6 @@ import { getLocalizedPath } from "@/i18n/utils/get-localized-path";
 import { JsonLd } from "@/lib/utils/json-ld";
 import { Button } from "@/ui/button";
 
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
-
 export async function generateMetadata({
    params,
 }: {
@@ -34,8 +30,9 @@ export async function generateMetadata({
 }
 
 export default async function Home({ params }: Readonly<{ params: Promise<{ locale: Locale }> }>) {
-   const [{ locale }, t] = await Promise.all([params, getTranslations()]);
+   const { locale } = await params;
    setRequestLocale(locale);
+   const t = await getTranslations();
 
    // SchemaMarkup
    const webPageJsonLd = JsonLd<WebPage>({

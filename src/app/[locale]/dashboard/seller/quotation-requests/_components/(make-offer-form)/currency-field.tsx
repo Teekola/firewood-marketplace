@@ -23,14 +23,14 @@ import { OfferFormData } from "./offer-form";
 
 export function CurrencyField() {
    const { control, setValue, watch } = useFormContext<OfferFormData>();
-   const t = useTranslations("");
+   const t = useTranslations();
    const currency = watch("currency");
    const price = watch("price");
 
    const currencyConfigs = Object.entries(baseCurrencyConfigs).reduce((acc, [key, config]) => {
       acc[key as keyof CurrencyConfigs] = {
          ...config,
-         label: `${t(`currencies.label-${key}`)} (${config.symbol})`,
+         label: `${t(config.labelKey)} (${config.symbol})`,
       };
       return acc;
    }, {} as CurrencyConfigs);

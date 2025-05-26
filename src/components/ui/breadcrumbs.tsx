@@ -54,7 +54,9 @@ function useBreadcrumbs() {
       label: string;
    }[] = [];
 
-   const translated = t(staticPathname);
+   // next-intl updated and became more typesafe
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   const translated = t(staticPathname as any);
    const parts = translated.split("/").filter(Boolean);
    const hrefParts = pathname.split("/").filter(Boolean);
 

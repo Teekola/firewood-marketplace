@@ -7,13 +7,24 @@ export const countryCodeToCurrency: Record<string, string> = {
 
 export const currencyConfigs: Record<
    Currency,
-   { symbol: string; decimalSeparator: string; symbolPosition: "after" | "before" }
+   {
+      symbol: string;
+      decimalSeparator: string;
+      symbolPosition: "after" | "before";
+      labelKey: `currencies.label-${Currency}`;
+   }
 > = {
-   EUR: { symbol: "€", decimalSeparator: ",", symbolPosition: "after" },
+   EUR: {
+      symbol: "€",
+      decimalSeparator: ",",
+      symbolPosition: "after",
+      labelKey: "currencies.label-EUR",
+   },
    USD: {
       symbol: "$",
       decimalSeparator: ".",
       symbolPosition: "before",
+      labelKey: "currencies.label-EUR",
    },
 };
 

@@ -157,7 +157,9 @@ const FormMessage = React.forwardRef<
          className={cn("text-[0.8rem] font-medium text-destructive", className)}
          {...props}
       >
-         {typeof body === "string" ? t(body) : body}
+         {/* This any is allowed here since next-intl updated and became more strict with typescript */}
+         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+         {typeof body === "string" ? t(body as any) : body}
       </p>
    );
 });
@@ -175,7 +177,9 @@ const FormRootError = React.forwardRef<
    }
    return (
       <p ref={ref} className={cn("text-sm font-medium text-destructive", className)} {...props}>
-         {typeof rootError.message === "string" ? t(rootError.message) : rootError.message}
+         {/* This any is allowed here since next-intl updated and became more strict with typescript */}
+         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+         {typeof rootError.message === "string" ? t(rootError.message as any) : rootError.message}
       </p>
    );
 });

@@ -64,7 +64,9 @@ export function CountryField({
                               t(
                                  `countries.${
                                     countries.find((country) => country.code === field.value)?.label
-                                 }`
+                                    // added after next-intl v4 update
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                 }` as any
                               )
                            ) : disabled ? (
                               <div></div>

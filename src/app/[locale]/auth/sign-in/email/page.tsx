@@ -3,13 +3,9 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BackButtonLink } from "@/components/ui/back-button-link";
-import { Link, Locale, routing } from "@/i18n/routing";
+import { Link, Locale } from "@/i18n/routing";
 
 import { EmailPasswordSignInForm } from "./email-password-sign-in-form";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
 
 export async function generateMetadata({
    params,
@@ -38,8 +34,7 @@ export default async function RegisterWithEmailPage({
 }>) {
    const [{ locale }, search] = await Promise.all([params, searchParams]);
    setRequestLocale(locale);
-
-   const t = await getTranslations();
+   const t = await getTranslations({ locale });
    return (
       <>
          <EmailPasswordSignInForm />

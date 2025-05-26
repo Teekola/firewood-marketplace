@@ -2,17 +2,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BackButtonLink } from "@/components/ui/back-button-link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { Locale, routing } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 import { authWithSeller } from "@/lib/auth/auth";
 
 import { SidebarNav } from "../_components/sidebar-nav";
 import { ActivateSellerDialog } from "./_components/activate-seller-dialog";
 import { DeactivateSellerDialog } from "./_components/deactivate-seller-dialog";
 import { getSidebarNavItems } from "./get-sidebar-nav-items";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
 
 export default async function SellerDashboardLayout({
    children,
@@ -21,13 +17,13 @@ export default async function SellerDashboardLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const [{ locale }, t, sidebarNavItems, seller] = await Promise.all([
-      params,
-      getTranslations(),
+   const { locale } = await params;
+   setRequestLocale(locale);
+   const [t, sidebarNavItems, seller] = await Promise.all([
+      getTranslations({ locale }),
       getSidebarNavItems(),
       authWithSeller(),
    ]);
-   setRequestLocale(locale);
 
    if (!seller) return null;
 

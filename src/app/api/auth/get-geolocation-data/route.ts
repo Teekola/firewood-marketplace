@@ -11,5 +11,11 @@ export async function GET(request: NextRequest) {
    const isImperialCountry = !!country && imperialSystemCountries.has(country);
    const preferredUnitSystem = isImperialCountry ? UnitSystem.IMPERIAL : UnitSystem.METRIC;
 
-   return Response.json({ preferredUnitSystem, country: country ?? "Finland" });
+   return new Response(JSON.stringify({ preferredUnitSystem, country: country ?? "Finland" }), {
+      status: 200,
+      headers: {
+         "Content-Type": "application/json",
+         "Cache-Control": "public, max-age=300", // cache for 5 minutes
+      },
+   });
 }

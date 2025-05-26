@@ -1,13 +1,9 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { Locale, routing } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 
 import { PageWrapper } from "./_components/page-wrapper";
 import { RequestOffersStepper } from "./_components/request-offers-stepper";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
 
 export default async function RequestOffersLayout({
    children,
@@ -18,8 +14,7 @@ export default async function RequestOffersLayout({
 }>) {
    const { locale } = await params;
    setRequestLocale(locale);
-
-   const t = await getTranslations();
+   const t = await getTranslations({ locale });
 
    return (
       <div className="flex h-full flex-col">

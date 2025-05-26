@@ -5,14 +5,10 @@ import { setRequestLocale } from "next-intl/server";
 import { RequestOffersTopbar } from "@/app/[locale]/request-offers/_components/request-offers-topbar";
 import { Footer } from "@/components/footer";
 import { getUser } from "@/db/user";
-import { Locale, routing } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 import { UserStoreProvider } from "@/providers/user-store-provider";
 
 import { RequestOffersStoreProvider } from "./_store/request-offers-store-provider";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
 
 export const metadata: Metadata = {
    robots: {
@@ -29,7 +25,6 @@ export default async function RequestOffersLayout({
    params: Promise<{ locale: Locale }>;
 }>) {
    const [{ locale }, user] = await Promise.all([params, getUser()]);
-
    setRequestLocale(locale);
 
    return (

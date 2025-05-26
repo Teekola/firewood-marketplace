@@ -6,11 +6,7 @@ import { NewUserDialog } from "@/components/auth/new-user-dialog";
 import { Footer } from "@/components/footer";
 import { WebsiteTopbar } from "@/components/topbar/website-topbar";
 import { getUser } from "@/db/user";
-import { Locale, routing } from "@/i18n/routing";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
+import { Locale } from "@/i18n/routing";
 
 export default async function WebsiteLayout({
    children,
@@ -27,7 +23,7 @@ export default async function WebsiteLayout({
          <WebsiteTopbar />
          {children}
          <Footer />
-         <Suspense>
+         <Suspense fallback={<></>}>
             <NewUserDialogContainer />
          </Suspense>
       </div>

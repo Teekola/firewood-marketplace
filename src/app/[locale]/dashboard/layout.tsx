@@ -5,12 +5,8 @@ import { setRequestLocale } from "next-intl/server";
 import { NewUserDialog } from "@/components/auth/new-user-dialog";
 import { WebsiteTopbar } from "@/components/topbar/website-topbar";
 import { getUser } from "@/db/user";
-import { Locale, routing } from "@/i18n/routing";
+import { Locale } from "@/i18n/routing";
 import { UserStoreProvider } from "@/providers/user-store-provider";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
 
 export const metadata: Metadata = {
    robots: {

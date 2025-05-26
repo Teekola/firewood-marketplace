@@ -22,10 +22,7 @@ export function useGeolocationData() {
       }
       (async () => {
          // TODO: Add error handling
-         const getPreferredUnitSystem = await fetch(
-            "/api/auth/get-geolocation-data",
-            { cache: "no-store" } // this cannot be cached as it needs to read the headers always
-         );
+         const getPreferredUnitSystem = await fetch("/api/auth/get-geolocation-data");
          const { preferredUnitSystem, country } = await getPreferredUnitSystem.json();
 
          setGeolocationData((prev) => {

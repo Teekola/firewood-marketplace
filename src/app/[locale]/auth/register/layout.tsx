@@ -1,11 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Logo } from "@/components/ui/logo";
-import { Locale, routing } from "@/i18n/routing";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
+import { Locale } from "@/i18n/routing";
 
 export default async function SignInLayout({
    children,

@@ -10,8 +10,11 @@ export function useGetTranslatedCountryName() {
    function getTranslatedCountryName(countryName?: string | null) {
       if (!countryName) return "";
       return (
-         t(`countries.${countries.find((country) => country.label === countryName)?.label}`) ??
-         countryName
+         t(
+            // This added after next-intl v4 update
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            `countries.${countries.find((country) => country.label === countryName)?.label}` as any
+         ) ?? countryName
       );
    }
 

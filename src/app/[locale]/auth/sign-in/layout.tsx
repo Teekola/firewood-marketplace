@@ -1,11 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Logo } from "@/components/ui/logo";
-import { Locale, routing } from "@/i18n/routing";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
+import { Locale } from "@/i18n/routing";
 
 export default async function SignInLayout({
    children,
@@ -14,8 +10,9 @@ export default async function SignInLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const [{ locale }, t] = await Promise.all([params, getTranslations()]);
+   const { locale } = await params;
    setRequestLocale(locale);
+   const t = await getTranslations();
 
    return (
       <>

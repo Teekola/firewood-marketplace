@@ -2,11 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 
 import { LanguageDropdown } from "@/components/language-dropdown";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Locale, routing } from "@/i18n/routing";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
+import { Locale } from "@/i18n/routing";
 
 export default async function AuthLayout({
    children,
@@ -15,7 +11,7 @@ export default async function AuthLayout({
    children: React.ReactNode;
    params: Promise<{ locale: Locale }>;
 }>) {
-   const [{ locale }] = await Promise.all([params]);
+   const { locale } = await params;
    setRequestLocale(locale);
 
    return (

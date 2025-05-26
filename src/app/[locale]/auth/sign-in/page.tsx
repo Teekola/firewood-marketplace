@@ -3,12 +3,8 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { SignInOptions } from "@/components/auth/sign-in-options";
-import { Link, Locale, routing } from "@/i18n/routing";
+import { Link, Locale } from "@/i18n/routing";
 import { getLocalizedPath } from "@/i18n/utils/get-localized-path";
-
-export function generateStaticParams() {
-   return routing.locales.map((locale) => ({ locale }));
-}
 
 export async function generateMetadata({
    params,
@@ -34,12 +30,9 @@ export default async function SignInPage({
    params: Promise<{ locale: Locale }>;
    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }>) {
-   const [{ locale }, t, search] = await Promise.all([
-      params,
-      getTranslations("auth"),
-      searchParams,
-   ]);
+   const [{ locale }, search] = await Promise.all([params, searchParams]);
    setRequestLocale(locale);
+   const t = await getTranslations({ namespace: "auth", locale });
 
    return (
       <>

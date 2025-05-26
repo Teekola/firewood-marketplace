@@ -1,21 +1,14 @@
 import { type PropsWithChildren } from "react";
 
-import { type AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ReactQueryProvider } from "@/providers/react-query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
-interface ProvidersProps {
-   messages: AbstractIntlMessages;
-}
-
-export default function Providers({
-   children,
-   messages,
-}: Readonly<PropsWithChildren<ProvidersProps>>) {
+export default function Providers({ children }: Readonly<PropsWithChildren>) {
    return (
-      <NextIntlClientProvider messages={messages}>
+      <NextIntlClientProvider>
          <ThemeProvider
             attribute="class"
             defaultTheme="system"
