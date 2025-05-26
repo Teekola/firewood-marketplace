@@ -39,7 +39,7 @@ export default async function Page({
    );
 }
 
-export async function getPageBySlug(slug: string) {
+async function getPageBySlug(slug: string) {
    return {
       slug,
       locale: "fi",
