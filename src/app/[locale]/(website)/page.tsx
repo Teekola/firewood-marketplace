@@ -124,13 +124,13 @@ export default async function Home({ params }: Readonly<{ params: Promise<{ loca
                      {t("home-page.hero-subheadline")}
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">
-                     <Button asChild variant="cta" size="lg">
+                     <Button asChild variant="cta" size="lg" className="w-full xs:w-fit">
                         <Link href="/request-offers/firewood">
                            {t("home-page.Request Firewood Offers")}
                         </Link>
                      </Button>
 
-                     <Button asChild variant="outline" size="lg">
+                     <Button asChild variant="outline" size="lg" className="w-full xs:w-fit">
                         <Link href="/dashboard">{t("home-page.Start Selling")}</Link>
                      </Button>
                   </div>
